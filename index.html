@@ -349,20 +349,28 @@
       </div>
 
       <div class="portfolio-card">
-        <span class="card-status soon">coming</span>
+        <span class="card-status live">live</span>
         <div class="card-icon">🔒</div>
         <div class="card-title">Zero-Trust Architecture Blueprint</div>
         <p class="card-desc">
-          Cloud-native zero-trust for Kubernetes. SPIFFE/SPIRE identities,
-          Istio mTLS mesh, OPA policy enforcement, and a complete
-          network segmentation model with audit-ready evidence.
+          Three-plane zero-trust for Kubernetes: SPIFFE/SPIRE identities,
+          Istio mTLS mesh, OPA/Gatekeeper policy. Centrepiece: a ZT
+          onboarding gateway that brings legacy apps into the trust fabric
+          without code changes. OBO token chain enforcement end-to-end.
+          Full OpenTelemetry wiring with OBO chain enrichment.
         </p>
         <div class="card-tags">
+          <span class="tag">SPIFFE/SPIRE</span>
           <span class="tag">Istio</span>
-          <span class="tag">SPIFFE</span>
           <span class="tag">OPA</span>
-          <span class="tag">cert-manager</span>
+          <span class="tag">Envoy</span>
+          <span class="tag">OpenTelemetry</span>
+          <span class="tag">Vault</span>
         </div>
+        <a href="https://naren-chakraview.github.io/chakraview-zero-trust-blueprint/"
+           class="card-link" target="_blank" rel="noopener">
+          → Documentation site ↗
+        </a>
         <a href="https://github.com/naren-chakraview/chakraview-zero-trust-blueprint"
            class="card-link" target="_blank" rel="noopener">
           → chakraview-zero-trust-blueprint
