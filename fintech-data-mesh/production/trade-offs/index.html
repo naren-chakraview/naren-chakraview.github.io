@@ -2610,31 +2610,30 @@
 <hr />
 <h2 id="kubernetes-vs-docker-compose-vs-serverless-deployment">Kubernetes vs Docker Compose vs Serverless (Deployment)<a class="headerlink" href="#kubernetes-vs-docker-compose-vs-serverless-deployment" title="Permanent link">&para;</a></h2>
 <h3 id="when-to-use-each">When to Use Each<a class="headerlink" href="#when-to-use-each" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>graph TD
-    A["Complexity"]
-
-    A --&gt; B["Docker Compose local dev"]
-    B --&gt; B1["Cost: $0 your laptop"]
-    B --&gt; B2["Ops overhead: Minimal"]
-    B --&gt; B3["Scale: Single machine only"]
-    B --&gt; B4["Use: Development, learning"]
-
-    A --&gt; C["Kubernetes production on-prem or cloud"]
-    C --&gt; C1["Cost: $3-10K/month managed EKS/GKE/AKS"]
-    C --&gt; C2["Ops overhead: Moderate need SRE team"]
-    C --&gt; C3["Scale: 100s of nodes, 1000s of pods"]
-    C --&gt; C4["Use: Enterprise production"]
-
-    A --&gt; D["Serverless cloud-only, auto-scaling"]
-    D --&gt; D1["Cost: $0-5K/month pay per execution"]
-    D --&gt; D2["Ops overhead: Low vendor manages infra"]
-    D --&gt; D3["Scale: Auto-scales 0 → 1000s of instances"]
-    D --&gt; D4["Use: Sporadic workloads, not always-on"]
-
-    E["This Project"]
-    E --&gt; E1["Dev/test: Docker Compose local"]
-    E --&gt; E2["Production: Kubernetes EKS/GKE/AKS"]
-    E --&gt; E3["Why Kubernetes: Stateful components&lt;br/&gt;Kafka, Postgres need persistent storage"]</code></pre>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Complexity:
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>├── Docker Compose (local dev)
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>│   ├── Cost: $0 (your laptop)
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│   ├── Ops overhead: Minimal
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│   ├── Scale: Single machine only
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│   └── Use: Development, learning
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>│
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>├── Kubernetes (production on-prem or cloud)
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>│   ├── Cost: $3-10K/month (managed EKS/GKE/AKS)
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>│   ├── Ops overhead: Moderate (need SRE team)
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>│   ├── Scale: 100s of nodes, 1000s of pods
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>│   └── Use: Enterprise production
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>│
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>└── Serverless (cloud-only, auto-scaling)
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    ├── Cost: $0-5K/month (pay per execution)
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    ├── Ops overhead: Low (vendor manages infra)
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    ├── Scale: Auto-scales 0 → 1000s of instances
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>    └── Use: Sporadic workloads, not always-on
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>This Project:
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>├── Dev/test: Docker Compose (local)
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>├── Production: Kubernetes (EKS/GKE/AKS)
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>└── Why Kubernetes: Stateful components (Kafka, Postgres need persistent storage)
+</span></code></pre></div>
 <h3 id="trade-offs">Trade-Offs<a class="headerlink" href="#trade-offs" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -2687,29 +2686,25 @@
 <hr />
 <h2 id="batch-5-10-min-latency-vs-true-streaming-1-second">Batch (5-10 min latency) vs True Streaming (&lt; 1 second)<a class="headerlink" href="#batch-5-10-min-latency-vs-true-streaming-1-second" title="Permanent link">&para;</a></h2>
 <h3 id="cost-impact">Cost Impact<a class="headerlink" href="#cost-impact" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>graph TD
-    A["Transaction volume: 1M/day"]
-
-    B["Option 1: Spark Micro-Batch 5 min window"]
-    A --&gt; B
-    B --&gt; B1["Cluster: 5 executors × 8 cores × $0.10/hour"]
-    B --&gt; B2["Cost: $10/day × 30 = $300/month"]
-    B --&gt; B3["Latency: 5 minutes"]
-    B --&gt; B4["Cold path: Iceberg analytics"]
-
-    C["Option 2: Flink Continuous 1 second window"]
-    A --&gt; C
-    C --&gt; C1["Cluster: 20 executors × 8 cores × $0.10/hour"]
-    C --&gt; C2["Cost: $40/day × 30 = $1,200/month"]
-    C --&gt; C3["Latency: 1 second"]
-    C --&gt; C4["Cold path: Still need Iceberg for history"]
-
-    D["Difference: $900/month for 4 minute latency improvement"]
-    B --&gt; D
-    C --&gt; D
-    D --&gt; D1["Is that worth it? Depends on use case"]
-    D1 --&gt; D1a["Fraud detection: YES decision latency matters"]
-    D1 --&gt; D1b["Cold path analytics: NO 5 min is fine"]</code></pre>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Transaction volume: 1M/day
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>Option 1: Spark Micro-Batch (5 min window)
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>├── Cluster: 5 executors × 8 cores × $0.10/hour
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>├── Cost: $10/day × 30 = $300/month
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>├── Latency: 5 minutes
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>└── Cold path: Iceberg analytics
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>Option 2: Flink Continuous (1 second window)
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>├── Cluster: 20 executors × 8 cores × $0.10/hour
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>├── Cost: $40/day × 30 = $1,200/month
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>├── Latency: 1 second
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>└── Cold path: Still need Iceberg for history
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>Difference: $900/month for 4 minute latency improvement
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>├── Is that worth it? Depends on use case
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>├── Fraud detection: YES (decision latency matters)
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>├── Cold path analytics: NO (5 min is fine)
+</span></code></pre></div>
 <h3 id="recommendation">Recommendation<a class="headerlink" href="#recommendation" title="Permanent link">&para;</a></h3>
 <p><strong>Hybrid Approach (This Project)</strong>:
 - Kafka (hot path, real-time): Fraud detection uses this directly
@@ -2718,36 +2713,36 @@
 <hr />
 <h2 id="data-mesh-maturity-model">Data Mesh Maturity Model<a class="headerlink" href="#data-mesh-maturity-model" title="Permanent link">&para;</a></h2>
 <h3 id="stage-1-centralized-warehouse-start-here">Stage 1: Centralized Warehouse (Start Here)<a class="headerlink" href="#stage-1-centralized-warehouse-start-here" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Cost: Low ($10-20K/month)
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>Ops: Low (managed service)
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Speed: Slow (schema review bottleneck)
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>Compliance: Difficult (one-size-fits-all)
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>→ Good for: Startups, simple compliance
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Cost: Low ($10-20K/month)
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>Ops: Low (managed service)
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>Speed: Slow (schema review bottleneck)
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>Compliance: Difficult (one-size-fits-all)
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>→ Good for: Startups, simple compliance
 </span></code></pre></div>
 <h3 id="stage-2-data-lake-intermediate">Stage 2: Data Lake (Intermediate)<a class="headerlink" href="#stage-2-data-lake-intermediate" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Cost: Low ($5-15K/month)
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>Ops: Moderate (manage lake)
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>Speed: Medium (domains add tables)
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>Compliance: Hard (no governance)
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>→ Good for: Growing companies, analytical focus
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Cost: Low ($5-15K/month)
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>Ops: Moderate (manage lake)
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>Speed: Medium (domains add tables)
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>Compliance: Hard (no governance)
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>→ Good for: Growing companies, analytical focus
 </span></code></pre></div>
 <h3 id="stage-3-data-mesh-advanced-this-project">Stage 3: Data Mesh (Advanced) ← This Project<a class="headerlink" href="#stage-3-data-mesh-advanced-this-project" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Cost: Moderate ($30-50K/month)
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>Ops: High (manage domains + platform)
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>Speed: Fast (domain teams own schema)
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>Compliance: Excellent (OPA policies, audit trails)
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>→ Good for: Large fintech, insurance, pharma
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Cost: Moderate ($30-50K/month)
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>Ops: High (manage domains + platform)
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>Speed: Fast (domain teams own schema)
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>Compliance: Excellent (OPA policies, audit trails)
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>→ Good for: Large fintech, insurance, pharma
 </span></code></pre></div>
 <h3 id="stage-4-federated-lakehouse-future">Stage 4: Federated Lakehouse (Future)<a class="headerlink" href="#stage-4-federated-lakehouse-future" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Cost: High ($50K+/month)
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>Ops: Very high (federated coordination)
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>Speed: Fastest (domains move independently)
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>Compliance: Perfect (mesh + lakehouse)
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>→ Good for: Enterprise-scale, multiple geographies
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Cost: High ($50K+/month)
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>Ops: Very high (federated coordination)
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>Speed: Fastest (domains move independently)
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>Compliance: Perfect (mesh + lakehouse)
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>→ Good for: Enterprise-scale, multiple geographies
 </span></code></pre></div>
 <hr />
 <h2 id="lessons-learned">Lessons Learned<a class="headerlink" href="#lessons-learned" title="Permanent link">&para;</a></h2>
