@@ -26,32 +26,58 @@ fabric-node-1 | INFO BGP peer established with fabric-node-2
 
 ## Service Architecture
 
-```
-┌─────────────────────────────────────────────────────────┐
-│  Docker Compose Network (sdn-net)                       │
-├─────────────────────────────────────────────────────────┤
-│                                                         │
-│  ┌──────────────┐  ┌────────────────┐  ┌────────────┐ │
-│  │ sdn-         │  │ dpdk-agent     │  │ ebpf-agent │ │
-│  │ controller   │  │ (foundation)   │  │(foundation)│ │
-│  │ (Go, port    │  │                │  │            │ │
-│  │ 8080/50051)  │  │ Registers with │  │ Registers  │ │
-│  │              │  │ controller     │  │ with ctrl  │ │
-│  │ Listens:     │  └────────────────┘  └────────────┘ │
-│  │ REST :8080   │                                      │
-│  │ gRPC :50051  │  ┌──────────────┐  ┌──────────────┐ │
-│  └──────────────┘  │ fabric-node-1│  │ fabric-node-2│ │
-│         ↑          │ (Python, BGP)│  │ (Python, BGP)│ │
-│    accepts         └──────────────┘  └──────────────┘ │
-│    routes via         BGP Peers          BGP Peers   │
-│    REST API           gRPC client        gRPC client │
-│                                                      │
-│  ┌──────────────────────────────────────────────┐   │
-│  │ traffic-gen (iperf3 client/server)           │   │
-│  │ Generates synthetic traffic for testing      │   │
-│  └──────────────────────────────────────────────┘   │
-│                                                         │
-└─────────────────────────────────────────────────────────┘
+```mermaid
+graph TB
+    subgraph "Docker Compose Network (sdn-net)"
+        subgraph "Control Plane"
+            CTRL["sdn-controller<br/>Go · gRPC :50051<br/>REST :8080<br/>Topology Discovery<br/>Intent Handling"]
+        end
+        
+        subgraph "Foundation Layer (Packet Processing)"
+            DPDK["dpdk-agent<br/>C · DPDK<br/>User-space forwarding<br/>gRPC client"]
+            EBPF["ebpf-agent<br/>Rust · eBPF<br/>Kernel XDP<br/>gRPC client"]
+        end
+        
+        subgraph "Fabric Layer (Routing Protocols)"
+            F1["fabric-node-1<br/>Python · BGP/VXLAN/EVPN<br/>gRPC client"]
+            F2["fabric-node-2<br/>Python · BGP/VXLAN/EVPN<br/>gRPC client"]
+            F3["fabric-node-3<br/>Python · BGP/VXLAN/EVPN<br/>gRPC client"]
+        end
+        
+        TG["traffic-gen<br/>iperf3 server/client<br/>Synthetic load generation"]
+        
+        subgraph "Peering & Tunneling"
+            BGP["BGP Peers<br/>TCP :179"]
+            VXLAN["VXLAN Tunnels<br/>UDP :4789"]
+        end
+    end
+    
+    CTRL -->|gRPC| DPDK
+    CTRL -->|gRPC| EBPF
+    CTRL -->|gRPC| F1
+    CTRL -->|gRPC| F2
+    CTRL -->|gRPC| F3
+    
+    F1 -->|TCP| BGP
+    F2 -->|TCP| BGP
+    F3 -->|TCP| BGP
+    
+    F1 -->|UDP| VXLAN
+    F2 -->|UDP| VXLAN
+    F3 -->|UDP| VXLAN
+    
+    DPDK -.->|forward| TG
+    EBPF -.->|forward| TG
+    
+    style CTRL fill:#2196F3,color:#fff
+    style DPDK fill:#4CAF50,color:#fff
+    style EBPF fill:#FF9800,color:#fff
+    style F1 fill:#9C27B0,color:#fff
+    style F2 fill:#9C27B0,color:#fff
+    style F3 fill:#9C27B0,color:#fff
+    style TG fill:#F44336,color:#fff
+    style BGP fill:#FFE66D,color:#333
+    style VXLAN fill:#95E1D3,color:#333
 ```
 
 ### Services

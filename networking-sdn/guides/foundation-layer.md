@@ -48,13 +48,31 @@ To forward a packet:
 
 VXLAN wraps Layer 2 frames in UDP packets for virtual networking:
 
-```
-Original:    [Eth hdr] [Payload]
-Encapsulated: [Eth] [IP] [UDP] [VXLAN] [Original Eth] [Payload]
-              14B   20B  8B    8B     14B            ...
+```mermaid
+graph LR
+    subgraph "Original Packet"
+        O1["Eth Header<br/>14B"] --> O2["IPv4 Header<br/>20B"] --> O3["Payload"]
+    end
+    
+    subgraph "VXLAN Encapsulated"
+        E1["Outer Eth<br/>14B"] --> E2["Outer IP<br/>20B"] --> E3["UDP<br/>8B"] --> E4["VXLAN<br/>8B"] --> E5["Inner Eth<br/>14B"] --> E6["Inner IP<br/>20B"] --> E7["Payload"]
+    end
+    
+    O3 -.->|encapsulate| E5
+    
+    style O1 fill:#4CAF50
+    style O2 fill:#2196F3
+    style O3 fill:#FFC107
+    style E1 fill:#4CAF50
+    style E2 fill:#2196F3
+    style E3 fill:#9C27B0
+    style E4 fill:#F44336
+    style E5 fill:#4CAF50
+    style E6 fill:#2196F3
+    style E7 fill:#FFC107
 ```
 
-The encapsulation adds 50 bytes of overhead. Decapsulation validates buffer sizes to prevent overflow.
+The encapsulation adds **50 bytes of overhead** (14+20+8+8 = 50B outer headers). Decapsulation validates buffer sizes to prevent overflow.
 
 ### Extending DPDK
 
@@ -127,6 +145,44 @@ To add a new feature to eBPF:
 3. **Add eBPF ring buffer for telemetry**:
    - Replace simple stats counters with BPF ring buffer for event streaming
    - Send packet drop reasons, rule matches, etc. to userspace in real-time
+
+## Data Plane Positioning
+
+```mermaid
+graph TD
+    subgraph "Linux Network Stack"
+        APP["Application"]
+        KNS["Kernel Network Stack"]
+        APP -->|sendto| KNS
+    end
+    
+    subgraph "DPDK Path (Userspace)"
+        DPDK["DPDK Poll Loop"]
+        PMD["PMD - Poll Mode Driver"]
+        DPDK -->|claim NIC| PMD
+    end
+    
+    subgraph "eBPF Path (Kernel)"
+        XDP["XDP Program"]
+        KD["Kernel Driver"]
+        XDP -->|attached to| KD
+    end
+    
+    NIC["Network Interface Card"]
+    
+    KNS -->|kernel route| KD
+    PMD -->|direct access| NIC
+    KD -->|forward| NIC
+    DPDK -.->|bypass kernel| PMD
+    
+    style DPDK fill:#1f77b4,color:#fff
+    style XDP fill:#ff7f0e,color:#fff
+    style NIC fill:#d62728,color:#fff
+```
+
+**Architectural difference:**
+- **DPDK** (blue): Userspace process claims NIC directly, bypasses kernel entirely
+- **eBPF** (orange): Kernel owns NIC, XDP program hooks at driver level for early packet processing
 
 ## Comparing DPDK vs eBPF
 

@@ -22,13 +22,36 @@ BGP is a path-vector routing protocol: each device advertises "I can reach these
 
 A BGP session between two devices progresses through states:
 
-```
-Idle → Connect → Active → OpenSent → OpenConfirm → Established
-                                                         ↓
-                                               (Exchange routes)
+```mermaid
+stateDiagram-v2
+    [*] --> Idle
+    
+    Idle --> Connect: start event
+    Idle --> Active: start event + retry
+    
+    Connect --> OpenSent: TCP success<br/>send OPEN
+    Connect --> Active: TCP fail<br/>retry timer
+    
+    Active --> Connect: retry timer<br/>TCP attempt
+    Active --> OpenSent: TCP success<br/>send OPEN
+    
+    OpenSent --> OpenConfirm: receive OPEN<br/>send KEEPALIVE
+    OpenSent --> Idle: error
+    
+    OpenConfirm --> Established: receive KEEPALIVE
+    OpenConfirm --> Idle: error
+    
+    Established --> Idle: disconnect<br/>error
+    Established --> Established: exchange UPDATEs<br/>share routes
+    
+    note right of Established
+        Session active
+        Exchange routes via UPDATE messages
+        Monitor with KEEPALIVE every 30s
+    end note
 ```
 
-**State Transitions:**
+**Key State Details:**
 
 - **Idle**: No connection attempt. Wait for manual start or automatic retry timer.
 - **Connect**: TCP connection in progress. Move to OpenSent when connection succeeds.
@@ -197,6 +220,57 @@ Enable IP-only advertising (no MAC-based routes):
 1. Define Type 5 route structure
 2. Parse from BGP UPDATE messages
 3. Install in IP forwarding table (not MAC table)
+
+## Integration: BGP + VXLAN + EVPN
+
+The three protocols work together to provide complete fabric networking:
+
+```mermaid
+graph TD
+    subgraph "Device A"
+        BGPA["BGP Speaker<br/>Peer with Device B"]
+        VXLANA["VXLAN Tunnel<br/>Encapsulation"]
+        EVPNA["EVPN Route Handler<br/>Type 2 MAC/IP"]
+    end
+    
+    subgraph "Device B"
+        BGPB["BGP Speaker<br/>Peer with Device A"]
+        VXLANB["VXLAN Tunnel<br/>Decapsulation"]
+        EVPNB["EVPN Route Handler<br/>Type 2 MAC/IP"]
+    end
+    
+    subgraph "Control Plane (TCP/BGP)"
+        TCP["BGP TCP Session :179"]
+    end
+    
+    subgraph "Data Plane (UDP/VXLAN)"
+        UDP["VXLAN UDP :4789"]
+    end
+    
+    BGPA -->|advertise EVPN routes| TCP
+    TCP -->|receive EVPN routes| BGPB
+    
+    EVPNA -->|"MAC X is here"| BGPA
+    BGPB -->|receive| EVPNB
+    EVPNB -->|learn| VXLANB
+    
+    VXLANA -->|encapsulate traffic<br/>for MAC X| UDP
+    UDP -->|decapsulate| VXLANB
+    
+    style BGPA fill:#FF6B6B,color:#fff
+    style BGPB fill:#FF6B6B,color:#fff
+    style VXLANA fill:#4ECDC4,color:#fff
+    style VXLANB fill:#4ECDC4,color:#fff
+    style TCP fill:#FFE66D,color:#333
+    style UDP fill:#95E1D3,color:#fff
+```
+
+**Data flow:**
+1. Device A announces: "MAC 02:11:22:33:44:55 is behind me in VNI 42" via EVPN route
+2. BGP carries this route to Device B over TCP session
+3. Device B learns: "To reach that MAC, send VXLAN traffic with VNI 42 to Device A"
+4. When traffic arrives for that MAC, Device B encapsulates in VXLAN and sends to Device A
+5. Device A decapsulates and delivers to the VM
 
 ## Integration with Controller
 

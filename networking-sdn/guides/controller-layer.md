@@ -14,32 +14,49 @@ The controller has three main responsibilities:
 
 The controller is structured in three layers:
 
-```
-┌─────────────────────────────────────────┐
-│  Intent Layer (REST API)                │
-│  /api/v1/routes, /api/v1/tunnels        │
-└─────────────────────────────────────────┘
-                    ↓
-┌─────────────────────────────────────────┐
-│  Discovery Layer (Device Registry)      │
-│  Detects device registration/failure    │
-└─────────────────────────────────────────┘
-                    ↓
-┌─────────────────────────────────────────┐
-│  Topology Layer (Graph + BFS)           │
-│  Device graph, path computation         │
-└─────────────────────────────────────────┘
-                    ↓
-┌─────────────────────────────────────────┐
-│  Transport (gRPC to Agents)             │
-│  Southbound API to DPDK, eBPF, fabric   │
-└─────────────────────────────────────────┘
+```mermaid
+graph TD
+    subgraph "External Interface"
+        REST["REST API<br/>/api/v1/routes<br/>/api/v1/tunnels"]
+    end
+    
+    subgraph "Controller Layers"
+        INTENT["Intent Layer<br/>Request validation<br/>Path computation trigger"]
+        DISC["Discovery Layer<br/>Device registry<br/>Lifecycle events"]
+        TOPO["Topology Layer<br/>Graph + BFS<br/>Path finding"]
+    end
+    
+    subgraph "Device Communication"
+        GRPC["gRPC Southbound<br/>SetRoutes, SetTunnels<br/>GetStats streaming"]
+    end
+    
+    subgraph "Devices"
+        DEV1["DPDK Agent"]
+        DEV2["eBPF Agent"]
+        DEV3["Fabric Nodes"]
+    end
+    
+    REST -->|POST| INTENT
+    INTENT -->|query| TOPO
+    INTENT -->|check| DISC
+    DISC -->|emits events| TOPO
+    INTENT -->|RPC| GRPC
+    GRPC -->|calls| DEV1
+    GRPC -->|calls| DEV2
+    GRPC -->|calls| DEV3
+    
+    style REST fill:#4CAF50,color:#fff
+    style INTENT fill:#2196F3,color:#fff
+    style DISC fill:#FF9800,color:#fff
+    style TOPO fill:#9C27B0,color:#fff
+    style GRPC fill:#F44336,color:#fff
 ```
 
 Each layer is independently testable:
-- Topology can be tested with mock devices
-- Discovery can be tested with device registration events
-- Intent can be tested with mocked gRPC calls
+- **Topology**: Test with mock devices (no network I/O)
+- **Discovery**: Test device registration/failure events
+- **Intent**: Test request validation and path computation
+- **Transport**: Mock gRPC calls for unit testing
 
 ## Topology Service
 

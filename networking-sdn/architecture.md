@@ -4,65 +4,62 @@
 
 Three-layer architecture for SDN portfolio project:
 
-```
-┌─────────────────────────────────────────────┐
-│         External Clients (REST API)         │
-│  curl http://localhost:8080/api/v1/topology│
-└─────────────────────┬───────────────────────┘
-                      │
-┌─────────────────────┴────────────────────┐
-│     SDN Controller (Go, Port 8080)       │
-│  ┌──────────────────────────────────┐   │
-│  │ Topology Service                 │   │
-│  │ - Device registration            │   │
-│  │ - Graph-based reachability       │   │
-│  │ - Discovery event handlers       │   │
-│  └──────────────────────────────────┘   │
-│  ┌──────────────────────────────────┐   │
-│  │ Policy Engine                    │   │
-│  │ - Intent-to-config translation   │   │
-│  │ - ACL and rule management        │   │
-│  └──────────────────────────────────┘   │
-└─────────────┬────────────────────────────┘
-              │ gRPC (Port 9090)
-              │
-┌─────────────┴────────────────────────────┐
-│   Fabric Nodes (Python Simulation)       │
-│  ┌──────────────────────────────────┐   │
-│  │ BGP Speaker                      │   │
-│  │ - FSM with 6 states (IDLE...EST) │   │
-│  │ - Route learning & advertisement │   │
-│  │ - Peer management                │   │
-│  └──────────────────────────────────┘   │
-│  ┌──────────────────────────────────┐   │
-│  │ VXLAN Tunnel Manager             │   │
-│  │ - Tunnel creation/deletion       │   │
-│  │ - Packet encapsulation           │   │
-│  │ - MAC learning table             │   │
-│  └──────────────────────────────────┘   │
-│  ┌──────────────────────────────────┐   │
-│  │ EVPN Route Manager               │   │
-│  │ - Type 2 (MAC/IP) routes         │   │
-│  │ - Type 5 (IP Prefix) routes      │   │
-│  │ - RIB management                 │   │
-│  └──────────────────────────────────┘   │
-└──────────────────────────────────────────┘
-                      │
-┌─────────────────────┴────────────────────┐
-│    Foundation Layer (C + Rust)           │
-│  ┌──────────────────────────────────┐   │
-│  │ DPDK Forwarding Engine (User)   │   │
-│  │ - L2/L3 packet processing       │   │
-│  │ - Longest-prefix-match routing  │   │
-│  │ - VXLAN encap/decap             │   │
-│  └──────────────────────────────────┘   │
-│  ┌──────────────────────────────────┐   │
-│  │ eBPF XDP Program (Kernel)       │   │
-│  │ - In-kernel packet processing   │   │
-│  │ - BPF maps for routes, tunnels  │   │
-│  │ - Statistics collection         │   │
-│  └──────────────────────────────────┘   │
-└──────────────────────────────────────────┘
+```mermaid
+graph TD
+    subgraph "Northbound Interface"
+        EXTERNAL["External Clients<br/>REST API<br/>:8080"]
+    end
+    
+    subgraph "Control Plane"
+        TOPO["Topology Service<br/>Device registration<br/>Graph + BFS path finding<br/>Discovery events"]
+        INTENT["Intent Engine<br/>Request validation<br/>Intent-to-config translation"]
+        subgraph CTRL["SDN Controller (Go)"]
+            TOPO
+            INTENT
+        end
+    end
+    
+    subgraph "Fabric Layer"
+        BGP["BGP Speaker<br/>FSM: Idle→Establish<br/>Route learning<br/>Peer management"]
+        VXLAN["VXLAN Manager<br/>Tunnel creation<br/>Encap/Decap<br/>MAC learning"]
+        EVPN["EVPN Handler<br/>Type 2: MAC/IP<br/>Type 5: IP Prefix<br/>Route distribution"]
+        subgraph FABRIC["Fabric Nodes (Python)"]
+            BGP
+            VXLAN
+            EVPN
+        end
+    end
+    
+    subgraph "Foundation Layer"
+        DPDK["DPDK Agent (C)<br/>User-space forwarding<br/>LPM routing<br/>VXLAN encap/decap"]
+        EBPF["eBPF Agent (Rust)<br/>XDP hook<br/>BPF maps<br/>In-kernel processing"]
+        subgraph FOUND["Packet Processing"]
+            DPDK
+            EBPF
+        end
+    end
+    
+    subgraph "Southbound Interface"
+        GRPC["gRPC Southbound<br/>:50051<br/>SetRoutes, SetTunnels<br/>GetStats streaming"]
+    end
+    
+    EXTERNAL -->|REST| INTENT
+    INTENT -->|path computation| TOPO
+    INTENT -->|check state| TOPO
+    TOPO -->|device updates| INTENT
+    
+    CTRL -->|gRPC| GRPC
+    GRPC -->|calls| FABRIC
+    GRPC -->|calls| FOUND
+    
+    FABRIC -->|BGP peers<br/>TCP :179| FABRIC
+    FABRIC -->|VXLAN tunnels<br/>UDP :4789| FABRIC
+    
+    style CTRL fill:#2196F3,color:#fff
+    style FABRIC fill:#9C27B0,color:#fff
+    style FOUND fill:#4CAF50,color:#fff
+    style EXTERNAL fill:#FF9800,color:#fff
+    style GRPC fill:#F44336,color:#fff
 ```
 
 ## Data Flow Example
