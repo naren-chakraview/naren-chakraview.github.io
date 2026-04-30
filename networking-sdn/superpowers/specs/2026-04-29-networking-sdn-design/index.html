@@ -1,0 +1,2551 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Complete architecture and implementation plan for three-layer networking SDN portfolio project">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Chakraview Networking-SDN: Complete Design - Chakraview Networking-SDN</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chakraview-networking-sdn-complete-design" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Chakraview Networking-SDN" class="md-header__button md-logo" aria-label="Chakraview Networking-SDN" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Chakraview Networking-SDN
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chakraview Networking-SDN: Complete Design
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/gundu/networking-sdn" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../quickstart/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Quick Start
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../architecture/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Architecture Overview
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../guides/foundation-layer/" class="md-tabs__link">
+          
+  
+  
+  Component Guides
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../guides/decision-matrix/" class="md-tabs__link">
+          
+  
+  
+  Decision & Design
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../adrs/0001-architecture/" class="md-tabs__link">
+          
+  
+  
+  Architecture Decisions
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../extending/custom-protocols/" class="md-tabs__link">
+          
+  
+  
+  Extending
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Chakraview Networking-SDN" class="md-nav__button md-logo" aria-label="Chakraview Networking-SDN" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Chakraview Networking-SDN
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/gundu/networking-sdn" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Component Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Component Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/foundation-layer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundation Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/controller-layer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Controller Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/fabric-layer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fabric Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/lab-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision & Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Decision & Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/decision-matrix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision Matrix
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/landscape/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Landscape
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Decisions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture Decisions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adrs/0001-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-0001 Three-Layer Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adrs/0002-dpdk-vs-ebpf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-0002 DPDK vs eBPF
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adrs/0003-grpc-southbound/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-0003 Southbound Protocol
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adrs/0004-go-controller-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-0004 Controller Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adrs/0005-bgp-vxlan-evpn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-0005 BGP/VXLAN/EVPN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adrs/0006-lab-docker-compose/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-0006 Lab Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adrs/0007-monorepo-structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-0007 Monorepo Structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adrs/0008-performance-constraints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-0008 Performance Constraints
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Extending
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Extending
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../extending/custom-protocols/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Custom Protocols
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../extending/adding-devices/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adding Devices
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#executive-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Executive Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-1-repository-structure-organization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 1: Repository Structure &amp; Organization
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-2-foundation-layer-dpdk-vs-ebpf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 2: Foundation Layer (DPDK vs eBPF)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 2: Foundation Layer (DPDK vs eBPF)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dpdk-component-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DPDK Component (C)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ebpf-component-rust" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        eBPF Component (Rust)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparison-benchmarks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparison &amp; Benchmarks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runnable-lab-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Runnable Lab Integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-3-sdn-controller-layer-go" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 3: SDN Controller Layer (Go)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 3: SDN Controller Layer (Go)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#northbound-api-rest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Northbound API (REST)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#southbound-protocol-grpc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Southbound Protocol (gRPC)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extension-points-marked-todo-extend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extension Points (Marked // TODO: EXTEND:)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-4-fabric-protocol-layer-python-prototypes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 4: Fabric Protocol Layer (Python Prototypes)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 4: Fabric Protocol Layer (Python Prototypes)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bgp-component-bgp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BGP Component (bgp/)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vxlan-component-vxlan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VXLAN Component (vxlan/)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evpn-component-evpn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EVPN Component (evpn/)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#simulated-device-model-devicepy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Simulated Device Model (device.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lab-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lab Integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extension-points-marked-todo-extend_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extension Points (Marked # TODO: EXTEND:)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-5-integration-lab-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 5: Integration &amp; Lab Setup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 5: Integration &amp; Lab Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-layers-connect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How Layers Connect
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-compose-lab" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Docker Compose Lab
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lab-initialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lab Initialization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runnable-example-end-to-end-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Runnable Example: End-to-End Workflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-6-documentation-adrs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 6: Documentation &amp; ADRs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 6: Documentation &amp; ADRs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#architecture-decision-records-adrs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture Decision Records (ADRs)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mkdocs-site-mkdocsyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MkDocs Site (mkdocs.yml)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-7-extension-points-clearly-marked" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 7: Extension Points (Clearly Marked)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 7: Extension Points (Clearly Marked)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#foundation-layer-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Foundation Layer Extensions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#controller-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Controller Extensions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fabric-layer-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fabric Layer Extensions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lab-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lab Extensions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acceptance-criteria-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acceptance Criteria &amp; Validation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Acceptance Criteria &amp; Validation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#code-completeness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code Completeness
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lab-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lab &amp; Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quality
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="chakraview-networking-sdn-complete-design">Chakraview Networking-SDN: Complete Design</h1>
+<h2 id="executive-summary">Executive Summary</h2>
+<p>A three-layer portfolio project showcasing modern networking architecture: <strong>Foundation</strong> (high-performance packet processing via DPDK vs eBPF), <strong>Control Plane</strong> (SDN controller with intent-based APIs), and <strong>Fabric Protocols</strong> (BGP, VXLAN, EVPN). All three layers integrate into a deployable Docker Compose lab where a network fabric can be spun up, configured, and tested end-to-end.</p>
+<p><strong>Key Characteristics:</strong>
+- Equal depth across all three layers (one-third complexity each)
+- Monorepo with clear subsystem boundaries
+- Runnable, not just documentation—everything deployable and testable
+- Production-inspired architecture with extension points marked for future development</p>
+<hr />
+<h2 id="part-1-repository-structure-organization">Part 1: Repository Structure &amp; Organization</h2>
+<pre><code>chakraview-networking-sdn/
+├── foundation/
+│   ├── dpdk/                 # C — user-space packet processing
+│   │   ├── src/
+│   │   │   ├── main.c        # DPDK app entry point
+│   │   │   ├── forwarding.c  # L2/L3 forwarding logic
+│   │   │   ├── vxlan.c       # VXLAN encapsulation/decapsulation
+│   │   │   └── filter.c      # Packet filtering
+│   │   ├── Makefile
+│   │   └── README.md
+│   │
+│   ├── ebpf/                 # Rust + libbpf — kernel-resident packet processing
+│   │   ├── src/
+│   │   │   ├── main.rs       # eBPF program loader
+│   │   │   ├── xdp.rs        # XDP hook programs
+│   │   │   ├── tc.rs         # TC hook programs
+│   │   │   └── common.rs     # Shared logic
+│   │   ├── Cargo.toml
+│   │   └── README.md
+│   │
+│   ├── benchmarks/
+│   │   ├── compare.py        # Throughput/latency/CPU comparison
+│   │   └── results/          # Benchmark outputs
+│   │
+│   └── docs/
+│       ├── dpdk-guide.md     # DPDK implementation details
+│       ├── ebpf-guide.md     # eBPF implementation details
+│       └── tradeoffs.md      # Detailed trade-off analysis
+│
+├── controller/               # Go — SDN control plane
+│   ├── cmd/
+│   │   ├── sdn-controller/
+│   │   │   └── main.go       # HTTP/gRPC server entrypoint
+│   │   └── cli/              # CLI tool for testing
+│   │
+│   ├── pkg/
+│   │   ├── northbound/
+│   │   │   ├── http.go       # REST API handlers
+│   │   │   ├── grpc.go       # gRPC service definitions
+│   │   │   └── models.go     # Request/response types
+│   │   │
+│   │   ├── southbound/
+│   │   │   ├── protocol.go   # Device communication protocol
+│   │   │   ├── client.go     # Fabric node client
+│   │   │   └── messages.go   # Protocol messages
+│   │   │
+│   │   ├── topology/
+│   │   │   ├── discovery.go  # Device discovery
+│   │   │   ├── graph.go      # Network topology graph
+│   │   │   └── state.go      # Topology state management
+│   │   │
+│   │   ├── policy/
+│   │   │   ├── engine.go     # Policy evaluation engine
+│   │   │   ├── rules.go      # Policy rule definitions
+│   │   │   └── compiler.go   # Intent to config compilation
+│   │   │
+│   │   └── store/
+│   │       └── config.go     # In-memory config store (EXTEND: etcd)
+│   │
+│   ├── api/
+│   │   ├── openapi.yaml      # OpenAPI spec for REST API
+│   │   └── fabric.proto      # Protobuf definitions for gRPC
+│   │
+│   ├── Dockerfile
+│   ├── go.mod
+│   ├── go.sum
+│   └── README.md
+│
+├── fabric/                   # Python — fabric protocols
+│   ├── bgp/
+│   │   ├── speaker.py        # BGP speaker implementation
+│   │   ├── fsm.py            # BGP state machine
+│   │   ├── messages.py       # BGP message encoding/decoding
+│   │   └── routes.py         # Route advertisement, best-path
+│   │
+│   ├── vxlan/
+│   │   ├── tunnel.py         # VXLAN tunnel management
+│   │   ├── encap.py          # Packet encapsulation/decapsulation
+│   │   └── learning.py       # MAC learning (simplified)
+│   │
+│   ├── evpn/
+│   │   ├── routes.py         # EVPN route types (Type 2, Type 5, etc.)
+│   │   ├── integration.py    # EVPN-BGP integration
+│   │   └── services.py       # EVPN services (E-LAN, E-Line)
+│   │
+│   ├── device.py             # Simulated switch/router
+│   ├── forwarding.py         # Forwarding table and state
+│   ├── requirements.txt
+│   └── README.md
+│
+├── lab/                      # Deployable environment
+│   ├── docker-compose.yml    # Service definitions
+│   ├── Dockerfile.dpdk       # DPDK handler container
+│   ├── Dockerfile.ebpf       # eBPF agent container
+│   ├── Dockerfile.controller # Controller container
+│   ├── Dockerfile.fabric     # Fabric node container
+│   ├── Dockerfile.traffic    # Traffic generator
+│   │
+│   ├── scripts/
+│   │   ├── init.sh           # Lab initialization
+│   │   ├── topology.yaml     # Network topology definition
+│   │   ├── config.yaml       # Initial controller config
+│   │   └── traffic.py        # Traffic generation and validation
+│   │
+│   └── README.md
+│
+├── docs/
+│   ├── adrs/
+│   │   ├── ADR-0001-monorepo-architecture.md
+│   │   ├── ADR-0002-dpdk-vs-ebpf.md
+│   │   ├── ADR-0003-go-control-plane.md
+│   │   ├── ADR-0004-bgp-vxlan-evpn.md
+│   │   ├── ADR-0005-simulated-fabric.md
+│   │   ├── ADR-0006-northbound-apis.md
+│   │   ├── ADR-0007-southbound-protocol.md
+│   │   └── ADR-0008-lab-driven-development.md
+│   │
+│   ├── architecture.md       # System design overview
+│   ├── integration.md        # Layer integration details
+│   ├── foundation.md         # Foundation layer deep-dive
+│   ├── controller.md         # Controller deep-dive
+│   ├── fabric.md             # Fabric protocols deep-dive
+│   ├── quickstart.md         # Get started guide
+│   ├── extending.md          # Extension points guide
+│   └── superpowers/
+│       └── specs/
+│           └── 2026-04-29-networking-sdn-design.md
+│
+├── mkdocs.yml
+└── README.md
+</code></pre>
+<hr />
+<h2 id="part-2-foundation-layer-dpdk-vs-ebpf">Part 2: Foundation Layer (DPDK vs eBPF)</h2>
+<h3 id="purpose">Purpose</h3>
+<p>Showcase two complementary high-performance packet processing architectures with runnable implementations and direct performance comparisons.</p>
+<h3 id="dpdk-component-c">DPDK Component (C)</h3>
+<p><strong>Scope:</strong>
+- User-space packet processing library
+- Direct NIC access, zero-copy ring buffers, CPU affinity
+- Implements: L2/L3 forwarding, VXLAN encapsulation/decapsulation, packet filtering
+- Runs as a standalone binary attached to veth interface in lab</p>
+<p><strong>Key Modules:</strong>
+- <code>forwarding.c</code> — Basic L2 (MAC) and L3 (IP) forwarding logic
+- <code>vxlan.c</code> — VXLAN header construction/parsing, tunnel management
+- <code>filter.c</code> — Per-flow packet filtering (drop/allow rules from controller)
+- Batched packet processing (16-32 packets per burst) to amortize overhead</p>
+<p><strong>Performance Targets:</strong>
+- ~10M+ packets/sec (on single core)
+- Sub-microsecond latency for forwarding decision
+- Minimal CPU overhead per packet</p>
+<p><strong>Extension Points (Marked <code>// TODO: EXTEND:</code>):</strong>
+- QoS and traffic shaping (token bucket, hierarchical schedulers)
+- Load balancing algorithms (RSS, flow hashing)
+- Stateful NAT, connection tracking
+- Statistics collection and telemetry</p>
+<h3 id="ebpf-component-rust">eBPF Component (Rust)</h3>
+<p><strong>Scope:</strong>
+- Kernel-resident packet processing via XDP and TC hooks
+- Uses <code>libbpf-rs</code> for safe, ergonomic eBPF abstraction
+- Implements: same forwarding/VXLAN/filtering as DPDK
+- No user-space context switching, kernel integration</p>
+<p><strong>Key Modules:</strong>
+- <code>xdp.rs</code> — XDP programs (early ingress path, fastest)
+- <code>tc.rs</code> — TC programs (more flexible, slightly higher latency)
+- <code>common.rs</code> — Shared logic (header parsing, lookups)
+- Kernel maps for dynamic configuration (forwarding rules, tunnel state)</p>
+<p><strong>Performance Targets:</strong>
+- ~5M+ packets/sec with XDP (kernel-resident)
+- Microsecond-range latency (lower context switching)
+- Smaller memory footprint than DPDK</p>
+<p><strong>Extension Points (Marked <code>// TODO: EXTEND:</code>):</strong>
+- Tail calls for larger, modular programs
+- Dynamic map-based configuration hot-reloading
+- Connection tracking (stateful programs)</p>
+<h3 id="comparison-benchmarks">Comparison &amp; Benchmarks</h3>
+<p><strong>Head-to-Head Benchmarks:</strong>
+- Throughput (packets/sec) across packet sizes
+- Latency distribution (p50, p95, p99)
+- CPU utilization per throughput unit
+- Memory footprint and startup time
+- Development complexity (lines of code, test coverage)</p>
+<p><strong>Trade-Offs Summary:</strong>
+| Aspect | DPDK | eBPF |
+|--------|------|------|
+| <strong>Max throughput</strong> | ⭐⭐⭐ Highest (userspace control) | ⭐⭐ High (kernel overhead) |
+| <strong>Latency</strong> | ⭐⭐⭐ Lowest (dedicated cores) | ⭐⭐⭐ Very low (no syscall) |
+| <strong>Memory</strong> | ⭐⭐ Higher (ring buffers) | ⭐⭐⭐ Lower (kernel managed) |
+| <strong>Dev complexity</strong> | ⭐⭐ Higher (NIC drivers, memory management) | ⭐⭐⭐ Lower (kernel abstractions) |
+| <strong>Kernel integration</strong> | ⭐⭐ Isolated (can bypass kernel features) | ⭐⭐⭐ Native (kernel visibility) |</p>
+<p><strong>When to Use Each:</strong>
+- <strong>DPDK:</strong> Maximum performance requirement, dedicated hardware, acceptable kernel bypass
+- <strong>eBPF:</strong> Need kernel visibility (eBPF maps, tracing), lower dev complexity, flexible deployment</p>
+<p><strong>ADR-0002</strong> documents this decision: why we implement both, trade-off rationale, production selection criteria.</p>
+<h3 id="runnable-lab-integration">Runnable Lab Integration</h3>
+<ul>
+<li>DPDK handler runs in Docker container with huge pages configured</li>
+<li>eBPF agent deployed as sidecar in namespace with XDP programs loaded</li>
+<li>Traffic generator sends same test packets through both paths</li>
+<li>Metrics collected side-by-side: throughput, latency, CPU, memory</li>
+<li>Lab script reports which one performs better for different workloads</li>
+</ul>
+<hr />
+<h2 id="part-3-sdn-controller-layer-go">Part 3: SDN Controller Layer (Go)</h2>
+<h3 id="purpose_1">Purpose</h3>
+<p>Build the control plane intelligence that manages network intent, translates it to device configuration, and orchestrates the fabric.</p>
+<h3 id="architecture">Architecture</h3>
+<p><strong>Northbound Plane (User-Facing APIs):</strong>
+- REST API (HTTP) for configuration and discovery
+- gRPC API for real-time policy and state subscriptions
+- YAML-based topology/policy declarative config
+- Intent-based (user declares what they want; controller derives device config)</p>
+<p><strong>Southbound Plane (Device Communication):</strong>
+- Custom gRPC protocol (simplified OpenFlow-like semantics)
+- Devices register with controller on startup
+- Controller sends commands: tunnel creation, route advertisement, ACL rules
+- Devices report back state: tunnel status, route learned, ACL applied</p>
+<p><strong>Internal Components:</strong></p>
+<ol>
+<li><strong>Topology Service (<code>pkg/topology/</code>):</strong></li>
+<li>Discovers connected devices (devices register via southbound API)</li>
+<li>Maintains network graph (nodes = devices, edges = links)</li>
+<li>Tracks device state: reachability, port status, capabilities</li>
+<li>
+<p>Event notifications when topology changes</p>
+</li>
+<li>
+<p><strong>Policy Engine (<code>pkg/policy/</code>):</strong></p>
+</li>
+<li>Evaluates user intents against topology</li>
+<li>Generates device commands from policy rules</li>
+<li>Example: "enable VXLAN overlay from node-A to node-B" → derive BGP routes, create tunnels</li>
+<li>
+<p>Validates policies (prevent conflicting rules, check ACL sanity)</p>
+</li>
+<li>
+<p><strong>Configuration Store (<code>pkg/store/</code>):</strong></p>
+</li>
+<li>In-memory persistence of network intent</li>
+<li>EXTEND: Add etcd/database for HA, persistent storage</li>
+<li>
+<p>Change tracking for audit/rollback</p>
+</li>
+<li>
+<p><strong>HTTP/gRPC Servers (<code>pkg/northbound/</code>):</strong></p>
+</li>
+<li>REST endpoints for topology queries, config apply, policy management</li>
+<li>gRPC streaming for real-time updates</li>
+</ol>
+<h3 id="northbound-api-rest">Northbound API (REST)</h3>
+<p><strong>Key Endpoints:</strong></p>
+<pre><code>GET  /api/v1/topology              # List devices, links, overlay status
+GET  /api/v1/topology/devices      # List registered devices
+GET  /api/v1/topology/links        # List detected links
+POST /api/v1/topology/devices      # Register device (usually auto)
+
+POST /api/v1/overlays              # Create VXLAN overlay
+GET  /api/v1/overlays/{id}         # Get overlay status
+POST /api/v1/overlays/{id}/tunnels # Add tunnel to overlay
+
+POST /api/v1/policies              # Apply network policy (ACL, routing intent)
+GET  /api/v1/policies              # List active policies
+DELETE /api/v1/policies/{id}       # Remove policy
+
+GET  /api/v1/status                # Controller health, fabric state summary
+</code></pre>
+<p><strong>Example: Create a VXLAN Overlay</strong></p>
+<pre><code class="language-json">POST /api/v1/overlays
+{
+  &quot;name&quot;: &quot;overlay-prod&quot;,
+  &quot;vni&quot;: 100,
+  &quot;type&quot;: &quot;vxlan&quot;,
+  &quot;endpoints&quot;: [&quot;node-1&quot;, &quot;node-2&quot;, &quot;node-3&quot;]
+}
+</code></pre>
+<p>Controller derives:
+- Which BGP routes to advertise (underlay reachability)
+- VXLAN tunnel endpoints and VNI mappings
+- Which EVPN routes to exchange (L2/L3 services)</p>
+<h3 id="southbound-protocol-grpc">Southbound Protocol (gRPC)</h3>
+<p><strong>Service Definition:</strong></p>
+<pre><code class="language-protobuf">service FabricAgent {
+  rpc RegisterDevice(DeviceInfo) returns (DeviceID);
+  rpc GetDeviceState(DeviceID) returns (DeviceState);
+  rpc CreateVxlanTunnel(TunnelConfig) returns (TunnelStatus);
+  rpc AdvertiseBgpRoute(RouteAdvertisement) returns (RouteStatus);
+  rpc ApplyAcl(AclRule) returns (AclStatus);
+  rpc StreamDeviceEvents(DeviceID) returns (stream DeviceEvent);
+}
+</code></pre>
+<p>Devices are gRPC clients; controller is server sending commands.</p>
+<h3 id="key-features">Key Features</h3>
+<p><strong>Event-Driven Updates:</strong>
+- Policy change triggers southbound commands
+- Device state change triggers topology update
+- Cascading updates to dependent configurations</p>
+<p><strong>Validation &amp; Conflict Detection:</strong>
+- ACLs checked for contradictions before apply
+- Overlay endpoints verified to exist and be reachable
+- Routes checked for overlaps, priorities</p>
+<p><strong>Observability Hooks:</strong>
+- All API calls logged
+- Device state changes trigger events
+- EXTEND: Prometheus metrics, distributed tracing</p>
+<h3 id="extension-points-marked-todo-extend">Extension Points (Marked <code>// TODO: EXTEND:</code>)</h3>
+<ul>
+<li><strong>BFD:</strong> Fast failover detection (currently no failure handling)</li>
+<li><strong>NETCONF/YANG:</strong> Richer, more standard device interaction</li>
+<li><strong>Multi-controller HA:</strong> State sync via etcd, leader election</li>
+<li><strong>Persistent storage:</strong> Move from in-memory to database</li>
+<li><strong>Telemetry:</strong> Prometheus metrics, trace integration</li>
+</ul>
+<hr />
+<h2 id="part-4-fabric-protocol-layer-python-prototypes">Part 4: Fabric Protocol Layer (Python Prototypes)</h2>
+<h3 id="purpose_2">Purpose</h3>
+<p>Implement the routing and overlay protocols that actually move packets through the fabric, orchestrated by the controller.</p>
+<h3 id="bgp-component-bgp">BGP Component (<code>bgp/</code>)</h3>
+<p><strong>Implementation:</strong>
+- Simplified but spec-compliant BGP speaker
+- Listens on TCP port <code>:179</code> for peer connections
+- Implements BGP message types: OPEN, UPDATE, KEEPALIVE, NOTIFICATION
+- Best-path selection: simple AS-path length + local preference
+- Route advertisement and withdrawal per controller intent</p>
+<p><strong>Key Classes:</strong>
+- <code>Speaker</code> — BGP process, peer management, state machine
+- <code>FSM</code> — BGP Finite State Machine (Idle → Connect → Active → OpenSent → OpenConfirm → Established)
+- <code>Messages</code> — Encode/decode BGP messages (OPEN, UPDATE, KEEPALIVE)
+- <code>Routes</code> — Route DB, best-path computation, advertisement</p>
+<p><strong>Data Structures:</strong>
+- Routing table: <code>{destination: next-hop, AS-path, local-pref, med}</code>
+- Peer state: address, AS, session state, sent/received routes
+- Advertisement queue: routes pending announcement</p>
+<p><strong>Controller Integration:</strong>
+- Receives intent from controller: "advertise 10.0.1.0/24 from node-X"
+- Fabric node's BGP speaker sends UPDATE to peers
+- Peers learn routes, update their routing tables</p>
+<p><strong>Example BGP UPDATE Message:</strong></p>
+<pre><code>UPDATE message:
+  Withdrawn routes: (empty)
+  Path attributes:
+    ORIGIN: IGP
+    AS_PATH: [AS100, AS200]
+    NEXT_HOP: 192.168.1.1
+    LOCAL_PREF: 100
+  NLRI: 10.0.1.0/24
+</code></pre>
+<h3 id="vxlan-component-vxlan">VXLAN Component (<code>vxlan/</code>)</h3>
+<p><strong>Implementation:</strong>
+- VXLAN tunnel encapsulation and decapsulation
+- Maps logical networks (VNIs) to physical tunnels
+- Controller declares tunnel endpoints; fabric nodes set up tunnels</p>
+<p><strong>Key Classes:</strong>
+- <code>Tunnel</code> — Tunnel state: source IP, destination IP, VNI, status
+- <code>Encapsulator</code> — VXLAN header construction (UDP port 4789, VXLAN header)
+- <code>LearningEngine</code> — Simplified MAC learning (collect source MACs, build forwarding table)
+- <code>OverlayNetwork</code> — Logical network abstraction (VNI, member nodes)</p>
+<p><strong>VXLAN Packet Format:</strong></p>
+<pre><code>[Outer Ethernet][Outer IP][UDP:4789][VXLAN Header (VNI)][Inner Ethernet][Inner IP][Payload]
+</code></pre>
+<p><strong>Controller Integration:</strong>
+- Controller command: "create VXLAN tunnel from node-A (192.168.1.1) to node-B (192.168.1.2) with VNI 100"
+- Fabric nodes establish tunnel, start encapsulating traffic destined for the overlay</p>
+<p><strong>Extension Points:</strong>
+- Advanced MAC learning (EVPN-based instead of flooding)
+- Multicast support for broadcast/unknown-unicast
+- Tunnel redundancy and load balancing</p>
+<h3 id="evpn-component-evpn">EVPN Component (<code>evpn/</code>)</h3>
+<p><strong>Implementation:</strong>
+- EVPN as control plane for VXLAN overlays
+- Route types: Type 2 (MAC/IP advertisement), Type 5 (IP prefix)
+- Devices exchange EVPN routes via BGP (EVPN address family)
+- Tunnels and forwarding rules derived from EVPN routes</p>
+<p><strong>Key Classes:</strong>
+- <code>EvpnRoute</code> — Route types, encoding/decoding
+- <code>EvpnIntegration</code> — Tie EVPN routes to VXLAN tunnels and BGP
+- <code>Services</code> — EVPN services (E-LAN for L2, E-Line for L2-VPN, IP-VPN for L3)</p>
+<p><strong>Example EVPN Route Exchange:</strong></p>
+<pre><code>Node-A advertises Type 2 route:
+  RD: 100:1 (Route Distinguisher)
+  RT: 100:100 (Route Target for import/export)
+  MAC: 00:11:22:33:44:55
+  IP: 10.0.1.10 (optional, MAC/IP pair)
+  VXLAN_ID: 100
+  Originating_Node: Node-A
+
+Node-B receives, learns:
+  Traffic to MAC 00:11:22:33:44:55 → tunnel to Node-A, VNI 100
+  Traffic to 10.0.1.10 → tunnel to Node-A, VNI 100
+</code></pre>
+<p><strong>Evolution Over BGP + VXLAN:</strong>
+- Pure VXLAN: static tunnel configuration, manual MAC learning → flooding
+- BGP + VXLAN: dynamic routes, but MAC learning still needed
+- EVPN: unified control plane, MAC and IP learning, multi-service support</p>
+<p><strong>ADR-0004</strong> documents why we show all three: each layer builds on the previous, showing architectural evolution.</p>
+<h3 id="simulated-device-model-devicepy">Simulated Device Model (<code>device.py</code>)</h3>
+<p><strong>Class: <code>NetworkDevice</code></strong>
+- Abstraction of a switch/router that participates in fabric
+- Maintains: routing table, forwarding rules, tunnel state, BGP session state
+- Can be a "core" device (full control plane) or "leaf" device (simplified state)</p>
+<p><strong>Key Methods:</strong>
+- <code>configure_tunnel()</code> — Set up VXLAN tunnel (controller command)
+- <code>advertise_route()</code> — Start advertising a route via BGP (controller command)
+- <code>forward_packet()</code> — Simplified forwarding (state-only, no actual packet bytes in simulation)
+- <code>handle_bgp_message()</code> — Process incoming BGP UPDATE, learn routes
+- <code>get_state()</code> — Report current routing table, tunnel list, etc. (for controller queries)</p>
+<p><strong>Simulation Model:</strong>
+- Devices communicate via TCP sockets (simulated links)
+- Packet forwarding is state-driven (we track which routes are known, which tunnels exist)
+- For real packet validation, we track encapsulation rules without moving actual bytes</p>
+<h3 id="lab-integration">Lab Integration</h3>
+<p><strong>Docker Compose Services:</strong>
+- <code>fabric-node-1</code>, <code>fabric-node-2</code>, <code>fabric-node-3</code> — Python device instances
+- Each runs <code>device.py</code> with a unique node ID, listens on southbound port (gRPC)
+- Devices register with controller on startup
+- Controller sends topology intent → devices execute BGP, VXLAN, EVPN state changes</p>
+<p><strong>Traffic Validation:</strong>
+- Traffic generator sends packets to overlay network
+- We verify encapsulation (packets are wrapped in VXLAN headers)
+- We verify routing (packets follow the path computed by BGP + EVPN)
+- Output: delivery success rate, end-to-end latency, protocol state consistency</p>
+<h3 id="extension-points-marked-todo-extend_1">Extension Points (Marked <code># TODO: EXTEND:</code>)</h3>
+<ul>
+<li>Segment Routing (SR-MPLS) for traffic engineering</li>
+<li>Path computation element (PCE) for optimal tunnel placement</li>
+<li>EVPN redundancy modes (all-active, single-active per MAC)</li>
+<li>Multicast tree distribution</li>
+<li>Scale testing framework (100s of devices, 1000s of routes)</li>
+</ul>
+<hr />
+<h2 id="part-5-integration-lab-setup">Part 5: Integration &amp; Lab Setup</h2>
+<h3 id="how-layers-connect">How Layers Connect</h3>
+<pre><code>┌─────────────────────────────────────────────────────────────────┐
+│ NORTHBOUND: User Intent (REST API)                              │
+│ &quot;Create overlay X with endpoints A, B, C&quot;                       │
+└─────────────────────────────────────────────────────────────────┘
+                           ↓
+┌─────────────────────────────────────────────────────────────────┐
+│ CONTROLLER: Policy Engine (Go)                                  │
+│ Derives: BGP routes, tunnel endpoints, EVPN routes              │
+└─────────────────────────────────────────────────────────────────┘
+                           ↓
+┌─────────────────────────────────────────────────────────────────┐
+│ SOUTHBOUND: Device Commands (gRPC)                              │
+│ &quot;Advertise 10.0.1.0/24 from node-A&quot;                             │
+│ &quot;Create tunnel A→B with VNI 100&quot;                                │
+└─────────────────────────────────────────────────────────────────┘
+                           ↓
+┌─────────────────────────────────────────────────────────────────┐
+│ FABRIC: Protocol Execution (Python)                             │
+│ BGP speaker exchanges routes, VXLAN tunnels created, EVPN       │
+│ routes distributed, forwarding rules installed                  │
+└─────────────────────────────────────────────────────────────────┘
+                           ↓
+┌─────────────────────────────────────────────────────────────────┐
+│ FOUNDATION: Packet Processing (DPDK or eBPF)                    │
+│ Incoming packets encapsulated in VXLAN, forwarded via tunnels   │
+│ based on fabric protocol state                                  │
+└─────────────────────────────────────────────────────────────────┘
+</code></pre>
+<p><strong>Critical Insight:</strong>
+- Foundation layer shows <em>how</em> packets move (performance, mechanisms)
+- Upper layers show <em>where</em> packets go (routing decisions, tunnel creation)
+- Integration shows the full picture: intelligent routing + efficient forwarding</p>
+<h3 id="docker-compose-lab">Docker Compose Lab</h3>
+<p><strong>File: <code>lab/docker-compose.yml</code></strong></p>
+<pre><code class="language-yaml">version: '3.8'
+services:
+
+  # DPDK packet handler
+  dpdk-handler:
+    build:
+      context: .
+      dockerfile: Dockerfile.dpdk
+    privileged: true
+    volumes:
+      - /dev/hugepages:/dev/hugepages
+      - /sys:/sys
+    networks:
+      - fabric
+    environment:
+      - DPDK_PORT=veth0  # Attached to veth
+
+  # eBPF agent (alternative to DPDK)
+  ebpf-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile.ebpf
+    privileged: true
+    networks:
+      - fabric
+    environment:
+      - eBPF_INTERFACE=eth0
+
+  # SDN Controller
+  sdn-controller:
+    build:
+      context: controller
+      dockerfile: Dockerfile.controller
+    ports:
+      - &quot;8080:8080&quot;  # REST API
+      - &quot;9090:9090&quot;  # gRPC
+    networks:
+      - fabric
+    depends_on:
+      - fabric-node-1
+      - fabric-node-2
+      - fabric-node-3
+    environment:
+      - CONTROLLER_ADDR=0.0.0.0:9090
+
+  # Fabric nodes (BGP + VXLAN + EVPN speakers)
+  fabric-node-1:
+    build:
+      context: .
+      dockerfile: Dockerfile.fabric
+    networks:
+      - fabric
+    environment:
+      - NODE_ID=node-1
+      - NODE_ADDR=10.0.0.1
+      - CONTROLLER=sdn-controller:9090
+
+  fabric-node-2:
+    build:
+      context: .
+      dockerfile: Dockerfile.fabric
+    networks:
+      - fabric
+    environment:
+      - NODE_ID=node-2
+      - NODE_ADDR=10.0.0.2
+      - CONTROLLER=sdn-controller:9090
+
+  fabric-node-3:
+    build:
+      context: .
+      dockerfile: Dockerfile.fabric
+    networks:
+      - fabric
+    environment:
+      - NODE_ID=node-3
+      - NODE_ADDR=10.0.0.3
+      - CONTROLLER=sdn-controller:9090
+
+  # Traffic generator &amp; validator
+  traffic-gen:
+    build:
+      context: .
+      dockerfile: Dockerfile.traffic
+    networks:
+      - fabric
+    depends_on:
+      - sdn-controller
+      - fabric-node-1
+    environment:
+      - CONTROLLER_URL=http://sdn-controller:8080
+
+networks:
+  fabric:
+    driver: bridge
+</code></pre>
+<h3 id="lab-initialization">Lab Initialization</h3>
+<p><strong>File: <code>lab/scripts/init.sh</code></strong></p>
+<p>Flow:
+1. Spin up services: <code>docker-compose up -d</code>
+2. Wait for controller to be ready: health check
+3. Wait for fabric nodes to register: poll <code>/api/v1/topology/devices</code>
+4. Load initial topology: <code>POST /api/v1/overlays</code> to create VXLAN overlay with 3 endpoints
+5. Verify BGP routes are exchanged (poll fabric nodes' BGP tables)
+6. Verify VXLAN tunnels are up: check tunnel status in controller
+7. Run traffic test: send packets through overlay, verify encapsulation and delivery
+8. Report metrics: throughput, latency, protocol state consistency</p>
+<h3 id="runnable-example-end-to-end-workflow">Runnable Example: End-to-End Workflow</h3>
+<p><strong>1. Start the lab:</strong></p>
+<pre><code class="language-bash">cd lab
+docker-compose up -d
+./scripts/init.sh
+</code></pre>
+<p><strong>2. Query the topology:</strong></p>
+<pre><code class="language-bash">curl http://localhost:8080/api/v1/topology
+</code></pre>
+<p>Response: 3 fabric nodes, all registered and reachable</p>
+<p><strong>3. Create a VXLAN overlay:</strong></p>
+<pre><code class="language-bash">curl -X POST http://localhost:8080/api/v1/overlays \
+  -H &quot;Content-Type: application/json&quot; \
+  -d '{
+    &quot;name&quot;: &quot;overlay-prod&quot;,
+    &quot;vni&quot;: 100,
+    &quot;endpoints&quot;: [&quot;node-1&quot;, &quot;node-2&quot;, &quot;node-3&quot;]
+  }'
+</code></pre>
+<p><strong>4. Check overlay status:</strong></p>
+<pre><code class="language-bash">curl http://localhost:8080/api/v1/overlays/overlay-prod
+</code></pre>
+<p>Response: tunnel status, EVPN routes, BGP prefix count</p>
+<p><strong>5. Send traffic through the overlay:</strong></p>
+<pre><code class="language-bash">cd lab/scripts
+python traffic.py --overlay overlay-prod --duration 10s
+</code></pre>
+<p>Output: packets sent, packets delivered, encapsulation verified, latency distribution</p>
+<p><strong>6. Inspect fabric node state:</strong></p>
+<pre><code class="language-bash">docker exec fabric-node-1 python -c &quot;
+  from device import NetworkDevice
+  d = NetworkDevice('node-1')
+  print(d.routing_table)  # BGP-learned routes
+  print(d.tunnels)       # VXLAN tunnels
+  print(d.evpn_routes)   # EVPN route cache
+&quot;
+</code></pre>
+<hr />
+<h2 id="part-6-documentation-adrs">Part 6: Documentation &amp; ADRs</h2>
+<h3 id="architecture-decision-records-adrs">Architecture Decision Records (ADRs)</h3>
+<p><strong>ADR-0001: Monorepo with Three Integrated Subsystems</strong>
+- <strong>Decision:</strong> Single repo with three subsystems (foundation, controller, fabric), not three separate repos
+- <strong>Rationale:</strong> Portfolio piece benefits from showing integration; separate repos fragment the story
+- <strong>Trade-off:</strong> Build complexity vs. cohesion and demonstrating orchestration across layers</p>
+<p><strong>ADR-0002: DPDK vs eBPF</strong>
+- <strong>Decision:</strong> Implement both with head-to-head benchmarks; neither is universally "better"
+- <strong>Rationale:</strong> Production systems choose based on constraints; educate on trade-offs
+- <strong>Trade-off:</strong> Implementation effort vs. depth of understanding demonstrated</p>
+<p><strong>ADR-0003: Go for SDN Control Plane</strong>
+- <strong>Decision:</strong> Go for controller; concurrency primitives (goroutines), fast build, network libraries
+- <strong>Rationale:</strong> Stateful systems with many concurrent device connections fit Go's strengths
+- <strong>Alternative considered:</strong> Python (simpler) vs. Rust (safer); Go is best balance</p>
+<p><strong>ADR-0004: BGP + VXLAN + EVPN Progression</strong>
+- <strong>Decision:</strong> Implement all three to show protocol evolution, not just final state
+- <strong>Rationale:</strong> Understanding protocol maturity journey is deeper than final version alone
+- <strong>Trade-off:</strong> More code vs. richer insight into design evolution</p>
+<p><strong>ADR-0005: Simulated Fabric Devices</strong>
+- <strong>Decision:</strong> Python prototypes, not real hardware or full kernel network stack
+- <strong>Rationale:</strong> Prototypes are runnable lab-in-a-box; real hardware is complex, harder to reason about
+- <strong>Trade-off:</strong> Less "production real" vs. faster to build, easier to understand</p>
+<p><strong>ADR-0006: Northbound REST/gRPC APIs</strong>
+- <strong>Decision:</strong> Intent-based APIs; user declares what, controller derives how
+- <strong>Rationale:</strong> Scales better (less device-specific knowledge needed) than imperative command APIs
+- <strong>Alternative:</strong> Device-centric CLI; intent-based more modern and powerful</p>
+<p><strong>ADR-0007: Southbound gRPC Protocol</strong>
+- <strong>Decision:</strong> Custom simplified gRPC protocol (not standard OpenFlow, not Netconf/YANG)
+- <strong>Rationale:</strong> Shows protocol design; standard protocols would be harder to implement completely
+- <strong>Trade-off:</strong> Not production-standard vs. clearer for portfolio learning</p>
+<p><strong>ADR-0008: Lab-Driven Development</strong>
+- <strong>Decision:</strong> Docker Compose as the integration test; everything is deployable and runnable
+- <strong>Rationale:</strong> Real code that actually works; easier to validate, easier for others to try
+- <strong>Trade-off:</strong> Requires Docker, more operational complexity vs. genuine runnable proof</p>
+<h3 id="documentation">Documentation</h3>
+<p><strong><code>docs/architecture.md</code></strong> (500-700 words)
+- System overview and reference architecture
+- Three layers: foundation, control, fabric
+- Data plane vs. control plane separation
+- Diagrams: information flow, layer interactions, packet journey through the system</p>
+<p><strong><code>docs/integration.md</code></strong> (400-500 words)
+- How foundation layer (DPDK/eBPF) connects to fabric protocol layer
+- How controller orchestrates fabric nodes via southbound API
+- How northbound user intent flows through policy engine to device commands
+- Sequence diagrams: overlay creation end-to-end</p>
+<p><strong><code>docs/foundation.md</code></strong> (600-800 words)
+- DPDK deep-dive: ring buffers, memory pooling, NIC access patterns
+- eBPF deep-dive: XDP hooks, kernel maps, libbpf abstractions
+- Performance profiles and benchmarking methodology
+- Trade-off analysis: when each is appropriate</p>
+<p><strong><code>docs/controller.md</code></strong> (700-900 words)
+- Northbound API reference (endpoint descriptions, example payloads)
+- Southbound protocol specification (message types, state machine)
+- Policy engine design: intent-to-config translation
+- State management and consistency</p>
+<p><strong><code>docs/fabric.md</code></strong> (800-1000 words)
+- BGP protocol walk-through (state machine, route advertisement, best-path)
+- VXLAN encapsulation and tunnel lifecycle
+- EVPN route types and integration with BGP/VXLAN
+- Protocol state diagrams and message flows</p>
+<p><strong><code>docs/quickstart.md</code></strong> (200-300 words)
+- Prerequisites (Docker, Python 3, Go)
+- One-command lab startup: <code>docker-compose up &amp;&amp; ./init.sh</code>
+- First API calls to explore topology
+- Traffic generation and metric interpretation
+- Common troubleshooting (port conflicts, resource limits)</p>
+<p><strong><code>docs/extending.md</code></strong> (800-1000 words)
+- Catalog of marked extension points
+- For each: description, effort estimate (1-3 days / 1-2 weeks), relevant files/functions
+- Example: "Add BFD for fast failover" — how controller detects device failure, triggers reroute
+- Example: "Implement Segment Routing" — how SR extends BGP, integrates with EVPN</p>
+<p><strong><code>README.md</code></strong> (300-500 words)
+- Portfolio context: what this demonstrates
+- Audience: engineers wanting to understand modern networking architecture
+- Three learning paths: foundation-first (start with DPDK/eBPF), control-plane-first (start with controller), protocol-first (start with BGP/VXLAN)
+- Links to quickstart, architecture doc, ADRs</p>
+<h3 id="mkdocs-site-mkdocsyml">MkDocs Site (<code>mkdocs.yml</code>)</h3>
+<pre><code class="language-yaml">site_name: Chakraview Networking-SDN
+theme: material
+nav:
+  - Home: index.md
+  - Architecture:
+      - Overview: architecture.md
+      - Integration: integration.md
+  - Foundation Layer:
+      - DPDK: foundation.md#dpdk
+      - eBPF: foundation.md#ebpf
+      - Benchmarks: foundation.md#benchmarks
+  - Control Plane:
+      - Controller Design: controller.md
+      - APIs: controller.md#apis
+  - Fabric Protocols:
+      - BGP: fabric.md#bgp
+      - VXLAN: fabric.md#vxlan
+      - EVPN: fabric.md#evpn
+  - Lab:
+      - Quick Start: quickstart.md
+      - Troubleshooting: quickstart.md#troubleshooting
+  - Design:
+      - Extension Points: extending.md
+      - ADRs:
+          - ADR-0001: adrs/ADR-0001-monorepo-architecture.md
+          - ADR-0002: adrs/ADR-0002-dpdk-vs-ebpf.md
+          - ADR-0003: adrs/ADR-0003-go-control-plane.md
+          - ADR-0004: adrs/ADR-0004-bgp-vxlan-evpn.md
+          - ADR-0005: adrs/ADR-0005-simulated-fabric.md
+          - ADR-0006: adrs/ADR-0006-northbound-apis.md
+          - ADR-0007: adrs/ADR-0007-southbound-protocol.md
+          - ADR-0008: adrs/ADR-0008-lab-driven-development.md
+</code></pre>
+<hr />
+<h2 id="part-7-extension-points-clearly-marked">Part 7: Extension Points (Clearly Marked)</h2>
+<p>All future development areas are marked with <code>// TODO: EXTEND:</code> in code or <code># TODO: EXTEND:</code> in Python, with associated comments explaining the extension.</p>
+<h3 id="foundation-layer-extensions">Foundation Layer Extensions</h3>
+<p><strong>DPDK Extensions:</strong>
+- Line 45, <code>vxlan.c</code>: <code>// TODO: EXTEND: QoS and traffic shaping — implement token bucket</code>
+- Line 120, <code>filter.c</code>: <code>// TODO: EXTEND: Stateful NAT — connection tracking map</code>
+- Line 200, <code>forwarding.c</code>: <code>// TODO: EXTEND: Load balancing — implement flow hashing across CPU cores</code></p>
+<p><strong>eBPF Extensions:</strong>
+- Line 60, <code>xdp.rs</code>: <code>// TODO: EXTEND: Tail calls — modularize large programs</code>
+- Line 150, <code>tc.rs</code>: <code>// TODO: EXTEND: Connection tracking — stateful filtering with eBPF maps</code></p>
+<h3 id="controller-extensions">Controller Extensions</h3>
+<p><strong>Policy Engine:</strong>
+- <code>pkg/policy/engine.go:85</code>: <code>// TODO: EXTEND: Add BFD integration — detect device failures, trigger reroute</code>
+- <code>pkg/policy/engine.go:200</code>: <code>// TODO: EXTEND: Multi-controller HA — state sync via etcd</code></p>
+<p><strong>Storage:</strong>
+- <code>pkg/store/config.go:30</code>: <code>// TODO: EXTEND: Persistent storage — replace in-memory with etcd or database</code></p>
+<p><strong>Observability:</strong>
+- <code>pkg/northbound/http.go:150</code>: <code>// TODO: EXTEND: Prometheus metrics — request latency, device state changes</code></p>
+<h3 id="fabric-layer-extensions">Fabric Layer Extensions</h3>
+<p><strong>BGP:</strong>
+- <code>bgp/speaker.py:120</code>: <code># TODO: EXTEND: Segment Routing (SR-MPLS) — add SR TLV to BGP UPDATE</code>
+- <code>bgp/fsm.py:200</code>: <code># TODO: EXTEND: Route filtering — implement incoming/outgoing route maps</code></p>
+<p><strong>VXLAN:</strong>
+- <code>vxlan/learning.py:80</code>: <code># TODO: EXTEND: EVPN-based MAC learning — replace flooding with route-based lookup</code>
+- <code>vxlan/tunnel.py:150</code>: <code># TODO: EXTEND: Tunnel redundancy — active-active or active-backup modes</code></p>
+<p><strong>EVPN:</strong>
+- <code>evpn/integration.py:200</code>: <code># TODO: EXTEND: EVPN services — implement E-LAN, E-Line, IP-VPN</code>
+- <code>evpn/routes.py:300</code>: <code># TODO: EXTEND: Multicast — handle BUM (broadcast, unknown-unicast, multicast) trees</code></p>
+<h3 id="lab-extensions">Lab Extensions</h3>
+<p><strong>Scale Testing:</strong>
+- <code>lab/scripts/traffic.py:500</code>: <code># TODO: EXTEND: Large fabric scale test — 100+ devices, 1000+ routes</code></p>
+<p><strong>Failure Injection:</strong>
+- <code>lab/scripts/init.sh:200</code>: <code># TODO: EXTEND: Chaos engineering — link failures, controller restart, device crashes</code></p>
+<p><strong>Real Hardware:</strong>
+- <code>lab/docker-compose.yml</code>: <code># TODO: EXTEND: Run fabric nodes on real switches (Cumulus, etc.)</code></p>
+<hr />
+<h2 id="acceptance-criteria-validation">Acceptance Criteria &amp; Validation</h2>
+<h3 id="code-completeness">Code Completeness</h3>
+<ul>
+<li>[ ] All three layers implemented and runnable</li>
+<li>[ ] DPDK and eBPF both working, benchmarked</li>
+<li>[ ] Controller with REST and gRPC APIs</li>
+<li>[ ] BGP, VXLAN, EVPN protocol logic implemented</li>
+<li>[ ] Lab spins up end-to-end, no manual steps beyond <code>docker-compose up</code></li>
+</ul>
+<h3 id="documentation_1">Documentation</h3>
+<ul>
+<li>[ ] 8 ADRs written, committed</li>
+<li>[ ] Architecture, integration, foundation, controller, fabric docs complete</li>
+<li>[ ] Quickstart guide tested (someone can follow it and get lab running)</li>
+<li>[ ] Extending guide lists all marked extension points</li>
+<li>[ ] MkDocs site builds and deploys (e.g., GitHub Pages)</li>
+</ul>
+<h3 id="lab-testing">Lab &amp; Testing</h3>
+<ul>
+<li>[ ] Traffic generation and validation scripts work</li>
+<li>[ ] Metrics collection shows DPDK vs. eBPF performance comparison</li>
+<li>[ ] Overlay creation, BGP route distribution, VXLAN encapsulation all validated</li>
+<li>[ ] Lab can be torn down and recreated cleanly</li>
+</ul>
+<h3 id="quality">Quality</h3>
+<ul>
+<li>[ ] Code is well-commented, especially around extension points</li>
+<li>[ ] No TODOs except marked <code>EXTEND:</code> sections</li>
+<li>[ ] Type hints in Python, proper error handling in Go/C</li>
+<li>[ ] CI/CD configured (GitHub Actions: build, test, lint)</li>
+</ul>
+<hr />
+<h2 id="summary">Summary</h2>
+<p>This design specifies a three-layer networking SDN portfolio project with:
+- <strong>Foundation:</strong> DPDK vs. eBPF packet processing implementations with head-to-head benchmarks
+- <strong>Control Plane:</strong> Go SDN controller with intent-based north/south APIs
+- <strong>Fabric Protocols:</strong> Python implementations of BGP, VXLAN, EVPN showing protocol evolution
+- <strong>Integration:</strong> Docker Compose lab where all three layers work together end-to-end
+- <strong>Documentation:</strong> 8 ADRs, comprehensive guides, quickstart, and clearly marked extension points for future development</p>
+<p>Equal depth across layers, hybrid implementation (full foundation + controller, prototypes for fabric), and everything runnable and testable.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

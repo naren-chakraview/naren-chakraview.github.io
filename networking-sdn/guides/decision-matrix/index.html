@@ -1,0 +1,1862 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Portfolio project for SDN, DPDK, eBPF, and fabric protocols">
+      
+      
+      
+      
+        <link rel="prev" href="../lab-setup/">
+      
+      
+        <link rel="next" href="../landscape/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Decision Matrix - Chakraview Networking-SDN</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#decision-matrix-key-architectural-choices" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Chakraview Networking-SDN" class="md-header__button md-logo" aria-label="Chakraview Networking-SDN" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Chakraview Networking-SDN
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Decision Matrix
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/gundu/networking-sdn" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../quickstart/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Quick Start
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../architecture/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Architecture Overview
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../foundation-layer/" class="md-tabs__link">
+          
+  
+  
+  Component Guides
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  
+  Decision & Design
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../adrs/0001-architecture/" class="md-tabs__link">
+          
+  
+  
+  Architecture Decisions
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../extending/custom-protocols/" class="md-tabs__link">
+          
+  
+  
+  Extending
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Chakraview Networking-SDN" class="md-nav__button md-logo" aria-label="Chakraview Networking-SDN" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Chakraview Networking-SDN
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/gundu/networking-sdn" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Component Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Component Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../foundation-layer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundation Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../controller-layer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Controller Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fabric-layer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fabric Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision & Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Decision & Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision Matrix
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision Matrix
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-three-layer-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Three-Layer Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-packet-processing-foundation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Packet Processing Foundation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-southbound-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Southbound Protocol
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-controller-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Controller Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-fabric-protocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Fabric Protocols
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-lab-orchestration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Lab Orchestration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-repository-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Repository Structure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-performance-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Performance Constraints
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tradeoff-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tradeoff Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#future-optimization-roadmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Future Optimization Roadmap
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-documents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related Documents
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../landscape/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Landscape
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Decisions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture Decisions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adrs/0001-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-0001 Three-Layer Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adrs/0002-dpdk-vs-ebpf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-0002 DPDK vs eBPF
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adrs/0003-grpc-southbound/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-0003 Southbound Protocol
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adrs/0004-go-controller-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-0004 Controller Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adrs/0005-bgp-vxlan-evpn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-0005 BGP/VXLAN/EVPN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adrs/0006-lab-docker-compose/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-0006 Lab Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adrs/0007-monorepo-structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-0007 Monorepo Structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adrs/0008-performance-constraints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-0008 Performance Constraints
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Extending
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Extending
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extending/custom-protocols/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Custom Protocols
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extending/adding-devices/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adding Devices
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-three-layer-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Three-Layer Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-packet-processing-foundation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Packet Processing Foundation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-southbound-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Southbound Protocol
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-controller-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Controller Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-fabric-protocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Fabric Protocols
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-lab-orchestration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Lab Orchestration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-repository-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Repository Structure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-performance-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Performance Constraints
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tradeoff-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tradeoff Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#future-optimization-roadmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Future Optimization Roadmap
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-documents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related Documents
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="decision-matrix-key-architectural-choices">Decision Matrix — Key Architectural Choices</h1>
+<p>This guide summarizes the major architectural decisions in the networking-sdn portfolio and the tradeoffs that led to each choice.</p>
+<h2 id="1-three-layer-architecture">1. Three-Layer Architecture</h2>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Choice</th>
+<th>Alternative</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Abstraction Levels</strong></td>
+<td>Foundation (packet processing), Control (intent), Fabric (protocols)</td>
+<td>Monolithic single app</td>
+<td>Shows each concern independently; mirrors real SDN deployments</td>
+</tr>
+<tr>
+<td><strong>Foundation Tech</strong></td>
+<td>Both DPDK and eBPF</td>
+<td>DPDK only</td>
+<td>Demonstrates spectrum from userspace to kernel; both used in production</td>
+</tr>
+<tr>
+<td><strong>Control Plane Language</strong></td>
+<td>Go + gRPC</td>
+<td>Python, Rust, or Hybrid</td>
+<td>Fast iteration, strong typing, excellent gRPC support</td>
+</tr>
+<tr>
+<td><strong>Fabric Implementation</strong></td>
+<td>Python simulated devices</td>
+<td>Real switches or GoBGP</td>
+<td>Simple to understand and extend; no vendor licensing</td>
+</tr>
+</tbody>
+</table>
+<p><strong>See:</strong> <a href="../../adrs/0001-architecture/">ADR-0001</a>, <a href="../../adrs/0002-dpdk-vs-ebpf/">ADR-0002</a></p>
+<h2 id="2-packet-processing-foundation">2. Packet Processing Foundation</h2>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Choice</th>
+<th>Alternative</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>DPDK Approach</strong></td>
+<td>Single-threaded polling loop</td>
+<td>Multicore with NUMA</td>
+<td>Teaches fundamentals without systems complexity</td>
+</tr>
+<tr>
+<td><strong>eBPF Approach</strong></td>
+<td>XDP hook only</td>
+<td>XDP + TC (Netfilter)</td>
+<td>XDP is the fast path; TC adds complexity without educational benefit</td>
+</tr>
+<tr>
+<td><strong>API Consistency</strong></td>
+<td>Both expose same gRPC interface</td>
+<td>Different APIs per impl</td>
+<td>Lab can swap implementations; controller unchanged</td>
+</tr>
+<tr>
+<td><strong>Performance Target</strong></td>
+<td>100K pps (DPDK), 1M pps (eBPF)</td>
+<td>Production-grade (10M+)</td>
+<td>Educational clarity &gt; raw throughput</td>
+</tr>
+</tbody>
+</table>
+<p><strong>See:</strong> <a href="../../adrs/0002-dpdk-vs-ebpf/">ADR-0002</a>, <a href="../../adrs/0008-performance-constraints/">ADR-0008</a>, <a href="../foundation-layer/">Foundation Guide</a></p>
+<h2 id="3-southbound-protocol">3. Southbound Protocol</h2>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Choice</th>
+<th>Alternative</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Protocol</strong></td>
+<td>gRPC for agents, REST for operators</td>
+<td>REST for both, AMQP queue</td>
+<td>gRPC efficiency internal; REST human-friendly external</td>
+</tr>
+<tr>
+<td><strong>Data Format</strong></td>
+<td>Protocol Buffers (protobuf)</td>
+<td>JSON, XML</td>
+<td>Type safety; binary efficiency; cross-language code generation</td>
+</tr>
+<tr>
+<td><strong>Connection Model</strong></td>
+<td>Persistent gRPC streams</td>
+<td>Polling REST endpoints</td>
+<td>Server-side streaming allows devices to push stats asynchronously</td>
+</tr>
+<tr>
+<td><strong>Authentication</strong></td>
+<td>Self-signed certificates (lab)</td>
+<td>Mutual TLS in production</td>
+<td>Simplicity for portfolio; marked as EXTENSION for real deployment</td>
+</tr>
+</tbody>
+</table>
+<p><strong>See:</strong> <a href="../../adrs/0003-grpc-southbound/">ADR-0003</a>, <a href="../controller-layer/">Controller Guide</a></p>
+<h2 id="4-controller-architecture">4. Controller Architecture</h2>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Choice</th>
+<th>Alternative</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Discovery</strong></td>
+<td>gRPC device registration</td>
+<td>Automatic LLDP/ARP learning</td>
+<td>Explicit is clearer for education; automatic adds L2 complexity</td>
+</tr>
+<tr>
+<td><strong>Path Computation</strong></td>
+<td>BFS (breadth-first search)</td>
+<td>Dijkstra, CSPF</td>
+<td>BFS sufficient for equal-cost links; simpler algorithm to teach</td>
+</tr>
+<tr>
+<td><strong>State Storage</strong></td>
+<td>In-memory graph + lock</td>
+<td>Database (etcd, PostgreSQL)</td>
+<td>In-memory sufficient for 1K devices; persistence marked as EXTENSION</td>
+</tr>
+<tr>
+<td><strong>Failure Handling</strong></td>
+<td>Simple retry</td>
+<td>Rollback with transaction</td>
+<td>Rollback adds complexity; retry acceptable for lab</td>
+</tr>
+</tbody>
+</table>
+<p><strong>See:</strong> <a href="../../adrs/0004-go-controller-design/">ADR-0004</a>, <a href="../controller-layer/">Controller Guide</a></p>
+<h2 id="5-fabric-protocols">5. Fabric Protocols</h2>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Choice</th>
+<th>Alternative</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Primary Routing</strong></td>
+<td>BGP</td>
+<td>OSPF, IS-IS, custom</td>
+<td>BGP most common in cloud; 13-state FSM is interesting; external routing protocol</td>
+</tr>
+<tr>
+<td><strong>Overlay Tunneling</strong></td>
+<td>VXLAN</td>
+<td>Geneve, STT</td>
+<td>VXLAN standard in datacenter; simpler encapsulation than Geneve</td>
+</tr>
+<tr>
+<td><strong>Multi-Device Coordination</strong></td>
+<td>EVPN (Type 2, Type 5 routes)</td>
+<td>Static configuration, LISP</td>
+<td>EVPN the industry direction; Type 2+5 cover common cases; Types 1,3,4 marked EXTENSION</td>
+</tr>
+<tr>
+<td><strong>Device Simulation</strong></td>
+<td>Python classes</td>
+<td>Real hardware emulation (QEMU)</td>
+<td>Simplicity; Python allows rapid iteration; no hardware emulation overhead</td>
+</tr>
+</tbody>
+</table>
+<p><strong>See:</strong> <a href="../../adrs/0005-bgp-vxlan-evpn/">ADR-0005</a>, <a href="../fabric-layer/">Fabric Guide</a></p>
+<h2 id="6-lab-orchestration">6. Lab Orchestration</h2>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Choice</th>
+<th>Alternative</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Orchestration</strong></td>
+<td>Docker Compose</td>
+<td>Kubernetes, Vagrant, manual</td>
+<td>Docker Compose simplest for portfolio; Kubernetes overkill; manual error-prone</td>
+</tr>
+<tr>
+<td><strong>Networking</strong></td>
+<td>Custom bridge network</td>
+<td>Host network, Macvlan</td>
+<td>Bridge network isolated; Macvlan adds complexity</td>
+</tr>
+<tr>
+<td><strong>Health Checks</strong></td>
+<td>Container healthcheck + init script</td>
+<td>Polling endpoints</td>
+<td>Healthcheck native; init script coordinates startup order</td>
+</tr>
+<tr>
+<td><strong>Traffic Generation</strong></td>
+<td>iperf3</td>
+<td>tcpdump wrapper, dedicated tool</td>
+<td>iperf3 standard, sufficient for synthetic load</td>
+</tr>
+</tbody>
+</table>
+<p><strong>See:</strong> <a href="../../adrs/0006-lab-docker-compose/">ADR-0006</a>, <a href="../lab-setup/">Lab Guide</a></p>
+<h2 id="7-repository-structure">7. Repository Structure</h2>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Choice</th>
+<th>Alternative</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Organization</strong></td>
+<td>Monorepo (one git repo)</td>
+<td>Polyrepo (git submodules)</td>
+<td>Single clone = full system; no version coordination overhead</td>
+</tr>
+<tr>
+<td><strong>Versioning</strong></td>
+<td>All layers version together</td>
+<td>Independent per-layer</td>
+<td>Simplicity; all release as v1.0.0 together</td>
+</tr>
+<tr>
+<td><strong>Build System</strong></td>
+<td>Root Makefile + layer Makefiles</td>
+<td>Gradle, Bazel, single Makefile</td>
+<td>Hierarchical Make; each layer independent; no shared abstraction</td>
+</tr>
+<tr>
+<td><strong>Dependency Management</strong></td>
+<td>Per-language (go.mod, Cargo.toml, requirements.txt)</td>
+<td>Shared lock file</td>
+<td>Clear boundaries; per-language tools are the standard</td>
+</tr>
+</tbody>
+</table>
+<p><strong>See:</strong> <a href="../../adrs/0007-monorepo-structure/">ADR-0007</a></p>
+<h2 id="8-performance-constraints">8. Performance Constraints</h2>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Choice</th>
+<th>Alternative</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Optimization Target</strong></td>
+<td>Educational clarity</td>
+<td>Production performance</td>
+<td>Code readability &gt; throughput; marked EXTENSIONS for perf improvements</td>
+</tr>
+<tr>
+<td><strong>Concurrency Model</strong></td>
+<td>Single-threaded (DPDK), kernel scheduling (eBPF), GoroutinesGo)</td>
+<td>Multicore with locks</td>
+<td>Complexity hidden by language/OS; suitable for portfolio scope</td>
+</tr>
+<tr>
+<td><strong>Caching</strong></td>
+<td>None (compute on demand)</td>
+<td>Memoization, LRU cache</td>
+<td>Small networks; cache invalidation complexity not worth it</td>
+</tr>
+<tr>
+<td><strong>Monitoring</strong></td>
+<td>Prometheus metrics + structured logs</td>
+<td>Full APM (DataDog, NewRelic)</td>
+<td>Metrics sufficient for understanding behavior; APM overkill</td>
+</tr>
+</tbody>
+</table>
+<p><strong>See:</strong> <a href="../../adrs/0008-performance-constraints/">ADR-0008</a></p>
+<h2 id="tradeoff-summary">Tradeoff Summary</h2>
+<p><strong>What We Optimized For:</strong>
+- <strong>Education</strong>: Code clarity, understandability, teachable complexity
+- <strong>Deployability</strong>: Docker Compose <code>docker-compose up</code> works out-of-box
+- <strong>Completeness</strong>: Full three-layer system in single lab</p>
+<p><strong>What We De-Optimized:</strong>
+- <strong>Performance</strong>: Modest throughput (100K-1M pps) vs. production (10M+ pps)
+- <strong>Scalability</strong>: 1K devices max vs. production (100K+)
+- <strong>Reliability</strong>: Simple retry vs. proper transactions and rollback
+- <strong>Security</strong>: Self-signed certs vs. PKI infrastructure</p>
+<p>This is appropriate for a portfolio project. If goals change (production SDN, benchmarking), revisit these decisions.</p>
+<h2 id="future-optimization-roadmap">Future Optimization Roadmap</h2>
+<p>These improvements are marked throughout the codebase with <code>EXTENSION:</code> comments:</p>
+<ol>
+<li><strong>Multicore DPDK</strong> — Replace single polling loop with thread pool per core</li>
+<li><strong>TC (Traffic Control) in eBPF</strong> — Egress filtering for traffic shaping</li>
+<li><strong>BGP Route Dampening</strong> — Suppress routes that flap frequently</li>
+<li><strong>Persistent Controller State</strong> — etcd or PostgreSQL for topology recovery</li>
+<li><strong>Transaction-based Intent</strong> — Rollback when route installation fails midway</li>
+<li><strong>Performance Benchmarking</strong> — Comparative benchmarks DPDK vs eBPF at scale</li>
+<li><strong>eBPF Ring Buffer Telemetry</strong> — Real-time event streaming instead of counter polling</li>
+<li><strong>EVPN Type 3 (Inclusive Multicast)</strong> — Support broadcast/multicast overlays</li>
+</ol>
+<h2 id="related-documents">Related Documents</h2>
+<ul>
+<li><a href="../../architecture/">Architecture Overview</a></li>
+<li><a href="../adrs/">8 ADRs</a> — Detailed rationale for each decision</li>
+<li><a href=".">Component Guides</a> — Foundation, Controller, Fabric, Lab</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
