@@ -1,38 +1,46 @@
 #!/bin/bash
 
-# Rebuild all portfolio project documentation
-# Usage: ./scripts/rebuild-all-docs.sh [--push]
+# Rebuild portfolio project documentation from local clones
+# Usage:
+#   ./rebuild-all-docs.sh [--push]              # Rebuild all repos
+#   ./rebuild-all-docs.sh <repo-name> [--push]  # Rebuild single repo
 #
-# This script:
-# 1. Clones/pulls each portfolio repo
-# 2. Builds mkdocs for repos with documentation
-# 3. Updates the GitHub Pages repo with built docs
-# 4. Optionally commits and pushes (with --push flag)
+# Examples:
+#   ./rebuild-all-docs.sh                                  # All repos, stage changes
+#   ./rebuild-all-docs.sh --push                          # All repos, push to GitHub
+#   ./rebuild-all-docs.sh networking-sdn                  # Just networking-sdn
+#   ./rebuild-all-docs.sh networking-sdn --push           # Just networking-sdn, push
 
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PAGES_ROOT="$(dirname "$SCRIPT_DIR")"
-WORK_DIR="${PAGES_ROOT}/.build-tmp"
+PORTFOLIO_ROOT="$(dirname "$PAGES_ROOT")"
 PUSH_CHANGES=false
-BASE_URL="https://github.com/naren-chakraview"
+SINGLE_REPO=""
 
 # Parse arguments
-if [ "$1" = "--push" ]; then
-    PUSH_CHANGES=true
-fi
+for arg in "$@"; do
+    case "$arg" in
+        --push)
+            PUSH_CHANGES=true
+            ;;
+        *)
+            if [ -z "$SINGLE_REPO" ]; then
+                SINGLE_REPO="$arg"
+            fi
+            ;;
+    esac
+done
 
 echo "📚 Portfolio Documentation Rebuild Script"
 echo "========================================"
 echo ""
+echo "Portfolio root: $PORTFOLIO_ROOT"
 echo "Pages root: $PAGES_ROOT"
-echo "Work directory: $WORK_DIR"
 echo "Push changes: $PUSH_CHANGES"
+[ -n "$SINGLE_REPO" ] && echo "Single repo mode: $SINGLE_REPO"
 echo ""
-
-# Create work directory
-mkdir -p "$WORK_DIR"
-cd "$WORK_DIR"
 
 # Array of repos with documentation
 declare -a REPOS=(
@@ -43,41 +51,63 @@ declare -a REPOS=(
     "chakraview-networking-sdn:networking-sdn"
 )
 
+# If single repo specified, validate and filter
+if [ -n "$SINGLE_REPO" ]; then
+    found=false
+    for repo_config in "${REPOS[@]}"; do
+        IFS=':' read -r repo_name output_dir <<< "$repo_config"
+        if [ "$repo_name" = "$SINGLE_REPO" ] || [ "$output_dir" = "$SINGLE_REPO" ]; then
+            REPOS=("$repo_config")
+            found=true
+            break
+        fi
+    done
+
+    if [ "$found" = false ]; then
+        echo "❌ Error: Repository '$SINGLE_REPO' not found"
+        echo ""
+        echo "Available repos:"
+        for repo_config in "${REPOS[@]}"; do
+            IFS=':' read -r repo_name output_dir <<< "$repo_config"
+            echo "  - $repo_name (output: $output_dir)"
+        done
+        exit 1
+    fi
+fi
+
 # Function to build docs for a repo
 build_repo_docs() {
     local repo_name="$1"
     local output_dir="$2"
-    local full_path="$WORK_DIR/$repo_name"
+    local repo_path="$PORTFOLIO_ROOT/$repo_name"
 
     echo ""
     echo "🔨 Processing: $repo_name → $output_dir"
     echo "─────────────────────────────────────────"
 
-    # Clone or pull repo
-    if [ -d "$full_path" ]; then
-        echo "  📥 Pulling updates..."
-        cd "$full_path"
-        git pull origin main --quiet
-    else
-        echo "  📥 Cloning repo..."
-        git clone "$BASE_URL/$repo_name.git" "$full_path" --quiet
-        cd "$full_path"
+    # Check if repo exists locally
+    if [ ! -d "$repo_path" ]; then
+        echo "  ❌ Repository not found at: $repo_path"
+        return 1
     fi
 
     # Check if mkdocs.yml exists
-    if [ ! -f "mkdocs.yml" ]; then
+    if [ ! -f "$repo_path/mkdocs.yml" ]; then
         echo "  ⏭️  No mkdocs.yml found, skipping"
         return 0
     fi
 
     # Check if docs directory exists
-    if [ ! -d "docs" ]; then
+    if [ ! -d "$repo_path/docs" ]; then
         echo "  ⏭️  No docs directory found, skipping"
         return 0
     fi
 
     # Build mkdocs
     echo "  🏗️  Building mkdocs..."
+    cd "$repo_path"
+
+    # Ensure mkdocs is installed
     if ! python -m pip show mkdocs &>/dev/null; then
         echo "  📦 Installing mkdocs dependencies..."
         pip install mkdocs mkdocs-material pymdown-extensions -q
@@ -87,13 +117,14 @@ build_repo_docs() {
     rm -rf site
 
     # Build site
-    mkdocs build --quiet 2>/dev/null || {
+    if ! mkdocs build --quiet 2>/dev/null; then
         echo "  ❌ Build failed for $repo_name"
         return 1
-    }
+    fi
 
     # Remove old docs in pages repo
     if [ -d "$PAGES_ROOT/$output_dir" ]; then
+        echo "  🗑️  Removing old docs at /$output_dir"
         rm -rf "$PAGES_ROOT/$output_dir"
     fi
 
@@ -102,9 +133,10 @@ build_repo_docs() {
     cp -r site/* "$PAGES_ROOT/$output_dir/"
 
     echo "  ✅ Built and deployed to /$output_dir"
+    return 0
 }
 
-# Build each repo
+# Build repos
 FAILED_REPOS=()
 for repo_config in "${REPOS[@]}"; do
     IFS=':' read -r repo_name output_dir <<< "$repo_config"
@@ -120,7 +152,7 @@ echo "📊 Build Summary"
 echo "════════════════════════════════════════"
 
 if [ ${#FAILED_REPOS[@]} -eq 0 ]; then
-    echo "✅ All documentation built successfully!"
+    echo "✅ Documentation built successfully!"
 else
     echo "⚠️  Some repos failed to build:"
     for repo in "${FAILED_REPOS[@]}"; do
@@ -128,13 +160,9 @@ else
     done
 fi
 
-# Cleanup work directory
-echo ""
-echo "🧹 Cleaning up..."
-cd "$PAGES_ROOT"
-rm -rf "$WORK_DIR"
-
 # Git operations
+cd "$PAGES_ROOT"
+
 if [ $PUSH_CHANGES = true ]; then
     echo ""
     echo "📤 Git Operations"
@@ -144,8 +172,14 @@ if [ $PUSH_CHANGES = true ]; then
         echo "  📝 Staging changes..."
         git add -A
 
-        echo "  💾 Committing..."
-        git commit -m "docs: rebuild all portfolio documentation $(date '+%Y-%m-%d %H:%M:%S')"
+        if [ -n "$SINGLE_REPO" ]; then
+            commit_msg="docs: rebuild $SINGLE_REPO documentation $(date '+%Y-%m-%d %H:%M:%S')"
+        else
+            commit_msg="docs: rebuild all portfolio documentation $(date '+%Y-%m-%d %H:%M:%S')"
+        fi
+
+        echo "  💾 Committing with message: '$commit_msg'"
+        git commit -m "$commit_msg"
 
         echo "  📤 Pushing to remote..."
         git push origin main
@@ -159,12 +193,16 @@ else
     echo "📋 Changes staged locally (use --push to commit and push)"
     echo ""
     echo "To review changes:"
+    echo "  cd $PAGES_ROOT"
     echo "  git status"
-    echo "  git diff --cached"
+    echo "  git diff --cached | less"
     echo ""
     echo "To commit and push:"
-    echo "  git add -A"
-    echo "  git commit -m 'docs: rebuild all portfolio documentation'"
+    if [ -n "$SINGLE_REPO" ]; then
+        echo "  git commit -m 'docs: rebuild $SINGLE_REPO documentation'"
+    else
+        echo "  git commit -m 'docs: rebuild all portfolio documentation'"
+    fi
     echo "  git push origin main"
 fi
 
