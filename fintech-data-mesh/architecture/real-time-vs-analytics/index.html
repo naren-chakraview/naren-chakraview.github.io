@@ -2234,7 +2234,7 @@ Inefficient for large streams.</p>
 <h3 id="kafka-lag-hot-path-health">Kafka Lag Hot Path Health<a class="headerlink" href="#kafka-lag-hot-path-health" title="Permanent link">&para;</a></h3>
 <pre class="mermaid"><code>graph TD
     A["Metric: kafka_lag_seconds"]
-    A --&gt; B["Definition: Time since event published&lt;br/&gt;vs. when Spark reads it"]
+    A --&gt; B["Definition: Time since event publishedvs. when Spark reads it"]
     B --&gt; C["Threshold"]
     C --&gt; C1["&lt; 1 sec: Healthy"]
     C --&gt; C2["1-5 sec: Acceptable burst traffic"]
@@ -2242,7 +2242,7 @@ Inefficient for large streams.</p>
 <h3 id="iceberg-freshness-cold-path-health">Iceberg Freshness Cold Path Health<a class="headerlink" href="#iceberg-freshness-cold-path-health" title="Permanent link">&para;</a></h3>
 <pre class="mermaid"><code>graph TD
     A["Metric: data_freshness_minutes"]
-    A --&gt; B["Definition: Time since last Iceberg snapshot&lt;br/&gt;vs. current time"]
+    A --&gt; B["Definition: Time since last Iceberg snapshotvs. current time"]
     B --&gt; C["Threshold"]
     C --&gt; C1["&lt; 5 min: Healthy meets SLA"]
     C --&gt; C2["5-10 min: Acceptable Spark job slow"]

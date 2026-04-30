@@ -2068,7 +2068,7 @@
 <pre class="mermaid"><code>graph TD
     A["Fix"]
     A --&gt; A1["Increase executor memory"]
-    A --&gt; A2["kubectl set resources deployment transaction-ingest-job&lt;br/&gt;--limits=memory=32Gi --requests=memory=16Gi"]
+    A --&gt; A2["kubectl set resources deployment transaction-ingest-job--limits=memory=32Gi --requests=memory=16Gi"]
     A --&gt; A3["Restart job"]</code></pre>
 <p><strong>Cause 2: Kafka Broker Down</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Check:<span class="w"> </span>kafka-topics.sh<span class="w"> </span>--bootstrap-server<span class="w"> </span>kafka:9092<span class="w"> </span>--list
@@ -2077,7 +2077,7 @@
     A["If no response"]
     A --&gt; A1["Check broker status: kubectl get pods kafka-0, kafka-1, kafka-2"]
     A --&gt; A2["If any pod not running: kubectl logs kafka-0"]
-    A --&gt; A3["Restart: kubectl delete pod kafka-0&lt;br/&gt;PVC persists data"]
+    A --&gt; A3["Restart: kubectl delete pod kafka-0PVC persists data"]
     A --&gt; A4["Wait 5 min for recovery"]</code></pre>
 <p><strong>Cause 3: Iceberg Catalog Slow</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Check:<span class="w"> </span>curl<span class="w"> </span>http://iceberg-catalog:8181/health
@@ -2090,7 +2090,7 @@
 
     B["Recovery"]
     B --&gt; B1["Stop ingest job prevent more writes"]
-    B --&gt; B2["kubectl patch deployment transaction-ingest-job&lt;br/&gt;-p '{spec:replicas:0}'"]
+    B --&gt; B2["kubectl patch deployment transaction-ingest-job-p '{spec:replicas:0}'"]
     B --&gt; B3["Restart catalog wait for recovery"]
     B --&gt; B4["Restart ingest job"]</code></pre>
 <p><strong>Cause 4: Network Connectivity</strong></p>
@@ -2123,19 +2123,19 @@
 <h3 id="resolution-steps-priority-order">Resolution Steps Priority Order<a class="headerlink" href="#resolution-steps-priority-order" title="Permanent link">&para;</a></h3>
 <pre class="mermaid"><code>graph TD
     A["Troubleshooting Flow"]
-    A --&gt; A1["1. Is ingest job running?&lt;br/&gt;→ Restart if needed"]
-    A1 --&gt; A2["2. Is Kafka healthy?&lt;br/&gt;→ Restart brokers if needed"]
-    A2 --&gt; A3["3. Is catalog healthy?&lt;br/&gt;→ Restart catalog"]
-    A3 --&gt; A4["4. Is there network connectivity?&lt;br/&gt;→ Check DNS, policies"]
-    A4 --&gt; A5["5. Is Spark slow?&lt;br/&gt;→ Check CPU/memory, scale if needed"]
-    A5 --&gt; A6["6. Is there a volume spike?&lt;br/&gt;→ Temporarily scale, then analyze"]</code></pre>
+    A --&gt; A1["1. Is ingest job running?→ Restart if needed"]
+    A1 --&gt; A2["2. Is Kafka healthy?→ Restart brokers if needed"]
+    A2 --&gt; A3["3. Is catalog healthy?→ Restart catalog"]
+    A3 --&gt; A4["4. Is there network connectivity?→ Check DNS, policies"]
+    A4 --&gt; A5["5. Is Spark slow?→ Check CPU/memory, scale if needed"]
+    A5 --&gt; A6["6. Is there a volume spike?→ Temporarily scale, then analyze"]</code></pre>
 <h3 id="prevention">Prevention<a class="headerlink" href="#prevention" title="Permanent link">&para;</a></h3>
 <p><strong>Alerting thresholds</strong> (set in Prometheus):</p>
 <pre class="mermaid"><code>graph TD
     A["Alert Thresholds"]
-    A --&gt; A1["data_freshness_sla_warning&lt;br/&gt;Condition: data_freshness_minutes &gt; 3&lt;br/&gt;60% of 5-min SLA&lt;br/&gt;Action: Page on-call, investigate"]
-    A --&gt; A2["kafka_lag_critical&lt;br/&gt;Condition: kafka_lag_seconds &gt; 60&lt;br/&gt;Action: Page on-call"]
-    A --&gt; A3["ingest_errors_high&lt;br/&gt;Condition: rate ingest_errors_total[5m] &gt; 0.01&lt;br/&gt;&gt;1% errors&lt;br/&gt;Action: Page on-call"]</code></pre>
+    A --&gt; A1["data_freshness_sla_warningCondition: data_freshness_minutes &gt; 360% of 5-min SLAAction: Page on-call, investigate"]
+    A --&gt; A2["kafka_lag_criticalCondition: kafka_lag_seconds &gt; 60Action: Page on-call"]
+    A --&gt; A3["ingest_errors_highCondition: rate ingest_errors_total[5m] &gt; 0.01&gt;1% errorsAction: Page on-call"]</code></pre>
 <p><strong>Health checks</strong> (automated):</p>
 <p><pre class="mermaid"><code>graph TD
     A["Automated Health Checks"]
