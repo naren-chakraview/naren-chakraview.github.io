@@ -49,6 +49,7 @@ declare -a REPOS=(
     "chakraview-realtime-data-platform:realtime-data-platform"
     "chakraview-data-engineering-patterns:data-engineering-patterns"
     "chakraview-networking-sdn:networking-sdn"
+    "chakraview-fintech-data-mesh:fintech-data-mesh"
 )
 
 # If single repo specified, validate and filter
