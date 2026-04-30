@@ -1400,7 +1400,7 @@
 <hr />
 <h2 id="decision">Decision</h2>
 <p>Adopt <strong>monorepo</strong> with clear layer separation:</p>
-<pre><code>chakraview-networking-sdn/
+<div class="highlight"><pre><span></span><code>chakraview-networking-sdn/
 ├── foundation/
 │   ├── dpdk/              # C code, Makefile, tests
 │   └── ebpf/              # Rust code, Cargo.toml, tests
@@ -1424,7 +1424,7 @@
 ├── docs/                  # Architecture, ADRs, guides
 ├── Makefile               # Root build orchestration
 └── .gitignore
-</code></pre>
+</code></pre></div>
 <p><strong>Why monorepo:</strong>
 - Single <code>git clone</code> gives viewers the entire system
 - Atomic commits across layers (e.g., "add EVPN routes + controller support" is one commit)

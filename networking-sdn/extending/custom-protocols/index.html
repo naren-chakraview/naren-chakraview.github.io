@@ -1418,64 +1418,64 @@
 <p>This guide shows how to add a new fabric protocol to the system.</p>
 <h2 id="example-adding-ospf-support">Example: Adding OSPF Support</h2>
 <h3 id="1-define-protocol-module">1. Define Protocol Module</h3>
-<p>Create <code>fabric/ospf/__init__.py</code>:</p>
-<pre><code class="language-python">from .ospf import OSPFRouter
-__all__ = ['OSPFRouter']
-</code></pre>
+<p>Create <code>fabric/ospf/__init__.py</code>:
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">.ospf</span> <span class="kn">import</span> <span class="n">OSPFRouter</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;OSPFRouter&#39;</span><span class="p">]</span>
+</code></pre></div></p>
 <h3 id="2-implement-state-machine">2. Implement State Machine</h3>
-<p>Create <code>fabric/ospf/ospf.py</code>:</p>
-<pre><code class="language-python">from enum import Enum
-from typing import Dict
+<p>Create <code>fabric/ospf/ospf.py</code>:
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
 
-class OSPFState(Enum):
-    DOWN = &quot;DOWN&quot;
-    INIT = &quot;INIT&quot;
-    TWO_WAY = &quot;TWO_WAY&quot;
-    EXCHANGE = &quot;EXCHANGE&quot;
-    LOADING = &quot;LOADING&quot;
-    FULL = &quot;FULL&quot;
+<span class="k">class</span> <span class="nc">OSPFState</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n">DOWN</span> <span class="o">=</span> <span class="s2">&quot;DOWN&quot;</span>
+    <span class="n">INIT</span> <span class="o">=</span> <span class="s2">&quot;INIT&quot;</span>
+    <span class="n">TWO_WAY</span> <span class="o">=</span> <span class="s2">&quot;TWO_WAY&quot;</span>
+    <span class="n">EXCHANGE</span> <span class="o">=</span> <span class="s2">&quot;EXCHANGE&quot;</span>
+    <span class="n">LOADING</span> <span class="o">=</span> <span class="s2">&quot;LOADING&quot;</span>
+    <span class="n">FULL</span> <span class="o">=</span> <span class="s2">&quot;FULL&quot;</span>
 
-class OSPFRouter:
-    def __init__(self, router_id: str, area: str):
-        self.router_id = router_id
-        self.area = area
-        self.neighbors: Dict[str, OSPFState] = {}
-</code></pre>
+<span class="k">class</span> <span class="nc">OSPFRouter</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">router_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">area</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">router_id</span> <span class="o">=</span> <span class="n">router_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">area</span> <span class="o">=</span> <span class="n">area</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">neighbors</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">OSPFState</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+</code></pre></div></p>
 <h3 id="3-add-grpc-service-optional">3. Add gRPC Service (Optional)</h3>
-<p>Extend <code>controller/api/fabric.proto</code>:</p>
-<pre><code class="language-protobuf">service FabricAgent {
-    // ... existing services
-    rpc AdvertiseOSPFRoute(OSPFAdvertisement) returns (RouteStatus);
-}
+<p>Extend <code>controller/api/fabric.proto</code>:
+<div class="highlight"><pre><span></span><code><span class="kd">service</span><span class="w"> </span><span class="n">FabricAgent</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// ... existing services</span>
+<span class="w">    </span><span class="k">rpc</span><span class="w"> </span><span class="n">AdvertiseOSPFRoute</span><span class="p">(</span><span class="n">OSPFAdvertisement</span><span class="p">)</span><span class="w"> </span><span class="k">returns</span><span class="w"> </span><span class="p">(</span><span class="n">RouteStatus</span><span class="p">);</span>
+<span class="p">}</span>
 
-message OSPFAdvertisement {
-    string originator = 1;
-    string destination = 2;
-    int32 cost = 3;
-}
-</code></pre>
+<span class="kd">message</span><span class="w"> </span><span class="nc">OSPFAdvertisement</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="na">originator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="na">destination</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int32</span><span class="w"> </span><span class="na">cost</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></p>
 <h3 id="4-integrate-with-controller">4. Integrate with Controller</h3>
-<p>Update <code>controller/pkg/southbound/grpc_server.go</code>:</p>
-<pre><code class="language-go">func (s *FabricAgentServer) AdvertiseOSPFRoute(ctx context.Context, 
-    route *api.OSPFAdvertisement) (*api.RouteStatus, error) {
-    // Handle OSPF route
-    return &amp;api.RouteStatus{Advertised: true}, nil
-}
-</code></pre>
+<p>Update <code>controller/pkg/southbound/grpc_server.go</code>:
+<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="o">*</span><span class="nx">FabricAgentServer</span><span class="p">)</span><span class="w"> </span><span class="nx">AdvertiseOSPFRoute</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nx">route</span><span class="w"> </span><span class="o">*</span><span class="nx">api</span><span class="p">.</span><span class="nx">OSPFAdvertisement</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="nx">api</span><span class="p">.</span><span class="nx">RouteStatus</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Handle OSPF route</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">api</span><span class="p">.</span><span class="nx">RouteStatus</span><span class="p">{</span><span class="nx">Advertised</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">},</span><span class="w"> </span><span class="kc">nil</span>
+<span class="p">}</span>
+</code></pre></div></p>
 <h3 id="5-test">5. Test</h3>
-<pre><code class="language-bash">cd fabric
-python -m pytest ospf/ -v
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>fabric
+python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>ospf/<span class="w"> </span>-v
+</code></pre></div>
 <h2 id="adding-a-new-device-type">Adding a New Device Type</h2>
-<p>Extend <code>fabric/device/network_device.py</code>:</p>
-<pre><code class="language-python">class BorderLeafDevice(NetworkDevice):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.external_peers = []
+<p>Extend <code>fabric/device/network_device.py</code>:
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">BorderLeafDevice</span><span class="p">(</span><span class="n">NetworkDevice</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">external_peers</span> <span class="o">=</span> <span class="p">[]</span>
 
-    def connect_external_peer(self, peer_addr: str):
-        self.external_peers.append(peer_addr)
-</code></pre>
+    <span class="k">def</span> <span class="nf">connect_external_peer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">peer_addr</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">external_peers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">peer_addr</span><span class="p">)</span>
+</code></pre></div></p>
 <h2 id="tips">Tips</h2>
 <ul>
 <li>Follow existing module structure (types.py, implementation.py, <strong>init</strong>.py)</li>

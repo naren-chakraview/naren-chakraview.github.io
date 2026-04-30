@@ -1693,7 +1693,7 @@
 - Production-inspired architecture with extension points marked for future development</p>
 <hr />
 <h2 id="part-1-repository-structure-organization">Part 1: Repository Structure &amp; Organization</h2>
-<pre><code>chakraview-networking-sdn/
+<div class="highlight"><pre><span></span><code>chakraview-networking-sdn/
 ├── foundation/
 │   ├── dpdk/                 # C — user-space packet processing
 │   │   ├── src/
@@ -1823,7 +1823,7 @@
 │
 ├── mkdocs.yml
 └── README.md
-</code></pre>
+</code></pre></div>
 <hr />
 <h2 id="part-2-foundation-layer-dpdk-vs-ebpf">Part 2: Foundation Layer (DPDK vs eBPF)</h2>
 <h3 id="purpose">Purpose</h3>
@@ -1943,7 +1943,7 @@
 </ol>
 <h3 id="northbound-api-rest">Northbound API (REST)</h3>
 <p><strong>Key Endpoints:</strong></p>
-<pre><code>GET  /api/v1/topology              # List devices, links, overlay status
+<div class="highlight"><pre><span></span><code>GET  /api/v1/topology              # List devices, links, overlay status
 GET  /api/v1/topology/devices      # List registered devices
 GET  /api/v1/topology/links        # List detected links
 POST /api/v1/topology/devices      # Register device (usually auto)
@@ -1957,31 +1957,31 @@ GET  /api/v1/policies              # List active policies
 DELETE /api/v1/policies/{id}       # Remove policy
 
 GET  /api/v1/status                # Controller health, fabric state summary
-</code></pre>
-<p><strong>Example: Create a VXLAN Overlay</strong></p>
-<pre><code class="language-json">POST /api/v1/overlays
-{
-  &quot;name&quot;: &quot;overlay-prod&quot;,
-  &quot;vni&quot;: 100,
-  &quot;type&quot;: &quot;vxlan&quot;,
-  &quot;endpoints&quot;: [&quot;node-1&quot;, &quot;node-2&quot;, &quot;node-3&quot;]
-}
-</code></pre>
+</code></pre></div>
+<p><strong>Example: Create a VXLAN Overlay</strong>
+<div class="highlight"><pre><span></span><code><span class="err">POST</span><span class="w"> </span><span class="err">/api/v</span><span class="mi">1</span><span class="err">/overlays</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;overlay-prod&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;vni&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;vxlan&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;endpoints&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;node-1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;node-2&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;node-3&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></p>
 <p>Controller derives:
 - Which BGP routes to advertise (underlay reachability)
 - VXLAN tunnel endpoints and VNI mappings
 - Which EVPN routes to exchange (L2/L3 services)</p>
 <h3 id="southbound-protocol-grpc">Southbound Protocol (gRPC)</h3>
-<p><strong>Service Definition:</strong></p>
-<pre><code class="language-protobuf">service FabricAgent {
-  rpc RegisterDevice(DeviceInfo) returns (DeviceID);
-  rpc GetDeviceState(DeviceID) returns (DeviceState);
-  rpc CreateVxlanTunnel(TunnelConfig) returns (TunnelStatus);
-  rpc AdvertiseBgpRoute(RouteAdvertisement) returns (RouteStatus);
-  rpc ApplyAcl(AclRule) returns (AclStatus);
-  rpc StreamDeviceEvents(DeviceID) returns (stream DeviceEvent);
-}
-</code></pre>
+<p><strong>Service Definition:</strong>
+<div class="highlight"><pre><span></span><code><span class="kd">service</span><span class="w"> </span><span class="n">FabricAgent</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">rpc</span><span class="w"> </span><span class="n">RegisterDevice</span><span class="p">(</span><span class="n">DeviceInfo</span><span class="p">)</span><span class="w"> </span><span class="k">returns</span><span class="w"> </span><span class="p">(</span><span class="n">DeviceID</span><span class="p">);</span>
+<span class="w">  </span><span class="k">rpc</span><span class="w"> </span><span class="n">GetDeviceState</span><span class="p">(</span><span class="n">DeviceID</span><span class="p">)</span><span class="w"> </span><span class="k">returns</span><span class="w"> </span><span class="p">(</span><span class="n">DeviceState</span><span class="p">);</span>
+<span class="w">  </span><span class="k">rpc</span><span class="w"> </span><span class="n">CreateVxlanTunnel</span><span class="p">(</span><span class="n">TunnelConfig</span><span class="p">)</span><span class="w"> </span><span class="k">returns</span><span class="w"> </span><span class="p">(</span><span class="n">TunnelStatus</span><span class="p">);</span>
+<span class="w">  </span><span class="k">rpc</span><span class="w"> </span><span class="n">AdvertiseBgpRoute</span><span class="p">(</span><span class="n">RouteAdvertisement</span><span class="p">)</span><span class="w"> </span><span class="k">returns</span><span class="w"> </span><span class="p">(</span><span class="n">RouteStatus</span><span class="p">);</span>
+<span class="w">  </span><span class="k">rpc</span><span class="w"> </span><span class="n">ApplyAcl</span><span class="p">(</span><span class="n">AclRule</span><span class="p">)</span><span class="w"> </span><span class="k">returns</span><span class="w"> </span><span class="p">(</span><span class="n">AclStatus</span><span class="p">);</span>
+<span class="w">  </span><span class="k">rpc</span><span class="w"> </span><span class="n">StreamDeviceEvents</span><span class="p">(</span><span class="n">DeviceID</span><span class="p">)</span><span class="w"> </span><span class="k">returns</span><span class="w"> </span><span class="p">(</span><span class="n">stream</span><span class="w"> </span><span class="n">DeviceEvent</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></p>
 <p>Devices are gRPC clients; controller is server sending commands.</p>
 <h3 id="key-features">Key Features</h3>
 <p><strong>Event-Driven Updates:</strong>
@@ -2028,8 +2028,8 @@ GET  /api/v1/status                # Controller health, fabric state summary
 - Receives intent from controller: "advertise 10.0.1.0/24 from node-X"
 - Fabric node's BGP speaker sends UPDATE to peers
 - Peers learn routes, update their routing tables</p>
-<p><strong>Example BGP UPDATE Message:</strong></p>
-<pre><code>UPDATE message:
+<p><strong>Example BGP UPDATE Message:</strong>
+<div class="highlight"><pre><span></span><code>UPDATE message:
   Withdrawn routes: (empty)
   Path attributes:
     ORIGIN: IGP
@@ -2037,7 +2037,7 @@ GET  /api/v1/status                # Controller health, fabric state summary
     NEXT_HOP: 192.168.1.1
     LOCAL_PREF: 100
   NLRI: 10.0.1.0/24
-</code></pre>
+</code></pre></div></p>
 <h3 id="vxlan-component-vxlan">VXLAN Component (<code>vxlan/</code>)</h3>
 <p><strong>Implementation:</strong>
 - VXLAN tunnel encapsulation and decapsulation
@@ -2048,9 +2048,9 @@ GET  /api/v1/status                # Controller health, fabric state summary
 - <code>Encapsulator</code> — VXLAN header construction (UDP port 4789, VXLAN header)
 - <code>LearningEngine</code> — Simplified MAC learning (collect source MACs, build forwarding table)
 - <code>OverlayNetwork</code> — Logical network abstraction (VNI, member nodes)</p>
-<p><strong>VXLAN Packet Format:</strong></p>
-<pre><code>[Outer Ethernet][Outer IP][UDP:4789][VXLAN Header (VNI)][Inner Ethernet][Inner IP][Payload]
-</code></pre>
+<p><strong>VXLAN Packet Format:</strong>
+<div class="highlight"><pre><span></span><code>[Outer Ethernet][Outer IP][UDP:4789][VXLAN Header (VNI)][Inner Ethernet][Inner IP][Payload]
+</code></pre></div></p>
 <p><strong>Controller Integration:</strong>
 - Controller command: "create VXLAN tunnel from node-A (192.168.1.1) to node-B (192.168.1.2) with VNI 100"
 - Fabric nodes establish tunnel, start encapsulating traffic destined for the overlay</p>
@@ -2068,8 +2068,8 @@ GET  /api/v1/status                # Controller health, fabric state summary
 - <code>EvpnRoute</code> — Route types, encoding/decoding
 - <code>EvpnIntegration</code> — Tie EVPN routes to VXLAN tunnels and BGP
 - <code>Services</code> — EVPN services (E-LAN for L2, E-Line for L2-VPN, IP-VPN for L3)</p>
-<p><strong>Example EVPN Route Exchange:</strong></p>
-<pre><code>Node-A advertises Type 2 route:
+<p><strong>Example EVPN Route Exchange:</strong>
+<div class="highlight"><pre><span></span><code>Node-A advertises Type 2 route:
   RD: 100:1 (Route Distinguisher)
   RT: 100:100 (Route Target for import/export)
   MAC: 00:11:22:33:44:55
@@ -2080,7 +2080,7 @@ GET  /api/v1/status                # Controller health, fabric state summary
 Node-B receives, learns:
   Traffic to MAC 00:11:22:33:44:55 → tunnel to Node-A, VNI 100
   Traffic to 10.0.1.10 → tunnel to Node-A, VNI 100
-</code></pre>
+</code></pre></div></p>
 <p><strong>Evolution Over BGP + VXLAN:</strong>
 - Pure VXLAN: static tunnel configuration, manual MAC learning → flooding
 - BGP + VXLAN: dynamic routes, but MAC learning still needed
@@ -2123,7 +2123,7 @@ Node-B receives, learns:
 <hr />
 <h2 id="part-5-integration-lab-setup">Part 5: Integration &amp; Lab Setup</h2>
 <h3 id="how-layers-connect">How Layers Connect</h3>
-<pre><code>┌─────────────────────────────────────────────────────────────────┐
+<div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────────────────────┐
 │ NORTHBOUND: User Intent (REST API)                              │
 │ &quot;Create overlay X with endpoints A, B, C&quot;                       │
 └─────────────────────────────────────────────────────────────────┘
@@ -2150,109 +2150,109 @@ Node-B receives, learns:
 │ Incoming packets encapsulated in VXLAN, forwarded via tunnels   │
 │ based on fabric protocol state                                  │
 └─────────────────────────────────────────────────────────────────┘
-</code></pre>
+</code></pre></div>
 <p><strong>Critical Insight:</strong>
 - Foundation layer shows <em>how</em> packets move (performance, mechanisms)
 - Upper layers show <em>where</em> packets go (routing decisions, tunnel creation)
 - Integration shows the full picture: intelligent routing + efficient forwarding</p>
 <h3 id="docker-compose-lab">Docker Compose Lab</h3>
 <p><strong>File: <code>lab/docker-compose.yml</code></strong></p>
-<pre><code class="language-yaml">version: '3.8'
-services:
+<div class="highlight"><pre><span></span><code><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.8&#39;</span>
+<span class="nt">services</span><span class="p">:</span>
 
-  # DPDK packet handler
-  dpdk-handler:
-    build:
-      context: .
-      dockerfile: Dockerfile.dpdk
-    privileged: true
-    volumes:
-      - /dev/hugepages:/dev/hugepages
-      - /sys:/sys
-    networks:
-      - fabric
-    environment:
-      - DPDK_PORT=veth0  # Attached to veth
+<span class="w">  </span><span class="c1"># DPDK packet handler</span>
+<span class="w">  </span><span class="nt">dpdk-handler</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">build</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">context</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.</span>
+<span class="w">      </span><span class="nt">dockerfile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Dockerfile.dpdk</span>
+<span class="w">    </span><span class="nt">privileged</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/dev/hugepages:/dev/hugepages</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/sys:/sys</span>
+<span class="w">    </span><span class="nt">networks</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fabric</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DPDK_PORT=veth0</span><span class="w">  </span><span class="c1"># Attached to veth</span>
 
-  # eBPF agent (alternative to DPDK)
-  ebpf-agent:
-    build:
-      context: .
-      dockerfile: Dockerfile.ebpf
-    privileged: true
-    networks:
-      - fabric
-    environment:
-      - eBPF_INTERFACE=eth0
+<span class="w">  </span><span class="c1"># eBPF agent (alternative to DPDK)</span>
+<span class="w">  </span><span class="nt">ebpf-agent</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">build</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">context</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.</span>
+<span class="w">      </span><span class="nt">dockerfile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Dockerfile.ebpf</span>
+<span class="w">    </span><span class="nt">privileged</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">networks</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fabric</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eBPF_INTERFACE=eth0</span>
 
-  # SDN Controller
-  sdn-controller:
-    build:
-      context: controller
-      dockerfile: Dockerfile.controller
-    ports:
-      - &quot;8080:8080&quot;  # REST API
-      - &quot;9090:9090&quot;  # gRPC
-    networks:
-      - fabric
-    depends_on:
-      - fabric-node-1
-      - fabric-node-2
-      - fabric-node-3
-    environment:
-      - CONTROLLER_ADDR=0.0.0.0:9090
+<span class="w">  </span><span class="c1"># SDN Controller</span>
+<span class="w">  </span><span class="nt">sdn-controller</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">build</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">context</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">controller</span>
+<span class="w">      </span><span class="nt">dockerfile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Dockerfile.controller</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;8080:8080&quot;</span><span class="w">  </span><span class="c1"># REST API</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;9090:9090&quot;</span><span class="w">  </span><span class="c1"># gRPC</span>
+<span class="w">    </span><span class="nt">networks</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fabric</span>
+<span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fabric-node-1</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fabric-node-2</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fabric-node-3</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CONTROLLER_ADDR=0.0.0.0:9090</span>
 
-  # Fabric nodes (BGP + VXLAN + EVPN speakers)
-  fabric-node-1:
-    build:
-      context: .
-      dockerfile: Dockerfile.fabric
-    networks:
-      - fabric
-    environment:
-      - NODE_ID=node-1
-      - NODE_ADDR=10.0.0.1
-      - CONTROLLER=sdn-controller:9090
+<span class="w">  </span><span class="c1"># Fabric nodes (BGP + VXLAN + EVPN speakers)</span>
+<span class="w">  </span><span class="nt">fabric-node-1</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">build</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">context</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.</span>
+<span class="w">      </span><span class="nt">dockerfile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Dockerfile.fabric</span>
+<span class="w">    </span><span class="nt">networks</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fabric</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NODE_ID=node-1</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NODE_ADDR=10.0.0.1</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CONTROLLER=sdn-controller:9090</span>
 
-  fabric-node-2:
-    build:
-      context: .
-      dockerfile: Dockerfile.fabric
-    networks:
-      - fabric
-    environment:
-      - NODE_ID=node-2
-      - NODE_ADDR=10.0.0.2
-      - CONTROLLER=sdn-controller:9090
+<span class="w">  </span><span class="nt">fabric-node-2</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">build</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">context</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.</span>
+<span class="w">      </span><span class="nt">dockerfile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Dockerfile.fabric</span>
+<span class="w">    </span><span class="nt">networks</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fabric</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NODE_ID=node-2</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NODE_ADDR=10.0.0.2</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CONTROLLER=sdn-controller:9090</span>
 
-  fabric-node-3:
-    build:
-      context: .
-      dockerfile: Dockerfile.fabric
-    networks:
-      - fabric
-    environment:
-      - NODE_ID=node-3
-      - NODE_ADDR=10.0.0.3
-      - CONTROLLER=sdn-controller:9090
+<span class="w">  </span><span class="nt">fabric-node-3</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">build</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">context</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.</span>
+<span class="w">      </span><span class="nt">dockerfile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Dockerfile.fabric</span>
+<span class="w">    </span><span class="nt">networks</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fabric</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NODE_ID=node-3</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NODE_ADDR=10.0.0.3</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CONTROLLER=sdn-controller:9090</span>
 
-  # Traffic generator &amp; validator
-  traffic-gen:
-    build:
-      context: .
-      dockerfile: Dockerfile.traffic
-    networks:
-      - fabric
-    depends_on:
-      - sdn-controller
-      - fabric-node-1
-    environment:
-      - CONTROLLER_URL=http://sdn-controller:8080
+<span class="w">  </span><span class="c1"># Traffic generator &amp; validator</span>
+<span class="w">  </span><span class="nt">traffic-gen</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">build</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">context</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.</span>
+<span class="w">      </span><span class="nt">dockerfile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Dockerfile.traffic</span>
+<span class="w">    </span><span class="nt">networks</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fabric</span>
+<span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sdn-controller</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fabric-node-1</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CONTROLLER_URL=http://sdn-controller:8080</span>
 
-networks:
-  fabric:
-    driver: bridge
-</code></pre>
+<span class="nt">networks</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">fabric</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">driver</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bridge</span>
+</code></pre></div>
 <h3 id="lab-initialization">Lab Initialization</h3>
 <p><strong>File: <code>lab/scripts/init.sh</code></strong></p>
 <p>Flow:
@@ -2265,42 +2265,42 @@ networks:
 7. Run traffic test: send packets through overlay, verify encapsulation and delivery
 8. Report metrics: throughput, latency, protocol state consistency</p>
 <h3 id="runnable-example-end-to-end-workflow">Runnable Example: End-to-End Workflow</h3>
-<p><strong>1. Start the lab:</strong></p>
-<pre><code class="language-bash">cd lab
-docker-compose up -d
+<p><strong>1. Start the lab:</strong>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>lab
+docker-compose<span class="w"> </span>up<span class="w"> </span>-d
 ./scripts/init.sh
-</code></pre>
-<p><strong>2. Query the topology:</strong></p>
-<pre><code class="language-bash">curl http://localhost:8080/api/v1/topology
-</code></pre>
-<p>Response: 3 fabric nodes, all registered and reachable</p>
-<p><strong>3. Create a VXLAN overlay:</strong></p>
-<pre><code class="language-bash">curl -X POST http://localhost:8080/api/v1/overlays \
-  -H &quot;Content-Type: application/json&quot; \
-  -d '{
-    &quot;name&quot;: &quot;overlay-prod&quot;,
-    &quot;vni&quot;: 100,
-    &quot;endpoints&quot;: [&quot;node-1&quot;, &quot;node-2&quot;, &quot;node-3&quot;]
-  }'
-</code></pre>
-<p><strong>4. Check overlay status:</strong></p>
-<pre><code class="language-bash">curl http://localhost:8080/api/v1/overlays/overlay-prod
-</code></pre>
-<p>Response: tunnel status, EVPN routes, BGP prefix count</p>
-<p><strong>5. Send traffic through the overlay:</strong></p>
-<pre><code class="language-bash">cd lab/scripts
-python traffic.py --overlay overlay-prod --duration 10s
-</code></pre>
-<p>Output: packets sent, packets delivered, encapsulation verified, latency distribution</p>
-<p><strong>6. Inspect fabric node state:</strong></p>
-<pre><code class="language-bash">docker exec fabric-node-1 python -c &quot;
-  from device import NetworkDevice
-  d = NetworkDevice('node-1')
-  print(d.routing_table)  # BGP-learned routes
-  print(d.tunnels)       # VXLAN tunnels
-  print(d.evpn_routes)   # EVPN route cache
-&quot;
-</code></pre>
+</code></pre></div></p>
+<p><strong>2. Query the topology:</strong>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://localhost:8080/api/v1/topology
+</code></pre></div>
+Response: 3 fabric nodes, all registered and reachable</p>
+<p><strong>3. Create a VXLAN overlay:</strong>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:8080/api/v1/overlays<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">    &quot;name&quot;: &quot;overlay-prod&quot;,</span>
+<span class="s1">    &quot;vni&quot;: 100,</span>
+<span class="s1">    &quot;endpoints&quot;: [&quot;node-1&quot;, &quot;node-2&quot;, &quot;node-3&quot;]</span>
+<span class="s1">  }&#39;</span>
+</code></pre></div></p>
+<p><strong>4. Check overlay status:</strong>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://localhost:8080/api/v1/overlays/overlay-prod
+</code></pre></div>
+Response: tunnel status, EVPN routes, BGP prefix count</p>
+<p><strong>5. Send traffic through the overlay:</strong>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>lab/scripts
+python<span class="w"> </span>traffic.py<span class="w"> </span>--overlay<span class="w"> </span>overlay-prod<span class="w"> </span>--duration<span class="w"> </span>10s
+</code></pre></div>
+Output: packets sent, packets delivered, encapsulation verified, latency distribution</p>
+<p><strong>6. Inspect fabric node state:</strong>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>fabric-node-1<span class="w"> </span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;</span>
+<span class="s2">  from device import NetworkDevice</span>
+<span class="s2">  d = NetworkDevice(&#39;node-1&#39;)</span>
+<span class="s2">  print(d.routing_table)  # BGP-learned routes</span>
+<span class="s2">  print(d.tunnels)       # VXLAN tunnels</span>
+<span class="s2">  print(d.evpn_routes)   # EVPN route cache</span>
+<span class="s2">&quot;</span>
+</code></pre></div></p>
 <hr />
 <h2 id="part-6-documentation-adrs">Part 6: Documentation &amp; ADRs</h2>
 <h3 id="architecture-decision-records-adrs">Architecture Decision Records (ADRs)</h3>
@@ -2379,39 +2379,39 @@ python traffic.py --overlay overlay-prod --duration 10s
 - Three learning paths: foundation-first (start with DPDK/eBPF), control-plane-first (start with controller), protocol-first (start with BGP/VXLAN)
 - Links to quickstart, architecture doc, ADRs</p>
 <h3 id="mkdocs-site-mkdocsyml">MkDocs Site (<code>mkdocs.yml</code>)</h3>
-<pre><code class="language-yaml">site_name: Chakraview Networking-SDN
-theme: material
-nav:
-  - Home: index.md
-  - Architecture:
-      - Overview: architecture.md
-      - Integration: integration.md
-  - Foundation Layer:
-      - DPDK: foundation.md#dpdk
-      - eBPF: foundation.md#ebpf
-      - Benchmarks: foundation.md#benchmarks
-  - Control Plane:
-      - Controller Design: controller.md
-      - APIs: controller.md#apis
-  - Fabric Protocols:
-      - BGP: fabric.md#bgp
-      - VXLAN: fabric.md#vxlan
-      - EVPN: fabric.md#evpn
-  - Lab:
-      - Quick Start: quickstart.md
-      - Troubleshooting: quickstart.md#troubleshooting
-  - Design:
-      - Extension Points: extending.md
-      - ADRs:
-          - ADR-0001: adrs/ADR-0001-monorepo-architecture.md
-          - ADR-0002: adrs/ADR-0002-dpdk-vs-ebpf.md
-          - ADR-0003: adrs/ADR-0003-go-control-plane.md
-          - ADR-0004: adrs/ADR-0004-bgp-vxlan-evpn.md
-          - ADR-0005: adrs/ADR-0005-simulated-fabric.md
-          - ADR-0006: adrs/ADR-0006-northbound-apis.md
-          - ADR-0007: adrs/ADR-0007-southbound-protocol.md
-          - ADR-0008: adrs/ADR-0008-lab-driven-development.md
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nt">site_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Chakraview Networking-SDN</span>
+<span class="nt">theme</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">material</span>
+<span class="nt">nav</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Home</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">index.md</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Architecture</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Overview</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">architecture.md</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Integration</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integration.md</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Foundation Layer</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">DPDK</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation.md#dpdk</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">eBPF</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation.md#ebpf</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Benchmarks</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation.md#benchmarks</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Control Plane</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Controller Design</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">controller.md</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">APIs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">controller.md#apis</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Fabric Protocols</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">BGP</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fabric.md#bgp</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">VXLAN</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fabric.md#vxlan</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">EVPN</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fabric.md#evpn</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Lab</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Quick Start</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quickstart.md</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Troubleshooting</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quickstart.md#troubleshooting</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Design</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Extension Points</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">extending.md</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ADRs</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ADR-0001</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">adrs/ADR-0001-monorepo-architecture.md</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ADR-0002</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">adrs/ADR-0002-dpdk-vs-ebpf.md</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ADR-0003</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">adrs/ADR-0003-go-control-plane.md</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ADR-0004</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">adrs/ADR-0004-bgp-vxlan-evpn.md</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ADR-0005</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">adrs/ADR-0005-simulated-fabric.md</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ADR-0006</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">adrs/ADR-0006-northbound-apis.md</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ADR-0007</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">adrs/ADR-0007-southbound-protocol.md</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ADR-0008</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">adrs/ADR-0008-lab-driven-development.md</span>
+</code></pre></div>
 <hr />
 <h2 id="part-7-extension-points-clearly-marked">Part 7: Extension Points (Clearly Marked)</h2>
 <p>All future development areas are marked with <code>// TODO: EXTEND:</code> in code or <code># TODO: EXTEND:</code> in Python, with associated comments explaining the extension.</p>
@@ -2451,34 +2451,34 @@ nav:
 <hr />
 <h2 id="acceptance-criteria-validation">Acceptance Criteria &amp; Validation</h2>
 <h3 id="code-completeness">Code Completeness</h3>
-<ul>
-<li>[ ] All three layers implemented and runnable</li>
-<li>[ ] DPDK and eBPF both working, benchmarked</li>
-<li>[ ] Controller with REST and gRPC APIs</li>
-<li>[ ] BGP, VXLAN, EVPN protocol logic implemented</li>
-<li>[ ] Lab spins up end-to-end, no manual steps beyond <code>docker-compose up</code></li>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> All three layers implemented and runnable</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> DPDK and eBPF both working, benchmarked</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Controller with REST and gRPC APIs</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> BGP, VXLAN, EVPN protocol logic implemented</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Lab spins up end-to-end, no manual steps beyond <code>docker-compose up</code></li>
 </ul>
 <h3 id="documentation_1">Documentation</h3>
-<ul>
-<li>[ ] 8 ADRs written, committed</li>
-<li>[ ] Architecture, integration, foundation, controller, fabric docs complete</li>
-<li>[ ] Quickstart guide tested (someone can follow it and get lab running)</li>
-<li>[ ] Extending guide lists all marked extension points</li>
-<li>[ ] MkDocs site builds and deploys (e.g., GitHub Pages)</li>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 8 ADRs written, committed</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Architecture, integration, foundation, controller, fabric docs complete</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Quickstart guide tested (someone can follow it and get lab running)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Extending guide lists all marked extension points</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> MkDocs site builds and deploys (e.g., GitHub Pages)</li>
 </ul>
 <h3 id="lab-testing">Lab &amp; Testing</h3>
-<ul>
-<li>[ ] Traffic generation and validation scripts work</li>
-<li>[ ] Metrics collection shows DPDK vs. eBPF performance comparison</li>
-<li>[ ] Overlay creation, BGP route distribution, VXLAN encapsulation all validated</li>
-<li>[ ] Lab can be torn down and recreated cleanly</li>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Traffic generation and validation scripts work</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Metrics collection shows DPDK vs. eBPF performance comparison</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Overlay creation, BGP route distribution, VXLAN encapsulation all validated</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Lab can be torn down and recreated cleanly</li>
 </ul>
 <h3 id="quality">Quality</h3>
-<ul>
-<li>[ ] Code is well-commented, especially around extension points</li>
-<li>[ ] No TODOs except marked <code>EXTEND:</code> sections</li>
-<li>[ ] Type hints in Python, proper error handling in Go/C</li>
-<li>[ ] CI/CD configured (GitHub Actions: build, test, lint)</li>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Code is well-commented, especially around extension points</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> No TODOs except marked <code>EXTEND:</code> sections</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Type hints in Python, proper error handling in Go/C</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> CI/CD configured (GitHub Actions: build, test, lint)</li>
 </ul>
 <hr />
 <h2 id="summary">Summary</h2>

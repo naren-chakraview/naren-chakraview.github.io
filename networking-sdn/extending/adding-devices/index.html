@@ -1359,76 +1359,76 @@
 <h1 id="adding-device-types">Adding Device Types</h1>
 <p>This guide explains how to add new device types and roles to the fabric.</p>
 <h2 id="device-architecture">Device Architecture</h2>
-<p>All devices inherit from <code>NetworkDevice</code>:</p>
-<pre><code class="language-python">from fabric.device import NetworkDevice, DeviceRole
+<p>All devices inherit from <code>NetworkDevice</code>:
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">fabric.device</span> <span class="kn">import</span> <span class="n">NetworkDevice</span><span class="p">,</span> <span class="n">DeviceRole</span>
 
-class CustomDevice(NetworkDevice):
-    def __init__(self, device_id: str, asn: int, router_id: str, 
-                 role: DeviceRole, mgmt_ip: str):
-        super().__init__(device_id, asn, router_id, role, mgmt_ip)
-        # Custom initialization
-</code></pre>
+<span class="k">class</span> <span class="nc">CustomDevice</span><span class="p">(</span><span class="n">NetworkDevice</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">asn</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">router_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> 
+                 <span class="n">role</span><span class="p">:</span> <span class="n">DeviceRole</span><span class="p">,</span> <span class="n">mgmt_ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">device_id</span><span class="p">,</span> <span class="n">asn</span><span class="p">,</span> <span class="n">router_id</span><span class="p">,</span> <span class="n">role</span><span class="p">,</span> <span class="n">mgmt_ip</span><span class="p">)</span>
+        <span class="c1"># Custom initialization</span>
+</code></pre></div></p>
 <h2 id="example-firewall-device">Example: Firewall Device</h2>
-<pre><code class="language-python">class FirewallDevice(NetworkDevice):
-    def __init__(self, device_id: str, asn: int, router_id: str, mgmt_ip: str):
-        super().__init__(device_id, asn, router_id, DeviceRole.BORDER, mgmt_ip)
-        self.security_policies = []
-        self.sessions = {}
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">FirewallDevice</span><span class="p">(</span><span class="n">NetworkDevice</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">asn</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">router_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">mgmt_ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">device_id</span><span class="p">,</span> <span class="n">asn</span><span class="p">,</span> <span class="n">router_id</span><span class="p">,</span> <span class="n">DeviceRole</span><span class="o">.</span><span class="n">BORDER</span><span class="p">,</span> <span class="n">mgmt_ip</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">security_policies</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sessions</span> <span class="o">=</span> <span class="p">{}</span>
 
-    def add_security_policy(self, policy: dict):
-        self.security_policies.append(policy)
+    <span class="k">def</span> <span class="nf">add_security_policy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">policy</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">security_policies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">policy</span><span class="p">)</span>
 
-    def forward_packet(self, dest_ip: str) -&gt; bool:
-        # Check security policies before forwarding
-        for policy in self.security_policies:
-            if self._matches_policy(dest_ip, policy):
-                if policy['action'] == 'deny':
-                    self.packets_dropped += 1
-                    return False
-        return super().forward_packet(dest_ip)
-</code></pre>
+    <span class="k">def</span> <span class="nf">forward_packet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dest_ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="c1"># Check security policies before forwarding</span>
+        <span class="k">for</span> <span class="n">policy</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">security_policies</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_matches_policy</span><span class="p">(</span><span class="n">dest_ip</span><span class="p">,</span> <span class="n">policy</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">policy</span><span class="p">[</span><span class="s1">&#39;action&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;deny&#39;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">packets_dropped</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">forward_packet</span><span class="p">(</span><span class="n">dest_ip</span><span class="p">)</span>
+</code></pre></div>
 <h2 id="registering-device-with-controller">Registering Device with Controller</h2>
-<p>Use the gRPC API:</p>
-<pre><code class="language-python">from grpc import channel
-from controller.api import fabric_pb2
+<p>Use the gRPC API:
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">grpc</span> <span class="kn">import</span> <span class="n">channel</span>
+<span class="kn">from</span> <span class="nn">controller.api</span> <span class="kn">import</span> <span class="n">fabric_pb2</span>
 
-# Create gRPC client
-chan = channel.secure_channel('controller:9090', ...)
-stub = fabric_pb2.FabricAgentStub(chan)
+<span class="c1"># Create gRPC client</span>
+<span class="n">chan</span> <span class="o">=</span> <span class="n">channel</span><span class="o">.</span><span class="n">secure_channel</span><span class="p">(</span><span class="s1">&#39;controller:9090&#39;</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<span class="n">stub</span> <span class="o">=</span> <span class="n">fabric_pb2</span><span class="o">.</span><span class="n">FabricAgentStub</span><span class="p">(</span><span class="n">chan</span><span class="p">)</span>
 
-# Register device
-response = stub.RegisterDevice(fabric_pb2.DeviceInfo(
-    device_id='fw1',
-    device_addr='10.0.0.1',
-    device_role='border'
-))
-</code></pre>
+<span class="c1"># Register device</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">stub</span><span class="o">.</span><span class="n">RegisterDevice</span><span class="p">(</span><span class="n">fabric_pb2</span><span class="o">.</span><span class="n">DeviceInfo</span><span class="p">(</span>
+    <span class="n">device_id</span><span class="o">=</span><span class="s1">&#39;fw1&#39;</span><span class="p">,</span>
+    <span class="n">device_addr</span><span class="o">=</span><span class="s1">&#39;10.0.0.1&#39;</span><span class="p">,</span>
+    <span class="n">device_role</span><span class="o">=</span><span class="s1">&#39;border&#39;</span>
+<span class="p">))</span>
+</code></pre></div></p>
 <h2 id="adding-to-lab">Adding to Lab</h2>
-<p>Update <code>lab/scripts/register-devices.sh</code>:</p>
-<pre><code class="language-bash"># Register firewall device
-curl -X POST &quot;$CONTROLLER_URL/api/v1/devices/register&quot; \
-    -H &quot;Content-Type: application/json&quot; \
-    -d '{&quot;device_id&quot;:&quot;fw1&quot;,&quot;address&quot;:&quot;10.0.0.1&quot;,&quot;role&quot;:&quot;border&quot;}'
-</code></pre>
+<p>Update <code>lab/scripts/register-devices.sh</code>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Register firewall device</span>
+curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$CONTROLLER_URL</span><span class="s2">/api/v1/devices/register&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;device_id&quot;:&quot;fw1&quot;,&quot;address&quot;:&quot;10.0.0.1&quot;,&quot;role&quot;:&quot;border&quot;}&#39;</span>
+</code></pre></div></p>
 <h2 id="testing-device-behavior">Testing Device Behavior</h2>
-<pre><code class="language-python">import pytest
-from fabric.device import NetworkDevice, DeviceRole
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pytest</span>
+<span class="kn">from</span> <span class="nn">fabric.device</span> <span class="kn">import</span> <span class="n">NetworkDevice</span><span class="p">,</span> <span class="n">DeviceRole</span>
 
-def test_custom_device():
-    dev = CustomDevice('dev1', 65000, '1.1.1.1', DeviceRole.LEAF, '10.0.0.1')
+<span class="k">def</span> <span class="nf">test_custom_device</span><span class="p">():</span>
+    <span class="n">dev</span> <span class="o">=</span> <span class="n">CustomDevice</span><span class="p">(</span><span class="s1">&#39;dev1&#39;</span><span class="p">,</span> <span class="mi">65000</span><span class="p">,</span> <span class="s1">&#39;1.1.1.1&#39;</span><span class="p">,</span> <span class="n">DeviceRole</span><span class="o">.</span><span class="n">LEAF</span><span class="p">,</span> <span class="s1">&#39;10.0.0.1&#39;</span><span class="p">)</span>
 
-    # Add interface
-    dev.add_interface('eth0', '10.1.1.1')
-    assert 'eth0' in dev.interfaces
+    <span class="c1"># Add interface</span>
+    <span class="n">dev</span><span class="o">.</span><span class="n">add_interface</span><span class="p">(</span><span class="s1">&#39;eth0&#39;</span><span class="p">,</span> <span class="s1">&#39;10.1.1.1&#39;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="s1">&#39;eth0&#39;</span> <span class="ow">in</span> <span class="n">dev</span><span class="o">.</span><span class="n">interfaces</span>
 
-    # Add route
-    dev.add_route('10.2.0.0/16', '10.1.1.254')
-    assert '10.2.0.0/16' in dev.routing_table
+    <span class="c1"># Add route</span>
+    <span class="n">dev</span><span class="o">.</span><span class="n">add_route</span><span class="p">(</span><span class="s1">&#39;10.2.0.0/16&#39;</span><span class="p">,</span> <span class="s1">&#39;10.1.1.254&#39;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="s1">&#39;10.2.0.0/16&#39;</span> <span class="ow">in</span> <span class="n">dev</span><span class="o">.</span><span class="n">routing_table</span>
 
-    # Forward packet
-    assert dev.forward_packet('10.2.1.100') == True
-    assert dev.packets_forwarded == 1
-</code></pre>
+    <span class="c1"># Forward packet</span>
+    <span class="k">assert</span> <span class="n">dev</span><span class="o">.</span><span class="n">forward_packet</span><span class="p">(</span><span class="s1">&#39;10.2.1.100&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="kc">True</span>
+    <span class="k">assert</span> <span class="n">dev</span><span class="o">.</span><span class="n">packets_forwarded</span> <span class="o">==</span> <span class="mi">1</span>
+</code></pre></div>
 <h2 id="protocol-integration">Protocol Integration</h2>
 <p>Once your device is registered, it can:
 1. Join BGP peer group

@@ -1725,13 +1725,13 @@
 - <code>foundation/dpdk/src/main.c</code> — Main loop and initialization</p>
 <h3 id="forwarding-engine">Forwarding Engine</h3>
 <p>The forwarding engine implements Longest Prefix Match (LPM) routing:</p>
-<pre><code class="language-c">struct route {
-    uint32_t dest_ip;      // Network address (e.g., 10.0.0.0)
-    uint32_t mask;         // CIDR mask (e.g., /24 = 0xffffff00)
-    uint32_t next_hop;     // Gateway to send to
-    uint16_t egress_port;  // Physical port number
-};
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">route</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">dest_ip</span><span class="p">;</span><span class="w">      </span><span class="c1">// Network address (e.g., 10.0.0.0)</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">mask</span><span class="p">;</span><span class="w">         </span><span class="c1">// CIDR mask (e.g., /24 = 0xffffff00)</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">next_hop</span><span class="p">;</span><span class="w">     </span><span class="c1">// Gateway to send to</span>
+<span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">egress_port</span><span class="p">;</span><span class="w">  </span><span class="c1">// Physical port number</span>
+<span class="p">};</span>
+</code></pre></div>
 <p>To forward a packet:
 1. Extract destination IP from packet header
 2. Iterate all routes, find all matches: <code>(dest_ip &amp; mask) == (route_ip &amp; mask)</code>
@@ -1739,13 +1739,13 @@
 4. Encapsulate if tunnel exists, forward to egress port</p>
 <h3 id="vxlan-tunneling">VXLAN Tunneling</h3>
 <p>VXLAN wraps Layer 2 frames in UDP packets for virtual networking:</p>
-<pre><code class="language-mermaid">graph LR
-    subgraph &quot;Original Packet&quot;
-        O1[&quot;Eth Header&lt;br/&gt;14B&quot;] --&gt; O2[&quot;IPv4 Header&lt;br/&gt;20B&quot;] --&gt; O3[&quot;Payload&quot;]
+<pre class="mermaid"><code>graph LR
+    subgraph "Original Packet"
+        O1["Eth Header&lt;br/&gt;14B"] --&gt; O2["IPv4 Header&lt;br/&gt;20B"] --&gt; O3["Payload"]
     end
 
-    subgraph &quot;VXLAN Encapsulated&quot;
-        E1[&quot;Outer Eth&lt;br/&gt;14B&quot;] --&gt; E2[&quot;Outer IP&lt;br/&gt;20B&quot;] --&gt; E3[&quot;UDP&lt;br/&gt;8B&quot;] --&gt; E4[&quot;VXLAN&lt;br/&gt;8B&quot;] --&gt; E5[&quot;Inner Eth&lt;br/&gt;14B&quot;] --&gt; E6[&quot;Inner IP&lt;br/&gt;20B&quot;] --&gt; E7[&quot;Payload&quot;]
+    subgraph "VXLAN Encapsulated"
+        E1["Outer Eth&lt;br/&gt;14B"] --&gt; E2["Outer IP&lt;br/&gt;20B"] --&gt; E3["UDP&lt;br/&gt;8B"] --&gt; E4["VXLAN&lt;br/&gt;8B"] --&gt; E5["Inner Eth&lt;br/&gt;14B"] --&gt; E6["Inner IP&lt;br/&gt;20B"] --&gt; E7["Payload"]
     end
 
     O3 -.-&gt;|encapsulate| E5
@@ -1759,8 +1759,7 @@
     style E4 fill:#F44336
     style E5 fill:#4CAF50
     style E6 fill:#2196F3
-    style E7 fill:#FFC107
-</code></pre>
+    style E7 fill:#FFC107</code></pre>
 <p>The encapsulation adds <strong>50 bytes of overhead</strong> (14+20+8+8 = 50B outer headers). Decapsulation validates buffer sizes to prevent overflow.</p>
 <h3 id="extending-dpdk">Extending DPDK</h3>
 <p>To add a new feature to DPDK:</p>
@@ -1799,16 +1798,16 @@
 - <code>foundation/ebpf/src/main.rs</code> — Entrypoint that initializes eBPF program</p>
 <h3 id="bpf-maps">BPF Maps</h3>
 <p>eBPF uses kernel maps to store state:</p>
-<pre><code class="language-c">// In kernel:
-BPF_HASH(route_map, uint32_t, route_t);      // dest_ip → route entry
-BPF_HASH(tunnel_map, uint32_t, vxlan_tunnel); // tunnel_id → tunnel config
-BPF_HASH(stats, uint32_t, packet_stats);      // device_id → counters
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1">// In kernel:</span>
+<span class="n">BPF_HASH</span><span class="p">(</span><span class="n">route_map</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="p">,</span><span class="w"> </span><span class="n">route_t</span><span class="p">);</span><span class="w">      </span><span class="c1">// dest_ip → route entry</span>
+<span class="n">BPF_HASH</span><span class="p">(</span><span class="n">tunnel_map</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="p">,</span><span class="w"> </span><span class="n">vxlan_tunnel</span><span class="p">);</span><span class="w"> </span><span class="c1">// tunnel_id → tunnel config</span>
+<span class="n">BPF_HASH</span><span class="p">(</span><span class="n">stats</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="p">,</span><span class="w"> </span><span class="n">packet_stats</span><span class="p">);</span><span class="w">      </span><span class="c1">// device_id → counters</span>
+</code></pre></div>
 <p>Userspace code reads/writes these maps via libbpf-rs, maintaining consistency with kernel.</p>
 <h3 id="xdp-hook">XDP Hook</h3>
 <p>The XDP program runs at packet reception, before kernel processing:</p>
-<pre><code>NIC RX → XDP (this code runs here) → Kernel network stack → App
-</code></pre>
+<div class="highlight"><pre><span></span><code>NIC RX → XDP (this code runs here) → Kernel network stack → App
+</code></pre></div>
 <p>This is the <strong>fastest path</strong> for packet processing, but also the most constrained (limited code size, limited memory access).</p>
 <h3 id="extending-ebpf">Extending eBPF</h3>
 <p>To add a new feature to eBPF:</p>
@@ -1832,26 +1831,26 @@ BPF_HASH(stats, uint32_t, packet_stats);      // device_id → counters
 <li>Send packet drop reasons, rule matches, etc. to userspace in real-time</li>
 </ol>
 <h2 id="data-plane-positioning">Data Plane Positioning</h2>
-<pre><code class="language-mermaid">graph TD
-    subgraph &quot;Linux Network Stack&quot;
-        APP[&quot;Application&quot;]
-        KNS[&quot;Kernel Network Stack&quot;]
+<pre class="mermaid"><code>graph TD
+    subgraph "Linux Network Stack"
+        APP["Application"]
+        KNS["Kernel Network Stack"]
         APP --&gt;|sendto| KNS
     end
 
-    subgraph &quot;DPDK Path (Userspace)&quot;
-        DPDK[&quot;DPDK Poll Loop&quot;]
-        PMD[&quot;PMD - Poll Mode Driver&quot;]
+    subgraph "DPDK Path (Userspace)"
+        DPDK["DPDK Poll Loop"]
+        PMD["PMD - Poll Mode Driver"]
         DPDK --&gt;|claim NIC| PMD
     end
 
-    subgraph &quot;eBPF Path (Kernel)&quot;
-        XDP[&quot;XDP Program&quot;]
-        KD[&quot;Kernel Driver&quot;]
+    subgraph "eBPF Path (Kernel)"
+        XDP["XDP Program"]
+        KD["Kernel Driver"]
         XDP --&gt;|attached to| KD
     end
 
-    NIC[&quot;Network Interface Card&quot;]
+    NIC["Network Interface Card"]
 
     KNS --&gt;|kernel route| KD
     PMD --&gt;|direct access| NIC
@@ -1860,8 +1859,7 @@ BPF_HASH(stats, uint32_t, packet_stats);      // device_id → counters
 
     style DPDK fill:#1f77b4,color:#fff
     style XDP fill:#ff7f0e,color:#fff
-    style NIC fill:#d62728,color:#fff
-</code></pre>
+    style NIC fill:#d62728,color:#fff</code></pre>
 <p><strong>Architectural difference:</strong>
 - <strong>DPDK</strong> (blue): Userspace process claims NIC directly, bypasses kernel entirely
 - <strong>eBPF</strong> (orange): Kernel owns NIC, XDP program hooks at driver level for early packet processing</p>
@@ -1893,13 +1891,13 @@ BPF_HASH(stats, uint32_t, packet_stats);      // device_id → counters
 </ul>
 <h2 id="integration-with-controller">Integration with Controller</h2>
 <p>Both implementations expose the same gRPC interface:</p>
-<pre><code class="language-protobuf">service FabricAgent {
-    rpc RegisterAgent(RegisterRequest) returns (RegisterResponse);
-    rpc SetRoutes(RoutesRequest) returns (RoutesResponse);
-    rpc SetTunnels(TunnelsRequest) returns (TunnelsResponse);
-    rpc GetStats(StatsRequest) returns (StatsResponse);
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="kd">service</span><span class="w"> </span><span class="n">FabricAgent</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">rpc</span><span class="w"> </span><span class="n">RegisterAgent</span><span class="p">(</span><span class="n">RegisterRequest</span><span class="p">)</span><span class="w"> </span><span class="k">returns</span><span class="w"> </span><span class="p">(</span><span class="n">RegisterResponse</span><span class="p">);</span>
+<span class="w">    </span><span class="k">rpc</span><span class="w"> </span><span class="n">SetRoutes</span><span class="p">(</span><span class="n">RoutesRequest</span><span class="p">)</span><span class="w"> </span><span class="k">returns</span><span class="w"> </span><span class="p">(</span><span class="n">RoutesResponse</span><span class="p">);</span>
+<span class="w">    </span><span class="k">rpc</span><span class="w"> </span><span class="n">SetTunnels</span><span class="p">(</span><span class="n">TunnelsRequest</span><span class="p">)</span><span class="w"> </span><span class="k">returns</span><span class="w"> </span><span class="p">(</span><span class="n">TunnelsResponse</span><span class="p">);</span>
+<span class="w">    </span><span class="k">rpc</span><span class="w"> </span><span class="n">GetStats</span><span class="p">(</span><span class="n">StatsRequest</span><span class="p">)</span><span class="w"> </span><span class="k">returns</span><span class="w"> </span><span class="p">(</span><span class="n">StatsResponse</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
 <p>The controller calls <code>RegisterAgent</code> when the agent starts, then sends route updates via <code>SetRoutes</code>. Both DPDK and eBPF agents handle these identically.</p>
 <h2 id="performance-expectations">Performance Expectations</h2>
 <p><strong>DPDK:</strong>

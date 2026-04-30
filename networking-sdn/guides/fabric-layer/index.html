@@ -1793,7 +1793,7 @@
 <p>BGP is a path-vector routing protocol: each device advertises "I can reach these subnets, and here's the path" and neighbors propagate this information across the network.</p>
 <h3 id="bgp-finite-state-machine-fsm">BGP Finite State Machine (FSM)</h3>
 <p>A BGP session between two devices progresses through states:</p>
-<pre><code class="language-mermaid">stateDiagram-v2
+<pre class="mermaid"><code>stateDiagram-v2
     [*] --&gt; Idle
 
     Idle --&gt; Connect: start event
@@ -1818,8 +1818,7 @@
         Session active
         Exchange routes via UPDATE messages
         Monitor with KEEPALIVE every 30s
-    end note
-</code></pre>
+    end note</code></pre>
 <p><strong>Key State Details:</strong></p>
 <ul>
 <li><strong>Idle</strong>: No connection attempt. Wait for manual start or automatic retry timer.</li>
@@ -1831,7 +1830,7 @@
 </ul>
 <h3 id="route-advertisement">Route Advertisement</h3>
 <p>In the Established state, devices exchange UPDATE messages:</p>
-<pre><code>UPDATE {
+<div class="highlight"><pre><span></span><code>UPDATE {
   &quot;withdrawn_routes&quot;: [],
   &quot;path_attributes&quot;: {
     &quot;next_hop&quot;: &quot;10.0.0.1&quot;,
@@ -1840,7 +1839,7 @@
   },
   &quot;nlri&quot;: [&quot;10.1.0.0/24&quot;, &quot;10.2.0.0/24&quot;]  // Networks being advertised
 }
-</code></pre>
+</code></pre></div>
 <p>On receiving UPDATE:
 1. Validate attributes (AS path, next hop reachable)
 2. Select best path (lowest AS path length, then by local preference)
@@ -1855,28 +1854,28 @@
 <h2 id="vxlan-virtual-extensible-lan">VXLAN (Virtual Extensible LAN)</h2>
 <p>VXLAN creates virtual Layer 2 networks over Layer 3 IP infrastructure. It solves the problem: "How do VMs in different physical locations appear to be on the same Layer 2 network?"</p>
 <h3 id="encapsulation">Encapsulation</h3>
-<pre><code>Original Packet:  [Eth: dst=VM2] [IP] [Data]
+<div class="highlight"><pre><span></span><code>Original Packet:  [Eth: dst=VM2] [IP] [Data]
 VXLAN Wrapped:    [Eth] [IP] [UDP] [VXLAN] [Original Eth] [IP] [Data]
-</code></pre>
-<p>The VXLAN header:</p>
-<pre><code>0         1         2         3
+</code></pre></div>
+<p>The VXLAN header:
+<div class="highlight"><pre><span></span><code>0         1         2         3
 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |R|R|R|R|I|R|R|R|            Reserved                           |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                VXLAN Network Identifier (VNI) [24 bits]       |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-</code></pre>
+</code></pre></div></p>
 <p>VNI (24 bits) identifies the virtual network. Packets with VNI=100 belong to one virtual network; VNI=101 to another.</p>
 <h3 id="tunnel-state">Tunnel State</h3>
 <p>Each device maintains tunnel configuration:</p>
-<pre><code class="language-python">class Tunnel:
-    tunnel_id: int           # 1-100 in lab
-    vni: int                 # 0-16M (VXLAN identifier)
-    remote_endpoint: str     # IP address of other end
-    local_endpoint: str      # This device's IP
-    encapsulation: &quot;vxlan&quot;
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Tunnel</span><span class="p">:</span>
+    <span class="n">tunnel_id</span><span class="p">:</span> <span class="nb">int</span>           <span class="c1"># 1-100 in lab</span>
+    <span class="n">vni</span><span class="p">:</span> <span class="nb">int</span>                 <span class="c1"># 0-16M (VXLAN identifier)</span>
+    <span class="n">remote_endpoint</span><span class="p">:</span> <span class="nb">str</span>     <span class="c1"># IP address of other end</span>
+    <span class="n">local_endpoint</span><span class="p">:</span> <span class="nb">str</span>      <span class="c1"># This device&#39;s IP</span>
+    <span class="n">encapsulation</span><span class="p">:</span> <span class="s2">&quot;vxlan&quot;</span>
+</code></pre></div>
 <p>When sending traffic destined for a remote VM:
 1. Lookup tunnel for that VM's VNI
 2. Encapsulate packet with VXLAN header
@@ -1894,12 +1893,12 @@ VXLAN Wrapped:    [Eth] [IP] [UDP] [VXLAN] [Original Eth] [IP] [Data]
 <h2 id="evpn-ethernet-vpn">EVPN (Ethernet VPN)</h2>
 <p>EVPN solves a critical problem: in large VXLAN networks, how do devices know which tunnel carries traffic to a given MAC address?</p>
 <p>Static configuration (device knows "MAC X is behind tunnel 1") doesn't scale. EVPN uses BGP to advertise MAC/IP bindings:</p>
-<pre><code>EVPN Route Type 2 (MAC/IP Advertisement):
+<div class="highlight"><pre><span></span><code>EVPN Route Type 2 (MAC/IP Advertisement):
   Route Target: 65001:100           # Community (defines VRF)
   Extended Communities: Encap=VXLAN  # Overlay tech
   NLRI: MAC=02:11:22:33:44:55, IP=10.1.0.42, Label=42
         ↑ This device owns this MAC in VXLAN VNI 42
-</code></pre>
+</code></pre></div>
 <p>When device-A receives this route, it learns: "To reach MAC 02:11:22:33:44:55, use tunnel to device-B."</p>
 <h3 id="route-types">Route Types</h3>
 <ul>
@@ -1908,24 +1907,24 @@ VXLAN Wrapped:    [Eth] [IP] [UDP] [VXLAN] [Original Eth] [IP] [Data]
 </ul>
 <p>Type 2 enables MAC mobility (VM migration): if VM moves to a different device, device-B advertises the new route and device-A learns the new tunnel endpoint.</p>
 <h3 id="integration-with-bgp-and-vxlan">Integration with BGP and VXLAN</h3>
-<pre><code>BGP carries EVPN routes
+<div class="highlight"><pre><span></span><code>BGP carries EVPN routes
     ↓
 Device learns &quot;MAC X is behind tunnel to device-B&quot;
     ↓
 When device-A needs to send to MAC X:
   1. Lookup tunnel endpoint from EVPN route
   2. Encapsulate with VXLAN (VNI from EVPN route)
-  3. Send to device-B's IP address
-</code></pre>
+  3. Send to device-B&#39;s IP address
+</code></pre></div>
 <h2 id="simulated-devices">Simulated Devices</h2>
 <p>The lab uses Python simulated devices that implement all three protocols:</p>
-<pre><code class="language-python">class NetworkDevice:
-    def __init__(self, name, asn):
-        self.bgp_speaker = BGPSpeaker(asn=asn)
-        self.vxlan_tunnels = {}
-        self.evpn_routes = {}
-        self.forwarding_table = {}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">NetworkDevice</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">asn</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bgp_speaker</span> <span class="o">=</span> <span class="n">BGPSpeaker</span><span class="p">(</span><span class="n">asn</span><span class="o">=</span><span class="n">asn</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vxlan_tunnels</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">evpn_routes</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">forwarding_table</span> <span class="o">=</span> <span class="p">{}</span>
+</code></pre></div>
 <p>Devices:
 1. Establish BGP peering (TCP to configured peers)
 2. Exchange BGP routes
@@ -1955,31 +1954,31 @@ When device-A needs to send to MAC X:
 </ol>
 <h2 id="integration-bgp-vxlan-evpn">Integration: BGP + VXLAN + EVPN</h2>
 <p>The three protocols work together to provide complete fabric networking:</p>
-<pre><code class="language-mermaid">graph TD
-    subgraph &quot;Device A&quot;
-        BGPA[&quot;BGP Speaker&lt;br/&gt;Peer with Device B&quot;]
-        VXLANA[&quot;VXLAN Tunnel&lt;br/&gt;Encapsulation&quot;]
-        EVPNA[&quot;EVPN Route Handler&lt;br/&gt;Type 2 MAC/IP&quot;]
+<pre class="mermaid"><code>graph TD
+    subgraph "Device A"
+        BGPA["BGP Speaker&lt;br/&gt;Peer with Device B"]
+        VXLANA["VXLAN Tunnel&lt;br/&gt;Encapsulation"]
+        EVPNA["EVPN Route Handler&lt;br/&gt;Type 2 MAC/IP"]
     end
 
-    subgraph &quot;Device B&quot;
-        BGPB[&quot;BGP Speaker&lt;br/&gt;Peer with Device A&quot;]
-        VXLANB[&quot;VXLAN Tunnel&lt;br/&gt;Decapsulation&quot;]
-        EVPNB[&quot;EVPN Route Handler&lt;br/&gt;Type 2 MAC/IP&quot;]
+    subgraph "Device B"
+        BGPB["BGP Speaker&lt;br/&gt;Peer with Device A"]
+        VXLANB["VXLAN Tunnel&lt;br/&gt;Decapsulation"]
+        EVPNB["EVPN Route Handler&lt;br/&gt;Type 2 MAC/IP"]
     end
 
-    subgraph &quot;Control Plane (TCP/BGP)&quot;
-        TCP[&quot;BGP TCP Session :179&quot;]
+    subgraph "Control Plane (TCP/BGP)"
+        TCP["BGP TCP Session :179"]
     end
 
-    subgraph &quot;Data Plane (UDP/VXLAN)&quot;
-        UDP[&quot;VXLAN UDP :4789&quot;]
+    subgraph "Data Plane (UDP/VXLAN)"
+        UDP["VXLAN UDP :4789"]
     end
 
     BGPA --&gt;|advertise EVPN routes| TCP
     TCP --&gt;|receive EVPN routes| BGPB
 
-    EVPNA --&gt;|&quot;MAC X is here&quot;| BGPA
+    EVPNA --&gt;|"MAC X is here"| BGPA
     BGPB --&gt;|receive| EVPNB
     EVPNB --&gt;|learn| VXLANB
 
@@ -1991,8 +1990,7 @@ When device-A needs to send to MAC X:
     style VXLANA fill:#4ECDC4,color:#fff
     style VXLANB fill:#4ECDC4,color:#fff
     style TCP fill:#FFE66D,color:#333
-    style UDP fill:#95E1D3,color:#fff
-</code></pre>
+    style UDP fill:#95E1D3,color:#fff</code></pre>
 <p><strong>Data flow:</strong>
 1. Device A announces: "MAC 02:11:22:33:44:55 is behind me in VNI 42" via EVPN route
 2. BGP carries this route to Device B over TCP session
@@ -2016,14 +2014,14 @@ When device-A needs to send to MAC X:
 <p>These are educational targets, not production benchmarks.</p>
 <h2 id="testing-the-fabric">Testing the Fabric</h2>
 <p>Run fabric tests:</p>
-<pre><code class="language-bash">cd fabric
-python -m pytest tests/
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>fabric
+python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>tests/
+</code></pre></div>
 <p>Run integration tests with lab:</p>
-<pre><code class="language-bash">make lab-up
-# Fabric devices should establish BGP peers and exchange routes
-docker logs fabric-node-1
-</code></pre>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>lab-up
+<span class="c1"># Fabric devices should establish BGP peers and exchange routes</span>
+docker<span class="w"> </span>logs<span class="w"> </span>fabric-node-1
+</code></pre></div>
 <h2 id="next-steps">Next Steps</h2>
 <ul>
 <li><a href="../lab-setup/">Lab Setup and Integration</a> — How all layers work together</li>

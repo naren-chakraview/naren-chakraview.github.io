@@ -1507,9 +1507,9 @@
 <hr />
 <h2 id="extension-points">Extension Points</h2>
 <p>Code includes marked extension points for future optimization without breaking educational value:</p>
-<pre><code class="language-python"># EXTENSION: Replace with lock-free queue for multicore BGP peer handling
-bgp_peers = {}  # Currently dict, could be concurrent.futures pool
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1"># EXTENSION: Replace with lock-free queue for multicore BGP peer handling</span>
+<span class="n">bgp_peers</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># Currently dict, could be concurrent.futures pool</span>
+</code></pre></div>
 <p>A learner can tackle one optimization in isolation (e.g., "implement multicore BGP peer handling") without refactoring the entire codebase.</p>
 <hr />
 <h2 id="when-this-choice-stops-being-correct">When This Choice Stops Being Correct</h2>

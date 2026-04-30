@@ -1806,40 +1806,40 @@
 <h2 id="overview">Overview</h2>
 <p>The lab orchestrates all three layers (foundation, controller, fabric) in a Docker Compose environment. This guide walks you through starting, testing, and debugging the lab.</p>
 <h2 id="quick-start">Quick Start</h2>
-<pre><code class="language-bash">cd lab
-docker-compose up -d
-docker-compose ps
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>lab
+docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+docker-compose<span class="w"> </span>ps
+</code></pre></div>
 <p>Check that all services are healthy:</p>
-<pre><code class="language-bash">docker-compose logs --follow
-</code></pre>
-<p>Wait for messages like:</p>
-<pre><code>sdn-controller | INFO Server listening on :8080
+<div class="highlight"><pre><span></span><code>docker-compose<span class="w"> </span>logs<span class="w"> </span>--follow
+</code></pre></div>
+<p>Wait for messages like:
+<div class="highlight"><pre><span></span><code>sdn-controller | INFO Server listening on :8080
 fabric-node-1 | INFO BGP peer established with fabric-node-2
-</code></pre>
+</code></pre></div></p>
 <h2 id="service-architecture">Service Architecture</h2>
-<pre><code class="language-mermaid">graph TB
-    subgraph &quot;Docker Compose Network (sdn-net)&quot;
-        subgraph &quot;Control Plane&quot;
-            CTRL[&quot;sdn-controller&lt;br/&gt;Go · gRPC :50051&lt;br/&gt;REST :8080&lt;br/&gt;Topology Discovery&lt;br/&gt;Intent Handling&quot;]
+<pre class="mermaid"><code>graph TB
+    subgraph "Docker Compose Network (sdn-net)"
+        subgraph "Control Plane"
+            CTRL["sdn-controller&lt;br/&gt;Go · gRPC :50051&lt;br/&gt;REST :8080&lt;br/&gt;Topology Discovery&lt;br/&gt;Intent Handling"]
         end
 
-        subgraph &quot;Foundation Layer (Packet Processing)&quot;
-            DPDK[&quot;dpdk-agent&lt;br/&gt;C · DPDK&lt;br/&gt;User-space forwarding&lt;br/&gt;gRPC client&quot;]
-            EBPF[&quot;ebpf-agent&lt;br/&gt;Rust · eBPF&lt;br/&gt;Kernel XDP&lt;br/&gt;gRPC client&quot;]
+        subgraph "Foundation Layer (Packet Processing)"
+            DPDK["dpdk-agent&lt;br/&gt;C · DPDK&lt;br/&gt;User-space forwarding&lt;br/&gt;gRPC client"]
+            EBPF["ebpf-agent&lt;br/&gt;Rust · eBPF&lt;br/&gt;Kernel XDP&lt;br/&gt;gRPC client"]
         end
 
-        subgraph &quot;Fabric Layer (Routing Protocols)&quot;
-            F1[&quot;fabric-node-1&lt;br/&gt;Python · BGP/VXLAN/EVPN&lt;br/&gt;gRPC client&quot;]
-            F2[&quot;fabric-node-2&lt;br/&gt;Python · BGP/VXLAN/EVPN&lt;br/&gt;gRPC client&quot;]
-            F3[&quot;fabric-node-3&lt;br/&gt;Python · BGP/VXLAN/EVPN&lt;br/&gt;gRPC client&quot;]
+        subgraph "Fabric Layer (Routing Protocols)"
+            F1["fabric-node-1&lt;br/&gt;Python · BGP/VXLAN/EVPN&lt;br/&gt;gRPC client"]
+            F2["fabric-node-2&lt;br/&gt;Python · BGP/VXLAN/EVPN&lt;br/&gt;gRPC client"]
+            F3["fabric-node-3&lt;br/&gt;Python · BGP/VXLAN/EVPN&lt;br/&gt;gRPC client"]
         end
 
-        TG[&quot;traffic-gen&lt;br/&gt;iperf3 server/client&lt;br/&gt;Synthetic load generation&quot;]
+        TG["traffic-gen&lt;br/&gt;iperf3 server/client&lt;br/&gt;Synthetic load generation"]
 
-        subgraph &quot;Peering &amp; Tunneling&quot;
-            BGP[&quot;BGP Peers&lt;br/&gt;TCP :179&quot;]
-            VXLAN[&quot;VXLAN Tunnels&lt;br/&gt;UDP :4789&quot;]
+        subgraph "Peering &amp; Tunneling"
+            BGP["BGP Peers&lt;br/&gt;TCP :179"]
+            VXLAN["VXLAN Tunnels&lt;br/&gt;UDP :4789"]
         end
     end
 
@@ -1868,8 +1868,7 @@ fabric-node-1 | INFO BGP peer established with fabric-node-2
     style F3 fill:#9C27B0,color:#fff
     style TG fill:#F44336,color:#fff
     style BGP fill:#FFE66D,color:#333
-    style VXLAN fill:#95E1D3,color:#333
-</code></pre>
+    style VXLAN fill:#95E1D3,color:#333</code></pre>
 <h3 id="services">Services</h3>
 <p><strong>sdn-controller</strong>
 - Listens on <code>:8080</code> (REST API)
@@ -1896,125 +1895,125 @@ fabric-node-1 | INFO BGP peer established with fabric-node-2
 - Tests end-to-end forwarding</p>
 <h2 id="configuration">Configuration</h2>
 <p>Edit <code>lab/.env.example</code> to customize:</p>
-<pre><code class="language-bash"># .env.example
-DPDK_AGENT_IP=dpdk-agent
-EBPF_AGENT_IP=ebpf-agent
-CONTROLLER_IP=sdn-controller
-FABRIC_NODE_1_IP=fabric-node-1
-FABRIC_NODE_2_IP=fabric-node-2
-FABRIC_NODE_3_IP=fabric-node-3
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1"># .env.example</span>
+<span class="nv">DPDK_AGENT_IP</span><span class="o">=</span>dpdk-agent
+<span class="nv">EBPF_AGENT_IP</span><span class="o">=</span>ebpf-agent
+<span class="nv">CONTROLLER_IP</span><span class="o">=</span>sdn-controller
+<span class="nv">FABRIC_NODE_1_IP</span><span class="o">=</span>fabric-node-1
+<span class="nv">FABRIC_NODE_2_IP</span><span class="o">=</span>fabric-node-2
+<span class="nv">FABRIC_NODE_3_IP</span><span class="o">=</span>fabric-node-3
+</code></pre></div>
 <p>Pass environment variables to compose:</p>
-<pre><code class="language-bash">export DPDK_AGENT_IP=my-host
-docker-compose up -d
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">DPDK_AGENT_IP</span><span class="o">=</span>my-host
+docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+</code></pre></div>
 <h2 id="testing-workflows">Testing Workflows</h2>
 <h3 id="1-verify-services-started">1. Verify Services Started</h3>
-<pre><code class="language-bash">docker-compose ps
-# All services should show &quot;Up&quot; and healthy
-</code></pre>
+<div class="highlight"><pre><span></span><code>docker-compose<span class="w"> </span>ps
+<span class="c1"># All services should show &quot;Up&quot; and healthy</span>
+</code></pre></div>
 <h3 id="2-check-topology-discovery">2. Check Topology Discovery</h3>
-<pre><code class="language-bash">curl -s http://localhost:8080/api/v1/topology | jq .
-</code></pre>
-<p>Expected response:</p>
-<pre><code class="language-json">{
-  &quot;devices&quot;: [
-    {&quot;id&quot;: &quot;dpdk-agent&quot;, &quot;ip&quot;: &quot;10.0.0.1&quot;, &quot;capabilities&quot;: [&quot;ipv4-forwarding&quot;]},
-    {&quot;id&quot;: &quot;ebpf-agent&quot;, &quot;ip&quot;: &quot;10.0.0.2&quot;, &quot;capabilities&quot;: [&quot;ipv4-forwarding&quot;]},
-    {&quot;id&quot;: &quot;fabric-node-1&quot;, &quot;ip&quot;: &quot;10.0.0.3&quot;, &quot;capabilities&quot;: [&quot;bgp&quot;, &quot;vxlan&quot;]},
-    ...
-  ],
-  &quot;links&quot;: [...]
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>http://localhost:8080/api/v1/topology<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<p>Expected response:
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;devices&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dpdk-agent&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;10.0.0.1&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;capabilities&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;ipv4-forwarding&quot;</span><span class="p">]},</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ebpf-agent&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;10.0.0.2&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;capabilities&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;ipv4-forwarding&quot;</span><span class="p">]},</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;fabric-node-1&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;10.0.0.3&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;capabilities&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;bgp&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;vxlan&quot;</span><span class="p">]},</span>
+<span class="w">    </span><span class="err">...</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;links&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">...</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></p>
 <h3 id="3-query-device-statistics">3. Query Device Statistics</h3>
-<pre><code class="language-bash">curl -s http://localhost:8080/api/v1/health | jq .
-</code></pre>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>http://localhost:8080/api/v1/health<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
 <p>Check packet counts and tunnel state.</p>
 <h3 id="4-install-a-route-intent">4. Install a Route (Intent)</h3>
-<pre><code class="language-bash">curl -X POST http://localhost:8080/api/v1/routes \
-  -H &quot;Content-Type: application/json&quot; \
-  -d '{
-    &quot;source_subnet&quot;: &quot;10.1.0.0/24&quot;,
-    &quot;dest_subnet&quot;: &quot;10.2.0.0/24&quot;,
-    &quot;tunnel_id&quot;: 1,
-    &quot;priority&quot;: 100
-  }'
-</code></pre>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:8080/api/v1/routes<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">    &quot;source_subnet&quot;: &quot;10.1.0.0/24&quot;,</span>
+<span class="s1">    &quot;dest_subnet&quot;: &quot;10.2.0.0/24&quot;,</span>
+<span class="s1">    &quot;tunnel_id&quot;: 1,</span>
+<span class="s1">    &quot;priority&quot;: 100</span>
+<span class="s1">  }&#39;</span>
+</code></pre></div>
 <p>This triggers the controller to compute paths and install routes on all affected devices.</p>
 <h3 id="5-generate-traffic">5. Generate Traffic</h3>
-<pre><code class="language-bash"># Inside fabric-node-1 container, send packets
-docker-compose exec fabric-node-1 bash
-# (Inside container)
-ping 10.2.0.1  # Should succeed if routes installed
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1"># Inside fabric-node-1 container, send packets</span>
+docker-compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>fabric-node-1<span class="w"> </span>bash
+<span class="c1"># (Inside container)</span>
+ping<span class="w"> </span><span class="m">10</span>.2.0.1<span class="w">  </span><span class="c1"># Should succeed if routes installed</span>
+</code></pre></div>
 <p>Or use iperf3:</p>
-<pre><code class="language-bash"># Terminal 1: Start iperf3 server (should already be running)
-docker-compose exec traffic-gen iperf3 -s
+<div class="highlight"><pre><span></span><code><span class="c1"># Terminal 1: Start iperf3 server (should already be running)</span>
+docker-compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>traffic-gen<span class="w"> </span>iperf3<span class="w"> </span>-s
 
-# Terminal 2: Generate traffic
-docker-compose exec traffic-gen iperf3 -c traffic-gen -t 10
-# Runs 10-second traffic flow; check packet counts with curl
-</code></pre>
+<span class="c1"># Terminal 2: Generate traffic</span>
+docker-compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>traffic-gen<span class="w"> </span>iperf3<span class="w"> </span>-c<span class="w"> </span>traffic-gen<span class="w"> </span>-t<span class="w"> </span><span class="m">10</span>
+<span class="c1"># Runs 10-second traffic flow; check packet counts with curl</span>
+</code></pre></div>
 <h2 id="debugging">Debugging</h2>
 <h3 id="check-logs">Check Logs</h3>
-<pre><code class="language-bash"># All services
-docker-compose logs
+<div class="highlight"><pre><span></span><code><span class="c1"># All services</span>
+docker-compose<span class="w"> </span>logs
 
-# Specific service
-docker-compose logs sdn-controller
-docker-compose logs fabric-node-1
+<span class="c1"># Specific service</span>
+docker-compose<span class="w"> </span>logs<span class="w"> </span>sdn-controller
+docker-compose<span class="w"> </span>logs<span class="w"> </span>fabric-node-1
 
-# Follow in real-time
-docker-compose logs -f fabric-node-1
-</code></pre>
+<span class="c1"># Follow in real-time</span>
+docker-compose<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>fabric-node-1
+</code></pre></div>
 <h3 id="inspect-topology-in-controller">Inspect Topology in Controller</h3>
-<pre><code class="language-bash">docker-compose exec sdn-controller bash
-# (Inside container)
-curl localhost:8080/api/v1/topology | jq .
-</code></pre>
+<div class="highlight"><pre><span></span><code>docker-compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>sdn-controller<span class="w"> </span>bash
+<span class="c1"># (Inside container)</span>
+curl<span class="w"> </span>localhost:8080/api/v1/topology<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
 <h3 id="check-bgp-session-state">Check BGP Session State</h3>
-<pre><code class="language-bash">docker-compose exec fabric-node-1 bash
-# (Inside container)
-python -c &quot;from device import NetworkDevice; d = NetworkDevice('node1', 65001); print(d.bgp_speaker.state)&quot;
-</code></pre>
+<div class="highlight"><pre><span></span><code>docker-compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>fabric-node-1<span class="w"> </span>bash
+<span class="c1"># (Inside container)</span>
+python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;from device import NetworkDevice; d = NetworkDevice(&#39;node1&#39;, 65001); print(d.bgp_speaker.state)&quot;</span>
+</code></pre></div>
 <h3 id="trace-grpc-calls">Trace gRPC Calls</h3>
 <p>Enable gRPC debug logging:</p>
-<pre><code class="language-bash">GRPC_VERBOSITY=debug GRPC_TRACE=all docker-compose up sdn-controller
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nv">GRPC_VERBOSITY</span><span class="o">=</span>debug<span class="w"> </span><span class="nv">GRPC_TRACE</span><span class="o">=</span>all<span class="w"> </span>docker-compose<span class="w"> </span>up<span class="w"> </span>sdn-controller
+</code></pre></div>
 <p>This prints all gRPC messages. Useful for debugging agent registration failures.</p>
 <h3 id="restart-a-service">Restart a Service</h3>
-<pre><code class="language-bash">docker-compose restart fabric-node-1
-# Service restarts; registers with controller again
-</code></pre>
+<div class="highlight"><pre><span></span><code>docker-compose<span class="w"> </span>restart<span class="w"> </span>fabric-node-1
+<span class="c1"># Service restarts; registers with controller again</span>
+</code></pre></div>
 <h3 id="rebuild-images">Rebuild Images</h3>
 <p>If you modify source code:</p>
-<pre><code class="language-bash">docker-compose build sdn-controller
-docker-compose up -d sdn-controller
-</code></pre>
+<div class="highlight"><pre><span></span><code>docker-compose<span class="w"> </span>build<span class="w"> </span>sdn-controller
+docker-compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>sdn-controller
+</code></pre></div>
 <p>Or rebuild all:</p>
-<pre><code class="language-bash">docker-compose build --no-cache
-docker-compose up -d
-</code></pre>
+<div class="highlight"><pre><span></span><code>docker-compose<span class="w"> </span>build<span class="w"> </span>--no-cache
+docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+</code></pre></div>
 <h2 id="performance-testing">Performance Testing</h2>
 <h3 id="throughput-test">Throughput Test</h3>
-<pre><code class="language-bash"># Generate 10 seconds of traffic
-docker-compose exec traffic-gen iperf3 -c traffic-gen -t 10 -P 4
+<div class="highlight"><pre><span></span><code><span class="c1"># Generate 10 seconds of traffic</span>
+docker-compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>traffic-gen<span class="w"> </span>iperf3<span class="w"> </span>-c<span class="w"> </span>traffic-gen<span class="w"> </span>-t<span class="w"> </span><span class="m">10</span><span class="w"> </span>-P<span class="w"> </span><span class="m">4</span>
 
-# Check packet counts
-curl http://localhost:8080/api/v1/health | jq '.devices[0].stats'
-</code></pre>
+<span class="c1"># Check packet counts</span>
+curl<span class="w"> </span>http://localhost:8080/api/v1/health<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.devices[0].stats&#39;</span>
+</code></pre></div>
 <p>Expected results:
 - <strong>DPDK agent</strong>: ~100K packets/second
 - <strong>eBPF agent</strong>: ~1M packets/second (kernel fast path)
 - <strong>Fabric devices</strong>: ~50K packets/second (Python overhead)</p>
 <h3 id="latency-test">Latency Test</h3>
-<pre><code class="language-bash"># Ping test (shows round-trip latency)
-docker-compose exec fabric-node-1 ping -c 100 fabric-node-2
-# Average latency should be &lt;5ms in Docker
+<div class="highlight"><pre><span></span><code><span class="c1"># Ping test (shows round-trip latency)</span>
+docker-compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>fabric-node-1<span class="w"> </span>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">100</span><span class="w"> </span>fabric-node-2
+<span class="c1"># Average latency should be &lt;5ms in Docker</span>
 
-# For per-packet latency, inspect timestamps in controller logs
-</code></pre>
+<span class="c1"># For per-packet latency, inspect timestamps in controller logs</span>
+</code></pre></div>
 <h2 id="troubleshooting">Troubleshooting</h2>
 <table>
 <thead>
@@ -2051,15 +2050,15 @@ docker-compose exec fabric-node-1 ping -c 100 fabric-node-2
 </tbody>
 </table>
 <h2 id="stopping-the-lab">Stopping the Lab</h2>
-<pre><code class="language-bash"># Stop all services
-docker-compose down
+<div class="highlight"><pre><span></span><code><span class="c1"># Stop all services</span>
+docker-compose<span class="w"> </span>down
 
-# Stop and remove volumes (data loss)
-docker-compose down -v
+<span class="c1"># Stop and remove volumes (data loss)</span>
+docker-compose<span class="w"> </span>down<span class="w"> </span>-v
 
-# Stop specific service
-docker-compose stop fabric-node-1
-</code></pre>
+<span class="c1"># Stop specific service</span>
+docker-compose<span class="w"> </span>stop<span class="w"> </span>fabric-node-1
+</code></pre></div>
 <h2 id="next-steps">Next Steps</h2>
 <ul>
 <li><a href="../../extending/custom-protocols/">Testing and Extending</a> — Modify fabric protocols</li>

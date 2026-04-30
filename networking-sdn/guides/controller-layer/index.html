@@ -1535,25 +1535,25 @@
 </ol>
 <h2 id="architecture">Architecture</h2>
 <p>The controller is structured in three layers:</p>
-<pre><code class="language-mermaid">graph TD
-    subgraph &quot;External Interface&quot;
-        REST[&quot;REST API&lt;br/&gt;/api/v1/routes&lt;br/&gt;/api/v1/tunnels&quot;]
+<pre class="mermaid"><code>graph TD
+    subgraph "External Interface"
+        REST["REST API&lt;br/&gt;/api/v1/routes&lt;br/&gt;/api/v1/tunnels"]
     end
 
-    subgraph &quot;Controller Layers&quot;
-        INTENT[&quot;Intent Layer&lt;br/&gt;Request validation&lt;br/&gt;Path computation trigger&quot;]
-        DISC[&quot;Discovery Layer&lt;br/&gt;Device registry&lt;br/&gt;Lifecycle events&quot;]
-        TOPO[&quot;Topology Layer&lt;br/&gt;Graph + BFS&lt;br/&gt;Path finding&quot;]
+    subgraph "Controller Layers"
+        INTENT["Intent Layer&lt;br/&gt;Request validation&lt;br/&gt;Path computation trigger"]
+        DISC["Discovery Layer&lt;br/&gt;Device registry&lt;br/&gt;Lifecycle events"]
+        TOPO["Topology Layer&lt;br/&gt;Graph + BFS&lt;br/&gt;Path finding"]
     end
 
-    subgraph &quot;Device Communication&quot;
-        GRPC[&quot;gRPC Southbound&lt;br/&gt;SetRoutes, SetTunnels&lt;br/&gt;GetStats streaming&quot;]
+    subgraph "Device Communication"
+        GRPC["gRPC Southbound&lt;br/&gt;SetRoutes, SetTunnels&lt;br/&gt;GetStats streaming"]
     end
 
-    subgraph &quot;Devices&quot;
-        DEV1[&quot;DPDK Agent&quot;]
-        DEV2[&quot;eBPF Agent&quot;]
-        DEV3[&quot;Fabric Nodes&quot;]
+    subgraph "Devices"
+        DEV1["DPDK Agent"]
+        DEV2["eBPF Agent"]
+        DEV3["Fabric Nodes"]
     end
 
     REST --&gt;|POST| INTENT
@@ -1569,8 +1569,7 @@
     style INTENT fill:#2196F3,color:#fff
     style DISC fill:#FF9800,color:#fff
     style TOPO fill:#9C27B0,color:#fff
-    style GRPC fill:#F44336,color:#fff
-</code></pre>
+    style GRPC fill:#F44336,color:#fff</code></pre>
 <p>Each layer is independently testable:
 - <strong>Topology</strong>: Test with mock devices (no network I/O)
 - <strong>Discovery</strong>: Test device registration/failure events
@@ -1578,23 +1577,23 @@
 - <strong>Transport</strong>: Mock gRPC calls for unit testing</p>
 <h2 id="topology-service">Topology Service</h2>
 <p>The topology service maintains an in-memory graph of devices and links:</p>
-<pre><code class="language-go">type Device struct {
-    ID string              // &quot;dpdk-agent-1&quot;
-    IP string              // &quot;10.0.0.1&quot;
-    Capabilities []string  // [&quot;ipv4-forwarding&quot;, &quot;vxlan&quot;]
-}
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">Device</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">ID</span><span class="w"> </span><span class="kt">string</span><span class="w">              </span><span class="c1">// &quot;dpdk-agent-1&quot;</span>
+<span class="w">    </span><span class="nx">IP</span><span class="w"> </span><span class="kt">string</span><span class="w">              </span><span class="c1">// &quot;10.0.0.1&quot;</span>
+<span class="w">    </span><span class="nx">Capabilities</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="w">  </span><span class="c1">// [&quot;ipv4-forwarding&quot;, &quot;vxlan&quot;]</span>
+<span class="p">}</span>
 
-type Link struct {
-    Source, Target string  // Device IDs
-    Cost int              // Hop count (always 1 for now)
-}
+<span class="kd">type</span><span class="w"> </span><span class="nx">Link</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Source</span><span class="p">,</span><span class="w"> </span><span class="nx">Target</span><span class="w"> </span><span class="kt">string</span><span class="w">  </span><span class="c1">// Device IDs</span>
+<span class="w">    </span><span class="nx">Cost</span><span class="w"> </span><span class="kt">int</span><span class="w">              </span><span class="c1">// Hop count (always 1 for now)</span>
+<span class="p">}</span>
 
-type Topology struct {
-    devices map[string]*Device
-    links   map[string]*Link
-    lock    sync.RWMutex  // Protects graph during concurrent updates
-}
-</code></pre>
+<span class="kd">type</span><span class="w"> </span><span class="nx">Topology</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">devices</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="o">*</span><span class="nx">Device</span>
+<span class="w">    </span><span class="nx">links</span><span class="w">   </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="o">*</span><span class="nx">Link</span>
+<span class="w">    </span><span class="nx">lock</span><span class="w">    </span><span class="nx">sync</span><span class="p">.</span><span class="nx">RWMutex</span><span class="w">  </span><span class="c1">// Protects graph during concurrent updates</span>
+<span class="p">}</span>
+</code></pre></div>
 <p><strong>Path Computation:</strong></p>
 <p>Uses BFS (Breadth-First Search) to find shortest path:</p>
 <ol>
@@ -1605,10 +1604,10 @@ type Topology struct {
 </ol>
 <p><strong>Immutable Snapshots:</strong></p>
 <p>To avoid race conditions, take a snapshot of the graph before path computation:</p>
-<pre><code class="language-go">snapshot := topology.Snapshot()  // Copy graph at this instant
-path := snapshot.ShortestPath(src, dst)
-// Path computation uses snapshot; concurrent device updates don't affect it
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nx">snapshot</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">topology</span><span class="p">.</span><span class="nx">Snapshot</span><span class="p">()</span><span class="w">  </span><span class="c1">// Copy graph at this instant</span>
+<span class="nx">path</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">snapshot</span><span class="p">.</span><span class="nx">ShortestPath</span><span class="p">(</span><span class="nx">src</span><span class="p">,</span><span class="w"> </span><span class="nx">dst</span><span class="p">)</span>
+<span class="c1">// Path computation uses snapshot; concurrent device updates don&#39;t affect it</span>
+</code></pre></div>
 <h2 id="discovery-service">Discovery Service</h2>
 <p>The discovery service detects when devices come online and go offline.</p>
 <p><strong>Device Registration:</strong></p>
@@ -1624,13 +1623,13 @@ path := snapshot.ShortestPath(src, dst)
 <h2 id="intent-service">Intent Service</h2>
 <p>The intent service accepts requests from operators via REST API and translates them to gRPC calls to devices.</p>
 <p><strong>REST Endpoints:</strong></p>
-<pre><code>POST /api/v1/routes
+<div class="highlight"><pre><span></span><code>POST /api/v1/routes
 {
   &quot;source_subnet&quot;: &quot;10.0.0.0/24&quot;,
   &quot;dest_subnet&quot;: &quot;10.1.0.0/24&quot;,
   &quot;tunnel_id&quot;: 1
 }
-</code></pre>
+</code></pre></div>
 <p>Intent service:
 1. Validates the request (subnets exist, tunnel exists)
 2. Calls <code>topology.ShortestPath(src_device, dest_device)</code>
@@ -1679,13 +1678,13 @@ path := snapshot.ShortestPath(src, dst)
 </ul>
 <h2 id="testing-the-controller">Testing the Controller</h2>
 <p>Run unit tests:</p>
-<pre><code class="language-bash">cd controller
-go test ./...
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>controller
+go<span class="w"> </span><span class="nb">test</span><span class="w"> </span>./...
+</code></pre></div>
 <p>Run integration tests with lab:</p>
-<pre><code class="language-bash">make lab-up
-curl http://localhost:8080/api/v1/health
-</code></pre>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>lab-up
+curl<span class="w"> </span>http://localhost:8080/api/v1/health
+</code></pre></div>
 <h2 id="next-steps">Next Steps</h2>
 <ul>
 <li><a href="../fabric-layer/">Integration with Fabric Protocols</a> — How controller manages fabric devices</li>

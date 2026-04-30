@@ -1368,42 +1368,42 @@
 <h1 id="chakraview-networking-sdn-architecture">Chakraview Networking-SDN Architecture</h1>
 <h2 id="overview">Overview</h2>
 <p>Three-layer architecture for SDN portfolio project:</p>
-<pre><code class="language-mermaid">graph TD
-    subgraph &quot;Northbound Interface&quot;
-        EXTERNAL[&quot;External Clients&lt;br/&gt;REST API&lt;br/&gt;:8080&quot;]
+<pre class="mermaid"><code>graph TD
+    subgraph "Northbound Interface"
+        EXTERNAL["External Clients&lt;br/&gt;REST API&lt;br/&gt;:8080"]
     end
 
-    subgraph &quot;Control Plane&quot;
-        TOPO[&quot;Topology Service&lt;br/&gt;Device registration&lt;br/&gt;Graph + BFS path finding&lt;br/&gt;Discovery events&quot;]
-        INTENT[&quot;Intent Engine&lt;br/&gt;Request validation&lt;br/&gt;Intent-to-config translation&quot;]
-        subgraph CTRL[&quot;SDN Controller (Go)&quot;]
+    subgraph "Control Plane"
+        TOPO["Topology Service&lt;br/&gt;Device registration&lt;br/&gt;Graph + BFS path finding&lt;br/&gt;Discovery events"]
+        INTENT["Intent Engine&lt;br/&gt;Request validation&lt;br/&gt;Intent-to-config translation"]
+        subgraph CTRL["SDN Controller (Go)"]
             TOPO
             INTENT
         end
     end
 
-    subgraph &quot;Fabric Layer&quot;
-        BGP[&quot;BGP Speaker&lt;br/&gt;FSM: Idle→Establish&lt;br/&gt;Route learning&lt;br/&gt;Peer management&quot;]
-        VXLAN[&quot;VXLAN Manager&lt;br/&gt;Tunnel creation&lt;br/&gt;Encap/Decap&lt;br/&gt;MAC learning&quot;]
-        EVPN[&quot;EVPN Handler&lt;br/&gt;Type 2: MAC/IP&lt;br/&gt;Type 5: IP Prefix&lt;br/&gt;Route distribution&quot;]
-        subgraph FABRIC[&quot;Fabric Nodes (Python)&quot;]
+    subgraph "Fabric Layer"
+        BGP["BGP Speaker&lt;br/&gt;FSM: Idle→Establish&lt;br/&gt;Route learning&lt;br/&gt;Peer management"]
+        VXLAN["VXLAN Manager&lt;br/&gt;Tunnel creation&lt;br/&gt;Encap/Decap&lt;br/&gt;MAC learning"]
+        EVPN["EVPN Handler&lt;br/&gt;Type 2: MAC/IP&lt;br/&gt;Type 5: IP Prefix&lt;br/&gt;Route distribution"]
+        subgraph FABRIC["Fabric Nodes (Python)"]
             BGP
             VXLAN
             EVPN
         end
     end
 
-    subgraph &quot;Foundation Layer&quot;
-        DPDK[&quot;DPDK Agent (C)&lt;br/&gt;User-space forwarding&lt;br/&gt;LPM routing&lt;br/&gt;VXLAN encap/decap&quot;]
-        EBPF[&quot;eBPF Agent (Rust)&lt;br/&gt;XDP hook&lt;br/&gt;BPF maps&lt;br/&gt;In-kernel processing&quot;]
-        subgraph FOUND[&quot;Packet Processing&quot;]
+    subgraph "Foundation Layer"
+        DPDK["DPDK Agent (C)&lt;br/&gt;User-space forwarding&lt;br/&gt;LPM routing&lt;br/&gt;VXLAN encap/decap"]
+        EBPF["eBPF Agent (Rust)&lt;br/&gt;XDP hook&lt;br/&gt;BPF maps&lt;br/&gt;In-kernel processing"]
+        subgraph FOUND["Packet Processing"]
             DPDK
             EBPF
         end
     end
 
-    subgraph &quot;Southbound Interface&quot;
-        GRPC[&quot;gRPC Southbound&lt;br/&gt;:50051&lt;br/&gt;SetRoutes, SetTunnels&lt;br/&gt;GetStats streaming&quot;]
+    subgraph "Southbound Interface"
+        GRPC["gRPC Southbound&lt;br/&gt;:50051&lt;br/&gt;SetRoutes, SetTunnels&lt;br/&gt;GetStats streaming"]
     end
 
     EXTERNAL --&gt;|REST| INTENT
@@ -1422,8 +1422,7 @@
     style FABRIC fill:#9C27B0,color:#fff
     style FOUND fill:#4CAF50,color:#fff
     style EXTERNAL fill:#FF9800,color:#fff
-    style GRPC fill:#F44336,color:#fff
-</code></pre>
+    style GRPC fill:#F44336,color:#fff</code></pre>
 <h2 id="data-flow-example">Data Flow Example</h2>
 <h3 id="device-registration">Device Registration</h3>
 <ol>
