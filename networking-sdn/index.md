@@ -43,9 +43,29 @@ curl http://localhost:8080/api/v1/topology
 
 ## Documentation
 
-- [Architecture Overview](architecture.md) - System design and data flows
+### Getting Started
 - [Quick Start Guide](quickstart.md) - Local and Docker setup
-- [Architecture Decisions](adrs/0001-architecture.md) - Design rationale
+- [Architecture Overview](architecture.md) - System design and data flows
+- [Lab Setup Guide](guides/lab-setup.md) - Running the complete system
+
+### Deep Dives by Component
+- [Foundation Layer Guide](guides/foundation-layer.md) - DPDK vs eBPF packet processing
+- [Controller Layer Guide](guides/controller-layer.md) - Topology discovery and intent handling
+- [Fabric Layer Guide](guides/fabric-layer.md) - BGP, VXLAN, and EVPN protocols
+- [Decision Matrix](guides/decision-matrix.md) - Summary of 8 major architectural choices
+
+### Architecture Decisions
+- [ADR-0001: Three-Layer Architecture](adrs/0001-architecture.md)
+- [ADR-0002: DPDK vs eBPF](adrs/0002-dpdk-vs-ebpf.md)
+- [ADR-0003: Southbound Protocol](adrs/0003-grpc-southbound.md)
+- [ADR-0004: Controller Design](adrs/0004-go-controller-design.md)
+- [ADR-0005: BGP/VXLAN/EVPN](adrs/0005-bgp-vxlan-evpn.md)
+- [ADR-0006: Lab Architecture](adrs/0006-lab-docker-compose.md)
+- [ADR-0007: Monorepo Structure](adrs/0007-monorepo-structure.md)
+- [ADR-0008: Performance Constraints](adrs/0008-performance-constraints.md)
+
+### Context & Positioning
+- [Landscape Guide](guides/landscape.md) - How this relates to production SDN systems
 - [Extending the System](extending/custom-protocols.md) - Add your own protocols
 
 ## Technology Stack
