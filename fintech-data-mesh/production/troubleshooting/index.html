@@ -2108,13 +2108,13 @@
     A --&gt; A2["Verify DNS: nslookup kafka.fintech-mesh"]
     A --&gt; A3["Check service: kubectl get svc kafka -n fintech-mesh"]</code></pre>
 <p><strong>Cause 5: High Volume Spike</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Check:<span class="w"> </span>Kafka<span class="w"> </span>lag<span class="w"> </span>metric<span class="w"> </span>should<span class="w"> </span>be<span class="w"> </span><span class="p">&amp;</span>lt<span class="p">;</span><span class="w"> </span><span class="m">30</span><span class="w"> </span>sec<span class="w"> </span>normally
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Check:<span class="w"> </span>Kafka<span class="w"> </span>lag<span class="w"> </span>metric<span class="w"> </span>should<span class="w"> </span>be<span class="w"> </span>&lt;<span class="w"> </span><span class="m">30</span><span class="w"> </span>sec<span class="w"> </span>normally
 </span></code></pre></div>
 <pre class="mermaid"><code>graph TD
     A["If lag is increasing"]
     A --&gt; A1["Verify: ingest_records_total increasing steadily?"]
     A --&gt; A2["Calculate: messages_per_minute = lag_now - lag_5min_ago / 5"]
-    A --&gt; A3["If &amp;gt; 200K msg/min 2x normal 100K"]
+    A --&gt; A3["If &gt; 200K msg/min 2x normal 100K"]
     A3 --&gt; A3a["This is expected; Spark will catch up"]
     A3 --&gt; A3b["Monitor lag: should decrease within 30 min"]
     A3 --&gt; A3c["If lag continues increasing: Scale Spark"]
@@ -2133,15 +2133,15 @@
 <p><strong>Alerting thresholds</strong> (set in Prometheus):</p>
 <pre class="mermaid"><code>graph TD
     A["Alert Thresholds"]
-    A --&gt; A1["data_freshness_sla_warning&lt;br/&gt;Condition: data_freshness_minutes &amp;gt; 3&lt;br/&gt;60% of 5-min SLA&lt;br/&gt;Action: Page on-call, investigate"]
-    A --&gt; A2["kafka_lag_critical&lt;br/&gt;Condition: kafka_lag_seconds &amp;gt; 60&lt;br/&gt;Action: Page on-call"]
-    A --&gt; A3["ingest_errors_high&lt;br/&gt;Condition: rate ingest_errors_total[5m] &amp;gt; 0.01&lt;br/&gt;&amp;gt;1% errors&lt;br/&gt;Action: Page on-call"]</code></pre>
+    A --&gt; A1["data_freshness_sla_warning&lt;br/&gt;Condition: data_freshness_minutes &gt; 3&lt;br/&gt;60% of 5-min SLA&lt;br/&gt;Action: Page on-call, investigate"]
+    A --&gt; A2["kafka_lag_critical&lt;br/&gt;Condition: kafka_lag_seconds &gt; 60&lt;br/&gt;Action: Page on-call"]
+    A --&gt; A3["ingest_errors_high&lt;br/&gt;Condition: rate ingest_errors_total[5m] &gt; 0.01&lt;br/&gt;&gt;1% errors&lt;br/&gt;Action: Page on-call"]</code></pre>
 <p><strong>Health checks</strong> (automated):</p>
 <p><pre class="mermaid"><code>graph TD
     A["Automated Health Checks"]
     A --&gt; A1["Every 1 minute: Check ingest job running"]
-    A --&gt; A2["Every 5 minutes: Check Kafka lag &amp;lt; 30 sec"]
-    A --&gt; A3["Every 10 minutes: Check Iceberg write latency &amp;lt; 500ms"]
+    A --&gt; A2["Every 5 minutes: Check Kafka lag &lt; 30 sec"]
+    A --&gt; A3["Every 10 minutes: Check Iceberg write latency &lt; 500ms"]
     A --&gt; A4["Alert if any fail 2 consecutive checks"]</code></pre>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>---
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>

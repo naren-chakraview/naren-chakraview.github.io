@@ -1905,7 +1905,7 @@
     A["transaction-processing Real-time"]
     A --&gt; A1["Consumes: Kafka topic counterparties-raw hot path"]
     A --&gt; A2["Purpose: Route transactions to correct processor"]
-    A --&gt; A3["SLA: &amp;lt; 100ms lookup"]
+    A --&gt; A3["SLA: &lt; 100ms lookup"]
 
     B["settlement-engine Batch"]
     B --&gt; B1["Consumes: Iceberg table counterparties.merchants"]

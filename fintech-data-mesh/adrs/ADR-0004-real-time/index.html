@@ -2140,8 +2140,8 @@
 <pre class="mermaid"><code>graph TD
     A["Events occur"]
     A --&gt; B["Kafka Topic real-time, 7-day retention"]
-    B --&gt; B1["Consumers: Fraud detection, pricing engine&lt;br/&gt;need &amp;lt; 1-second latency"]
-    B --&gt; B2["Latency: &amp;lt; 100ms"]
+    B --&gt; B1["Consumers: Fraud detection, pricing engine&lt;br/&gt;need &lt; 1-second latency"]
+    B --&gt; B2["Latency: &lt; 100ms"]
     B --&gt; C["Spark Structured Streaming&lt;br/&gt;micro-batch every 5 minutes"]
     C --&gt; C1["Checkpoint: Ensures exactly-once delivery"]
     C --&gt; D["Iceberg Table cold path, 7-year retention"]
