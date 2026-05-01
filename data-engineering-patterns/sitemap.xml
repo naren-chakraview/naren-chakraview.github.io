@@ -2,142 +2,142 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://naren-chakraview.github.io/chakraview-data-engineering-patterns/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-05-01</lastmod>
     </url>
     <url>
          <loc>https://naren-chakraview.github.io/chakraview-data-engineering-patterns/adrs/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-05-01</lastmod>
     </url>
     <url>
          <loc>https://naren-chakraview.github.io/chakraview-data-engineering-patterns/adrs/ADR-0001-pattern-matrix-structure/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-05-01</lastmod>
     </url>
     <url>
          <loc>https://naren-chakraview.github.io/chakraview-data-engineering-patterns/adrs/ADR-0001-placeholder/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-05-01</lastmod>
     </url>
     <url>
          <loc>https://naren-chakraview.github.io/chakraview-data-engineering-patterns/adrs/ADR-0002-idiomatic-language-per-ecosystem/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-05-01</lastmod>
     </url>
     <url>
          <loc>https://naren-chakraview.github.io/chakraview-data-engineering-patterns/adrs/ADR-0002-placeholder/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-05-01</lastmod>
     </url>
     <url>
          <loc>https://naren-chakraview.github.io/chakraview-data-engineering-patterns/adrs/ADR-0003-placeholder/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-05-01</lastmod>
     </url>
     <url>
          <loc>https://naren-chakraview.github.io/chakraview-data-engineering-patterns/adrs/ADR-0003-table-format-landscape/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-05-01</lastmod>
     </url>
     <url>
          <loc>https://naren-chakraview.github.io/chakraview-data-engineering-patterns/adrs/ADR-0004-placeholder/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-05-01</lastmod>
     </url>
     <url>
          <loc>https://naren-chakraview.github.io/chakraview-data-engineering-patterns/adrs/ADR-0004-stream-processing-engine/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-05-01</lastmod>
     </url>
     <url>
          <loc>https://naren-chakraview.github.io/chakraview-data-engineering-patterns/adrs/ADR-0005-orchestration-landscape/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-05-01</lastmod>
     </url>
     <url>
          <loc>https://naren-chakraview.github.io/chakraview-data-engineering-patterns/adrs/ADR-0005-placeholder/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-05-01</lastmod>
     </url>
     <url>
          <loc>https://naren-chakraview.github.io/chakraview-data-engineering-patterns/adrs/ADR-0006-lakehouse-storage-layer/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-05-01</lastmod>
     </url>
     <url>
          <loc>https://naren-chakraview.github.io/chakraview-data-engineering-patterns/adrs/ADR-0006-placeholder/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-05-01</lastmod>
     </url>
     <url>
          <loc>https://naren-chakraview.github.io/chakraview-data-engineering-patterns/adrs/ADR-0007-cdc-tooling/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-05-01</lastmod>
     </url>
     <url>
          <loc>https://naren-chakraview.github.io/chakraview-data-engineering-patterns/adrs/ADR-0007-placeholder/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-05-01</lastmod>
     </url>
     <url>
          <loc>https://naren-chakraview.github.io/chakraview-data-engineering-patterns/adrs/ADR-0008-local-dev-approach/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-05-01</lastmod>
     </url>
     <url>
          <loc>https://naren-chakraview.github.io/chakraview-data-engineering-patterns/adrs/ADR-0008-placeholder/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-05-01</lastmod>
     </url>
     <url>
          <loc>https://naren-chakraview.github.io/chakraview-data-engineering-patterns/adrs/ADR-0009-graph-processing/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-05-01</lastmod>
     </url>
     <url>
          <loc>https://naren-chakraview.github.io/chakraview-data-engineering-patterns/adrs/ADR-0009-placeholder/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-05-01</lastmod>
     </url>
     <url>
          <loc>https://naren-chakraview.github.io/chakraview-data-engineering-patterns/adrs/ADR-0010-ml-feature-pipeline/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-05-01</lastmod>
     </url>
     <url>
          <loc>https://naren-chakraview.github.io/chakraview-data-engineering-patterns/adrs/ADR-0010-placeholder/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-05-01</lastmod>
     </url>
     <url>
          <loc>https://naren-chakraview.github.io/chakraview-data-engineering-patterns/decision-matrix/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-05-01</lastmod>
     </url>
     <url>
          <loc>https://naren-chakraview.github.io/chakraview-data-engineering-patterns/landscape/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-05-01</lastmod>
     </url>
     <url>
          <loc>https://naren-chakraview.github.io/chakraview-data-engineering-patterns/patterns/batch-lakehouse/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-05-01</lastmod>
     </url>
     <url>
          <loc>https://naren-chakraview.github.io/chakraview-data-engineering-patterns/patterns/cdc-pipeline/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-05-01</lastmod>
     </url>
     <url>
          <loc>https://naren-chakraview.github.io/chakraview-data-engineering-patterns/patterns/elt-warehouse/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-05-01</lastmod>
     </url>
     <url>
          <loc>https://naren-chakraview.github.io/chakraview-data-engineering-patterns/patterns/federated-query/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-05-01</lastmod>
     </url>
     <url>
          <loc>https://naren-chakraview.github.io/chakraview-data-engineering-patterns/patterns/graph-processing/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-05-01</lastmod>
     </url>
     <url>
          <loc>https://naren-chakraview.github.io/chakraview-data-engineering-patterns/patterns/lambda-architecture/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-05-01</lastmod>
     </url>
     <url>
          <loc>https://naren-chakraview.github.io/chakraview-data-engineering-patterns/patterns/ml-feature-pipeline/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-05-01</lastmod>
     </url>
     <url>
          <loc>https://naren-chakraview.github.io/chakraview-data-engineering-patterns/patterns/streaming-lakehouse/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-05-01</lastmod>
     </url>
     <url>
          <loc>https://naren-chakraview.github.io/chakraview-data-engineering-patterns/patterns/workflow-orchestration/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-05-01</lastmod>
     </url>
     <url>
          <loc>https://naren-chakraview.github.io/chakraview-data-engineering-patterns/superpowers/plans/2026-04-25-data-engineering-patterns/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-05-01</lastmod>
     </url>
     <url>
          <loc>https://naren-chakraview.github.io/chakraview-data-engineering-patterns/superpowers/specs/2026-04-25-data-engineering-patterns-design/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-05-01</lastmod>
     </url>
 </urlset>

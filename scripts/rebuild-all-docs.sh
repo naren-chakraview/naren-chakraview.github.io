@@ -44,6 +44,7 @@ echo ""
 
 # Array of repos with documentation
 declare -a REPOS=(
+    "chakraview-ai-dev-model:ai-dev-model"
     "chakraview-zero-trust-blueprint:zero-trust-blueprint"
     "chakraview-enterprise-modernization:enterprise-modernization"
     "chakraview-realtime-data-platform:realtime-data-platform"
