@@ -6,35 +6,35 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="The LLM persona that produces full ADRs, domain models, API contracts, migration docs, and runbooks from human-authored stubs and invariants.">
+        <meta name="description" content="Installable AI agent skills for Claude Code, Cursor, Windsurf, GitHub Copilot, OpenAI Codex, and Gemini CLI.">
       
       
       
-        <link rel="canonical" href="https://naren-chakraview.github.io/chakraview-ai-dev-model/personas/persona-2-documentation-agent/">
+        <link rel="canonical" href="https://naren-chakraview.github.io/chakraview-ai-dev-model/skills/">
       
       
-        <link rel="prev" href="../persona-1-human-domain-expert/">
+        <link rel="prev" href="../task-specs/">
       
       
-        <link rel="next" href="../persona-3-script-authoring-agent/">
+        <link rel="next" href="../case-studies/">
       
       
         
       
       
-      <link rel="icon" href="../../assets/images/favicon.png">
+      <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>Persona 2 — Documentation Agent - Chakraview AI Dev Model</title>
+        <title>Skills Plugin - Chakraview AI Dev Model</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -53,7 +53,7 @@
       
     
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#persona-2-documentation-agent" class="md-skip">
+        <a href="#skills-plugin" class="md-skip">
           Skip to content
         </a>
       
@@ -94,7 +94,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="Chakraview AI Dev Model" class="md-header__button md-logo" aria-label="Chakraview AI Dev Model" data-md-component="logo">
+    <a href=".." title="Chakraview AI Dev Model" class="md-header__button md-logo" aria-label="Chakraview AI Dev Model" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -114,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Persona 2 — Documentation Agent
+              Skills Plugin
             
           </span>
         </div>
@@ -221,7 +221,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../.." class="md-tabs__link">
+      <a href=".." class="md-tabs__link">
         
   
   
@@ -240,7 +240,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../model/" class="md-tabs__link">
+      <a href="../model/" class="md-tabs__link">
         
   
   
@@ -257,13 +257,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../personas/" class="md-tabs__link">
           
   
   
@@ -285,7 +283,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../mechanism/" class="md-tabs__link">
+        <a href="../mechanism/" class="md-tabs__link">
           
   
   
@@ -305,7 +303,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../intake/" class="md-tabs__link">
+      <a href="../intake/" class="md-tabs__link">
         
   
   
@@ -324,7 +322,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../workflow/" class="md-tabs__link">
+      <a href="../workflow/" class="md-tabs__link">
         
   
   
@@ -343,7 +341,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../task-specs/" class="md-tabs__link">
+      <a href="../task-specs/" class="md-tabs__link">
         
   
   
@@ -360,9 +358,11 @@
   
   
   
+    
   
-    <li class="md-tabs__item">
-      <a href="../../skills/" class="md-tabs__link">
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
         
   
   
@@ -381,7 +381,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../case-studies/" class="md-tabs__link">
+      <a href="../case-studies/" class="md-tabs__link">
         
   
   
@@ -422,7 +422,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="Chakraview AI Dev Model" class="md-nav__button md-logo" aria-label="Chakraview AI Dev Model" data-md-component="logo">
+    <a href=".." title="Chakraview AI Dev Model" class="md-nav__button md-logo" aria-label="Chakraview AI Dev Model" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -452,7 +452,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href=".." class="md-nav__link">
         
   
   
@@ -479,7 +479,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../model/" class="md-nav__link">
+      <a href="../model/" class="md-nav__link">
         
   
   
@@ -503,8 +503,6 @@
       
   
   
-    
-  
   
   
     
@@ -530,23 +528,20 @@
     
     
       
-        
-        
-      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../" class="md-nav__link ">
+            <a href="../personas/" class="md-nav__link ">
               
   
   
@@ -564,13 +559,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -590,7 +585,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../persona-1-human-domain-expert/" class="md-nav__link">
+      <a href="../personas/persona-1-human-domain-expert/" class="md-nav__link">
         
   
   
@@ -615,37 +610,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    2 — Documentation Agent
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../personas/persona-2-documentation-agent/" class="md-nav__link">
         
   
   
@@ -661,61 +629,6 @@
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#what-this-persona-produces" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What this persona produces
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#what-distinguishes-this-persona" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What distinguishes this persona
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#input-contract" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Input contract
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -728,7 +641,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../persona-3-script-authoring-agent/" class="md-nav__link">
+      <a href="../personas/persona-3-script-authoring-agent/" class="md-nav__link">
         
   
   
@@ -756,7 +669,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../persona-4-script-executor/" class="md-nav__link">
+      <a href="../personas/persona-4-script-executor/" class="md-nav__link">
         
   
   
@@ -784,7 +697,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../persona-5-implementation-agent/" class="md-nav__link">
+      <a href="../personas/persona-5-implementation-agent/" class="md-nav__link">
         
   
   
@@ -812,7 +725,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../persona-6-compliance-agent/" class="md-nav__link">
+      <a href="../personas/persona-6-compliance-agent/" class="md-nav__link">
         
   
   
@@ -876,7 +789,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../mechanism/" class="md-nav__link ">
+            <a href="../mechanism/" class="md-nav__link ">
               
   
   
@@ -920,7 +833,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../mechanism/contracts/" class="md-nav__link">
+      <a href="../mechanism/contracts/" class="md-nav__link">
         
   
   
@@ -948,7 +861,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../mechanism/agent-vs-script/" class="md-nav__link">
+      <a href="../mechanism/agent-vs-script/" class="md-nav__link">
         
   
   
@@ -976,7 +889,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../mechanism/guardrails/" class="md-nav__link">
+      <a href="../mechanism/guardrails/" class="md-nav__link">
         
   
   
@@ -1011,7 +924,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../intake/" class="md-nav__link">
+      <a href="../intake/" class="md-nav__link">
         
   
   
@@ -1038,7 +951,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../workflow/" class="md-nav__link">
+      <a href="../workflow/" class="md-nav__link">
         
   
   
@@ -1065,7 +978,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../task-specs/" class="md-nav__link">
+      <a href="../task-specs/" class="md-nav__link">
         
   
   
@@ -1089,10 +1002,37 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../skills/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills Plugin
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1108,6 +1048,144 @@
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quickstart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quickstart
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install Options
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-invoke-skills" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to Invoke Skills
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#skill-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Skill Reference
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Skill Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-skills-enter-by-workflow-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task skills — enter by workflow step
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#persona-skills-summon-a-single-role-directly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Persona skills — summon a single role directly
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#meta-skill-orientation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Meta skill — orientation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#platform-install-locations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Platform Install Locations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#updating" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Updating
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-a-skill" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adding a Skill
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1119,7 +1197,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../case-studies/" class="md-nav__link">
+      <a href="../case-studies/" class="md-nav__link">
         
   
   
@@ -1168,10 +1246,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-this-persona-produces" class="md-nav__link">
+  <a href="#quickstart" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What this persona produces
+        Quickstart
       
     </span>
   </a>
@@ -1179,10 +1257,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-distinguishes-this-persona" class="md-nav__link">
+  <a href="#install-options" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What distinguishes this persona
+        Install Options
       
     </span>
   </a>
@@ -1190,10 +1268,93 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#input-contract" class="md-nav__link">
+  <a href="#how-to-invoke-skills" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Input contract
+        How to Invoke Skills
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#skill-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Skill Reference
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Skill Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-skills-enter-by-workflow-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task skills — enter by workflow step
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#persona-skills-summon-a-single-role-directly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Persona skills — summon a single role directly
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#meta-skill-orientation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Meta skill — orientation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#platform-install-locations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Platform Install Locations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#updating" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Updating
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-a-skill" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adding a Skill
       
     </span>
   </a>
@@ -1220,28 +1381,205 @@
   
 
 
-<h1 id="persona-2-documentation-agent">Persona 2 — Documentation Agent<a class="headerlink" href="#persona-2-documentation-agent" title="Permanent link">&para;</a></h1>
-<p><strong>Type</strong>: LLM
-<strong>Runs</strong>: After contracts and context stubs exist; after architectural decisions are made</p>
-<h2 id="what-this-persona-produces">What this persona produces<a class="headerlink" href="#what-this-persona-produces" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Full ADRs in MADR format — rationale, consequences, alternatives considered</li>
-<li><code>docs/ddd/*/domain-model.md</code> — aggregate structure, commands, invariant mapping, repository contract</li>
-<li><code>docs/ddd/*/state-machine.md</code> — state transition diagrams from invariants</li>
-<li><code>docs/migration/</code> — phase docs with risk assessment, dependency ordering, rollback procedures</li>
-<li><code>docs/runbooks/</code> — one runbook per failure mode referenced in the SLA</li>
-<li><code>api/openapi/*.yaml</code> — OpenAPI 3.1 contracts from domain models and route definitions</li>
-<li><code>api/asyncapi/*.yaml</code> — AsyncAPI 3.0 event contracts from <code>contracts/event-schemas/</code></li>
-</ul>
-<h2 id="what-distinguishes-this-persona">What distinguishes this persona<a class="headerlink" href="#what-distinguishes-this-persona" title="Permanent link">&para;</a></h2>
-<p>Its output is prose, structured argument, and narrative — not code. The quality of its output depends directly on the richness of the ADR context stubs and invariant docs provided by the Human Expert. A two-sentence ADR stub produces a shallow ADR. A five-paragraph stub that names the forces, the alternatives, and the tradeoffs produces a decision record worth reading.</p>
-<h2 id="input-contract">Input contract<a class="headerlink" href="#input-contract" title="Permanent link">&para;</a></h2>
-<p>Every Documentation Agent task spec in <code>ai-agents/tasks/agent/</code> must name:</p>
-<ul>
-<li>The human-authored stubs it reads</li>
-<li>The invariant docs and context docs that constrain its output</li>
-<li>The acceptance criteria (e.g., every ADR must reference at least one invariant; every runbook must reference a specific alert name)</li>
-</ul>
+<h1 id="skills-plugin">Skills Plugin<a class="headerlink" href="#skills-plugin" title="Permanent link">&para;</a></h1>
+<p>The Chakraview AI Dev Model ships as installable skills for six AI coding platforms. One <code>install.sh</code> script detects your environment and writes the right format to the right place.</p>
+<p><strong>Supported platforms:</strong> Claude Code · Cursor · Windsurf · GitHub Copilot · OpenAI Codex · Gemini CLI</p>
+<hr />
+<h2 id="quickstart">Quickstart<a class="headerlink" href="#quickstart" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/naren-chakraview/chakraview-ai-dev-model
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>chakraview-ai-dev-model/skills
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>./install.sh<span class="w"> </span>--init
+</span></code></pre></div>
+<p><code>--init</code> installs skills for all detected platforms and scaffolds your project directory structure (<code>contracts/</code>, <code>docs/adrs/</code>, <code>ai-agents/</code>, etc.).</p>
+<hr />
+<h2 id="install-options">Install Options<a class="headerlink" href="#install-options" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>./install.sh<span class="w">                                       </span><span class="c1"># auto-detect all platforms</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>./install.sh<span class="w"> </span>--target<span class="w"> </span>claude-code<span class="w">                  </span><span class="c1"># single platform</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>./install.sh<span class="w"> </span>--target<span class="w"> </span>cursor<span class="w"> </span>--project-dir<span class="w"> </span>/path/to/project
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>./install.sh<span class="w"> </span>--dry-run<span class="w">                             </span><span class="c1"># preview without writing</span>
+</span></code></pre></div>
+<p>Platforms: <code>claude-code</code> · <code>cursor</code> · <code>windsurf</code> · <code>copilot</code> · <code>codex</code> · <code>gemini</code></p>
+<hr />
+<h2 id="how-to-invoke-skills">How to Invoke Skills<a class="headerlink" href="#how-to-invoke-skills" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Platform</th>
+<th>Invocation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Claude Code</td>
+<td><code>chakraview:intake-triage</code> via Skill tool</td>
+</tr>
+<tr>
+<td>Cursor</td>
+<td><code>@chakraview-intake-triage</code> in chat</td>
+</tr>
+<tr>
+<td>Windsurf</td>
+<td><code>@chakraview-intake-triage</code> in chat</td>
+</tr>
+<tr>
+<td>GitHub Copilot / Codex / Gemini</td>
+<td>Reference skill by name in chat</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="skill-reference">Skill Reference<a class="headerlink" href="#skill-reference" title="Permanent link">&para;</a></h2>
+<h3 id="task-skills-enter-by-workflow-step">Task skills — enter by workflow step<a class="headerlink" href="#task-skills-enter-by-workflow-step" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Skill</th>
+<th>When to use</th>
+<th>Phases</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>chakraview:intake-triage</code></td>
+<td>Before any contract is written — new feature or service</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>chakraview:implement-service</code></td>
+<td>Phase 5 — contracts, domain models, and infra scaffold exist</td>
+<td>5</td>
+</tr>
+<tr>
+<td><code>chakraview:compliance-review</code></td>
+<td>After Phase 4 (infra) or Phase 5 (implementation)</td>
+<td>4, 5</td>
+</tr>
+<tr>
+<td><code>chakraview:write-adr</code></td>
+<td>Expand an ADR stub into a full MADR</td>
+<td>1</td>
+</tr>
+<tr>
+<td><code>chakraview:write-runbook</code></td>
+<td>Produce an ops runbook for a failure mode</td>
+<td>6</td>
+</tr>
+<tr>
+<td><code>chakraview:write-migration-phase</code></td>
+<td>Phase 6 migration sequencing and rollback gates</td>
+<td>6</td>
+</tr>
+<tr>
+<td><code>chakraview:script-authoring</code></td>
+<td>Write a deterministic <code>tooling/</code> script</td>
+<td>0–6</td>
+</tr>
+</tbody>
+</table>
+<h3 id="persona-skills-summon-a-single-role-directly">Persona skills — summon a single role directly<a class="headerlink" href="#persona-skills-summon-a-single-role-directly" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Skill</th>
+<th>Persona</th>
+<th>Authority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>chakraview:documentation-agent</code></td>
+<td>Persona 2</td>
+<td>Prose, ADRs, domain models, API specs, runbooks</td>
+</tr>
+<tr>
+<td><code>chakraview:script-authoring-agent</code></td>
+<td>Persona 3</td>
+<td>Deterministic scripts in <code>tooling/</code> only</td>
+</tr>
+<tr>
+<td><code>chakraview:implementation-agent</code></td>
+<td>Persona 5</td>
+<td>Service source code and tests</td>
+</tr>
+<tr>
+<td><code>chakraview:compliance-agent</code></td>
+<td>Persona 6</td>
+<td>Audit only — no implementation authority</td>
+</tr>
+</tbody>
+</table>
+<h3 id="meta-skill-orientation">Meta skill — orientation<a class="headerlink" href="#meta-skill-orientation" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Skill</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>chakraview:workflow</code></td>
+<td>Reads current project state, identifies the phase, routes to the right task skill</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="platform-install-locations">Platform Install Locations<a class="headerlink" href="#platform-install-locations" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Platform</th>
+<th>Install location</th>
+<th>Scope</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Claude Code</td>
+<td><code>~/.claude/skills/chakraview/&lt;skill&gt;/SKILL.md</code></td>
+<td>Global (user)</td>
+</tr>
+<tr>
+<td>Cursor</td>
+<td><code>.cursor/rules/chakraview-&lt;skill&gt;.mdc</code></td>
+<td>Project</td>
+</tr>
+<tr>
+<td>Windsurf</td>
+<td><code>.windsurf/rules/chakraview-&lt;skill&gt;.md</code></td>
+<td>Project</td>
+</tr>
+<tr>
+<td>GitHub Copilot</td>
+<td><code>.github/copilot-instructions.md</code></td>
+<td>Project</td>
+</tr>
+<tr>
+<td>OpenAI Codex</td>
+<td><code>AGENTS.md</code></td>
+<td>Project</td>
+</tr>
+<tr>
+<td>Gemini CLI</td>
+<td><code>GEMINI.md</code></td>
+<td>Project</td>
+</tr>
+</tbody>
+</table>
+<p>For Copilot, Codex, and Gemini the installer concatenates all skills into a single file wrapped in sentinel comments. Re-running <code>install.sh</code> replaces only the generated block — your custom content outside the sentinels is preserved.</p>
+<hr />
+<h2 id="updating">Updating<a class="headerlink" href="#updating" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">cd</span><span class="w"> </span>chakraview-ai-dev-model/skills
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>git<span class="w"> </span>pull
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>./install.sh
+</span></code></pre></div>
+<hr />
+<h2 id="adding-a-skill">Adding a Skill<a class="headerlink" href="#adding-a-skill" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Add a file to <code>source/</code> with the required frontmatter (<code>name</code>, <code>type</code>, <code>description</code>, <code>triggers</code>)</li>
+<li>Run <code>./tests/validate-sources.sh</code> to verify it passes validation</li>
+<li>Run <code>./install.sh</code> to distribute it to all platforms</li>
+</ol>
 
 
 
@@ -1311,10 +1649,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.annotate", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.annotate", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>
