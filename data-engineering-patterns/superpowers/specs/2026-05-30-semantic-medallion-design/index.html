@@ -1,0 +1,2206 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Idiomatic boilerplate starters for 9 data engineering patterns × 22 stack variants. Landscape intro, decision matrix, and ADRs for every trade-off.
+">
+      
+      
+      
+        <link rel="canonical" href="https://naren-chakraview.github.io/chakraview-data-engineering-patterns/superpowers/specs/2026-05-30-semantic-medallion-design/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/logo.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Semantic Medallion Architecture: Design Specification - Chakra Data Engineering Patterns</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#semantic-medallion-architecture-design-specification" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Chakra Data Engineering Patterns" class="md-header__button md-logo" aria-label="Chakra Data Engineering Patterns" data-md-component="logo">
+      
+  <img src="../../../assets/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Chakra Data Engineering Patterns
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Semantic Medallion Architecture: Design Specification
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/naren-chakraview/chakraview-data-engineering-patterns" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    naren-chakraview/chakraview-data-engineering-patterns
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../landscape/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Landscape
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../decision-matrix/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Decision Matrix
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../patterns/batch-lakehouse/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Patterns
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../adrs/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  ADRs
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Chakra Data Engineering Patterns" class="md-nav__button md-logo" aria-label="Chakra Data Engineering Patterns" data-md-component="logo">
+      
+  <img src="../../../assets/logo.svg" alt="logo">
+
+    </a>
+    Chakra Data Engineering Patterns
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/naren-chakraview/chakraview-data-engineering-patterns" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    naren-chakraview/chakraview-data-engineering-patterns
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../landscape/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Landscape
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../decision-matrix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision Matrix
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Patterns
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Patterns
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../patterns/batch-lakehouse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Batch Lakehouse
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../patterns/streaming-lakehouse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Streaming Lakehouse
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../patterns/elt-warehouse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ELT / Warehouse
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../patterns/cdc-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CDC Pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../patterns/lambda-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lambda Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../patterns/federated-query/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Federated Query
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../patterns/ml-feature-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML Feature Pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../patterns/graph-processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graph Processing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../patterns/workflow-orchestration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workflow Orchestration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../adrs/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADRs
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ADRs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adrs/ADR-0001-pattern-matrix-structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-0001 Pattern Matrix
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adrs/ADR-0002-idiomatic-language-per-ecosystem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-0002 Language Convention
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adrs/ADR-0003-table-format-landscape/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-0003 Table Formats
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adrs/ADR-0004-stream-processing-engine/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-0004 Stream Processing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adrs/ADR-0005-orchestration-landscape/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-0005 Orchestration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adrs/ADR-0006-lakehouse-storage-layer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-0006 Lakehouse Storage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adrs/ADR-0007-cdc-tooling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-0007 CDC Tooling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adrs/ADR-0008-local-dev-approach/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-0008 Local Dev
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adrs/ADR-0009-graph-processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-0009 Graph Processing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adrs/ADR-0010-ml-feature-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-0010 ML Feature Pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#executive-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Executive Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-motivation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem &amp; Motivation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problem &amp; Motivation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#traditional-medallion-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traditional Medallion Limitations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#semantic-medallion-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Semantic Medallion Solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture-three-patterns-data-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture: Three Patterns + Data Flow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Architecture: Three Patterns + Data Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pattern-1-semantic-cdc-bronze-silver-bridge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pattern 1: Semantic CDC (Bronze → Silver Bridge)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pattern-2-semantic-batch-lakehouse-silver-gold-rdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pattern 2: Semantic Batch Lakehouse (Silver → Gold RDF)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pattern-3-semantic-federated-query-multi-source-sparql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pattern 3: Semantic Federated Query (Multi-Source SPARQL)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dual-storage-iceberg-jena-tdb2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dual Storage: Iceberg + Jena TDB2
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dual Storage: Iceberg + Jena TDB2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-dual-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Dual Storage?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storage-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Storage Details
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enterprise-modernization-integration-phase-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enterprise Modernization Integration: Phase 2
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Enterprise Modernization Integration: Phase 2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-semantic-unification-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2: Semantic Unification Layer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#technology-choices-rationale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Technology Choices &amp; Rationale
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Technology Choices &amp; Rationale">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rdf-library-apache-jena-4x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RDF Library: Apache Jena 4.x
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iri-minting-entity-resolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IRI Minting: Entity Resolution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#repo-organization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Repo Organization
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-three-focused-variants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation: Three Focused Variants
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation: Three Focused Variants">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#semantic-batch-lakehouse-spark-iceberg-semantic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Semantic Batch Lakehouse (spark-iceberg-semantic)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#semantic-federated-query-trino-jena-sparql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Semantic Federated Query (trino-jena-sparql)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#semantic-cdc-debezium-kafka-semantic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Semantic CDC (debezium-kafka-semantic)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing Strategy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Testing Strategy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#unit-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unit Tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integration-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration Tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-unification-value-proposition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Unification Value Proposition
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Unification Value Proposition">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-semantic-medallion-solves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Semantic Medallion Solves
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use Cases
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#success-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Success Criteria
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#open-questions-future-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Open Questions &amp; Future Work
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Open Questions &amp; Future Work">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#not-in-scope-design-phase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Not in Scope (Design Phase)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Post-Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#approval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Approval
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="semantic-medallion-architecture-design-specification">Semantic Medallion Architecture: Design Specification<a class="headerlink" href="#semantic-medallion-architecture-design-specification" title="Permanent link">&para;</a></h1>
+<p><strong>Date:</strong> 2026-05-30<br />
+<strong>Status:</strong> Design (ready for implementation planning)<br />
+<strong>Scope:</strong> Three new pattern extensions + enterprise-modernization case study  </p>
+<hr />
+<h2 id="executive-summary">Executive Summary<a class="headerlink" href="#executive-summary" title="Permanent link">&para;</a></h2>
+<p>This spec defines how to integrate semantic medallion architecture (RDF/knowledge graphs) into the data-engineering-patterns repo. Rather than a standalone pattern, semantic medallion <strong>extends three existing patterns</strong> to enable data unification across polyglot data estates:</p>
+<ol>
+<li><strong>Semantic Batch Lakehouse</strong> — extends Batch Lakehouse; outputs RDF to Iceberg + Jena TDB2</li>
+<li><strong>Semantic Federated Query</strong> — extends Federated Query; adds SPARQL endpoint alongside Trino SQL</li>
+<li><strong>Semantic CDC</strong> — extends CDC Pipeline; mints stable IRIs for entities at ingest time</li>
+</ol>
+<p>The case study integrates with <strong>chakraview-enterprise-modernization</strong> as a Phase 2 enhancement to Phase 1 dimensional modeling, showing how semantic unification solves polyglot data problems.</p>
+<hr />
+<h2 id="problem-motivation">Problem &amp; Motivation<a class="headerlink" href="#problem-motivation" title="Permanent link">&para;</a></h2>
+<h3 id="traditional-medallion-limitations">Traditional Medallion Limitations<a class="headerlink" href="#traditional-medallion-limitations" title="Permanent link">&para;</a></h3>
+<p>Current data engineering patterns (Batch Lakehouse, ELT/Warehouse, Federated Query) handle data transformation well but struggle with <strong>entity unification across sources</strong>:</p>
+<ul>
+<li><strong>Salesforce customer-123</strong>, <strong>Stripe account cus_xyz</strong>, <strong>Postgres order owner 123</strong> — are they the same entity?</li>
+<li>Entity resolution logic scattered across queries, dashboards, and data pipelines</li>
+<li>New data source = schema negotiation overhead</li>
+<li>No self-describing data catalog; metadata lives separately</li>
+</ul>
+<h3 id="semantic-medallion-solution">Semantic Medallion Solution<a class="headerlink" href="#semantic-medallion-solution" title="Permanent link">&para;</a></h3>
+<p>Extend the Bronze-Silver-Gold medallion by embedding <strong>knowledge graph structure</strong> into the data itself:</p>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Traditional</th>
+<th>Semantic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bronze</strong></td>
+<td>Raw tables</td>
+<td>Raw tables + source IRIs</td>
+</tr>
+<tr>
+<td><strong>Silver</strong></td>
+<td>Cleaned tables</td>
+<td>Cleaned tables + stable IRIs (entity resolution done)</td>
+</tr>
+<tr>
+<td><strong>Gold</strong></td>
+<td>Dimensional tables</td>
+<td>RDF triples (knowledge graph)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key insight:</strong> Mint a stable, globally unique identifier (IRI: Internationalized Resource Identifier) for each entity <strong>once</strong>, at the Silver layer. All downstream processes use that IRI. Relationships are embedded in the data itself via RDF triples, eliminating scattered JOINs and entity resolution logic.</p>
+<hr />
+<h2 id="architecture-three-patterns-data-flow">Architecture: Three Patterns + Data Flow<a class="headerlink" href="#architecture-three-patterns-data-flow" title="Permanent link">&para;</a></h2>
+<h3 id="pattern-1-semantic-cdc-bronze-silver-bridge">Pattern 1: Semantic CDC (Bronze → Silver Bridge)<a class="headerlink" href="#pattern-1-semantic-cdc-bronze-silver-bridge" title="Permanent link">&para;</a></h3>
+<p><strong>What it does:</strong> Captures source records, performs entity resolution, mints stable IRIs.</p>
+<p><strong>Stack:</strong>
+- <strong>Debezium 2.x</strong> — captures changes from Salesforce, Stripe, Postgres
+- <strong>Kafka 3.x</strong> — streams raw source records
+- <strong>IRI Minter Service (Python)</strong> — subscribes to Kafka, performs entity resolution, emits <code>{source_record, assigned_iri}</code>
+- <strong>Spark Streaming</strong> — persists enriched records back to Kafka for downstream consumption</p>
+<p><strong>Data flow:</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Salesforce → Debezium → Kafka (salesforce.customers)
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>                          ↓
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Stripe → Debezium ──→ Kafka (stripe.transactions)
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>                          ↓
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>Postgres → Debezium ──→ Kafka (postgres.orders)
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>                          ↓
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>                    IRI Minter Service
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>                    (entity resolution)
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>                          ↓
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>                    Enriched Kafka topics
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>                    {record + assigned_iri}
+</span></code></pre></div></p>
+<p><strong>Entity resolution strategy:</strong>
+- Deterministic rules: "match on email + domain for customers"
+- Deduplication: "customer in Salesforce + Stripe with same email = one IRI"
+- IRI format: <code>https://company.com/customer#{normalized_identifier}</code></p>
+<p><strong>Output:</strong> Kafka topics with enriched records carrying IRIs, ready for Silver layer.</p>
+<p><strong>Branch:</strong> <code>pattern/cdc-pipeline/debezium-kafka-semantic</code></p>
+<hr />
+<h3 id="pattern-2-semantic-batch-lakehouse-silver-gold-rdf">Pattern 2: Semantic Batch Lakehouse (Silver → Gold RDF)<a class="headerlink" href="#pattern-2-semantic-batch-lakehouse-silver-gold-rdf" title="Permanent link">&para;</a></h3>
+<p><strong>What it does:</strong> Reads clean Silver tables, converts to RDF triples, writes to both Iceberg (Ntriples) and Jena TDB2.</p>
+<p><strong>Stack:</strong>
+- <strong>Spark 3.5 (Scala)</strong> — batch processing
+- <strong>Iceberg 1.5</strong> — storage for Silver input + Gold RDF output
+- <strong>Apache Jena 4.x</strong> — RDF library for triple generation and validation
+- <strong>Jena TDB2</strong> — dedicated RDF triple store (semantic store)</p>
+<p><strong>Data flow:</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Silver (Iceberg tables)
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  ├─ customers (with IRI column)
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  ├─ invoices (with IRI column)
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  └─ orders (with IRI column)
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>        ↓
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>  Semantic Batch Lakehouse
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>  (Spark + Jena)
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>        ↓
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>  RDF Triple Generation
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>  &lt;https://company.com/customer#acme&gt; a :Customer .
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>  &lt;https://company.com/customer#acme&gt; :hasName &quot;Acme Corp&quot; .
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>  &lt;https://company.com/customer#acme&gt; :hasInvoice &lt;https://company.com/invoice#inv-001&gt; .
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>        ↓
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>  Dual Output:
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>  1. Iceberg Gold (Ntriples format)
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>  2. Jena TDB2 (queryable RDF store)
+</span></code></pre></div></p>
+<p><strong>Key responsibilities:</strong>
+- Read Silver tables (fact + dimension tables, carrying IRIs)
+- Map Silver schema to shared ontology (e.g., "customer" column → <code>:Customer</code> RDF class)
+- Generate RDF triples using Jena
+- Validate triple generation (no malformed IRIs, ontology compliance)
+- Write to Iceberg (Ntriples: subject-predicate-object columns)
+- Sync to Jena TDB2 for semantic queries</p>
+<p><strong>Dual storage:</strong>
+- <strong>Iceberg Ntriples:</strong> Analytical queries via Trino SQL, schema-on-read, optimized for BI tools
+- <strong>Jena TDB2:</strong> Semantic queries via SPARQL, ontology-aware, optimized for reasoning</p>
+<p><strong>Branch:</strong> <code>pattern/batch-lakehouse/spark-iceberg-semantic</code></p>
+<hr />
+<h3 id="pattern-3-semantic-federated-query-multi-source-sparql">Pattern 3: Semantic Federated Query (Multi-Source SPARQL)<a class="headerlink" href="#pattern-3-semantic-federated-query-multi-source-sparql" title="Permanent link">&para;</a></h3>
+<p><strong>What it does:</strong> Unifies querying across Iceberg tables and RDF store with a shared ontology.</p>
+<p><strong>Stack:</strong>
+- <strong>Trino 450</strong> — distributed SQL engine
+- <strong>Iceberg connector</strong> — queries Silver/Gold tables
+- <strong>Jena SPARQL endpoint</strong> — queries RDF store
+- <strong>Custom bridge logic</strong> — joins SQL + SPARQL results</p>
+<p><strong>Data flow:</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Query Intent: &quot;All active customers with unpaid invoices and support tickets&quot;
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  ↓
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>Option 1 (SQL): Trino queries Iceberg Silver/Gold tables
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  SELECT c.name, COUNT(i.id) FROM customers c
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>  JOIN invoices i ON c.iri = i.customer_iri
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>  WHERE c.status = &#39;active&#39; AND i.paid = false
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>Option 2 (SPARQL): SPARQL queries Jena TDB2
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>  SELECT ?customer ?invoice WHERE {
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    ?customer a :Customer .
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    ?customer :hasStatus :Active .
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    ?customer :hasInvoice ?invoice .
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    ?invoice :isPaid false .
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>  }
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>Option 3 (Hybrid): Trino + SPARQL bridge
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>  1. Trino identifies candidate customers
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>  2. SPARQL enriches with ontology-driven relationships
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>  3. Results merged
+</span></code></pre></div></p>
+<p><strong>Single source of truth:</strong>
+- One ontology defines "Customer", "Invoice", "Status" once
+- Both SQL and SPARQL queries reference same ontology
+- No schema drift between relational and RDF layers</p>
+<p><strong>Branch:</strong> <code>pattern/federated-query/trino-jena-sparql</code></p>
+<hr />
+<h2 id="dual-storage-iceberg-jena-tdb2">Dual Storage: Iceberg + Jena TDB2<a class="headerlink" href="#dual-storage-iceberg-jena-tdb2" title="Permanent link">&para;</a></h2>
+<h3 id="why-dual-storage">Why Dual Storage?<a class="headerlink" href="#why-dual-storage" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Storage</th>
+<th>Best For</th>
+<th>Query Language</th>
+<th>Trade-offs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Iceberg</strong></td>
+<td>Analytical queries, BI tools, large-scale scans</td>
+<td>SQL (Trino)</td>
+<td>Schema-oriented, no implicit reasoning</td>
+</tr>
+<tr>
+<td><strong>Jena TDB2</strong></td>
+<td>Semantic queries, ontology reasoning, graph traversal</td>
+<td>SPARQL</td>
+<td>Smaller dataset size, specialized reasoning</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Design choice:</strong> Both coexist. Analytical teams use Iceberg+Trino (familiar SQL). Semantic teams use Jena+SPARQL (unified view, ontology-driven). Advanced users bridge both.</p>
+<h3 id="storage-details">Storage Details<a class="headerlink" href="#storage-details" title="Permanent link">&para;</a></h3>
+<p><strong>Iceberg (Gold layer):</strong>
+- Schema: <code>subject (string), predicate (string), object (string), source (string), ingested_at (timestamp)</code>
+- Format: Parquet (columnar, optimized for analytical queries)
+- Partitioning: By predicate type for query selectivity
+- Retention: Full history (audit trail of RDF changes)</p>
+<p><strong>Jena TDB2:</strong>
+- Triple store native to Jena
+- Queryable via SPARQL endpoint (HTTP API)
+- Indexes: subject, predicate, object (all directions)
+- Reasoning: Optional inference via Jena rules or OWL reasoner</p>
+<hr />
+<h2 id="enterprise-modernization-integration-phase-2">Enterprise Modernization Integration: Phase 2<a class="headerlink" href="#enterprise-modernization-integration-phase-2" title="Permanent link">&para;</a></h2>
+<h3 id="context">Context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h3>
+<p>The <strong>chakraview-enterprise-modernization</strong> repo documents a strangler fig migration from Java EE monolith to cloud-native microservices. Phase 1 (current) implements traditional dimensional modeling (Kimball star schema).</p>
+<h3 id="phase-2-semantic-unification-layer">Phase 2: Semantic Unification Layer<a class="headerlink" href="#phase-2-semantic-unification-layer" title="Permanent link">&para;</a></h3>
+<p><strong>When:</strong> After Phase 1 teams encounter polyglot data problem ("how do we unify customer data across Salesforce + Stripe + orders?")</p>
+<p><strong>What:</strong> Layer semantic medallion on top of Phase 1 tables without replacing Phase 1.</p>
+<p><strong>Coexistence:</strong>
+- Phase 1: Dimensional model, Iceberg Silver/Gold tables, Trino SQL, BI dashboards (unchanged)
+- Phase 2: RDF knowledge graph, Jena TDB2, SPARQL queries, entity unification (new)</p>
+<p><strong>How to integrate:</strong>
+1. <strong>Semantic CDC</strong> wires up Salesforce, Stripe as new sources with IRI minting
+2. <strong>Semantic Batch Lakehouse</strong> converts Phase 1 Silver/Gold tables to RDF
+3. <strong>Semantic Federated Query</strong> adds SPARQL endpoint alongside Trino
+4. <strong>Ontology</strong> defines "Customer" once, used by both phases</p>
+<p><strong>Case study scenario:</strong>
+- E-commerce company with Shopify (storefront), Salesforce (support), Stripe (payments), custom Postgres (orders)
+- Phase 1: Traditional medallion for operational analytics
+- Phase 2: Semantic layer for churn analysis (correlate purchases + support tickets + payment failures)
+- Business outcome: "give me customers with 3+ support tickets AND failed payments in last 30 days" — one SPARQL query, no manual joins</p>
+<p><strong>Documentation location:</strong> <code>chakraview-enterprise-modernization/docs/case-study/phase-2-semantic-unification/</code></p>
+<hr />
+<h2 id="technology-choices-rationale">Technology Choices &amp; Rationale<a class="headerlink" href="#technology-choices-rationale" title="Permanent link">&para;</a></h2>
+<h3 id="rdf-library-apache-jena-4x">RDF Library: Apache Jena 4.x<a class="headerlink" href="#rdf-library-apache-jena-4x" title="Permanent link">&para;</a></h3>
+<p><strong>Selected:</strong> Apache Jena + TDB2<br />
+<strong>Alternatives considered:</strong> RDF4J, Virtuoso, GraphDB</p>
+<p><strong>Rationale:</strong>
+- ✅ Open source (no vendor lock-in)
+- ✅ Mature (20+ years, production deployments)
+- ✅ Good SPARQL engine with reasoning support
+- ✅ Self-hosted (no licensing, practitioners can run locally)
+- ✅ Easy docker deployment
+- ✅ Well-documented</p>
+<p><strong>Trade-offs:</strong>
+- Smaller scale than enterprise RDF stores (GraphDB, Virtuoso) — acceptable for reference implementations
+- Manual schema management (no UI like GraphDB) — acceptable, we document ontology as code</p>
+<h3 id="iri-minting-entity-resolution">IRI Minting: Entity Resolution<a class="headerlink" href="#iri-minting-entity-resolution" title="Permanent link">&para;</a></h3>
+<p><strong>Strategy:</strong> Deterministic, rule-based entity resolution at CDC layer</p>
+<p><strong>Implementation:</strong>
+- Rules defined in config: "match customers on email + domain"
+- Hash-based IRI: <code>IRI = f(entity_type, normalized_match_key)</code>
+- Deterministic: same customer always gets same IRI</p>
+<p><strong>Example:</strong>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Config</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">entity_rules</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  <span class="s2">&quot;customer&quot;</span><span class="p">:</span> <span class="p">{</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="s2">&quot;key_fields&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;email&quot;</span><span class="p">,</span> <span class="s2">&quot;domain&quot;</span><span class="p">],</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="s2">&quot;normalize&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">email</span><span class="si">}</span><span class="s2">@</span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">domain</span><span class="si">}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>  <span class="p">}</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="p">}</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="c1"># IRI generation</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="k">def</span> <span class="nf">mint_iri</span><span class="p">(</span><span class="n">entity_type</span><span class="p">,</span> <span class="n">entity_dict</span><span class="p">,</span> <span class="n">rules</span><span class="p">):</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>  <span class="n">rule</span> <span class="o">=</span> <span class="n">rules</span><span class="p">[</span><span class="n">entity_type</span><span class="p">]</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>  <span class="n">key</span> <span class="o">=</span> <span class="n">rule</span><span class="p">[</span><span class="s2">&quot;normalize&quot;</span><span class="p">](</span><span class="n">entity_dict</span><span class="p">)</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>  <span class="n">iri</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://company.com/</span><span class="si">{</span><span class="n">entity_type</span><span class="si">}</span><span class="s2">#</span><span class="si">{</span><span class="nb">hash</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>  <span class="k">return</span> <span class="n">iri</span>
+</span></code></pre></div></p>
+<p><strong>Limitations acknowledged:</strong>
+- No real-time entity resolution updates (deterministic, batch-based)
+- Requires manual rule configuration per domain
+- Advanced: deduplication service can be added later (Spark SQL dedup, fuzzy matching)</p>
+<hr />
+<h2 id="repo-organization">Repo Organization<a class="headerlink" href="#repo-organization" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>chakraview-data-engineering-patterns/
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>patterns/
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>├── batch-lakehouse/
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>│   ├── README.md (updated with semantic variant link)
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>│   └── variants/
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>│       ├── spark-iceberg/
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>│       ├── spark-delta/
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>│       ├── spark-iceberg-airflow/
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>│       └── spark-iceberg-semantic/  ← NEW
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>│           ├── README.md
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>│           ├── docker-compose.yml
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>│           ├── .env.example
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>│           ├── build.sbt
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>│           ├── src/main/scala/
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>│           │   └── io/chakraview/semantic/
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>│           │       ├── SemanticTransformer.scala
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>│           │       ├── JenaWriter.scala
+</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>│           │       ├── RDFConfig.scala
+</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>│           │       └── Main.scala
+</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>│           └── tests/
+</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a>│
+</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>├── federated-query/
+</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a>│   ├── README.md (updated with semantic variant link)
+</span><span id="__span-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a>│   └── variants/
+</span><span id="__span-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a>│       ├── trino-iceberg-s3/
+</span><span id="__span-4-27"><a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a>│       ├── presto-hive/
+</span><span id="__span-4-28"><a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a>│       └── trino-jena-sparql/  ← NEW
+</span><span id="__span-4-29"><a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a>│           ├── README.md
+</span><span id="__span-4-30"><a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a>│           ├── docker-compose.yml
+</span><span id="__span-4-31"><a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a>│           ├── .env.example
+</span><span id="__span-4-32"><a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a>│           ├── config/
+</span><span id="__span-4-33"><a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a>│           │   ├── catalog/
+</span><span id="__span-4-34"><a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a>│           │   │   ├── iceberg.properties
+</span><span id="__span-4-35"><a id="__codelineno-4-35" name="__codelineno-4-35" href="#__codelineno-4-35"></a>│           │   │   ├── jena.properties  (new)
+</span><span id="__span-4-36"><a id="__codelineno-4-36" name="__codelineno-4-36" href="#__codelineno-4-36"></a>│           │   │   └── tpch.properties
+</span><span id="__span-4-37"><a id="__codelineno-4-37" name="__codelineno-4-37" href="#__codelineno-4-37"></a>│           │   ├── config.properties
+</span><span id="__span-4-38"><a id="__codelineno-4-38" name="__codelineno-4-38" href="#__codelineno-4-38"></a>│           │   └── jvm.config
+</span><span id="__span-4-39"><a id="__codelineno-4-39" name="__codelineno-4-39" href="#__codelineno-4-39"></a>│           ├── queries/
+</span><span id="__span-4-40"><a id="__codelineno-4-40" name="__codelineno-4-40" href="#__codelineno-4-40"></a>│           │   ├── examples/*.sparql
+</span><span id="__span-4-41"><a id="__codelineno-4-41" name="__codelineno-4-41" href="#__codelineno-4-41"></a>│           │   └── sql/*.sql
+</span><span id="__span-4-42"><a id="__codelineno-4-42" name="__codelineno-4-42" href="#__codelineno-4-42"></a>│           └── src/main/scala/
+</span><span id="__span-4-43"><a id="__codelineno-4-43" name="__codelineno-4-43" href="#__codelineno-4-43"></a>│               └── io/chakraview/semantic/
+</span><span id="__span-4-44"><a id="__codelineno-4-44" name="__codelineno-4-44" href="#__codelineno-4-44"></a>│                   └── JenaBridge.scala
+</span><span id="__span-4-45"><a id="__codelineno-4-45" name="__codelineno-4-45" href="#__codelineno-4-45"></a>│
+</span><span id="__span-4-46"><a id="__codelineno-4-46" name="__codelineno-4-46" href="#__codelineno-4-46"></a>├── cdc-pipeline/
+</span><span id="__span-4-47"><a id="__codelineno-4-47" name="__codelineno-4-47" href="#__codelineno-4-47"></a>│   ├── README.md (updated with semantic variant link)
+</span><span id="__span-4-48"><a id="__codelineno-4-48" name="__codelineno-4-48" href="#__codelineno-4-48"></a>│   └── variants/
+</span><span id="__span-4-49"><a id="__codelineno-4-49" name="__codelineno-4-49" href="#__codelineno-4-49"></a>│       ├── debezium-kafka-flink/
+</span><span id="__span-4-50"><a id="__codelineno-4-50" name="__codelineno-4-50" href="#__codelineno-4-50"></a>│       ├── debezium-kafka-spark/
+</span><span id="__span-4-51"><a id="__codelineno-4-51" name="__codelineno-4-51" href="#__codelineno-4-51"></a>│       └── debezium-kafka-semantic/  ← NEW
+</span><span id="__span-4-52"><a id="__codelineno-4-52" name="__codelineno-4-52" href="#__codelineno-4-52"></a>│           ├── README.md
+</span><span id="__span-4-53"><a id="__codelineno-4-53" name="__codelineno-4-53" href="#__codelineno-4-53"></a>│           ├── docker-compose.yml
+</span><span id="__span-4-54"><a id="__codelineno-4-54" name="__codelineno-4-54" href="#__codelineno-4-54"></a>│           ├── .env.example
+</span><span id="__span-4-55"><a id="__codelineno-4-55" name="__codelineno-4-55" href="#__codelineno-4-55"></a>│           ├── debezium-configs/
+</span><span id="__span-4-56"><a id="__codelineno-4-56" name="__codelineno-4-56" href="#__codelineno-4-56"></a>│           │   ├── salesforce-source.json
+</span><span id="__span-4-57"><a id="__codelineno-4-57" name="__codelineno-4-57" href="#__codelineno-4-57"></a>│           │   ├── stripe-source.json
+</span><span id="__span-4-58"><a id="__codelineno-4-58" name="__codelineno-4-58" href="#__codelineno-4-58"></a>│           │   └── postgres-source.json
+</span><span id="__span-4-59"><a id="__codelineno-4-59" name="__codelineno-4-59" href="#__codelineno-4-59"></a>│           └── src/main/python/
+</span><span id="__span-4-60"><a id="__codelineno-4-60" name="__codelineno-4-60" href="#__codelineno-4-60"></a>│               └── io/chakraview/semantic/
+</span><span id="__span-4-61"><a id="__codelineno-4-61" name="__codelineno-4-61" href="#__codelineno-4-61"></a>│                   ├── iri_minter/
+</span><span id="__span-4-62"><a id="__codelineno-4-62" name="__codelineno-4-62" href="#__codelineno-4-62"></a>│                   │   ├── __init__.py
+</span><span id="__span-4-63"><a id="__codelineno-4-63" name="__codelineno-4-63" href="#__codelineno-4-63"></a>│                   │   ├── service.py
+</span><span id="__span-4-64"><a id="__codelineno-4-64" name="__codelineno-4-64" href="#__codelineno-4-64"></a>│                   │   ├── config.yaml
+</span><span id="__span-4-65"><a id="__codelineno-4-65" name="__codelineno-4-65" href="#__codelineno-4-65"></a>│                   │   └── tests/
+</span><span id="__span-4-66"><a id="__codelineno-4-66" name="__codelineno-4-66" href="#__codelineno-4-66"></a>│                   └── entity_resolver/
+</span><span id="__span-4-67"><a id="__codelineno-4-67" name="__codelineno-4-67" href="#__codelineno-4-67"></a>│                       ├── __init__.py
+</span><span id="__span-4-68"><a id="__codelineno-4-68" name="__codelineno-4-68" href="#__codelineno-4-68"></a>│                       ├── resolver.py
+</span><span id="__span-4-69"><a id="__codelineno-4-69" name="__codelineno-4-69" href="#__codelineno-4-69"></a>│                       └── tests/
+</span><span id="__span-4-70"><a id="__codelineno-4-70" name="__codelineno-4-70" href="#__codelineno-4-70"></a>
+</span><span id="__span-4-71"><a id="__codelineno-4-71" name="__codelineno-4-71" href="#__codelineno-4-71"></a>docs/
+</span><span id="__span-4-72"><a id="__codelineno-4-72" name="__codelineno-4-72" href="#__codelineno-4-72"></a>├── patterns/
+</span><span id="__span-4-73"><a id="__codelineno-4-73" name="__codelineno-4-73" href="#__codelineno-4-73"></a>│   ├── semantic-medallion.md  ← NEW: overview of all 3 patterns
+</span><span id="__span-4-74"><a id="__codelineno-4-74" name="__codelineno-4-74" href="#__codelineno-4-74"></a>│   └── ...
+</span><span id="__span-4-75"><a id="__codelineno-4-75" name="__codelineno-4-75" href="#__codelineno-4-75"></a>├── landscape/
+</span><span id="__span-4-76"><a id="__codelineno-4-76" name="__codelineno-4-76" href="#__codelineno-4-76"></a>│   └── semantic-medallion.md  ← NEW: where it fits in the landscape
+</span><span id="__span-4-77"><a id="__codelineno-4-77" name="__codelineno-4-77" href="#__codelineno-4-77"></a>├── adrs/
+</span><span id="__span-4-78"><a id="__codelineno-4-78" name="__codelineno-4-78" href="#__codelineno-4-78"></a>│   ├── ADR-0011-semantic-medallion-approach.md  ← NEW
+</span><span id="__span-4-79"><a id="__codelineno-4-79" name="__codelineno-4-79" href="#__codelineno-4-79"></a>│   ├── ADR-0012-rdf-storage-jena-choice.md  ← NEW
+</span><span id="__span-4-80"><a id="__codelineno-4-80" name="__codelineno-4-80" href="#__codelineno-4-80"></a>│   ├── ADR-0013-entity-resolution-strategy.md  ← NEW
+</span><span id="__span-4-81"><a id="__codelineno-4-81" name="__codelineno-4-81" href="#__codelineno-4-81"></a>│   └── ...
+</span><span id="__span-4-82"><a id="__codelineno-4-82" name="__codelineno-4-82" href="#__codelineno-4-82"></a>
+</span><span id="__span-4-83"><a id="__codelineno-4-83" name="__codelineno-4-83" href="#__codelineno-4-83"></a>shared/
+</span><span id="__span-4-84"><a id="__codelineno-4-84" name="__codelineno-4-84" href="#__codelineno-4-84"></a>└── semantic/  ← NEW: shared code across patterns
+</span><span id="__span-4-85"><a id="__codelineno-4-85" name="__codelineno-4-85" href="#__codelineno-4-85"></a>    ├── ontologies/
+</span><span id="__span-4-86"><a id="__codelineno-4-86" name="__codelineno-4-86" href="#__codelineno-4-86"></a>    │   └── base-ecommerce.ttl  (example shared ontology)
+</span><span id="__span-4-87"><a id="__codelineno-4-87" name="__codelineno-4-87" href="#__codelineno-4-87"></a>    └── iri_minting/
+</span><span id="__span-4-88"><a id="__codelineno-4-88" name="__codelineno-4-88" href="#__codelineno-4-88"></a>        ├── __init__.py
+</span><span id="__span-4-89"><a id="__codelineno-4-89" name="__codelineno-4-89" href="#__codelineno-4-89"></a>        └── resolver.py  (shared IRI logic)
+</span></code></pre></div>
+<hr />
+<h2 id="implementation-three-focused-variants">Implementation: Three Focused Variants<a class="headerlink" href="#implementation-three-focused-variants" title="Permanent link">&para;</a></h2>
+<h3 id="semantic-batch-lakehouse-spark-iceberg-semantic">Semantic Batch Lakehouse (<code>spark-iceberg-semantic</code>)<a class="headerlink" href="#semantic-batch-lakehouse-spark-iceberg-semantic" title="Permanent link">&para;</a></h3>
+<p><strong>Goal:</strong> Convert Iceberg Silver tables to RDF, output to Iceberg Gold + Jena TDB2</p>
+<p><strong>Core files:</strong>
+- <code>SemanticTransformer.scala</code> — reads Silver tables, applies ontology mapping
+- <code>JenaWriter.scala</code> — writes RDF to Iceberg + Jena
+- <code>RDFConfig.scala</code> — ontology configuration, mapping rules
+- <code>Main.scala</code> — entry point, orchestration
+- <code>src/test/</code> — unit + integration tests</p>
+<p><strong>Local dev:</strong>
+- <code>docker-compose.yml</code>: Spark, Iceberg REST, Jena TDB2, MinIO
+- Example workflow: read sample Silver customer/invoice tables → convert to RDF → validate in Jena</p>
+<p><strong>Key metrics:</strong>
+- ✅ RDF triple generation accuracy (validate IRIs, triples conform to ontology)
+- ✅ Iceberg write performance (Ntriples schema, partitioning)
+- ✅ Jena sync consistency (Iceberg ↔ TDB2 parity)</p>
+<hr />
+<h3 id="semantic-federated-query-trino-jena-sparql">Semantic Federated Query (<code>trino-jena-sparql</code>)<a class="headerlink" href="#semantic-federated-query-trino-jena-sparql" title="Permanent link">&para;</a></h3>
+<p><strong>Goal:</strong> Query Iceberg + Jena via Trino SQL + SPARQL, with bridge logic for hybrid queries</p>
+<p><strong>Core files:</strong>
+- <code>config/catalog/jena.properties</code> — Trino connector config for Jena endpoint
+- <code>config/catalog/iceberg.properties</code> — Iceberg catalog (existing pattern)
+- <code>queries/examples/*.sparql</code> — example SPARQL queries on Jena
+- <code>queries/examples/*.sql</code> — example SQL queries on Iceberg
+- <code>JenaBridge.scala</code> — logic to join Trino results + SPARQL results
+- <code>src/test/</code> — unit + integration tests</p>
+<p><strong>Local dev:</strong>
+- <code>docker-compose.yml</code>: Trino, Iceberg REST, Jena TDB2, MinIO, sample data
+- Example workflow: run SQL query on Iceberg → run SPARQL on Jena → compare results</p>
+<p><strong>Key metrics:</strong>
+- ✅ SPARQL query correctness (results match expected ontology inferences)
+- ✅ Trino+Jena bridge logic (join semantics, null handling)
+- ✅ Query latency (Trino SQL vs SPARQL vs hybrid)</p>
+<hr />
+<h3 id="semantic-cdc-debezium-kafka-semantic">Semantic CDC (<code>debezium-kafka-semantic</code>)<a class="headerlink" href="#semantic-cdc-debezium-kafka-semantic" title="Permanent link">&para;</a></h3>
+<p><strong>Goal:</strong> Capture source records, mint IRIs, enrich with entity resolution</p>
+<p><strong>Core files:</strong>
+- <code>iri_minter/service.py</code> — Kafka consumer, IRI minting logic
+- <code>entity_resolver/resolver.py</code> — entity resolution rules (deterministic matching)
+- <code>debezium-configs/*.json</code> — Debezium source connector configs
+- <code>config.yaml</code> — entity resolution rules per source
+- <code>src/test/</code> — unit + integration tests</p>
+<p><strong>Local dev:</strong>
+- <code>docker-compose.yml</code>: Debezium, Kafka, Postgres (source), MinIO, IRI Minter service
+- Example workflow: insert record in Postgres → Debezium captures → IRI Minter enriches → Kafka outputs enriched record</p>
+<p><strong>Key metrics:</strong>
+- ✅ Entity resolution correctness (same entities get same IRI)
+- ✅ IRI stability (deterministic, reproducible)
+- ✅ Kafka throughput (latency from source change to enriched Kafka topic)</p>
+<hr />
+<h2 id="testing-strategy">Testing Strategy<a class="headerlink" href="#testing-strategy" title="Permanent link">&para;</a></h2>
+<h3 id="unit-tests">Unit Tests<a class="headerlink" href="#unit-tests" title="Permanent link">&para;</a></h3>
+<p><strong>Semantic Batch Lakehouse:</strong>
+- RDF triple generation (correct subject-predicate-object triples)
+- Ontology validation (IRIs well-formed, triples conform to ontology)
+- Iceberg write (schema compliance, partitioning)</p>
+<p><strong>Semantic Federated Query:</strong>
+- SPARQL query parsing and execution
+- Trino+Jena bridge logic (SQL results + SPARQL results = expected combined result)
+- Ontology inference (rules applied correctly)</p>
+<p><strong>Semantic CDC:</strong>
+- IRI minting (deterministic, correct format)
+- Entity resolution rules (matching logic correct)
+- Kafka message generation (enriched records well-formed)</p>
+<h3 id="integration-tests">Integration Tests<a class="headerlink" href="#integration-tests" title="Permanent link">&para;</a></h3>
+<p><strong>End-to-end pipeline:</strong>
+1. Semantic CDC: insert records in Postgres → minted IRIs appear in Kafka
+2. Semantic Batch Lakehouse: read enriched Kafka → write RDF to Iceberg + Jena
+3. Semantic Federated Query: query Iceberg + Jena, results consistent</p>
+<p><strong>All tests:</strong> docker-compose, no external services, run locally in ~30 seconds</p>
+<hr />
+<h2 id="data-unification-value-proposition">Data Unification Value Proposition<a class="headerlink" href="#data-unification-value-proposition" title="Permanent link">&para;</a></h2>
+<h3 id="what-semantic-medallion-solves">What Semantic Medallion Solves<a class="headerlink" href="#what-semantic-medallion-solves" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Problem</th>
+<th>Traditional Solution</th>
+<th>Semantic Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Entity deduplication across sources</td>
+<td>Separate ETL logic per source</td>
+<td>IRI minting at CDC layer, once and done</td>
+</tr>
+<tr>
+<td>Schema negotiation for new sources</td>
+<td>Schema mapping in every query</td>
+<td>Wire new source to ontology</td>
+</tr>
+<tr>
+<td>"What is a Customer?"</td>
+<td>Check multiple table definitions</td>
+<td>Query ontology</td>
+</tr>
+<tr>
+<td>Scattered entity resolution</td>
+<td>JOINs in queries, dbt models, dashboards</td>
+<td>IRIs in the data</td>
+</tr>
+<tr>
+<td>Audit trail of relationships</td>
+<td>SQL logs, lineage tools</td>
+<td>RDF triples (who-where-when queryable)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="use-cases">Use Cases<a class="headerlink" href="#use-cases" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Customer 360:</strong> "Give me all interactions for customer X across Salesforce + Stripe + orders" → one SPARQL query</li>
+<li><strong>Risk Analysis:</strong> "Find customers with payment failures + support escalations" → ontology-driven query, no manual joins</li>
+<li><strong>Data Governance:</strong> "Which source owns this customer?" → RDF triples show source lineage</li>
+<li><strong>Catalog Self-Service:</strong> "What entities are available?" → query ontology, no separate metadata system</li>
+</ol>
+<hr />
+<h2 id="success-criteria">Success Criteria<a class="headerlink" href="#success-criteria" title="Permanent link">&para;</a></h2>
+<p>✅ <strong>Design approval:</strong> All sections reviewed and approved<br />
+✅ <strong>Implementation planning:</strong> Writing-plans skill creates task breakdown<br />
+✅ <strong>Pattern completeness:</strong> All 3 patterns have boilerplate code + docker-compose + tests<br />
+✅ <strong>Case study design:</strong> Enterprise-modernization Phase 2 scenario documented<br />
+✅ <strong>Documentation:</strong> Patterns indexed, ADRs written, ontology examples provided<br />
+✅ <strong>Integration:</strong> New patterns linked in landscape, decision matrix updated  </p>
+<hr />
+<h2 id="open-questions-future-work">Open Questions &amp; Future Work<a class="headerlink" href="#open-questions-future-work" title="Permanent link">&para;</a></h2>
+<h3 id="not-in-scope-design-phase">Not in Scope (Design Phase)<a class="headerlink" href="#not-in-scope-design-phase" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Advanced entity resolution (fuzzy matching, ML-based deduplication) — deterministic rules sufficient for MVP</li>
+<li>Ontology versioning/governance — single ontology per case study, extensible for future</li>
+<li>Inference engines (OWL reasoner) — Jena basic SPARQL sufficient, upgrade path documented</li>
+<li>High-cardinality RDF stores (billions of triples) — Jena TDB2 scales to tens of millions, Virtuoso/GraphDB path documented</li>
+</ul>
+<h3 id="post-implementation">Post-Implementation<a class="headerlink" href="#post-implementation" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Performance tuning (Iceberg partitioning strategy for RDF)</li>
+<li>Advanced SPARQL query optimization</li>
+<li>Real-time entity resolution (streaming dedup)</li>
+<li>Ontology learning from data</li>
+</ul>
+<hr />
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<p><strong>Related patterns:</strong>
+- Batch Lakehouse (existing)
+- Federated Query (existing)
+- CDC Pipeline (existing)
+- Graph Processing (existing) — complements semantic queries</p>
+<p><strong>Related docs:</strong>
+- chakraview-enterprise-modernization/docs/case-study/phase-2-semantic-unification/
+- chakraview-zero-trust-blueprint/ — entity identity patterns</p>
+<p><strong>Standards &amp; frameworks:</strong>
+- RDF 1.1 (W3C) — data model
+- SPARQL 1.1 (W3C) — query language
+- OWL 2 (W3C) — ontology language
+- Apache Jena 4.x documentation</p>
+<hr />
+<h2 id="approval">Approval<a class="headerlink" href="#approval" title="Permanent link">&para;</a></h2>
+<p><strong>Design reviewed and approved:</strong> 2026-05-30<br />
+<strong>Ready for implementation planning:</strong> Yes</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/naren-chakraview" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.annotate", "content.code.copy", "content.tabs.link"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

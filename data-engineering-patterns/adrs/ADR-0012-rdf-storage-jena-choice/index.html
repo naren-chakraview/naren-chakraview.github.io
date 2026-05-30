@@ -6,33 +6,32 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Boilerplate starters for 9 data engineering patterns × 22 stack variants.">
+        <meta name="description" content="Idiomatic boilerplate starters for 9 data engineering patterns × 22 stack variants. Landscape intro, decision matrix, and ADRs for every trade-off.
+">
       
       
       
-        <link rel="canonical" href="https://naren-chakraview.github.io/chakraview-data-engineering-patterns/">
+        <link rel="canonical" href="https://naren-chakraview.github.io/chakraview-data-engineering-patterns/adrs/ADR-0012-rdf-storage-jena-choice/">
       
       
-      
-        <link rel="next" href="landscape/">
       
       
         
       
       
-      <link rel="icon" href="assets/logo.svg">
+      <link rel="icon" href="../../assets/logo.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>Chakra Data Engineering Patterns - Chakra Data Engineering Patterns</title>
+        <title>ADR-0012: RDF Storage and SPARQL Engine — Apache Jena TDB2 - Chakra Data Engineering Patterns</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -51,7 +50,7 @@
       
     
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -76,7 +75,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#data-engineering-patterns" class="md-skip">
+        <a href="#adr-0012-rdf-storage-and-sparql-engine-apache-jena-tdb2" class="md-skip">
           Skip to content
         </a>
       
@@ -92,9 +91,9 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="Chakra Data Engineering Patterns" class="md-header__button md-logo" aria-label="Chakra Data Engineering Patterns" data-md-component="logo">
+    <a href="../.." title="Chakra Data Engineering Patterns" class="md-header__button md-logo" aria-label="Chakra Data Engineering Patterns" data-md-component="logo">
       
-  <img src="assets/logo.svg" alt="logo">
+  <img src="../../assets/logo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -111,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Chakra Data Engineering Patterns
+              ADR-0012: RDF Storage and SPARQL Engine — Apache Jena TDB2
             
           </span>
         </div>
@@ -216,11 +215,9 @@
   
   
   
-    
   
-  
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="." class="md-tabs__link">
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
         
   
   
@@ -239,7 +236,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="landscape/" class="md-tabs__link">
+      <a href="../../landscape/" class="md-tabs__link">
         
   
   
@@ -258,7 +255,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="decision-matrix/" class="md-tabs__link">
+      <a href="../../decision-matrix/" class="md-tabs__link">
         
   
   
@@ -279,7 +276,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="patterns/batch-lakehouse/" class="md-tabs__link">
+        <a href="../../patterns/batch-lakehouse/" class="md-tabs__link">
           
   
   
@@ -301,7 +298,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="adrs/" class="md-tabs__link">
+        <a href="../" class="md-tabs__link">
           
   
   
@@ -343,9 +340,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="Chakra Data Engineering Patterns" class="md-nav__button md-logo" aria-label="Chakra Data Engineering Patterns" data-md-component="logo">
+    <a href="../.." title="Chakra Data Engineering Patterns" class="md-nav__button md-logo" aria-label="Chakra Data Engineering Patterns" data-md-component="logo">
       
-  <img src="assets/logo.svg" alt="logo">
+  <img src="../../assets/logo.svg" alt="logo">
 
     </a>
     Chakra Data Engineering Patterns
@@ -369,37 +366,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Home
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="." class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -415,72 +385,6 @@
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#what-this-is" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What this is
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#start-here" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Start here
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#patterns" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Patterns
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#architecture-decision-records" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Architecture decision records
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -492,7 +396,7 @@
   
   
     <li class="md-nav__item">
-      <a href="landscape/" class="md-nav__link">
+      <a href="../../landscape/" class="md-nav__link">
         
   
   
@@ -519,7 +423,7 @@
   
   
     <li class="md-nav__item">
-      <a href="decision-matrix/" class="md-nav__link">
+      <a href="../../decision-matrix/" class="md-nav__link">
         
   
   
@@ -618,7 +522,7 @@
   
   
     <li class="md-nav__item">
-      <a href="patterns/batch-lakehouse/" class="md-nav__link">
+      <a href="../../patterns/batch-lakehouse/" class="md-nav__link">
         
   
   
@@ -646,7 +550,7 @@
   
   
     <li class="md-nav__item">
-      <a href="patterns/streaming-lakehouse/" class="md-nav__link">
+      <a href="../../patterns/streaming-lakehouse/" class="md-nav__link">
         
   
   
@@ -674,7 +578,7 @@
   
   
     <li class="md-nav__item">
-      <a href="patterns/elt-warehouse/" class="md-nav__link">
+      <a href="../../patterns/elt-warehouse/" class="md-nav__link">
         
   
   
@@ -702,7 +606,7 @@
   
   
     <li class="md-nav__item">
-      <a href="patterns/cdc-pipeline/" class="md-nav__link">
+      <a href="../../patterns/cdc-pipeline/" class="md-nav__link">
         
   
   
@@ -730,7 +634,7 @@
   
   
     <li class="md-nav__item">
-      <a href="patterns/lambda-architecture/" class="md-nav__link">
+      <a href="../../patterns/lambda-architecture/" class="md-nav__link">
         
   
   
@@ -758,7 +662,7 @@
   
   
     <li class="md-nav__item">
-      <a href="patterns/federated-query/" class="md-nav__link">
+      <a href="../../patterns/federated-query/" class="md-nav__link">
         
   
   
@@ -786,7 +690,7 @@
   
   
     <li class="md-nav__item">
-      <a href="patterns/ml-feature-pipeline/" class="md-nav__link">
+      <a href="../../patterns/ml-feature-pipeline/" class="md-nav__link">
         
   
   
@@ -814,7 +718,7 @@
   
   
     <li class="md-nav__item">
-      <a href="patterns/graph-processing/" class="md-nav__link">
+      <a href="../../patterns/graph-processing/" class="md-nav__link">
         
   
   
@@ -842,7 +746,7 @@
   
   
     <li class="md-nav__item">
-      <a href="patterns/workflow-orchestration/" class="md-nav__link">
+      <a href="../../patterns/workflow-orchestration/" class="md-nav__link">
         
   
   
@@ -920,7 +824,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="adrs/" class="md-nav__link ">
+            <a href="../" class="md-nav__link ">
               
   
   
@@ -964,7 +868,7 @@
   
   
     <li class="md-nav__item">
-      <a href="adrs/ADR-0001-pattern-matrix-structure/" class="md-nav__link">
+      <a href="../ADR-0001-pattern-matrix-structure/" class="md-nav__link">
         
   
   
@@ -992,7 +896,7 @@
   
   
     <li class="md-nav__item">
-      <a href="adrs/ADR-0002-idiomatic-language-per-ecosystem/" class="md-nav__link">
+      <a href="../ADR-0002-idiomatic-language-per-ecosystem/" class="md-nav__link">
         
   
   
@@ -1020,7 +924,7 @@
   
   
     <li class="md-nav__item">
-      <a href="adrs/ADR-0003-table-format-landscape/" class="md-nav__link">
+      <a href="../ADR-0003-table-format-landscape/" class="md-nav__link">
         
   
   
@@ -1048,7 +952,7 @@
   
   
     <li class="md-nav__item">
-      <a href="adrs/ADR-0004-stream-processing-engine/" class="md-nav__link">
+      <a href="../ADR-0004-stream-processing-engine/" class="md-nav__link">
         
   
   
@@ -1076,7 +980,7 @@
   
   
     <li class="md-nav__item">
-      <a href="adrs/ADR-0005-orchestration-landscape/" class="md-nav__link">
+      <a href="../ADR-0005-orchestration-landscape/" class="md-nav__link">
         
   
   
@@ -1104,7 +1008,7 @@
   
   
     <li class="md-nav__item">
-      <a href="adrs/ADR-0006-lakehouse-storage-layer/" class="md-nav__link">
+      <a href="../ADR-0006-lakehouse-storage-layer/" class="md-nav__link">
         
   
   
@@ -1132,7 +1036,7 @@
   
   
     <li class="md-nav__item">
-      <a href="adrs/ADR-0007-cdc-tooling/" class="md-nav__link">
+      <a href="../ADR-0007-cdc-tooling/" class="md-nav__link">
         
   
   
@@ -1160,7 +1064,7 @@
   
   
     <li class="md-nav__item">
-      <a href="adrs/ADR-0008-local-dev-approach/" class="md-nav__link">
+      <a href="../ADR-0008-local-dev-approach/" class="md-nav__link">
         
   
   
@@ -1188,7 +1092,7 @@
   
   
     <li class="md-nav__item">
-      <a href="adrs/ADR-0009-graph-processing/" class="md-nav__link">
+      <a href="../ADR-0009-graph-processing/" class="md-nav__link">
         
   
   
@@ -1216,7 +1120,7 @@
   
   
     <li class="md-nav__item">
-      <a href="adrs/ADR-0010-ml-feature-pipeline/" class="md-nav__link">
+      <a href="../ADR-0010-ml-feature-pipeline/" class="md-nav__link">
         
   
   
@@ -1273,10 +1177,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-this-is" class="md-nav__link">
+  <a href="#context" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What this is
+        Context
       
     </span>
   </a>
@@ -1284,10 +1188,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#start-here" class="md-nav__link">
+  <a href="#decision" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Start here
+        Decision
       
     </span>
   </a>
@@ -1295,10 +1199,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#patterns" class="md-nav__link">
+  <a href="#rationale" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Patterns
+        Rationale
       
     </span>
   </a>
@@ -1306,10 +1210,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#architecture-decision-records" class="md-nav__link">
+  <a href="#consequences" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Architecture decision records
+        Consequences
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migration-path-to-fuseki" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Migration path to Fuseki
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alternatives-considered" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alternatives considered
       
     </span>
   </a>
@@ -1331,132 +1257,110 @@
                 
                   
 
-  <nav class="md-tags" >
-    
-      
-      
-      
-      
-        <span class="md-tag">overview</span>
-      
-    
-  </nav>
-
 
   
   
 
 
-<h1 id="data-engineering-patterns">Data Engineering Patterns<a class="headerlink" href="#data-engineering-patterns" title="Permanent link">&para;</a></h1>
-<blockquote>
-<p>Pick a pattern. Pick a stack. Pull the branch. Start building.</p>
-</blockquote>
+<h1 id="adr-0012-rdf-storage-and-sparql-engine-apache-jena-tdb2">ADR-0012: RDF Storage and SPARQL Engine — Apache Jena TDB2<a class="headerlink" href="#adr-0012-rdf-storage-and-sparql-engine-apache-jena-tdb2" title="Permanent link">&para;</a></h1>
+<p><strong>Status</strong>: Accepted<br />
+<strong>Date</strong>: 2026-05-30<br />
+<strong>Deciders</strong>: Portfolio architect</p>
 <hr />
-<h2 id="what-this-is">What this is<a class="headerlink" href="#what-this-is" title="Permanent link">&para;</a></h2>
-<p>Nine opinionated, production-informed reference implementations of common data engineering patterns — each available in 2–3 idiomatic stack variants. Every variant is a self-contained boilerplate starter: real code, a local dev stack, and a README that explains when to use it and when not to.</p>
-<hr />
-<h2 id="start-here">Start here<a class="headerlink" href="#start-here" title="Permanent link">&para;</a></h2>
-<div class="grid cards">
+<h2 id="context">Context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h2>
+<p>Semantic medallion variants need to store and query RDF triples (subject-predicate-object facts). Several RDF storage and SPARQL query engines exist:</p>
+<ol>
+<li><strong>Apache Jena TDB2</strong>: Embedded RDF database; SPARQL query engine; open source; no external service required.</li>
+<li><strong>Apache Jena Fuseki</strong>: RDF server (uses TDB2 as backing store); exposes SPARQL via HTTP; good for scaling to multiple clients.</li>
+<li><strong>GraphDB</strong>: Commercial RDF database; advanced reasoning (OWL, SWRL); high query performance; not OSS.</li>
+<li><strong>Neo4j</strong>: Graph database; not native RDF, but can store RDF-like properties; strong community; cloud-native.</li>
+<li><strong>RDF4J</strong>: Open source; Java-based; similar feature set to Jena; lighter-weight than Fuseki.</li>
+</ol>
+<p>We need to choose a storage engine that:
+- Works with Apache Spark (for batch extraction of silver → RDF)
+- Works with Kafka consumers (for real-time RDF emission from CDC)
+- Is lightweight enough to embed in a lakehouse platform (no separate cluster)
+- Is OSS (aligns with portfolio patterns' philosophy)
+- Has mature SPARQL query support</p>
+<h2 id="decision">Decision<a class="headerlink" href="#decision" title="Permanent link">&para;</a></h2>
+<p><strong>Use Apache Jena TDB2 for initial implementation.</strong> Deploy as:</p>
 <ul>
-<li>
-<p><span class="twemoji lg middle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m15 19-6-2.11V5l6 2.11M20.5 3h-.16L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5a.5.5 0 0 0 .5.5c.05 0 .11 0 .16-.03L9 18.9l6 2.1 5.64-1.9c.21-.1.36-.25.36-.48V3.5a.5.5 0 0 0-.5-.5"/></svg></span> <strong>Landscape</strong></p>
-<hr />
-<p>Where each pattern fits in the modern data engineering landscape. Read this first if you are choosing a pattern.</p>
-<p><a href="landscape/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> Landscape</a></p>
-</li>
-<li>
-<p><span class="twemoji lg middle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 3h16a2 2 0 0 1 2 2v15a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2m0 4v3h4V7zm6 0v3h4V7zm10 3V7h-4v3zM4 12v3h4v-3zm0 8h4v-3H4zm6-8v3h4v-3zm0 8h4v-3h-4zm10 0v-3h-4v3zm0-8h-4v3h4z"/></svg></span> <strong>Decision Matrix</strong></p>
-<hr />
-<p>Two tables: pick a pattern by use-case characteristics, then pick a stack variant by trade-off criteria.</p>
-<p><a href="decision-matrix/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> Decision Matrix</a></p>
-</li>
+<li><strong>For batch (Spark):</strong> TDB2 as a local filesystem database, read/written by Spark jobs via Jena's Java API</li>
+<li><strong>For streaming (Kafka):</strong> TDB2 snapshot + Kafka changelog topic (events represent RDF inserts/retracts)</li>
+<li><strong>For federation (Trino):</strong> TDB2 snapshot exported as Parquet to Iceberg; Trino queries via Iceberg, not SPARQL (for now)</li>
 </ul>
-</div>
-<hr />
-<h2 id="patterns">Patterns<a class="headerlink" href="#patterns" title="Permanent link">&para;</a></h2>
-<div class="grid cards">
+<p>Provide a <strong>migration path to Fuseki</strong> (Jena HTTP server) for teams that later need:
+- Horizontal scaling (multiple concurrent SPARQL clients)
+- Separation of read and write workloads
+- Query caching and optimization</p>
+<h2 id="rationale">Rationale<a class="headerlink" href="#rationale" title="Permanent link">&para;</a></h2>
+<p><strong>Why Jena TDB2?</strong></p>
+<ol>
+<li><strong>Spark compatibility:</strong> Jena's Java API integrates with Spark without external services. No separate RDF database to manage.</li>
+<li><strong>Lightweight:</strong> TDB2 is a single-process, embedded database. Ideal for a pattern repo starter kit.</li>
+<li><strong>OSS:</strong> Apache-licensed, no commercial restrictions.</li>
+<li><strong>SPARQL maturity:</strong> Full W3C SPARQL 1.1 support; reasonable query optimization.</li>
+<li><strong>Embeddable:</strong> Can be instantiated within a Spark job or a Kafka consumer; no external infrastructure required initially.</li>
+</ol>
+<p><strong>Why not Fuseki initially?</strong></p>
+<p>Fuseki adds operational complexity (HTTP server, endpoint management, authentication). For a starter kit pattern, TDB2's embedded model is simpler. We document a migration path to Fuseki in ADR consequences.</p>
+<p><strong>Why not GraphDB or Neo4j?</strong></p>
 <ul>
-<li>
-<p><span class="twemoji lg middle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3C7.58 3 4 4.79 4 7s3.58 4 8 4c.5 0 1-.03 1.5-.08V9.5h2.89l-1-1L18.9 5c-1.4-1.2-3.96-2-6.9-2m6.92 4.08L17.5 8.5 20 11h-5v2h5l-2.5 2.5 1.42 1.42L23.84 12M4 9v3c0 2.21 3.58 4 8 4 1.17 0 2.26-.15 3.25-.37l1.13-1.13H13.5v-1.58c-.5.05-1 .08-1.5.08-4.42 0-8-1.79-8-4m0 5v3c0 2.21 3.58 4 8 4 2.94 0 5.5-.8 6.9-2L17 17.1c-1.39.56-3.1.9-5 .9-4.42 0-8-1.79-8-4"/></svg></span> <strong>Batch Lakehouse</strong></p>
-<hr />
-<p>Scheduled Spark jobs writing to open table formats. Highest throughput, simplest operations, no sub-minute latency.</p>
-<p><a href="patterns/batch-lakehouse/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> Batch Lakehouse</a></p>
-</li>
-<li>
-<p><span class="twemoji lg middle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 7c0-2.21 3.58-4 8-4s8 1.79 8 4-3.58 4-8 4-8-1.79-8-4m15.72 6.05c.18-.34.28-.69.28-1.05V9c0 2.21-3.58 4-8 4s-8-1.79-8-4v3c0 2.21 3.58 4 8 4 .65 0 1.28-.04 1.88-.11A5.99 5.99 0 0 1 19 13c.24 0 .5 0 .72.05m-6.62 4.91c-.36.04-.73.04-1.1.04-4.42 0-8-1.79-8-4v3c0 2.21 3.58 4 8 4 .46 0 .9 0 1.33-.06A6 6 0 0 1 13 19c0-.36.04-.7.1-1.04M23 19l-3-3v2h-4v2h4v2z"/></svg></span> <strong>Streaming Lakehouse</strong></p>
-<hr />
-<p>Continuous Flink or Spark Streaming pipelines writing to Iceberg or Delta. Sub-minute latency with lakehouse query semantics.</p>
-<p><a href="patterns/streaming-lakehouse/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> Streaming Lakehouse</a></p>
-</li>
-<li>
-<p><span class="twemoji lg middle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 8h2v8H3zm4 0h2v8H7zm4 0h2v8h-2zm4 11.25V4.75L22.25 12z"/></svg></span> <strong>ELT / Warehouse</strong></p>
-<hr />
-<p>dbt transforms data already loaded into a warehouse. Right when your warehouse is the system of record.</p>
-<p><a href="patterns/elt-warehouse/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> ELT / Warehouse</a></p>
-</li>
-<li>
-<p><span class="twemoji lg middle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 12v1.5a4 4 0 0 1 4 4c0 .82-.25 1.58-.67 2.21l-1.09-1.09c.17-.34.26-.72.26-1.12A2.5 2.5 0 0 0 19 15v1.5l-2.25-2.25zm0 11v-1.5a4 4 0 0 1-4-4c0-.82.25-1.58.67-2.21l1.09 1.09c-.17.34-.26.72-.26 1.12A2.5 2.5 0 0 0 19 20v-1.5l2.25 2.25zM12 3c4.42 0 8 1.79 8 4s-3.58 4-8 4-8-1.79-8-4 3.58-4 8-4M4 9c0 2.21 3.58 4 8 4 1.11 0 2.17-.11 3.14-.32-.95.86-1.64 1.99-1.96 3.28L12 16c-4.42 0-8-1.79-8-4zm16 0v2h-.5l-.6.03c.7-.6 1.1-1.29 1.1-2.03M4 14c0 2.21 3.58 4 8 4l1-.03c.09 1.06.42 2.03.95 2.91L12 21c-4.42 0-8-1.79-8-4z"/></svg></span> <strong>CDC Pipeline</strong></p>
-<hr />
-<p>Debezium captures database writes at the WAL level and streams them into a processing engine. Zero polling, sub-second capture.</p>
-<p><a href="patterns/cdc-pipeline/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> CDC Pipeline</a></p>
-</li>
-<li>
-<p><span class="twemoji lg middle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m6 20 4.16-12.09L9.34 6H8V4h2c.42 0 .78.26.93.63L16.66 18H18v2h-2c-.43 0-.79-.27-.93-.64l-3.74-8.71L8.12 20z"/></svg></span> <strong>Lambda Architecture</strong></p>
-<hr />
-<p>Parallel streaming (low latency) and batch (high accuracy) paths merged at query time. Use only when both are genuinely required.</p>
-<p><a href="patterns/lambda-architecture/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> Lambda Architecture</a></p>
-</li>
-<li>
-<p><span class="twemoji lg middle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.4 7.5c.8.8.8 2.1 0 2.8l-2.8 2.8-7.8-7.8 2.8-2.8c.8-.8 2.1-.8 2.8 0l1.8 1.8 3-3 1.4 1.4-3 3zm-5.8 5.8-1.4-1.4-2.8 2.8-2.1-2.1 2.8-2.8-1.4-1.4-2.8 2.8-1.5-1.4-2.8 2.8c-.8.8-.8 2.1 0 2.8l1.8 1.8-4 4 1.4 1.4 4-4 1.8 1.8c.8.8 2.1.8 2.8 0l2.8-2.8-1.4-1.4z"/></svg></span> <strong>Federated Query</strong></p>
-<hr />
-<p>Trino or Presto queries across multiple storage systems without data movement. Right for polyglot data estates.</p>
-<p><a href="patterns/federated-query/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> Federated Query</a></p>
-</li>
-<li>
-<p><span class="twemoji lg middle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.33 12.91c.09 1.55-.62 3.04-1.89 3.95l.77 1.49c.23.45.26.98.06 1.45-.19.47-.58.84-1.06 1l-.79.25a1.687 1.687 0 0 1-1.86-.55L14.44 18c-.89-.15-1.73-.53-2.44-1.1-.5.15-1 .23-1.5.23-.88 0-1.76-.27-2.5-.79-.53.16-1.07.23-1.62.22-.79.01-1.57-.15-2.3-.45a4.1 4.1 0 0 1-2.43-3.61c-.08-.72.04-1.45.35-2.11-.29-.75-.32-1.57-.07-2.33C2.3 7.11 3 6.32 3.87 5.82c.58-1.69 2.21-2.82 4-2.7 1.6-1.5 4.05-1.66 5.83-.37.42-.11.86-.17 1.3-.17 1.36-.03 2.65.57 3.5 1.64 2.04.53 3.5 2.35 3.58 4.47.05 1.11-.25 2.2-.86 3.13.07.36.11.72.11 1.09m-5-1.41c.57.07 1.02.5 1.02 1.07a1 1 0 0 1-1 1h-.63c-.32.9-.88 1.69-1.62 2.29.25.09.51.14.77.21 5.13-.07 4.53-3.2 4.53-3.25a2.59 2.59 0 0 0-2.69-2.49 1 1 0 0 1-1-1 1 1 0 0 1 1-1c1.23.03 2.41.49 3.33 1.3.05-.29.08-.59.08-.89-.06-1.24-.62-2.32-2.87-2.53-1.25-2.96-4.4-1.32-4.4-.4-.03.23.21.72.25.75a1 1 0 0 1 1 1c0 .55-.45 1-1 1-.53-.02-1.03-.22-1.43-.56-.48.31-1.03.5-1.6.56-.57.05-1.04-.35-1.07-.9a.97.97 0 0 1 .88-1.1c.16-.02.94-.14.94-.77 0-.66.25-1.29.68-1.79-.92-.25-1.91.08-2.91 1.29C6.75 5 6 5.25 5.45 7.2 4.5 7.67 4 8 3.78 9c1.08-.22 2.19-.13 3.22.25.5.19.78.75.59 1.29-.19.52-.77.78-1.29.59-.73-.32-1.55-.34-2.3-.06-.32.27-.32.83-.32 1.27 0 .74.37 1.43 1 1.83.53.27 1.12.41 1.71.4q-.225-.39-.39-.81a1.038 1.038 0 0 1 1.96-.68c.4 1.14 1.42 1.92 2.62 2.05 1.37-.07 2.59-.88 3.19-2.13.23-1.38 1.34-1.5 2.56-1.5m2 7.47-.62-1.3-.71.16 1 1.25zm-4.65-8.61a1 1 0 0 0-.91-1.03c-.71-.04-1.4.2-1.93.67-.57.58-.87 1.38-.84 2.19a1 1 0 0 0 1 1c.57 0 1-.45 1-1 0-.27.07-.54.23-.76.12-.1.27-.15.43-.15.55.03 1.02-.38 1.02-.92"/></svg></span> <strong>ML Feature Pipeline</strong></p>
-<hr />
-<p>Compute and serve ML features from a feature store. Separates feature engineering from model training and serving.</p>
-<p><a href="patterns/ml-feature-pipeline/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> ML Feature Pipeline</a></p>
-</li>
-<li>
-<p><span class="twemoji lg middle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.5 17c-.13 0-.26 0-.39.04l-1.61-3.25a2.5 2.5 0 0 0-1.75-4.29c-.13 0-.25 0-.39.04l-1.63-3.25c.48-.45.77-1.08.77-1.79a2.5 2.5 0 0 0-5 0c0 .71.29 1.34.76 1.79L8.64 9.54c-.14-.04-.26-.04-.39-.04a2.5 2.5 0 0 0-1.75 4.29l-1.61 3.25C4.76 17 4.63 17 4.5 17a2.5 2.5 0 0 0 0 5A2.5 2.5 0 0 0 7 19.5c0-.7-.29-1.34-.76-1.79l1.62-3.25c.14.04.26.04.39.04s.25 0 .39-.04l1.63 3.25c-.47.45-.77 1.09-.77 1.79a2.5 2.5 0 0 0 5 0A2.5 2.5 0 0 0 12 17c-.13 0-.26 0-.39.04L10 13.79c.46-.45.75-1.08.75-1.79s-.29-1.34-.75-1.79l1.61-3.25c.13.04.26.04.39.04s.26 0 .39-.04L14 10.21c-.45.45-.75 1.09-.75 1.79a2.5 2.5 0 0 0 2.5 2.5c.13 0 .25 0 .39-.04l1.63 3.25c-.47.45-.77 1.09-.77 1.79a2.5 2.5 0 0 0 5 0 2.5 2.5 0 0 0-2.5-2.5"/></svg></span> <strong>Graph Processing</strong></p>
-<hr />
-<p>Spark GraphX or Neo4j+Spark for graph-native algorithms. Right when relationships are the query, not the filter.</p>
-<p><a href="patterns/graph-processing/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> Graph Processing</a></p>
-</li>
-<li>
-<p><span class="twemoji lg middle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 13h1.5v2.82l2.44 1.41-.75 1.3L15 16.69zm4-5H5v11h4.67c-.43-.91-.67-1.93-.67-3a7 7 0 0 1 7-7c1.07 0 2.09.24 3 .67zM5 21a2 2 0 0 1-2-2V5c0-1.11.89-2 2-2h1V1h2v2h8V1h2v2h1a2 2 0 0 1 2 2v6.1c1.24 1.26 2 2.99 2 4.9a7 7 0 0 1-7 7c-1.91 0-3.64-.76-4.9-2zm11-9.85A4.85 4.85 0 0 0 11.15 16c0 2.68 2.17 4.85 4.85 4.85A4.85 4.85 0 0 0 20.85 16c0-2.68-2.17-4.85-4.85-4.85"/></svg></span> <strong>Workflow Orchestration</strong></p>
-<hr />
-<p>Airflow, Prefect, or Dagster for scheduling and coordinating data pipelines. The glue between every other pattern.</p>
-<p><a href="patterns/workflow-orchestration/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> Workflow Orchestration</a></p>
-</li>
-<li>
-<p>:material-rdf:{ .lg .middle } <strong>Semantic Medallion</strong></p>
-<hr />
-<p>Extends Batch Lakehouse, CDC Pipeline, and Federated Query with RDF triples and SPARQL for entity deduplication and semantic reasoning across polyglot sources.</p>
-<p><a href="patterns/semantic-medallion/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> Semantic Medallion</a></p>
-</li>
+<li>GraphDB: Commercial; licensing cost; overkill for a starter pattern.</li>
+<li>Neo4j: Not native RDF; would require translation between RDF and Neo4j property graph model; doesn't align with semantic web standards.</li>
 </ul>
-</div>
-<hr />
-<h2 id="architecture-decision-records">Architecture decision records<a class="headerlink" href="#architecture-decision-records" title="Permanent link">&para;</a></h2>
-<p>Key design decisions for the patterns library:</p>
+<p><strong>Why not skip RDF storage and use Spark DataFrames?</strong></p>
+<p>We could represent RDF as Spark DataFrames (subject, predicate, object columns) and query via Spark SQL. This avoids a new system but loses SPARQL's graph navigation semantics. Multi-hop queries become complex SQL joins. SPARQL's <code>OPTIONAL</code>, <code>FILTER</code>, and recursive patterns are harder to express in Spark SQL.</p>
+<h2 id="consequences">Consequences<a class="headerlink" href="#consequences" title="Permanent link">&para;</a></h2>
+<p><strong>Positive:</strong></p>
 <ul>
-<li><a href="adrs/ADR-0001-pattern-matrix-structure/">ADR-0001: Pattern Matrix Repo Structure</a></li>
-<li><a href="adrs/ADR-0011-semantic-medallion-approach/">ADR-0011: Semantic Medallion Approach</a></li>
-<li><a href="adrs/ADR-0012-rdf-storage-jena-choice/">ADR-0012: RDF Storage — Jena TDB2 Choice</a></li>
-<li><a href="adrs/ADR-0013-entity-resolution-strategy/">ADR-0013: Entity Resolution Strategy</a></li>
+<li>No external RDF infrastructure to provision; TDB2 fits in a Docker container.</li>
+<li>SPARQL queries are standard (W3C); not vendor-locked to Spark or Iceberg.</li>
+<li>Spark jobs can read/write TDB2 directly via Jena API; no network latency.</li>
+<li>Migration to Fuseki is straightforward (same data format, just expose via HTTP).</li>
 </ul>
-<p>Browse <a href="adrs/">all ADRs</a>.</p>
+<p><strong>Negative:</strong></p>
+<ul>
+<li>TDB2 is single-process; horizontal scaling requires Fuseki (adds operational complexity).</li>
+<li>SPARQL query performance plateaus around 1B triples; beyond that, a specialized graph database is better.</li>
+<li>Jena TDB2 is less actively developed than Fuseki; security patches may lag.</li>
+<li>Pattern assumes teams are comfortable adding Java/Scala Jena dependencies to Spark projects.</li>
+</ul>
+<h2 id="migration-path-to-fuseki">Migration path to Fuseki<a class="headerlink" href="#migration-path-to-fuseki" title="Permanent link">&para;</a></h2>
+<p><strong>When to migrate from TDB2 to Fuseki:</strong>
+- Multiple concurrent SPARQL clients (&gt; 5 simultaneous queries)
+- RDF triple count &gt; 500M (TDB2 performance degrades)
+- Need HTTP-based access (Trino, BI tools, external services)
+- Require authentication and role-based query access</p>
+<p><strong>How to migrate:</strong></p>
+<ol>
+<li>Export TDB2 backup to N-Triples or Turtle format</li>
+<li>Create Fuseki server with same TDB2 backing store</li>
+<li>Point Spark jobs and Kafka consumers to Fuseki HTTP endpoint instead of embedded TDB2</li>
+<li>(Optional) add Fuseki caching and query optimization layers</li>
+</ol>
+<p>The API remains SPARQL; only the transport (embedded Java → HTTP) changes.</p>
+<h2 id="alternatives-considered">Alternatives considered<a class="headerlink" href="#alternatives-considered" title="Permanent link">&para;</a></h2>
+<p><strong>Option A: RDF4J</strong></p>
+<p>Similar feature set to Jena; slightly lighter-weight. Could work, but Jena has broader community adoption and better Spark integration examples.</p>
+<p><strong>Option B: Postgres with RDF extensions</strong></p>
+<p>Use PostgreSQL + PostGIS (geographic queries) or pg_sparql extension. Trades heavyweight database operations for RDF-native query patterns.</p>
+<p>Rejected because:
+- Requires running PostgreSQL; adds operational burden vs embedded TDB2.
+- pg_sparql extension is less mature than Jena.
+- SPARQL queries translated to SQL are harder to reason about than native SPARQL.</p>
+<p><strong>Option C: Treat RDF as a Spark DataFrame</strong></p>
+<p>Store (subject, predicate, object) as three columns in Iceberg; query via Spark SQL.</p>
+<p>Rejected because:
+- Multi-hop graph queries become nested self-joins; hard to express and maintain.
+- Loses SPARQL's semantic query optimization.
+- No standard way to represent RDF features (IRIs, blank nodes, literals with language tags).</p>
 
 
 
 
 
 
-
-  
-  
 
 
 
@@ -1519,10 +1423,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.annotate", "content.code.copy", "content.tabs.link"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.annotate", "content.code.copy", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>
