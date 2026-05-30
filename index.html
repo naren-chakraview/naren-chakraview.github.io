@@ -245,7 +245,60 @@
       <div class="carousel-viewport">
         <div class="carousel-track" id="carouselTrack">
 
-          <!-- Slide 1: Enterprise Modernization -->
+          <!-- Slide 1: Distributed Systems for Agentic Workloads -->
+          <div class="carousel-slide">
+            <div class="slide-eyebrow indigo">Production Patterns · Agent Networks</div>
+            <div class="slide-header">
+              <span class="slide-icon">🕸️</span>
+              <h3 class="slide-title">Distributed Systems for Agentic Workloads</h3>
+            </div>
+            <p class="slide-desc">
+              35 production-grade patterns adapted specifically for AI agent networks. From causality tracking
+              and consistency models to token budgeting, failure recovery, edge+cloud coordination, and multi-agent
+              integration. Zero-trust agent identities with OBO delegation chains. Complete reference implementation
+              in Python and Go with a prototype agent network and comprehensive case study.
+            </p>
+            <div class="slide-metrics">
+              <div class="slide-metric">
+                <span class="slide-metric-value">35+</span>
+                <span class="slide-metric-label">Patterns</span>
+              </div>
+              <div class="slide-metric">
+                <span class="slide-metric-value">6</span>
+                <span class="slide-metric-label">Foundations</span>
+              </div>
+              <div class="slide-metric">
+                <span class="slide-metric-value">2</span>
+                <span class="slide-metric-label">ADRs</span>
+              </div>
+              <div class="slide-metric">
+                <span class="slide-metric-value">100+</span>
+                <span class="slide-metric-label">Integration tests</span>
+              </div>
+              <div class="slide-metric">
+                <span class="slide-metric-value">Zero Trust</span>
+                <span class="slide-metric-label">Agent identities</span>
+              </div>
+            </div>
+            <div class="slide-tags">
+              <span class="tag">Python</span>
+              <span class="tag">Go</span>
+              <span class="tag">Vector Clocks</span>
+              <span class="tag">Distributed Tracing</span>
+              <span class="tag">Agent Networks</span>
+              <span class="tag">Zero Trust</span>
+            </div>
+            <div class="slide-links">
+              <a href="https://naren-chakraview.github.io/chakraview-distributed-systems-patterns/"
+                 class="card-link" target="_blank" rel="noopener">Read the Docs ↗</a>
+              <a href="https://naren-chakraview.github.io/chakraview-distributed-systems-patterns/case-study/scenario-overview/"
+                 class="card-link-secondary" target="_blank" rel="noopener">Case Study ↗</a>
+              <a href="https://github.com/naren-chakraview/chakraview-distributed-systems-patterns"
+                 class="card-link-secondary" target="_blank" rel="noopener">GitHub ↗</a>
+            </div>
+          </div>
+
+          <!-- Slide 2: Enterprise Modernization -->
           <div class="carousel-slide">
             <div class="slide-eyebrow purple">Case Study · Chakraview AI Dev Model</div>
             <div class="slide-header">
@@ -299,7 +352,7 @@
             </div>
           </div>
 
-          <!-- Slide 2: Zero-Trust Blueprint -->
+          <!-- Slide 3: Zero-Trust Blueprint -->
           <div class="carousel-slide">
             <div class="slide-eyebrow">Security Architecture</div>
             <div class="slide-header">
@@ -347,7 +400,7 @@
             </div>
           </div>
 
-          <!-- Slide 3: Fintech Data Mesh -->
+          <!-- Slide 4: Fintech Data Mesh -->
           <div class="carousel-slide">
             <div class="slide-eyebrow">Data Architecture</div>
             <div class="slide-header">
@@ -406,6 +459,7 @@
       <button class="carousel-dot active" data-index="0" aria-label="Slide 1"></button>
       <button class="carousel-dot" data-index="1" aria-label="Slide 2"></button>
       <button class="carousel-dot" data-index="2" aria-label="Slide 3"></button>
+      <button class="carousel-dot" data-index="3" aria-label="Slide 4"></button>
     </div>
   </div>
 </section>
@@ -720,7 +774,7 @@
   var track = document.getElementById('carouselTrack');
   var dots = document.querySelectorAll('.carousel-dot');
   var current = 0;
-  var total = 3;
+  var total = 4;
 
   function goTo(n) {
     current = ((n % total) + total) % total;
