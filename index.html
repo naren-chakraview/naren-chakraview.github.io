@@ -271,6 +271,33 @@
       color: #cbd5e1;
     }
 
+    /* Hero Stats Styling */
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-value {
+      display: block;
+      font-size: 28px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      display: block;
+      font-size: 13px;
+      color: #cbd5e1;
+      font-weight: 500;
+    }
+
     /* Responsive */
     @media (max-width: 768px) {
       #skills::before {
@@ -288,6 +315,10 @@
 
       .hero-title {
         font-size: 32px;
+      }
+
+      .hero-stats {
+        grid-template-columns: repeat(2, 1fr);
       }
     }
   </style>
