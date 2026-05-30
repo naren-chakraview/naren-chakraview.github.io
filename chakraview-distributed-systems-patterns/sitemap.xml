@@ -13,6 +13,10 @@
          <lastmod>2026-05-30</lastmod>
     </url>
     <url>
+         <loc>https://naren-chakraview.github.io/chakraview-distributed-systems-patterns/adrs/ADR-0002-zero-trust-agent-identities/</loc>
+         <lastmod>2026-05-30</lastmod>
+    </url>
+    <url>
          <loc>https://naren-chakraview.github.io/chakraview-distributed-systems-patterns/case-study/architecture/</loc>
          <lastmod>2026-05-30</lastmod>
     </url>
@@ -42,6 +46,10 @@
     </url>
     <url>
          <loc>https://naren-chakraview.github.io/chakraview-distributed-systems-patterns/foundations/trust-and-byzantine/</loc>
+         <lastmod>2026-05-30</lastmod>
+    </url>
+    <url>
+         <loc>https://naren-chakraview.github.io/chakraview-distributed-systems-patterns/foundations/zero-trust-for-agents/</loc>
          <lastmod>2026-05-30</lastmod>
     </url>
     <url>

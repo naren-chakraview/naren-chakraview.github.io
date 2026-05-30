@@ -11,31 +11,29 @@
       
       
       
-        <link rel="canonical" href="https://naren-chakraview.github.io/chakraview-distributed-systems-patterns/patterns/integration/multi-agent-coordination/">
+        <link rel="canonical" href="https://naren-chakraview.github.io/chakraview-distributed-systems-patterns/adrs/ADR-0002-zero-trust-agent-identities/">
       
       
-        <link rel="prev" href="../single-agent-scale/">
+        <link rel="prev" href="../ADR-0001-agent-specific-consistency-model/">
       
-      
-        <link rel="next" href="../agent-swarms/">
       
       
         
       
       
-      <link rel="icon" href="../../../assets/logo.svg">
+      <link rel="icon" href="../../assets/logo.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>Multi-Agent Coordination - Distributed Systems for Agentic Workloads</title>
+        <title>ADR-0002 Zero-Trust Agent Identities - Distributed Systems for Agentic Workloads</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -54,7 +52,7 @@
       
     
     
-    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -79,7 +77,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#multi-agent-coordination" class="md-skip">
+        <a href="#adr-0002-zero-trust-agent-identities" class="md-skip">
           Skip to content
         </a>
       
@@ -95,9 +93,9 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../.." title="Distributed Systems for Agentic Workloads" class="md-header__button md-logo" aria-label="Distributed Systems for Agentic Workloads" data-md-component="logo">
+    <a href="../.." title="Distributed Systems for Agentic Workloads" class="md-header__button md-logo" aria-label="Distributed Systems for Agentic Workloads" data-md-component="logo">
       
-  <img src="../../../assets/logo.svg" alt="logo">
+  <img src="../../assets/logo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -114,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Multi-Agent Coordination
+              ADR-0002 Zero-Trust Agent Identities
             
           </span>
         </div>
@@ -221,7 +219,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../.." class="md-tabs__link">
+      <a href="../.." class="md-tabs__link">
         
   
   
@@ -242,7 +240,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../foundations/causality-and-ordering/" class="md-tabs__link">
+        <a href="../../foundations/causality-and-ordering/" class="md-tabs__link">
           
   
   
@@ -260,8 +258,6 @@
   
   
   
-    
-  
   
     
     
@@ -269,13 +265,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../../observability/distributed-tracing/" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../patterns/observability/distributed-tracing/" class="md-tabs__link">
           
   
   
@@ -300,7 +294,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../case-study/scenario-overview/" class="md-tabs__link">
+        <a href="../../case-study/scenario-overview/" class="md-tabs__link">
           
   
   
@@ -318,11 +312,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../../adrs/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
           
   
   
@@ -364,9 +360,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="Distributed Systems for Agentic Workloads" class="md-nav__button md-logo" aria-label="Distributed Systems for Agentic Workloads" data-md-component="logo">
+    <a href="../.." title="Distributed Systems for Agentic Workloads" class="md-nav__button md-logo" aria-label="Distributed Systems for Agentic Workloads" data-md-component="logo">
       
-  <img src="../../../assets/logo.svg" alt="logo">
+  <img src="../../assets/logo.svg" alt="logo">
 
     </a>
     Distributed Systems for Agentic Workloads
@@ -393,7 +389,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../.." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -486,7 +482,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../foundations/causality-and-ordering/" class="md-nav__link">
+      <a href="../../foundations/causality-and-ordering/" class="md-nav__link">
         
   
   
@@ -514,7 +510,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../foundations/consistency-models/" class="md-nav__link">
+      <a href="../../foundations/consistency-models/" class="md-nav__link">
         
   
   
@@ -542,7 +538,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../foundations/agent-failure-modes/" class="md-nav__link">
+      <a href="../../foundations/agent-failure-modes/" class="md-nav__link">
         
   
   
@@ -570,7 +566,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../foundations/time-and-clocks/" class="md-nav__link">
+      <a href="../../foundations/time-and-clocks/" class="md-nav__link">
         
   
   
@@ -598,7 +594,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../foundations/trust-and-byzantine/" class="md-nav__link">
+      <a href="../../foundations/trust-and-byzantine/" class="md-nav__link">
         
   
   
@@ -626,7 +622,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../foundations/zero-trust-for-agents/" class="md-nav__link">
+      <a href="../../foundations/zero-trust-for-agents/" class="md-nav__link">
         
   
   
@@ -658,10 +654,8 @@
       
   
   
-    
   
   
-  
     
     
       
@@ -681,22 +675,19 @@
     
     
       
-        
-        
-      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
   
@@ -714,7 +705,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -748,20 +739,17 @@
       
       
         
-          
-          
-        
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
         
           
-          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
             
   
   
@@ -797,7 +785,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../observability/distributed-tracing/" class="md-nav__link">
+      <a href="../../patterns/observability/distributed-tracing/" class="md-nav__link">
         
   
   
@@ -825,7 +813,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../observability/understanding-decisions/" class="md-nav__link">
+      <a href="../../patterns/observability/understanding-decisions/" class="md-nav__link">
         
   
   
@@ -853,7 +841,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../observability/logging-strategies/" class="md-nav__link">
+      <a href="../../patterns/observability/logging-strategies/" class="md-nav__link">
         
   
   
@@ -881,7 +869,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../observability/agent-health-metrics/" class="md-nav__link">
+      <a href="../../patterns/observability/agent-health-metrics/" class="md-nav__link">
         
   
   
@@ -935,20 +923,17 @@
       
       
         
-          
-          
-        
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
         
           
-          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
             
   
   
@@ -984,7 +969,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../predictability/context-window-management/" class="md-nav__link">
+      <a href="../../patterns/predictability/context-window-management/" class="md-nav__link">
         
   
   
@@ -1012,7 +997,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../predictability/behavior-degradation/" class="md-nav__link">
+      <a href="../../patterns/predictability/behavior-degradation/" class="md-nav__link">
         
   
   
@@ -1040,7 +1025,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../predictability/token-budgeting/" class="md-nav__link">
+      <a href="../../patterns/predictability/token-budgeting/" class="md-nav__link">
         
   
   
@@ -1068,7 +1053,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../predictability/testing-and-validation/" class="md-nav__link">
+      <a href="../../patterns/predictability/testing-and-validation/" class="md-nav__link">
         
   
   
@@ -1096,7 +1081,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../predictability/agentic-slos/" class="md-nav__link">
+      <a href="../../patterns/predictability/agentic-slos/" class="md-nav__link">
         
   
   
@@ -1148,20 +1133,17 @@
       
       
         
-          
-          
-        
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
         
           
-          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
             
   
   
@@ -1197,7 +1179,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../resource-allocation/fair-queuing/" class="md-nav__link">
+      <a href="../../patterns/resource-allocation/fair-queuing/" class="md-nav__link">
         
   
   
@@ -1225,7 +1207,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../resource-allocation/reservation-vs-burst/" class="md-nav__link">
+      <a href="../../patterns/resource-allocation/reservation-vs-burst/" class="md-nav__link">
         
   
   
@@ -1253,7 +1235,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../resource-allocation/context-allocation/" class="md-nav__link">
+      <a href="../../patterns/resource-allocation/context-allocation/" class="md-nav__link">
         
   
   
@@ -1281,7 +1263,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../resource-allocation/priority-queues/" class="md-nav__link">
+      <a href="../../patterns/resource-allocation/priority-queues/" class="md-nav__link">
         
   
   
@@ -1333,20 +1315,17 @@
       
       
         
-          
-          
-        
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
         
           
-          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
             
   
   
@@ -1382,7 +1361,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../failure-recovery/idempotency-and-replay/" class="md-nav__link">
+      <a href="../../patterns/failure-recovery/idempotency-and-replay/" class="md-nav__link">
         
   
   
@@ -1410,7 +1389,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../failure-recovery/checkpointing/" class="md-nav__link">
+      <a href="../../patterns/failure-recovery/checkpointing/" class="md-nav__link">
         
   
   
@@ -1438,7 +1417,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../failure-recovery/recovery-strategies/" class="md-nav__link">
+      <a href="../../patterns/failure-recovery/recovery-strategies/" class="md-nav__link">
         
   
   
@@ -1466,7 +1445,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../failure-recovery/acid-guarantees/" class="md-nav__link">
+      <a href="../../patterns/failure-recovery/acid-guarantees/" class="md-nav__link">
         
   
   
@@ -1520,20 +1499,17 @@
       
       
         
-          
-          
-        
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
         
           
-          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
             
   
   
@@ -1569,7 +1545,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../edge-cloud-deployment/agent-placement/" class="md-nav__link">
+      <a href="../../patterns/edge-cloud-deployment/agent-placement/" class="md-nav__link">
         
   
   
@@ -1597,7 +1573,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../edge-cloud-deployment/partition-handling/" class="md-nav__link">
+      <a href="../../patterns/edge-cloud-deployment/partition-handling/" class="md-nav__link">
         
   
   
@@ -1625,7 +1601,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../edge-cloud-deployment/async-coordination/" class="md-nav__link">
+      <a href="../../patterns/edge-cloud-deployment/async-coordination/" class="md-nav__link">
         
   
   
@@ -1653,7 +1629,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../edge-cloud-deployment/inference-strategies/" class="md-nav__link">
+      <a href="../../patterns/edge-cloud-deployment/inference-strategies/" class="md-nav__link">
         
   
   
@@ -1681,7 +1657,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../edge-cloud-deployment/edge-state-consistency/" class="md-nav__link">
+      <a href="../../patterns/edge-cloud-deployment/edge-state-consistency/" class="md-nav__link">
         
   
   
@@ -1714,10 +1690,8 @@
                 
   
   
-    
   
   
-  
     
     
       
@@ -1734,21 +1708,18 @@
     
       
       
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
         
           
-          
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" checked>
-        
-          
-          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
             
   
   
@@ -1766,7 +1737,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3_6">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1784,7 +1755,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../single-agent-scale/" class="md-nav__link">
+      <a href="../../patterns/integration/single-agent-scale/" class="md-nav__link">
         
   
   
@@ -1809,37 +1780,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Multi-Agent Coordination
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../patterns/integration/multi-agent-coordination/" class="md-nav__link">
         
   
   
@@ -1855,72 +1799,6 @@
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#problem-statement" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Problem Statement
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#solution-approach" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Solution Approach
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#when-to-use" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        When to Use
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        References
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1933,7 +1811,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../agent-swarms/" class="md-nav__link">
+      <a href="../../patterns/integration/agent-swarms/" class="md-nav__link">
         
   
   
@@ -1961,7 +1839,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../hierarchical-networks/" class="md-nav__link">
+      <a href="../../patterns/integration/hierarchical-networks/" class="md-nav__link">
         
   
   
@@ -2064,7 +1942,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../case-study/scenario-overview/" class="md-nav__link">
+      <a href="../../case-study/scenario-overview/" class="md-nav__link">
         
   
   
@@ -2092,7 +1970,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../case-study/architecture/" class="md-nav__link">
+      <a href="../../case-study/architecture/" class="md-nav__link">
         
   
   
@@ -2120,7 +1998,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../case-study/pattern-application/" class="md-nav__link">
+      <a href="../../case-study/pattern-application/" class="md-nav__link">
         
   
   
@@ -2152,6 +2030,8 @@
       
   
   
+    
+  
   
   
     
@@ -2169,20 +2049,23 @@
     
     
       
+        
+        
+      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../adrs/" class="md-nav__link ">
+            <a href="../" class="md-nav__link ">
               
   
   
@@ -2200,13 +2083,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2226,7 +2109,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../adrs/ADR-0001-agent-specific-consistency-model/" class="md-nav__link">
+      <a href="../ADR-0001-agent-specific-consistency-model/" class="md-nav__link">
         
   
   
@@ -2251,10 +2134,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../../adrs/ADR-0002-zero-trust-agent-identities/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-0002 Zero-Trust Agent Identities
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -2270,6 +2180,183 @@
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Decision">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#plane-1-identity-agentidentity-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plane 1: Identity (AgentIdentity Token)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plane-2-tier-authorization-hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plane 2: Tier Authorization (Hierarchy)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plane-3-capability-policy-grant-based" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plane 3: Capability Policy (Grant-Based)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chain-depth-enforcement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chain Depth Enforcement
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consequences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consequences
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Consequences">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#operational-burden" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operational Burden
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security-gains" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security Gains
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#auditability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Auditability
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#latency-impact" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Latency Impact
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chain-depth-constraint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chain Depth Constraint
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2311,10 +2398,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#problem-statement" class="md-nav__link">
+  <a href="#problem" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Problem Statement
+        Problem
       
     </span>
   </a>
@@ -2322,24 +2409,135 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#solution-approach" class="md-nav__link">
+  <a href="#decision" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Solution Approach
+        Decision
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Decision">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#plane-1-identity-agentidentity-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plane 1: Identity (AgentIdentity Token)
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#when-to-use" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#plane-2-tier-authorization-hierarchy" class="md-nav__link">
     <span class="md-ellipsis">
       
-        When to Use
+        Plane 2: Tier Authorization (Hierarchy)
       
     </span>
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plane-3-capability-policy-grant-based" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plane 3: Capability Policy (Grant-Based)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chain-depth-enforcement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chain Depth Enforcement
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consequences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consequences
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Consequences">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#operational-burden" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operational Burden
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security-gains" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security Gains
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#auditability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Auditability
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#latency-impact" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Latency Impact
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chain-depth-constraint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chain Depth Constraint
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2374,62 +2572,105 @@
   
 
 
-<h1 id="multi-agent-coordination">Multi-Agent Coordination<a class="headerlink" href="#multi-agent-coordination" title="Permanent link">&para;</a></h1>
-<h2 id="problem-statement">Problem Statement<a class="headerlink" href="#problem-statement" title="Permanent link">&para;</a></h2>
-<p>Multiple specialized agents collaborate: one classifies, one analyzes, one decides. How do they coordinate? What if one fails? How do they handle conflicting results?</p>
-<h2 id="solution-approach">Solution Approach<a class="headerlink" href="#solution-approach" title="Permanent link">&para;</a></h2>
-<p><strong>Delegation Pattern:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>User Query
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  ↓
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Agent A (classifier)
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  &quot;This is a fraud case&quot;
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>  ↓ delegates to
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>Agent B (fraud analyzer)
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>  &quot;Risk score: 0.85&quot;
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>  ↓ delegates to
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>Agent C (decision maker)
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>  &quot;Escalate to human&quot;
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>  ↓
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>Result
-</span></code></pre></div>
-<p><strong>Message Passing:</strong></p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">class</span> <span class="nc">AgentChain</span><span class="p">:</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task</span><span class="p">):</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>        <span class="c1"># A classifies</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>        <span class="n">classification</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">agent_a</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>        <span class="c1"># B analyzes (depends on A&#39;s result)</span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>        <span class="n">analysis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">agent_b</span><span class="o">.</span><span class="n">run</span><span class="p">({</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>            <span class="s2">&quot;task&quot;</span><span class="p">:</span> <span class="n">task</span><span class="p">,</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>            <span class="s2">&quot;classification&quot;</span><span class="p">:</span> <span class="n">classification</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>        <span class="p">})</span>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>        <span class="c1"># C decides (depends on A + B)</span>
-</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>        <span class="n">decision</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">agent_c</span><span class="o">.</span><span class="n">run</span><span class="p">({</span>
-</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>            <span class="s2">&quot;task&quot;</span><span class="p">:</span> <span class="n">task</span><span class="p">,</span>
-</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>            <span class="s2">&quot;classification&quot;</span><span class="p">:</span> <span class="n">classification</span><span class="p">,</span>
-</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>            <span class="s2">&quot;analysis&quot;</span><span class="p">:</span> <span class="n">analysis</span>
-</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>        <span class="p">})</span>
-</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>
-</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>        <span class="k">return</span> <span class="n">decision</span>
-</span></code></pre></div>
-<p><strong>Handling Disagreement:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>If agents disagree (A says fraud, B says legitimate):
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>1. Check confidence scores
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>2. If tie: escalate to human
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>3. If one confident: use confident agent
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>4. Retry with different parameters
-</span></code></pre></div>
-<h2 id="when-to-use">When to Use<a class="headerlink" href="#when-to-use" title="Permanent link">&para;</a></h2>
+<h1 id="adr-0002-zero-trust-agent-identities">ADR-0002: Zero Trust Agent Identities<a class="headerlink" href="#adr-0002-zero-trust-agent-identities" title="Permanent link">&para;</a></h1>
+<p><strong>Date:</strong> 2026-05-29<br />
+<strong>Status:</strong> Accepted</p>
+<h2 id="problem">Problem<a class="headerlink" href="#problem" title="Permanent link">&para;</a></h2>
+<p>Agent systems introduce a third class of identity—distinct from human (IAM) and service (SPIFFE) identities—with unique characteristics:</p>
 <ul>
-<li>Use when problem requires multiple specialists</li>
-<li>Use explicit delegation (not implicit; easier to debug)</li>
-<li>Use message passing (stateless communication)</li>
+<li><strong>Dynamic spawning</strong>: Agents are created at runtime in response to orchestration decisions or user requests</li>
+<li><strong>Ephemeral lifespans</strong>: TTLs range from seconds (edge) to minutes (cloud), compared to hours or days for service identities</li>
+<li><strong>Capability variance</strong>: Each agent instantiation has a specific set of permitted actions; agents cannot escalate privileges beyond their class</li>
+<li><strong>Delegation chains</strong>: Agents may spawn sub-agents, forming multi-hop authorization chains</li>
+<li><strong>Heterogeneous trust tiers</strong>: Agents run on orchestrators (trusted), cloud infrastructure (semi-trusted), and edge devices (least-trusted)</li>
+<li><strong>No pre-registration</strong>: Unlike services, agents cannot be registered in advance; identity must be established at spawn time</li>
 </ul>
+<p>Existing zero-trust frameworks (chakraview-zero-trust-blueprint, SPIFFE/SPIRE) assume stable, pre-registered identities and a single trust vector. They do not address:</p>
+<ol>
+<li><strong>Verification of agent identity across delegation chains</strong> — How does a cloud service verify that a request from an edge agent is legitimate and within its parent's delegation scope?</li>
+<li><strong>Capability enforcement</strong> — How do we prevent an edge agent from calling APIs reserved for cloud agents?</li>
+<li><strong>Rapid revocation and expiry</strong> — How do we revoke or expire identities in sub-minute timeframes without constant synchronization?</li>
+</ol>
+<p>This ADR establishes the three-plane (identity, tier authorization, capability policy) architecture for agent authorization.</p>
+<h2 id="decision">Decision<a class="headerlink" href="#decision" title="Permanent link">&para;</a></h2>
+<p>Implement a <strong>three-plane zero-trust model for agents</strong>, adapted from zero-trust principles but specialized for ephemeral identities:</p>
+<h3 id="plane-1-identity-agentidentity-token">Plane 1: Identity (AgentIdentity Token)<a class="headerlink" href="#plane-1-identity-agentidentity-token" title="Permanent link">&para;</a></h3>
+<p>Each agent receives a cryptographically signed identity token at spawn time:</p>
+<div class="language-protobuf highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kd">message</span><span class="w"> </span><span class="nc">AgentIdentity</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="kt">string</span><span class="w"> </span><span class="na">agent_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="kt">string</span><span class="w"> </span><span class="na">agent_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w">            </span><span class="c1">// &quot;orchestrator&quot;, &quot;cloud_agent&quot;, &quot;edge_agent&quot;</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="kt">string</span><span class="w"> </span><span class="na">trust_tier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w">             </span><span class="c1">// Hierarchical: orchestrator &gt; cloud &gt; edge</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="k">repeated</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="na">capabilities</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w">  </span><span class="c1">// Granted permissions: [&quot;spawn_sub_agent&quot;, &quot;log_metric&quot;, ...]</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="kt">string</span><span class="w"> </span><span class="na">issuer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w">                 </span><span class="c1">// Identity of spawning orchestrator/agent</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span><span class="kt">int64</span><span class="w"> </span><span class="na">issued_at</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span><span class="w">               </span><span class="c1">// Unix timestamp</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">  </span><span class="kt">int64</span><span class="w"> </span><span class="na">expires_at</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">7</span><span class="p">;</span><span class="w">              </span><span class="c1">// TTL: 30s (edge), 120s (cloud), 300s (orch)</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">  </span><span class="kt">string</span><span class="w"> </span><span class="na">parent_agent_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span><span class="w">        </span><span class="c1">// Null if spawned by system; otherwise parent&#39;s ID</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="p">}</span>
+</span></code></pre></div>
+<p><strong>Token format</strong>: SPIFFE JWT SVIDs (production) or HMAC-signed JSON (edge/offline).</p>
+<p><strong>TTLs by tier</strong>:
+- Edge agents: 30 seconds (accommodate device churn and reconnection)
+- Cloud agents: 120 seconds (support longer-running operations)
+- Orchestrators: 300 seconds (reduce spawning overhead)</p>
+<h3 id="plane-2-tier-authorization-hierarchy">Plane 2: Tier Authorization (Hierarchy)<a class="headerlink" href="#plane-2-tier-authorization-hierarchy" title="Permanent link">&para;</a></h3>
+<p>A three-tier trust hierarchy:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Tier 0 (Orchestrator)    ← can spawn cloud and edge agents
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>Tier 1 (Cloud Agent)     ← can spawn edge agents only
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>Tier 2 (Edge Agent)      ← cannot spawn further
+</span></code></pre></div>
+<p>Every call target (API endpoint, spawn, delegation) specifies <code>allowed_caller_tiers</code>. The caller must belong to an allowed tier, forming a deny-by-default authorization model.</p>
+<h3 id="plane-3-capability-policy-grant-based">Plane 3: Capability Policy (Grant-Based)<a class="headerlink" href="#plane-3-capability-policy-grant-based" title="Permanent link">&para;</a></h3>
+<p>Each agent type has a static set of allowed capabilities. A call succeeds if <code>request.capabilities ⊆ agent.capabilities</code>.</p>
+<p>Example:
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nt">agent_types</span><span class="p">:</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">edge_agent</span><span class="p">:</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="nt">allowed_capabilities</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">log_metric</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">sync_state</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">query_local_cache</span><span class="p p-Indicator">]</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="nt">cloud_agent</span><span class="p">:</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="nt">allowed_capabilities</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">log_metric</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">query_api</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">spawn_sub_agent</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">sync_state</span><span class="p p-Indicator">]</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">  </span><span class="nt">orchestrator</span><span class="p">:</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="nt">allowed_capabilities</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">spawn_sub_agent</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">escalate_alert</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">revoke_agent</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">publish_policy</span><span class="p p-Indicator">]</span>
+</span></code></pre></div></p>
+<h3 id="chain-depth-enforcement">Chain Depth Enforcement<a class="headerlink" href="#chain-depth-enforcement" title="Permanent link">&para;</a></h3>
+<p>To prevent runaway delegation, each request includes a <code>caller_chain</code> (list of agent IDs that led to the current call). If <code>chain_depth &gt;= max_delegation_depth</code> (default: 5), the request is denied.</p>
+<h2 id="consequences">Consequences<a class="headerlink" href="#consequences" title="Permanent link">&para;</a></h2>
+<h3 id="operational-burden">Operational Burden<a class="headerlink" href="#operational-burden" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>SPIRE deployment</strong> (if using SPIFFE): Requires running a SPIRE agent on all deployment targets (orchestrators, cloud compute, edge devices).</li>
+<li><strong>Token service</strong>: For offline edge scenarios, a pre-deployment step seeds agents with HMAC-signed tokens; rotation requires manual distribution or a secure update mechanism.</li>
+<li><strong>Policy management</strong>: Agent type policies must be defined in YAML and hot-reloaded or baked into container images.</li>
+<li><strong>Secret rotation</strong>: HMAC secrets must be rotated periodically; all validators must be updated in a coordinated window.</li>
+</ol>
+<h3 id="security-gains">Security Gains<a class="headerlink" href="#security-gains" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Least-privilege enforcement</strong>: Each agent operates with only the capabilities it needs; a compromised agent cannot escalate.</li>
+<li><strong>Delegation control</strong>: Sub-agents cannot exceed their parent's permissions; depth limits prevent runaway spawning.</li>
+<li><strong>Audit trail</strong>: Every authorization decision is logged with full context (caller, target, decision, chain depth), enabling forensic analysis.</li>
+<li><strong>Rapid revocation</strong>: Sub-minute TTLs and revocation lists allow quick lockdown in case of breach.</li>
+</ol>
+<h3 id="auditability">Auditability<a class="headerlink" href="#auditability" title="Permanent link">&para;</a></h3>
+<p>All authorization decisions are logged as JSON events:</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">{</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-05-29T10:30:45.123Z&quot;</span><span class="p">,</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="nt">&quot;enforcement_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;enf-abc123&quot;</span><span class="p">,</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="nt">&quot;caller&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;agent_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;trust_tier&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cloud_agent&quot;</span><span class="w"> </span><span class="p">},</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;spawn_sub_agent&quot;</span><span class="p">,</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">  </span><span class="nt">&quot;decision&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ALLOW&quot;</span><span class="p">,</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">  </span><span class="nt">&quot;chain_depth&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">  </span><span class="nt">&quot;ttl_remaining_seconds&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">87</span><span class="p">,</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">  </span><span class="nt">&quot;validation_latency_ms&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">2.3</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>This enables compliance reporting (e.g., "all sub-agent spawns in the last hour") and incident investigation.</p>
+<h3 id="latency-impact">Latency Impact<a class="headerlink" href="#latency-impact" title="Permanent link">&para;</a></h3>
+<p>Token validation (HMAC check or SPIFFE SVID validation) adds <strong>1–5ms</strong> per call. For most agentic workloads (latency budgets in 100s of ms), this is acceptable. Real-time control systems (millisecond-scale) may need caching or pre-computed delegations.</p>
+<h3 id="chain-depth-constraint">Chain Depth Constraint<a class="headerlink" href="#chain-depth-constraint" title="Permanent link">&para;</a></h3>
+<p>The <code>max_delegation_depth</code> limit (default: 5) prevents unbounded recursion but also limits legitimate use cases where agents legitimately delegate many hops. This is a tunable trade-off; deeper chains can be allowed with caution and additional monitoring.</p>
 <h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="../../observability/distributed-tracing/">Distributed Tracing</a></li>
-<li><a href="../../failure-recovery/recovery-strategies/">Recovery Strategies</a></li>
+<li><a href="../../foundations/zero-trust-for-agents/">Zero Trust for Agents</a> — Full pattern specification</li>
+<li><a href="../../patterns/integration/hierarchical-networks/">Hierarchical Agent Networks</a> — Network topology secured by this pattern</li>
+<li>SPIFFE/SPIRE: https://spiffe.io/</li>
+<li>RFC 8693: OAuth 2.0 Token Exchange</li>
 </ul>
 
 
@@ -2499,10 +2740,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.annotate", "content.code.copy", "content.tabs.link"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.annotate", "content.code.copy", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>

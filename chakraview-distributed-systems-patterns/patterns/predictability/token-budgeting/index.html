@@ -432,6 +432,8 @@
       
         
       
+        
+      
     
     
     
@@ -604,6 +606,34 @@
     
   
     Trust & Byzantine Agents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../foundations/zero-trust-for-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Zero Trust for Agents
   
 
     
@@ -1125,6 +1155,56 @@
       
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code References
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Code References">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#demo-scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Demo Scripts
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2155,6 +2235,8 @@
       
         
       
+        
+      
     
     
     
@@ -2224,6 +2306,34 @@
     
   
     ADR-0001 Agent-Specific Consistency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adrs/ADR-0002-zero-trust-agent-identities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-0002 Zero-Trust Agent Identities
   
 
     
@@ -2324,6 +2434,56 @@
       
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code References
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Code References">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#demo-scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Demo Scripts
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2449,10 +2609,46 @@
 <p><strong>Queries:</strong>
 - "Which users are heaviest token consumers?"
 - "Invocations that exceeded budget"</p>
+<h2 id="code-references">Code References<a class="headerlink" href="#code-references" title="Permanent link">&para;</a></h2>
+<h3 id="reference-implementation">Reference Implementation<a class="headerlink" href="#reference-implementation" title="Permanent link">&para;</a></h3>
+<p><strong>Agent Base Class:</strong>
+- File: <code>reference-implementations/shared/python/agent_base.py</code>
+- Lines: 19-40 (AgentConfig with token_budget)
+- Method: <code>execute()</code> (lines 82-131) - budget checking and enforcement</p>
+<p><strong>Edge Agents:</strong>
+- Intent Detection: <code>reference-implementations/edge_agents/intent_agent.py</code>
+  - Token estimation: Line 140 (<code>tokens_estimate = max(1, len(message) // 4)</code>)
+  - Budget checking: Lines 144-149
+  - Token tracking: Line 184 (<code>self.token_usage</code>)
+- Fraud Detection: <code>reference-implementations/edge_agents/fraud_agent.py</code>
+  - Similar pattern to intent detection</p>
+<p><strong>Cloud Agents:</strong>
+- Trends Analysis: <code>reference-implementations/cloud_agents/trends_agent.py</code>
+  - Higher token budgets (10000 vs 5000 for edge)</p>
+<h3 id="tests">Tests<a class="headerlink" href="#tests" title="Permanent link">&para;</a></h3>
+<p><strong>Integration Tests:</strong>
+- File: <code>tests/integration/test_full_pipeline.py</code>
+- Test: <code>test_token_budgeting_across_agents()</code> (lines 150-180)
+  - Verifies token consumption across multiple agent invocations
+  - Validates budget enforcement
+  - Checks budget remaining calculation</p>
+<p><strong>Test Fixtures:</strong>
+- File: <code>tests/conftest.py</code>
+  - AgentConfig class: Lines 30-40
+  - MockIntentAgent: Lines 64-95 (token_usage tracking)
+  - Fixture definitions: Lines 200+ (agent configs with budgets)</p>
+<h3 id="demo-scripts">Demo Scripts<a class="headerlink" href="#demo-scripts" title="Permanent link">&para;</a></h3>
+<ul>
+<li>File: <code>examples/pattern-demos/demo_token_budgeting.py</code></li>
+<li>Live demonstration of budget exhaustion</li>
+<li>Shows token estimation accuracy</li>
+<li>Demonstrates degradation mode</li>
+</ul>
 <h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="../context-window-management/">Context Window Management</a></li>
 <li><a href="../../resource-allocation/reservation-vs-burst/">Resource Allocation Strategy</a></li>
+<li><a href="../behavior-degradation/">Behavior Degradation</a></li>
 </ul>
 
 

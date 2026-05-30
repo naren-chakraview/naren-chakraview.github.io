@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://naren-chakraview.github.io/chakraview-distributed-systems-patterns/patterns/observability/distributed-tracing/">
       
       
-        <link rel="prev" href="../../../foundations/trust-and-byzantine/">
+        <link rel="prev" href="../../../foundations/zero-trust-for-agents/">
       
       
         <link rel="next" href="../understanding-decisions/">
@@ -432,6 +432,8 @@
       
         
       
+        
+      
     
     
     
@@ -604,6 +606,34 @@
     
   
     Trust & Byzantine Agents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../foundations/zero-trust-for-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Zero Trust for Agents
   
 
     
@@ -904,6 +934,56 @@
       
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code References
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Code References">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infrastructure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Infrastructure
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2177,6 +2257,8 @@
       
         
       
+        
+      
     
     
     
@@ -2246,6 +2328,34 @@
     
   
     ADR-0001 Agent-Specific Consistency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adrs/ADR-0002-zero-trust-agent-identities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-0002 Zero-Trust Agent Identities
   
 
     
@@ -2368,6 +2478,56 @@
       
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code References
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Code References">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infrastructure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Infrastructure
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2553,10 +2713,55 @@
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">activities</span><span class="o">.</span><span class="n">run_agent</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
 </span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="k">return</span> <span class="n">result</span>
 </span></code></pre></div></p>
+<h2 id="code-references">Code References<a class="headerlink" href="#code-references" title="Permanent link">&para;</a></h2>
+<h3 id="reference-implementation">Reference Implementation<a class="headerlink" href="#reference-implementation" title="Permanent link">&para;</a></h3>
+<p><strong>Vector Clock (Causality Tracking):</strong>
+- File: <code>reference-implementations/shared/python/vector_clock.py</code>
+- Class: <code>VectorClock</code> — tracks causal relationships
+- Methods:
+  - <code>increment(agent_id)</code> — increment clock for this agent
+  - <code>merge(other)</code> — merge incoming clock (implements happened-before relation)
+  - <code>to_dict()</code> — serialize for propagation in messages</p>
+<p><strong>Agent Base with Trace Support:</strong>
+- File: <code>reference-implementations/shared/python/agent_base.py</code>
+- Method: <code>set_trace_id()</code> (lines 60-69) — sets trace ID for correlation
+- Method: <code>set_vector_clock()</code> (lines 71-80) — merges incoming vector clock</p>
+<p><strong>Structured Logging:</strong>
+- File: <code>reference-implementations/shared/python/logging.py</code>
+- Class: <code>StructuredLogger</code> — attaches trace ID to all logs
+- Methods:
+  - <code>set_trace_id()</code> — sets trace ID for request context
+  - <code>set_vector_clock()</code> — embeds vector clock in logs</p>
+<h3 id="tests">Tests<a class="headerlink" href="#tests" title="Permanent link">&para;</a></h3>
+<p><strong>Integration Tests:</strong>
+- File: <code>tests/integration/test_full_pipeline.py</code>
+- Test: <code>test_trace_id_correlation()</code> (lines 240-255)
+  - Documents trace ID propagation interface
+  - Shows how agents would receive and use trace IDs</p>
+<ul>
+<li>Test: <code>test_vector_clock_propagation()</code> (lines 68-110)</li>
+<li>Verifies vector clocks increment correctly</li>
+<li>Tests clock merging across agents</li>
+<li>Validates causality tracking</li>
+</ul>
+<p><strong>Fixtures:</strong>
+- File: <code>tests/conftest.py</code>
+- VectorClock class: Lines 35-52 (mock implementation)
+- Result dataclasses: Lines 50+ (include vector_clock field)</p>
+<h3 id="infrastructure">Infrastructure<a class="headerlink" href="#infrastructure" title="Permanent link">&para;</a></h3>
+<p><strong>Jaeger Backend:</strong>
+- File: <code>examples/local-dev/docker-compose.yml</code>
+- Service: jaeger (lines for jaeger-all-in-one)
+- Port: 6831 (UDP for spans), 16686 (UI)</p>
+<p><strong>Demo:</strong>
+- File: <code>examples/pattern-demos/demo_tracing.py</code>
+  - Shows how to instrument agents with tracing
+  - Demonstrates trace visualization in Jaeger</p>
 <h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="../understanding-decisions/">Understanding Model Decisions</a></li>
 <li><a href="../../../foundations/causality-and-ordering/">Causality &amp; Ordering</a></li>
+<li><a href="../../integration/multi-agent-coordination/">Multi-Agent Coordination</a></li>
 <li>OpenTelemetry: https://opentelemetry.io/</li>
 </ul>
 

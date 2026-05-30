@@ -11,13 +11,13 @@
       
       
       
-        <link rel="canonical" href="https://naren-chakraview.github.io/chakraview-distributed-systems-patterns/foundations/consistency-models/">
+        <link rel="canonical" href="https://naren-chakraview.github.io/chakraview-distributed-systems-patterns/foundations/zero-trust-for-agents/">
       
       
-        <link rel="prev" href="../causality-and-ordering/">
+        <link rel="prev" href="../trust-and-byzantine/">
       
       
-        <link rel="next" href="../agent-failure-modes/">
+        <link rel="next" href="../../patterns/observability/distributed-tracing/">
       
       
         
@@ -28,7 +28,7 @@
     
     
       
-        <title>Consistency Models - Distributed Systems for Agentic Workloads</title>
+        <title>Zero Trust for Agents - Distributed Systems for Agentic Workloads</title>
       
     
     
@@ -79,7 +79,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#consistency-models-for-agent-state" class="md-skip">
+        <a href="#zero-trust-for-agents" class="md-skip">
           Skip to content
         </a>
       
@@ -114,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Consistency Models
+              Zero Trust for Agents
             
           </span>
         </div>
@@ -514,37 +514,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Consistency Models
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../consistency-models/" class="md-nav__link">
         
   
   
@@ -560,105 +533,6 @@
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#problem-statement" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Problem Statement
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#solution-approach-behavioral-consistency" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Solution Approach: Behavioral Consistency
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#when-to-use" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        When to Use
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#trade-offs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Trade-offs
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#observability-hooks" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Observability Hooks
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#failure-scenarios" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Failure Scenarios
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        References
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -752,10 +626,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../zero-trust-for-agents/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Zero Trust for Agents
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -771,6 +672,277 @@
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#title" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Title
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-statement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem Statement
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solution-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solution Approach
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Solution Approach">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#plane-1-identity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plane 1: Identity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plane-2-tier-authorization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plane 2: Tier Authorization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plane-3-capability-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plane 3: Capability Policy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chain-depth-enforcement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chain Depth Enforcement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#production-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Production Deployment
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-to-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trade-offs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trade-offs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#observability-hooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Observability Hooks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Observability Hooks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metrics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Logs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alerts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alerts
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-4-hop-delegation-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: 4-Hop Delegation Chain
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#failure-scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Failure Scenarios
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Failure Scenarios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-token-expiry-mid-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Token Expiry Mid-Chain
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-registry-out-of-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Registry Out of Sync
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-chain-depth-runaway" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Chain Depth Runaway
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-secret-compromise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Secret Compromise
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2322,6 +2494,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#title" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Title
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#problem-statement" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2333,13 +2516,74 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#solution-approach-behavioral-consistency" class="md-nav__link">
+  <a href="#solution-approach" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Solution Approach: Behavioral Consistency
+        Solution Approach
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Solution Approach">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#plane-1-identity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plane 1: Identity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plane-2-tier-authorization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plane 2: Tier Authorization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plane-3-capability-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plane 3: Capability Policy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chain-depth-enforcement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chain Depth Enforcement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#production-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Production Deployment
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2374,6 +2618,56 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Observability Hooks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metrics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Logs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alerts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alerts
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-4-hop-delegation-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: 4-Hop Delegation Chain
+      
+    </span>
+  </a>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2384,6 +2678,56 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Failure Scenarios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-token-expiry-mid-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Token Expiry Mid-Chain
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-registry-out-of-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Registry Out of Sync
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-chain-depth-runaway" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Chain Depth Runaway
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-secret-compromise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Secret Compromise
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2418,115 +2762,270 @@
   
 
 
-<h1 id="consistency-models-for-agent-state">Consistency Models for Agent State<a class="headerlink" href="#consistency-models-for-agent-state" title="Permanent link">&para;</a></h1>
+<h1 id="zero-trust-for-agents">Zero Trust for Agents<a class="headerlink" href="#zero-trust-for-agents" title="Permanent link">&para;</a></h1>
+<h2 id="title">Title<a class="headerlink" href="#title" title="Permanent link">&para;</a></h2>
+<p>Zero Trust for Agents: Identity, Capability, and Delegation in Distributed Agent Systems</p>
 <h2 id="problem-statement">Problem Statement<a class="headerlink" href="#problem-statement" title="Permanent link">&para;</a></h2>
-<p>Agent systems maintain shared state: conversation history, tool results, decisions, context. Traditional consistency models assume deterministic state updates. But agents are non-deterministic — same input produces different outputs depending on temperature, seed, and context.</p>
-<p>What does "consistency" mean for agent state when the agent's own behavior is probabilistic?</p>
-<h2 id="solution-approach-behavioral-consistency">Solution Approach: Behavioral Consistency<a class="headerlink" href="#solution-approach-behavioral-consistency" title="Permanent link">&para;</a></h2>
-<p>Define consistency in terms of agent <strong>behavior</strong>, not <strong>state identity</strong>:</p>
+<p>Contemporary distributed systems have two well-established identity classes: <strong>human identities</strong> managed by IAM systems and <strong>service identities</strong> managed by SPIFFE/SPIRE. A third class—<strong>agent identities</strong>—has emerged in agentic systems with fundamentally different characteristics.</p>
+<p>Agents are dynamically spawned, short-lived entities with ephemeral lifespans (seconds to minutes) and capability sets that vary per instantiation. Unlike services, agents may be created at runtime in response to user requests or cascading orchestration, may delegate trust to sub-agents (forming delegation chains), and often operate with sub-minute time-to-live (TTL) windows. Some agents run on resource-constrained edge devices, others in controlled cloud environments, and still others within orchestration layers—each tier has distinct trust requirements.</p>
+<p>The security challenge is three-fold: (1) <strong>identity verification</strong> across tiers and delegation chains, (2) <strong>capability enforcement</strong> where agents must be restricted to their designated permissions, and (3) <strong>revocation and expiry</strong> management in systems where TTLs are measured in seconds and agents may disappear without notice.</p>
+<p>Existing zero-trust frameworks (e.g., the chakraview-zero-trust-blueprint) were designed for stable service identities. They assume identities are long-lived, registered in advance, and follow a single trust vector. Agent systems violate all three assumptions.</p>
+<p>Additionally, <strong>trust &amp; byzantine.md</strong> addresses agent <strong>output verification</strong>—how to validate that a model's claims are sound. This document addresses agent <strong>identity and authorization</strong>—verifying that the agent making the request is permitted to do so.</p>
+<h2 id="solution-approach">Solution Approach<a class="headerlink" href="#solution-approach" title="Permanent link">&para;</a></h2>
+<p>We adopt a <strong>three-plane model</strong> adapted from zero-trust principles but specialized for agent identity:</p>
+<h3 id="plane-1-identity">Plane 1: Identity<a class="headerlink" href="#plane-1-identity" title="Permanent link">&para;</a></h3>
+<p><strong>AgentIdentity tokens</strong> are minted at spawn time by the orchestrator or spawning agent. Each token encodes:</p>
 <ul>
-<li><strong>Behavioral consistency</strong>: agent behavior (latency, token usage, quality) remains predictable even if state replicas diverge</li>
-<li><strong>State consistency</strong>: conversation history, tool results, execution logs eventually converge across replicas</li>
+<li><strong>agent_id</strong>: Globally unique identifier</li>
+<li><strong>agent_type</strong>: Categorical identity (orchestrator, cloud_agent, edge_agent, sub_agent, etc.)</li>
+<li><strong>trust_tier</strong>: One of {orchestrator, cloud_agent, edge_agent}</li>
+<li><strong>capabilities</strong>: Set of permitted actions (e.g., ["spawn_sub_agent", "query_api", "log_event"])</li>
+<li><strong>issuer</strong>: Identity of the entity that created this agent</li>
+<li><strong>issued_at, expires_at</strong>: Unix timestamps; TTLs vary by tier:</li>
+<li><strong>Edge agents</strong>: 30 seconds (devices may go offline; re-spawn on reconnection)</li>
+<li><strong>Cloud agents</strong>: 120 seconds (stable compute; longer safe operations)</li>
+<li><strong>Orchestrators</strong>: 300 seconds (coordination overhead; infrequent spawning)</li>
+<li><strong>parent_agent_id</strong>: For delegation chains; NULL if spawned by human/system</li>
 </ul>
-<p><strong>For Edge+Cloud Hybrid:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Scenario</th>
-<th>Strategy</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Edge agent reading conversation history</td>
-<td>Eventual consistency (local cache + async sync with cloud)</td>
-</tr>
-<tr>
-<td>Two edge agents coordinating</td>
-<td>Causal consistency (one sends result, other reads in happened-before order)</td>
-</tr>
-<tr>
-<td>Agent swarm aggregating results</td>
-<td>Quorum consistency (wait for majority to report)</td>
-</tr>
-<tr>
-<td>Workflow checkpointing</td>
-<td>Strong consistency at boundaries (all agents agree state is saved)</td>
-</tr>
-</tbody>
-</table>
+<p><strong>Token format (production)</strong>: SPIFFE JWT SVIDs issued by SPIRE workload API. In development or constrained environments, HMAC-signed tokens with the above claims.</p>
+<h3 id="plane-2-tier-authorization">Plane 2: Tier Authorization<a class="headerlink" href="#plane-2-tier-authorization" title="Permanent link">&para;</a></h3>
+<p>Three tiers with hierarchical trust:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>orchestrator (highest)
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  ↓ can spawn
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>cloud_agent (medium)
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  ↓ can spawn
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>edge_agent (lowest)
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>  ↓ cannot spawn further
+</span></code></pre></div>
+<p><strong>allowed_caller_tiers policy</strong>: Each call target (API endpoint, agent spawn, sub-agent delegation) specifies which tiers may invoke it.</p>
+<p>Example:
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">spawn_sub_agent</span><span class="p">:</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">allowed_caller_tiers</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">orchestrator</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">cloud_agent</span><span class="p p-Indicator">]</span><span class="w">  </span><span class="c1"># edge cannot spawn</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="nt">query_cloud_api</span><span class="p">:</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="nt">allowed_caller_tiers</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">orchestrator</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">cloud_agent</span><span class="p p-Indicator">]</span><span class="w">  </span><span class="c1"># edge calls cloud through proxy</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="nt">log_edge_metric</span><span class="p">:</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">  </span><span class="nt">allowed_caller_tiers</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">edge_agent</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">cloud_agent</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">orchestrator</span><span class="p p-Indicator">]</span><span class="w">  </span><span class="c1"># any tier can log</span>
+</span></code></pre></div></p>
+<h3 id="plane-3-capability-policy">Plane 3: Capability Policy<a class="headerlink" href="#plane-3-capability-policy" title="Permanent link">&para;</a></h3>
+<p>Each agent type has a static set of <strong>allowed_capabilities</strong>. At authorization time, the request specifies which capability it requires; the agent must possess that capability.</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nt">agent_types</span><span class="p">:</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">edge_agent</span><span class="p">:</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="nt">allowed_capabilities</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">log_metric</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">sync_state</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">query_local_cache</span><span class="p p-Indicator">]</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="nt">cloud_agent</span><span class="p">:</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="nt">allowed_capabilities</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">log_metric</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">query_api</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">spawn_sub_agent</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">sync_state</span><span class="p p-Indicator">]</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">  </span><span class="nt">orchestrator</span><span class="p">:</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="nt">allowed_capabilities</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">spawn_sub_agent</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">escalate_alert</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">revoke_agent</span><span class="p p-Indicator">]</span>
+</span></code></pre></div>
+<p>A request succeeds if:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>requested_capabilities ⊆ agent.capabilities
+</span></code></pre></div></p>
+<h3 id="chain-depth-enforcement">Chain Depth Enforcement<a class="headerlink" href="#chain-depth-enforcement" title="Permanent link">&para;</a></h3>
+<p>Delegation chains are tracked via <strong>caller_chain</strong>: a list of agent IDs that led to the current request.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>user/orchestrator → agent-A → agent-B → agent-C (current)
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>caller_chain = [orchestrator, agent-A, agent-B]
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>chain_depth = 3
+</span></code></pre></div>
+<p><strong>max_delegation_depth</strong> (default: 5) prevents runaway recursion:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">if</span> <span class="n">chain_depth</span> <span class="o">&gt;=</span> <span class="n">max_delegation_depth</span><span class="p">:</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="k">raise</span> <span class="n">AuthzError</span><span class="p">(</span><span class="s2">&quot;max delegation depth exceeded&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="production-deployment">Production Deployment<a class="headerlink" href="#production-deployment" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>SPIRE integration</strong>: Agents request SPIFFE SVIDs from the SPIRE workload API at spawn time. SPIRE mints a JWT with embedded claims (agent_type, trust_tier, parent_agent_id).</li>
+<li><strong>Offline-first fallback</strong>: In edge/offline scenarios, agents carry HMAC-signed tokens issued at spawn. The orchestrator pre-shares the HMAC secret.</li>
+<li><strong>Token refresh</strong>: Long-lived agents (cloud_agent &gt; 120s) request fresh tokens from a token service before expiry.</li>
+<li><strong>Revocation</strong>: Orchestrator publishes revocation lists (agent IDs to deny). Leaf agents poll or subscribe to revocation feeds.</li>
+</ol>
 <h2 id="when-to-use">When to Use<a class="headerlink" href="#when-to-use" title="Permanent link">&para;</a></h2>
-<p><strong>Eventual consistency for:</strong>
-- Conversation history (delay acceptable)
-- Observability logs (async sync ok)
-- Metrics (freshness lag tolerable)</p>
-<p><strong>Causal consistency for:</strong>
-- Coordinating results between agents
-- Workflow steps (order matters)
-- Multi-hop messages</p>
-<p><strong>Strong consistency for:</strong>
-- Financial transactions
-- Critical decisions with approval
-- Checkpoint boundaries</p>
+<p>Apply Zero Trust for Agents when:</p>
+<ul>
+<li><strong>Agents call external APIs</strong> and you need audit trails and per-call authorization</li>
+<li><strong>Agents spawn sub-agents</strong> and you must prevent unauthorized spawning or capability escalation</li>
+<li><strong>Cross-tier communication</strong> occurs (e.g., edge agents call cloud services)</li>
+<li><strong>Trust boundaries exist</strong> (e.g., multi-tenant deployments, untrusted partner models)</li>
+<li><strong>Audit and compliance</strong> require call-level signatures and proof of authorization</li>
+</ul>
+<p><strong>Not needed</strong> for:</p>
+<ul>
+<li>Single-agent systems with no spawning</li>
+<li>Fully trusted environments (e.g., internal R&amp;D sandbox)</li>
+<li>Systems where output verification (trust-and-byzantine) alone is sufficient</li>
+</ul>
 <h2 id="trade-offs">Trade-offs<a class="headerlink" href="#trade-offs" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>Model</th>
-<th>Pros</th>
-<th>Cons</th>
-<th>Edge+Cloud</th>
+<th>Concern</th>
+<th>With Zero Trust</th>
+<th>Without</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Eventual</strong></td>
-<td>Fast; high availability</td>
-<td>Stale reads; convergence delays</td>
-<td>Good (local caching)</td>
+<td><strong>Security</strong></td>
+<td>Independent authz per call; compromised agent cannot exceed its capabilities</td>
+<td>Compromised agent has all parent's permissions; lateral movement possible</td>
 </tr>
 <tr>
-<td><strong>Causal</strong></td>
-<td>Respects causality</td>
-<td>Overhead (vector clocks)</td>
-<td>Good (agent messages ordered)</td>
+<td><strong>Latency</strong></td>
+<td>+1–5ms per call for token validation (HMAC check) or SPIFFE SVID lookup</td>
+<td>None</td>
 </tr>
 <tr>
-<td><strong>Strong</strong></td>
-<td>Simplest to reason about</td>
-<td>Slow; fails on partition</td>
-<td>Poor (can't coordinate across partition)</td>
+<td><strong>Complexity</strong></td>
+<td>Requires policy YAML, token lifecycle mgmt, secret rotation automation</td>
+<td>None; implicit trust in agent process</td>
 </tr>
 <tr>
-<td><strong>Quorum</strong></td>
-<td>Balances availability</td>
-<td>Slower than eventual</td>
-<td>Fair (quorum within edge, eventual edge-to-cloud)</td>
+<td><strong>Auditability</strong></td>
+<td>Signed audit records for every call; forensics trivial</td>
+<td>No call-level audit; forensics requires log correlation</td>
+</tr>
+<tr>
+<td><strong>Operational overhead</strong></td>
+<td>SPIRE deployment, token service, revocation feed infrastructure</td>
+<td>None</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Recommendation:</strong> Use eventual as default; upgrade to causal when ordering matters; strong only at critical boundaries.</p>
 <h2 id="observability-hooks">Observability Hooks<a class="headerlink" href="#observability-hooks" title="Permanent link">&para;</a></h2>
-<p><strong>Metrics:</strong>
-- Replication lag (target: &lt; 100ms edge; &lt; 1s edge-to-cloud)
-- Consistency violations (target: 0)
-- Causal order violations (target: 0)</p>
-<p><strong>Queries:</strong>
-- "What state did agent X see at time T?"
-- "Did agents A and B see consistent data?"
-- "How long to sync after partition healed?"</p>
+<h3 id="metrics">Metrics<a class="headerlink" href="#metrics" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>validation_failures_total</strong> (counter, by reason: expired, no_capability, exceeded_chain_depth, invalid_signature)</li>
+<li><strong>chain_depth_histogram</strong> (distribution of caller_chain lengths; alert if approaching max)</li>
+<li><strong>ttl_remaining_seconds</strong> (gauge, per agent_id; alert if &lt; 10s for active agents)</li>
+<li><strong>authz_decisions_total</strong> (counter, by decision: allow, deny; by tier, by action)</li>
+</ul>
+<h3 id="logs">Logs<a class="headerlink" href="#logs" title="Permanent link">&para;</a></h3>
+<p>Every <strong>EnforcementResult</strong> is logged as JSON for audit/forensics:</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">{</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-05-29T10:30:45.123Z&quot;</span><span class="p">,</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">  </span><span class="nt">&quot;enforcement_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;enf-abc123&quot;</span><span class="p">,</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">  </span><span class="nt">&quot;caller&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="nt">&quot;agent_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cloud-agent-xyz&quot;</span><span class="p">,</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="nt">&quot;agent_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cloud_agent&quot;</span><span class="p">,</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">    </span><span class="nt">&quot;trust_tier&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cloud_agent&quot;</span><span class="p">,</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">    </span><span class="nt">&quot;parent_agent_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;orchestrator-abc&quot;</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">  </span><span class="p">},</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="w">  </span><span class="nt">&quot;target_action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;spawn_sub_agent&quot;</span><span class="p">,</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">  </span><span class="nt">&quot;decision&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ALLOW&quot;</span><span class="p">,</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="w">  </span><span class="nt">&quot;reason&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tier authorized, capability present, chain_depth=2 &lt; max=5&quot;</span><span class="p">,</span>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="w">  </span><span class="nt">&quot;chain_depth&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="w">  </span><span class="nt">&quot;ttl_remaining_seconds&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">87</span><span class="p">,</span>
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="w">  </span><span class="nt">&quot;validation_latency_ms&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">2.3</span>
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="alerts">Alerts<a class="headerlink" href="#alerts" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Spike in DENY decisions</strong> (&gt;2σ from baseline): possible misconfiguration or attack</li>
+<li><strong>chain_depth approaching max</strong>: potential runaway delegation</li>
+<li><strong>Token expiry storms</strong>: agents expiring en masse; possible clock skew or mass orchestrator failure</li>
+</ul>
+<h2 id="example-4-hop-delegation-chain">Example: 4-Hop Delegation Chain<a class="headerlink" href="#example-4-hop-delegation-chain" title="Permanent link">&para;</a></h2>
+<p><strong>Scenario</strong>: A user request triggers an analytics job, which spawns a cloud coordinator, which spawns edge sensors on two devices.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>┌─────────────────────────────────────────────────────────────────┐
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>│ User / Orchestrator (orch)                                       │
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>│   Created: t=0, Expires: t=300s, Trust Tier: orchestrator        │
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>│   Capabilities: [spawn_sub_agent, escalate_alert, revoke_agent]  │
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>└─────────────────────────────────────────────────────────────────┘
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>       │
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>       │ spawn_sub_agent call (chain_depth=0)
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>       ▼
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>┌─────────────────────────────────────────────────────────────────┐
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>│ Cloud Agent (cloud-xyz)                                          │
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>│   Created: t=5, Expires: t=125s, Trust Tier: cloud_agent         │
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>│   Capabilities: [log_metric, query_api, spawn_sub_agent]         │
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>│   Parent: orchestrator-abc, Chain: [orch]                        │
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>└─────────────────────────────────────────────────────────────────┘
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>       │
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>       │ spawn_sub_agent call (chain_depth=1)
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>       ├─────────────────────────────────┬──────────────────────────┐
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>       ▼                                 ▼                          ▼
+</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>┌──────────────────────────┐  ┌──────────────────────────┐
+</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>│ Edge Agent (edge-dev1)    │  │ Edge Agent (edge-dev2)    │
+</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>│ Created: t=10            │  │ Created: t=10             │
+</span><span id="__span-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a>│ Expires: t=40 (30s TTL)  │  │ Expires: t=40 (30s TTL)   │
+</span><span id="__span-7-23"><a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a>│ Trust Tier: edge_agent   │  │ Trust Tier: edge_agent    │
+</span><span id="__span-7-24"><a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a>│ Capabilities:            │  │ Capabilities:             │
+</span><span id="__span-7-25"><a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a>│  [log_metric,            │  │  [log_metric,             │
+</span><span id="__span-7-26"><a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a>│   sync_state]            │  │   sync_state]             │
+</span><span id="__span-7-27"><a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a>│ Parent: cloud-xyz        │  │ Parent: cloud-xyz         │
+</span><span id="__span-7-28"><a id="__codelineno-7-28" name="__codelineno-7-28" href="#__codelineno-7-28"></a>│ Chain: [orch, cloud-xyz] │  │ Chain: [orch, cloud-xyz]  │
+</span><span id="__span-7-29"><a id="__codelineno-7-29" name="__codelineno-7-29" href="#__codelineno-7-29"></a>│                          │  │                           │
+</span><span id="__span-7-30"><a id="__codelineno-7-30" name="__codelineno-7-30" href="#__codelineno-7-30"></a>│ EnforcementResult @ log: │  │ EnforcementResult @ sync: │
+</span><span id="__span-7-31"><a id="__codelineno-7-31" name="__codelineno-7-31" href="#__codelineno-7-31"></a>│ ──────────────────────── │  │ ──────────────────────── │
+</span><span id="__span-7-32"><a id="__codelineno-7-32" name="__codelineno-7-32" href="#__codelineno-7-32"></a>│ caller: edge-dev1        │  │ caller: edge-dev2         │
+</span><span id="__span-7-33"><a id="__codelineno-7-33" name="__codelineno-7-33" href="#__codelineno-7-33"></a>│ action: log_metric       │  │ action: sync_state        │
+</span><span id="__span-7-34"><a id="__codelineno-7-34" name="__codelineno-7-34" href="#__codelineno-7-34"></a>│ decision: ALLOW          │  │ decision: ALLOW           │
+</span><span id="__span-7-35"><a id="__codelineno-7-35" name="__codelineno-7-35" href="#__codelineno-7-35"></a>│ chain_depth: 2           │  │ chain_depth: 2            │
+</span><span id="__span-7-36"><a id="__codelineno-7-36" name="__codelineno-7-36" href="#__codelineno-7-36"></a>│ ttl_remaining: 27s       │  │ ttl_remaining: 25s        │
+</span><span id="__span-7-37"><a id="__codelineno-7-37" name="__codelineno-7-37" href="#__codelineno-7-37"></a>│ latency: 1.2ms           │  │ latency: 1.1ms            │
+</span><span id="__span-7-38"><a id="__codelineno-7-38" name="__codelineno-7-38" href="#__codelineno-7-38"></a>└──────────────────────────┘  └──────────────────────────┘
+</span><span id="__span-7-39"><a id="__codelineno-7-39" name="__codelineno-7-39" href="#__codelineno-7-39"></a>
+</span><span id="__span-7-40"><a id="__codelineno-7-40" name="__codelineno-7-40" href="#__codelineno-7-40"></a>At t=45s (5s after edge agent expiry):
+</span><span id="__span-7-41"><a id="__codelineno-7-41" name="__codelineno-7-41" href="#__codelineno-7-41"></a>  → Edge agents attempt to log → ValidationError: token expired
+</span><span id="__span-7-42"><a id="__codelineno-7-42" name="__codelineno-7-42" href="#__codelineno-7-42"></a>  → Cloud coordinator detects failure, requests re-spawn from orchestrator
+</span><span id="__span-7-43"><a id="__codelineno-7-43" name="__codelineno-7-43" href="#__codelineno-7-43"></a>  → New edge agents created with fresh 30s TTL
+</span></code></pre></div>
+<p><strong>Call sequence with EnforcementResult logs</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>[t=5] Orchestrator → Cloud Agent spawn
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>  EnforcementResult(caller=orch, action=spawn_sub_agent, decision=ALLOW, chain_depth=0)
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>[t=10] Cloud Agent → Edge Device 1 spawn
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>  EnforcementResult(caller=cloud-xyz, action=spawn_sub_agent, decision=ALLOW, chain_depth=1)
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>  → Succeeds (cloud_agent tier allowed to spawn)
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>[t=12] Edge Agent (dev1) → log_metric
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>  EnforcementResult(caller=edge-dev1, action=log_metric, decision=ALLOW, chain_depth=2)
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>  → Succeeds (edge_agent capability includes log_metric)
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>[t=45] Edge Agent (dev1) → log_metric (AFTER EXPIRY)
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>  EnforcementResult(caller=edge-dev1, action=log_metric, decision=DENY, 
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>    reason=token_expired, ttl_remaining=-5s, chain_depth=2)
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>  → Fails; cloud coordinator handles retry logic
+</span></code></pre></div>
 <h2 id="failure-scenarios">Failure Scenarios<a class="headerlink" href="#failure-scenarios" title="Permanent link">&para;</a></h2>
-<p><strong>State divergence:</strong> Edge and cloud have different history.
-- <strong>Recovery:</strong> Designate edge as primary; replay from edge; merge non-overlapping updates</p>
-<p><strong>Causal order violation:</strong> Agent B reads state A hasn't sent yet.
-- <strong>Recovery:</strong> Vector clocks detect; reject stale reads</p>
-<p><strong>Quorum disagreement:</strong> Swarm reports conflicting results.
-- <strong>Recovery:</strong> Force re-sync from authoritative quorum</p>
+<h3 id="1-token-expiry-mid-chain">1. Token Expiry Mid-Chain<a class="headerlink" href="#1-token-expiry-mid-chain" title="Permanent link">&para;</a></h3>
+<p><strong>Scenario</strong>: A cloud agent spawns an edge agent at t=10 with a 30s TTL (expires at t=40). At t=38, the edge agent sends a log_metric call. At t=42, it sends another call, but the token has expired.</p>
+<p><strong>Recovery</strong>:
+- The failed call returns a 401 Unauthorized with reason "token_expired"
+- The cloud coordinator catches this, increments a retry counter
+- After 2–3 failed attempts, the coordinator requests a re-spawn from the orchestrator
+- A fresh edge agent is created and the work resumes</p>
+<p><strong>Observability</strong>: The orchestrator's metrics show a spike in <code>validation_failures_total{reason="expired"}</code>, and the cloud agent logs the re-spawn. Alerts fire if re-spawn rate exceeds threshold.</p>
+<h3 id="2-registry-out-of-sync">2. Registry Out of Sync<a class="headerlink" href="#2-registry-out-of-sync" title="Permanent link">&para;</a></h3>
+<p><strong>Scenario</strong>: A new agent type (ai_auditor) is added to the system, but the policy registry has not been updated with its allowed_capabilities or allowed_caller_tiers.</p>
+<p><strong>Scenario</strong>: Orchestrator attempts to spawn an ai_auditor agent. The policy lookup finds no entry for ai_auditor type.</p>
+<p><strong>Recovery</strong>:
+- The spawn is blocked with a 403 Forbidden: "unknown agent type: ai_auditor"
+- The operator must add the agent type to the policy registry and reload it (or hot-swap)
+- Once the policy is in place, spawn succeeds</p>
+<p><strong>Prevention</strong>: CI/CD validation ensures all new agent types are registered before code merge.</p>
+<h3 id="3-chain-depth-runaway">3. Chain Depth Runaway<a class="headerlink" href="#3-chain-depth-runaway" title="Permanent link">&para;</a></h3>
+<p><strong>Scenario</strong>: A buggy orchestrator agent has a loop that spawns sub-agents without bound: A → B → C → D → ... At some depth N = max_delegation_depth (default 5), the system stops accepting new spawns.</p>
+<p><strong>Recovery</strong>:
+- Spawn request at depth N returns 403 Forbidden: "max delegation depth exceeded"
+- The orchestrator's error handling catches this and stops spawning
+- Alert fires: "chain_depth_histogram p99 &gt; threshold or chain_depth == max"
+- On-call engineer investigates and kills the buggy orchestrator</p>
+<p><strong>Prevention</strong>: Code review, chaos testing (spawn loops), and production telemetry (chain_depth histogram with alerts at 80% and 100% of max).</p>
+<h3 id="4-secret-compromise">4. Secret Compromise<a class="headerlink" href="#4-secret-compromise" title="Permanent link">&para;</a></h3>
+<p><strong>Scenario</strong>: The HMAC secret used to sign agent tokens is leaked. An attacker can forge arbitrary agent identities.</p>
+<p><strong>Recovery</strong>:
+- Immediately rotate the HMAC secret via secure distribution to all agents/validators
+- Invalidate all tokens signed with the old secret (set a cutoff timestamp)
+- Force all agents to request fresh tokens from SPIRE or token service
+- Broadcast a revocation for agent IDs issued in the compromise window</p>
+<p><strong>Prevention</strong>: Use SPIFFE/SPIRE (industry-standard minting) instead of HMAC where possible. Limit HMAC secret access to orchestrator and validator nodes. Enable audit logging of secret access.</p>
 <h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="../causality-and-ordering/">Causality &amp; Ordering</a></li>
-<li><a href="../../patterns/edge-cloud-deployment/edge-state-consistency/">Edge State Consistency</a></li>
-<li>Bailis, P., et al. (2013). "Highly Available Transactions"</li>
+<li><a href="../trust-and-byzantine/">Trust &amp; Byzantine Agents</a> — Agent output verification and fraud detection</li>
+<li><a href="../../patterns/integration/hierarchical-networks/">Hierarchical Agent Networks</a> — Network topology this pattern secures</li>
+<li><a href="https://github.com/gundu/chakraview-zero-trust-blueprint">chakraview-zero-trust-blueprint</a> — Original zero-trust reference architecture (services, not agents)</li>
+<li><strong>SPIFFE/SPIRE</strong>: https://spiffe.io/ — Standard for workload identity and certificate management</li>
+<li><strong>RFC 8693</strong>: OAuth 2.0 Token Exchange — Token delegation standard</li>
 </ul>
 
 
