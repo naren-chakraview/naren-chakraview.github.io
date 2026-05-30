@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Naren Chakraview · Software Engineer</title>
+  <meta name="description" content="Software engineer and architect building reference implementations for enterprise-scale systems: distributed systems, data infrastructure, zero-trust security, and fintech platforms." />
+  <meta property="og:title" content="Naren Chakraview · Software Engineer" />
+  <meta property="og:description" content="Reference architectures and production-grade implementations for enterprise cloud systems, security, data, and distributed systems." />
+  <meta property="og:type" content="website" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ── Nav ─────────────────────────────────────────────────────── -->
+<nav>
+  <span class="nav-brand">naren<span>.</span>chakraview</span>
+  <ul class="nav-links">
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#featured">Featured</a></li>
+    <li><a href="#methodology">Methodology</a></li>
+    <li><a href="https://github.com/naren-chakraview" target="_blank" rel="noopener">GitHub ↗</a></li>
+  </ul>
+</nav>
+
+<!-- ── Hero ────────────────────────────────────────────────────── -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-eyebrow">Software Engineer · System Architect</div>
+
+    <h1 class="hero-title">
+      Building reference architectures<br />
+      <span class="accent">where every system proves its claims.</span>
+    </h1>
+
+    <p class="hero-sub">
+      I design and implement production-grade systems at scale: from distributed systems for AI agents
+      to enterprise modernization, zero-trust security, and fintech data infrastructure. Every architecture
+      is contract-first, SLA-measured from the first commit, and documented with ADRs that explain
+      the "why" behind every decision.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#portfolio" class="btn btn-primary">View Portfolio</a>
+      <a href="#skills" class="btn btn-outline">Technical Depth ↓</a>
+      <a href="https://github.com/naren-chakraview" class="btn btn-outline"
+         target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-value">8</span>
+        <span class="stat-label">Reference implementations</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value">35+</span>
+        <span class="stat-label">Distributed systems patterns</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value">50+</span>
+        <span class="stat-label">Architecture decision records</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value">SLA-as-code</span>
+        <span class="stat-label">From day one</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Skills ─────────────────────────────────────────────────── -->
+<section id="skills">
+  <div class="container">
+    <div class="section-label">Core Competencies</div>
+    <h2>Deep expertise across multiple domains.</h2>
+
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon">🏗️</div>
+        <div class="skill-content">
+          <h3>System Architecture & Design</h3>
+          <p>
+            Enterprise-scale systems with clear boundaries, explicit contracts, and verifiable SLAs.
+            Strangler fig patterns for gradual migration. Event sourcing, CQRS, saga coordination.
+          </p>
+          <div class="skill-tags">
+            <span class="tag">Architecture Design</span>
+            <span class="tag">System Boundaries</span>
+            <span class="tag">Event-Driven Systems</span>
+            <span class="tag">Microservices</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-icon">📊</div>
+        <div class="skill-content">
+          <h3>Data Infrastructure</h3>
+          <p>
+            Streaming pipelines (CDC, Kafka, Flink), lakehouse medallion architectures (Iceberg, Delta),
+            real-time analytics, semantic data modeling (RDF/SPARQL), data mesh with federated governance.
+          </p>
+          <div class="skill-tags">
+            <span class="tag">Apache Iceberg</span>
+            <span class="tag">Streaming</span>
+            <span class="tag">CDC Pipelines</span>
+            <span class="tag">Data Mesh</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-icon">🔒</div>
+        <div class="skill-content">
+          <h3>Security & Trust</h3>
+          <p>
+            Zero-trust architecture for Kubernetes. SPIFFE/SPIRE workload identities, mTLS service meshes,
+            OPA policy-as-code, least-privilege IAM. Agent identity and delegation chains for agentic systems.
+          </p>
+          <div class="skill-tags">
+            <span class="tag">Zero-Trust</span>
+            <span class="tag">SPIFFE/SPIRE</span>
+            <span class="tag">mTLS</span>
+            <span class="tag">OPA</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-icon">🕸️</div>
+        <div class="skill-content">
+          <h3>Distributed Systems</h3>
+          <p>
+            Production patterns: vector clocks, causal ordering, consistency models, failure recovery,
+            circuit breakers, bulkheads. Designed specifically for AI agent networks and edge+cloud coordination.
+          </p>
+          <div class="skill-tags">
+            <span class="tag">Vector Clocks</span>
+            <span class="tag">Consistency</span>
+            <span class="tag">Failure Recovery</span>
+            <span class="tag">Agent Networks</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-icon">📈</div>
+        <div class="skill-content">
+          <h3>Observability & SLAs</h3>
+          <p>
+            SLA engineering: contracts as code, SLO-based alerting, error budget governance, burn rate models.
+            Distributed tracing, metrics collection, structured logging. Prometheus, OpenTelemetry, Grafana.
+          </p>
+          <div class="skill-tags">
+            <span class="tag">SLA/SLO</span>
+            <span class="tag">OpenTelemetry</span>
+            <span class="tag">Error Budgets</span>
+            <span class="tag">Prometheus</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-icon">🤖</div>
+        <div class="skill-content">
+          <h3>AI-Agent Development</h3>
+          <p>
+            Structured workflows for agentic systems. Contract-first development, human-AI accountability boundaries,
+            compliance gates, intake/triage cycles. Token budgeting, behavior degradation, context management.
+          </p>
+          <div class="skill-tags">
+            <span class="tag">AI Agents</span>
+            <span class="tag">Token Budgeting</span>
+            <span class="tag">Contracts</span>
+            <span class="tag">Structured Prompts</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Featured Projects ─────────────────────────────────────────── -->
+<section id="featured">
+  <div class="container">
+    <div class="section-label">Featured Projects</div>
+    <h2>The work in focus.</h2>
+    <p class="text-2" style="margin-top:.75rem;max-width:580px">
+      Three reference implementations showcasing deep technical expertise: distributed systems for AI agents,
+      enterprise modernization patterns, and zero-trust security architecture. Each is contract-first and SLA-measured.
+    </p>
+
+    <div class="carousel-wrapper">
+      <button class="carousel-arrow" id="carouselPrev" aria-label="Previous">←</button>
+
+      <div class="carousel-viewport">
+        <div class="carousel-track" id="carouselTrack">
+
+          <!-- Slide 1: Distributed Systems for Agentic Workloads -->
+          <div class="carousel-slide">
+            <div class="slide-eyebrow indigo">Production Patterns · Agent Networks</div>
+            <div class="slide-header">
+              <span class="slide-icon">🕸️</span>
+              <h3 class="slide-title">Distributed Systems for Agentic Workloads</h3>
+            </div>
+            <p class="slide-desc">
+              35 production-grade patterns adapted specifically for AI agent networks. From causality tracking
+              and consistency models to token budgeting, failure recovery, edge+cloud coordination, and multi-agent
+              integration. Zero-trust agent identities with OBO delegation chains. Complete reference implementation
+              in Python and Go with a prototype agent network and comprehensive case study.
+            </p>
+            <div class="slide-metrics">
+              <div class="slide-metric">
+                <span class="slide-metric-value">35+</span>
+                <span class="slide-metric-label">Patterns</span>
+              </div>
+              <div class="slide-metric">
+                <span class="slide-metric-value">6</span>
+                <span class="slide-metric-label">Foundations</span>
+              </div>
+              <div class="slide-metric">
+                <span class="slide-metric-value">2</span>
+                <span class="slide-metric-label">ADRs</span>
+              </div>
+              <div class="slide-metric">
+                <span class="slide-metric-value">100+</span>
+                <span class="slide-metric-label">Integration tests</span>
+              </div>
+              <div class="slide-metric">
+                <span class="slide-metric-value">Zero Trust</span>
+                <span class="slide-metric-label">Agent identities</span>
+              </div>
+            </div>
+            <div class="slide-tags">
+              <span class="tag">Python</span>
+              <span class="tag">Go</span>
+              <span class="tag">Vector Clocks</span>
+              <span class="tag">Distributed Tracing</span>
+              <span class="tag">Agent Networks</span>
+              <span class="tag">Zero Trust</span>
+            </div>
+            <div class="slide-links">
+              <a href="https://naren-chakraview.github.io/distributed-systems-patterns/"
+                 class="card-link" target="_blank" rel="noopener">Read the Docs ↗</a>
+              <a href="https://naren-chakraview.github.io/distributed-systems-patterns/case-study/scenario-overview/"
+                 class="card-link-secondary" target="_blank" rel="noopener">Case Study ↗</a>
+              <a href="https://github.com/naren-chakraview/chakraview-distributed-systems-patterns"
+                 class="card-link-secondary" target="_blank" rel="noopener">GitHub ↗</a>
+            </div>
+          </div>
+
+          <!-- Slide 2: Enterprise Modernization -->
+          <div class="carousel-slide">
+            <div class="slide-eyebrow green">Migration · Microservices</div>
+            <div class="slide-header">
+              <span class="slide-icon">🏛️</span>
+              <h3 class="slide-title">Enterprise Modernization Reference Architecture</h3>
+            </div>
+            <p class="slide-desc">
+              Strangler fig migration from Java EE monolith to cloud-native microservices on Kubernetes.
+              The canonical reference for contract-first development with AI agents. Event sourcing, CQRS,
+              saga orchestration. SLA-as-code measurement pipeline. Integration with semantic knowledge graphs
+              for entity unification across operational and analytical systems.
+            </p>
+            <div class="slide-metrics">
+              <div class="slide-metric">
+                <span class="slide-metric-value">5</span>
+                <span class="slide-metric-label">Microservices</span>
+              </div>
+              <div class="slide-metric">
+                <span class="slide-metric-value">8</span>
+                <span class="slide-metric-label">ADRs</span>
+              </div>
+              <div class="slide-metric">
+                <span class="slide-metric-value">SLA-as-code</span>
+                <span class="slide-metric-label">Measurement</span>
+              </div>
+              <div class="slide-metric">
+                <span class="slide-metric-value">Event</span>
+                <span class="slide-metric-label">Sourcing</span>
+              </div>
+              <div class="slide-metric">
+                <span class="slide-metric-value">Semantic</span>
+                <span class="slide-metric-label">Knowledge Graph</span>
+              </div>
+            </div>
+            <div class="slide-tags">
+              <span class="tag">TypeScript</span>
+              <span class="tag">Kafka</span>
+              <span class="tag">EKS</span>
+              <span class="tag">EventStoreDB</span>
+              <span class="tag">OpenTelemetry</span>
+            </div>
+            <div class="slide-links">
+              <a href="https://naren-chakraview.github.io/enterprise-modernization/"
+                 class="card-link" target="_blank" rel="noopener">Read the Docs ↗</a>
+              <a href="https://naren-chakraview.github.io/enterprise-modernization/how-this-was-built/"
+                 class="card-link-secondary" target="_blank" rel="noopener">How It Was Built ↗</a>
+              <a href="https://github.com/naren-chakraview/chakraview-enterprise-modernization"
+                 class="card-link-secondary" target="_blank" rel="noopener">GitHub ↗</a>
+            </div>
+          </div>
+
+          <!-- Slide 3: Zero-Trust Blueprint -->
+          <div class="carousel-slide">
+            <div class="slide-eyebrow red">Security · Architecture</div>
+            <div class="slide-header">
+              <span class="slide-icon">🔒</span>
+              <h3 class="slide-title">Zero-Trust Kubernetes Security Blueprint</h3>
+            </div>
+            <p class="slide-desc">
+              Complete zero-trust architecture for Kubernetes: SPIFFE workload identities, mTLS everywhere,
+              OPA policy-as-code, least-privilege RBAC. Envoy gateway with request validation. Identity-aware
+              routing and authorization. Production-ready with comprehensive security patterns, ADRs, and runbooks.
+            </p>
+            <div class="slide-metrics">
+              <div class="slide-metric">
+                <span class="slide-metric-value">8</span>
+                <span class="slide-metric-label">ADRs</span>
+              </div>
+              <div class="slide-metric">
+                <span class="slide-metric-value">SPIFFE</span>
+                <span class="slide-metric-label">Workload IDs</span>
+              </div>
+              <div class="slide-metric">
+                <span class="slide-metric-value">mTLS</span>
+                <span class="slide-metric-label">Service Mesh</span>
+              </div>
+              <div class="slide-metric">
+                <span class="slide-metric-value">OPA</span>
+                <span class="slide-metric-label">Policy Engine</span>
+              </div>
+              <div class="slide-metric">
+                <span class="slide-metric-value">10+</span>
+                <span class="slide-metric-label">Pattern guides</span>
+              </div>
+            </div>
+            <div class="slide-tags">
+              <span class="tag">SPIFFE/SPIRE</span>
+              <span class="tag">mTLS</span>
+              <span class="tag">OPA/Rego</span>
+              <span class="tag">Envoy</span>
+              <span class="tag">Kubernetes</span>
+            </div>
+            <div class="slide-links">
+              <a href="https://naren-chakraview.github.io/zero-trust-blueprint/"
+                 class="card-link" target="_blank" rel="noopener">Read the Docs ↗</a>
+              <a href="https://github.com/naren-chakraview/chakraview-zero-trust-blueprint"
+                 class="card-link-secondary" target="_blank" rel="noopener">GitHub ↗</a>
+            </div>
+          </div>
+
+        </div><!-- /carousel-track -->
+      </div><!-- /carousel-viewport -->
+
+      <button class="carousel-arrow" id="carouselNext" aria-label="Next">→</button>
+    </div><!-- /carousel-wrapper -->
+
+    <div class="carousel-dots">
+      <button class="carousel-dot active" data-index="0" aria-label="Slide 1"></button>
+      <button class="carousel-dot" data-index="1" aria-label="Slide 2"></button>
+      <button class="carousel-dot" data-index="2" aria-label="Slide 3"></button>
+    </div>
+  </div>
+</section>
+
+<!-- ── Portfolio ────────────────────────────────────────────────── -->
+<section id="portfolio">
+  <div class="container">
+    <div class="section-label">Complete Portfolio</div>
+    <h2>Eight reference implementations across the stack.</h2>
+    <p class="text-2" style="margin-top:.75rem;max-width:580px">
+      Each project is a complete reference implementation — contracts, ADRs, infrastructure,
+      observability, and runbooks. Not tutorials. Not templates. Production patterns, documented.
+    </p>
+
+    <div class="portfolio-grid">
+
+      <div class="portfolio-card featured">
+        <span class="card-status live">live</span>
+        <div class="card-icon">🏛️</div>
+        <div class="card-title">Enterprise Modernization Reference Architecture</div>
+        <p class="card-desc">
+          Strangler fig migration from Java EE monolith to cloud-native microservices.
+          The canonical case study for the Chakraview AI Dev Model. Contract-first with
+          SLA-as-code measurement pipeline. Event sourcing, CQRS, saga orchestration.
+        </p>
+        <div class="card-tags">
+          <span class="tag">TypeScript</span>
+          <span class="tag">Kafka</span>
+          <span class="tag">EKS</span>
+          <span class="tag">EventStoreDB</span>
+          <span class="tag">OpenTelemetry</span>
+        </div>
+        <div class="card-links">
+          <a href="https://naren-chakraview.github.io/enterprise-modernization/"
+             class="card-link" target="_blank" rel="noopener">Docs ↗</a>
+          <a href="https://github.com/naren-chakraview/chakraview-enterprise-modernization"
+             class="card-link-secondary" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <span class="card-status live">live</span>
+        <div class="card-icon">🔬</div>
+        <div class="card-title">Chakraview AI Dev Model</div>
+        <p class="card-desc">
+          Open framework for contract-first, AI-agent-driven software development.
+          Six defined personas. Continuous SDLC intake cycle with Intake/Triage,
+          triage routing table, and feedback arc. Parameterised task spec templates.
+        </p>
+        <div class="card-tags">
+          <span class="tag">6 Personas</span>
+          <span class="tag">Intake/Triage</span>
+          <span class="tag">Contract-first</span>
+          <span class="tag">MkDocs</span>
+        </div>
+        <div class="card-links">
+          <a href="https://naren-chakraview.github.io/ai-dev-model/"
+             class="card-link" target="_blank" rel="noopener">Docs ↗</a>
+          <a href="https://github.com/naren-chakraview/chakraview-ai-dev-model"
+             class="card-link-secondary" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <span class="card-status live">live</span>
+        <div class="card-icon">⚡</div>
+        <div class="card-title">Real-Time Data Platform</div>
+        <p class="card-desc">
+          Contract-first streaming lakehouse. Debezium CDC, Apache Flink
+          exactly-once processing, Apache Iceberg medallion layers, and DuckDB
+          serving — 8 patterns, 8 ADRs, machine-readable SLAs throughout.
+        </p>
+        <div class="card-tags">
+          <span class="tag">Debezium</span>
+          <span class="tag">Flink</span>
+          <span class="tag">Iceberg</span>
+          <span class="tag">Redpanda</span>
+          <span class="tag">DuckDB</span>
+        </div>
+        <div class="card-links">
+          <a href="https://naren-chakraview.github.io/realtime-data-platform/"
+             class="card-link" target="_blank" rel="noopener">Docs ↗</a>
+          <a href="https://github.com/naren-chakraview/chakraview-realtime-data-platform"
+             class="card-link-secondary" target="_blank" rel="noopener">GitHub ↗</a>
+        </div></div>
+
+      <div class="portfolio-card">
+        <span class="card-status live">live</span>
+        <div class="card-icon">🔒</div>
+        <div class="card-title">Zero-Trust Kubernetes Security Blueprint</div>
+        <p class="card-desc">
+          Complete zero-trust architecture: SPIFFE workload identities, mTLS everywhere,
+          OPA policy-as-code, least-privilege RBAC. Envoy gateway with request validation.
+          Identity-aware routing. Production-ready patterns and runbooks.
+        </p>
+        <div class="card-tags">
+          <span class="tag">SPIFFE/SPIRE</span>
+          <span class="tag">mTLS</span>
+          <span class="tag">OPA</span>
+          <span class="tag">Envoy</span>
+          <span class="tag">Kubernetes</span>
+        </div>
+        <div class="card-links">
+          <a href="https://naren-chakraview.github.io/zero-trust-blueprint/"
+             class="card-link" target="_blank" rel="noopener">Docs ↗</a>
+          <a href="https://github.com/naren-chakraview/chakraview-zero-trust-blueprint"
+             class="card-link-secondary" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <span class="card-status live">live</span>
+        <div class="card-icon">💳</div>
+        <div class="card-title">Fintech Data Mesh Reference Implementation</div>
+        <p class="card-desc">
+          Production-grade data mesh for fintech: Apache Iceberg lakehouse with
+          decentralized domain ownership (5 domains), federated OPA governance,
+          real-time Kafka + cold-path Iceberg hybrid, self-service discovery portal.
+        </p>
+        <div class="card-tags">
+          <span class="tag">Apache Iceberg</span>
+          <span class="tag">Spark Streaming</span>
+          <span class="tag">Kafka</span>
+          <span class="tag">OPA</span>
+          <span class="tag">Data Mesh</span>
+        </div>
+        <div class="card-links">
+          <a href="https://naren-chakraview.github.io/fintech-data-mesh/"
+             class="card-link" target="_blank" rel="noopener">Docs ↗</a>
+          <a href="https://github.com/naren-chakraview/chakraview-fintech-data-mesh"
+             class="card-link-secondary" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <span class="card-status live">live</span>
+        <div class="card-icon">📦</div>
+        <div class="card-title">Data Engineering Patterns Reference</div>
+        <p class="card-desc">
+          Idiomatic boilerplate starters for 9 data engineering patterns × 22 stack variants.
+          Batch lakehouse, streaming lakehouse, ELT/warehouse, CDC, lambda architecture,
+          federated query, ML feature pipelines, graph processing, workflow orchestration.
+        </p>
+        <div class="card-tags">
+          <span class="tag">Spark</span>
+          <span class="tag">Flink</span>
+          <span class="tag">dbt</span>
+          <span class="tag">Iceberg</span>
+          <span class="tag">Semantic RDF</span>
+        </div>
+        <div class="card-links">
+          <a href="https://naren-chakraview.github.io/data-engineering-patterns/"
+             class="card-link" target="_blank" rel="noopener">Docs ↗</a>
+          <a href="https://github.com/naren-chakraview/chakraview-data-engineering-patterns"
+             class="card-link-secondary" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <span class="card-status live">live</span>
+        <div class="card-icon">🕸️</div>
+        <div class="card-title">Distributed Systems for Agentic Workloads</div>
+        <p class="card-desc">
+          35 production-grade patterns for agent-based distributed systems: causality tracking,
+          consistency models, token budgeting, behavior degradation, failure recovery,
+          edge+cloud coordination, and multi-agent integration. Python + Go reference implementation.
+        </p>
+        <div class="card-tags">
+          <span class="tag">Python</span>
+          <span class="tag">Go</span>
+          <span class="tag">Vector Clocks</span>
+          <span class="tag">Distributed Tracing</span>
+          <span class="tag">Agent Networks</span>
+        </div>
+        <div class="card-links">
+          <a href="https://naren-chakraview.github.io/distributed-systems-patterns/"
+             class="card-link" target="_blank" rel="noopener">Docs ↗</a>
+          <a href="https://github.com/naren-chakraview/chakraview-distributed-systems-patterns"
+             class="card-link-secondary" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <span class="card-status live">live</span>
+        <div class="card-icon">🌐</div>
+        <div class="card-title">Networking + SDN Architecture</div>
+        <p class="card-desc">
+          Three-layer SDN system: DPDK and eBPF packet processing,
+          Go control plane with intent-based APIs, and Python fabric protocols
+          (BGP, VXLAN, EVPN). Complete implementation with Docker Compose lab and end-to-end tests.
+        </p>
+        <div class="card-tags">
+          <span class="tag">DPDK</span>
+          <span class="tag">eBPF</span>
+          <span class="tag">BGP</span>
+          <span class="tag">VXLAN</span>
+          <span class="tag">Go</span>
+        </div>
+        <div class="card-links">
+          <a href="https://naren-chakraview.github.io/networking-sdn/"
+             class="card-link" target="_blank" rel="noopener">Docs ↗</a>
+          <a href="https://github.com/naren-chakraview/chakraview-networking-sdn"
+             class="card-link-secondary" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Methodology ─────────────────────────────────────────────── -->
+<section id="methodology">
+  <div class="container">
+    <div class="section-label">Working with AI</div>
+    <h2>The Chakraview AI Dev Model.</h2>
+
+    <div class="adm-header">
+      <div>
+        <p class="adm-sub">
+          Every reference architecture above was built using the Chakraview AI Dev Model — an open framework
+          for contract-first, AI-agent-driven software development. It's the methodology that makes humans
+          and AI agents productively collaborate on complex systems.
+        </p>
+      </div>
+      <div class="adm-links">
+        <a href="https://naren-chakraview.github.io/ai-dev-model/"
+           class="btn btn-primary" target="_blank" rel="noopener">Learn More ↗</a>
+      </div>
+    </div>
+
+    <figure class="adm-diagram">
+      <img src="assets/ai_dev_model.png"
+           alt="Chakraview AI Dev Model — integrated workflows, personas, and core methodology" />
+    </figure>
+
+    <div class="philosophy-grid" style="margin-top:3rem">
+      <div class="phil-card blue">
+        <div class="phil-icon">📋</div>
+        <h3>Contracts Before Code</h3>
+        <p>
+          No service exists without a contract that defines what it must do. SLA targets,
+          domain invariants, and event schemas are versioned YAML — reviewed in PRs, enforced in CI.
+        </p>
+      </div>
+
+      <div class="phil-card green">
+        <div class="phil-icon">🤖</div>
+        <h3>Humans Define, Agents Execute</h3>
+        <p>
+          Senior engineers author contracts. AI agents implement from them. The separation is structural:
+          <code>contracts/</code> is human-only; <code>services/</code> and <code>infrastructure/</code>
+          are agent-built.
+        </p>
+      </div>
+
+      <div class="phil-card amber">
+        <div class="phil-icon">📊</div>
+        <h3>Measure Before You Claim</h3>
+        <p>
+          No service ships without instrumentation that proves it meets its SLA.
+          Histogram boundaries derived from targets. SLO queries reference metric names
+          mandated in context documents.
+        </p>
+      </div>
+
+      <div class="phil-card purple">
+        <div class="phil-icon">↺</div>
+        <h3>Intent Through a Gate</h3>
+        <p>
+          Business signals pass through Intake/Triage: an interactive dialogue where agents
+          challenge assumptions, surface edge cases, and produce contracts before implementation.
+          The SDLC loop closes on itself.
+        </p>
+      </div>
+    </div>
+
+    <div class="adm-pillars" style="margin-top:3rem">
+      <div class="adm-pillar">
+        <span class="pillar-bg-num">6</span>
+        <h3>Six Defined Personas</h3>
+        <p>
+          Human Domain Expert · Documentation Agent · Script Authoring Agent · Script Executor ·
+          Implementation Agent · Architectural Compliance Agent. Each has explicit accountability,
+          defined tooling, and human review gates.
+        </p>
+      </div>
+
+      <div class="adm-pillar">
+        <span class="pillar-bg-num">↺</span>
+        <h3>Continuous SDLC Cycle</h3>
+        <p>
+          Business intent enters through Intake/Triage. A triage routing table classifies intent
+          and routes it to the right phase. Phase 7 detects change signals from the running system
+          and re-enters them as the next Intake input. The loop never opens.
+        </p>
+      </div>
+
+      <div class="adm-pillar">
+        <span class="pillar-bg-num">⊟</span>
+        <h3>Contracts Are the Boundary</h3>
+        <p>
+          Humans author contracts. Agents implement from them. No agent output is accepted without
+          a corresponding contract. SLA targets flow to SLO definitions and Prometheus alerts
+          without manual translation.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── Footer ──────────────────────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <span class="footer-brand">naren<span>.</span>chakraview</span>
+      <ul class="footer-links">
+        <li><a href="https://github.com/naren-chakraview" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://naren-chakraview.github.io/enterprise-modernization/" target="_blank" rel="noopener">Modernization</a></li>
+        <li><a href="https://naren-chakraview.github.io/distributed-systems-patterns/" target="_blank" rel="noopener">Distributed Systems</a></li>
+        <li><a href="https://naren-chakraview.github.io/zero-trust-blueprint/" target="_blank" rel="noopener">Zero-Trust</a></li>
+        <li><a href="https://naren-chakraview.github.io/ai-dev-model/" target="_blank" rel="noopener">AI Dev Model</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var track = document.getElementById('carouselTrack');
+  var dots = document.querySelectorAll('.carousel-dot');
+  var current = 0;
+  var total = 3;
+
+  function goTo(n) {
+    current = ((n % total) + total) % total;
+    track.style.transform = 'translateX(-' + (current * 100) + '%)';
+    dots.forEach(function (d, i) {
+      d.classList.toggle('active', i === current);
+    });
+  }
+
+  document.getElementById('carouselPrev').addEventListener('click', function () { goTo(current - 1); });
+  document.getElementById('carouselNext').addEventListener('click', function () { goTo(current + 1); });
+  dots.forEach(function (d) {
+    d.addEventListener('click', function () { goTo(parseInt(d.getAttribute('data-index'), 10)); });
+  });
+}());
+</script>
+
+</body>
+</html>
