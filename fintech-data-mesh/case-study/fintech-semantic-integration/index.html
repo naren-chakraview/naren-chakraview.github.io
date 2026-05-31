@@ -11,11 +11,13 @@
       
       
       
-        <link rel="canonical" href="https://naren-chakraview.github.io/fintech-data-mesh/adrs/ADR-0004-real-time/">
+        <link rel="canonical" href="https://naren-chakraview.github.io/fintech-data-mesh/case-study/fintech-semantic-integration/">
       
       
-        <link rel="prev" href="../ADR-0003-governance/">
+        <link rel="prev" href="../../production/trade-offs/">
       
+      
+        <link rel="next" href="federation-guide/">
       
       
         
@@ -26,7 +28,7 @@
     
     
       
-        <title>ADR-0004 Real-Time Strategy - Chakra Commerce — Fintech Data Mesh</title>
+        <title>Semantic Integration - Chakra Commerce — Fintech Data Mesh</title>
       
     
     
@@ -77,7 +79,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#adr-0004-hybrid-kafka-iceberg-strategy-for-real-time-and-analytics" class="md-skip">
+        <a href="#fintech-semantic-integration-shift-left-semantics" class="md-skip">
           Skip to content
         </a>
       
@@ -112,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              ADR-0004 Real-Time Strategy
+              Semantic Integration
             
           </span>
         </div>
@@ -324,11 +326,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../case-study/fintech-semantic-integration/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
           
   
   
@@ -346,13 +350,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../adrs/" class="md-tabs__link">
           
   
   
@@ -1171,6 +1173,8 @@
       
   
   
+    
+  
   
   
     
@@ -1188,20 +1192,23 @@
     
     
       
+        
+        
+      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../case-study/fintech-semantic-integration/" class="md-nav__link ">
+            <a href="./" class="md-nav__link md-nav__link--active">
               
   
   
@@ -1219,13 +1226,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+              <label class="md-nav__link md-nav__link--active" for="__nav_6" id="__nav_6_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1245,7 +1252,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../case-study/fintech-semantic-integration/federation-guide/" class="md-nav__link">
+      <a href="federation-guide/" class="md-nav__link">
         
   
   
@@ -1273,7 +1280,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../case-study/fintech-semantic-integration/BLOG-SHIFT-LEFT-SEMANTICS/" class="md-nav__link">
+      <a href="BLOG-SHIFT-LEFT-SEMANTICS/" class="md-nav__link">
         
   
   
@@ -1305,8 +1312,6 @@
       
   
   
-    
-  
   
   
     
@@ -1328,23 +1333,20 @@
     
     
       
-        
-        
-      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../" class="md-nav__link ">
+            <a href="../../adrs/" class="md-nav__link ">
               
   
   
@@ -1362,13 +1364,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="">
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1388,7 +1390,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ADR-0001-data-mesh/" class="md-nav__link">
+      <a href="../../adrs/ADR-0001-data-mesh/" class="md-nav__link">
         
   
   
@@ -1416,7 +1418,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ADR-0002-iceberg/" class="md-nav__link">
+      <a href="../../adrs/ADR-0002-iceberg/" class="md-nav__link">
         
   
   
@@ -1444,7 +1446,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ADR-0003-governance/" class="md-nav__link">
+      <a href="../../adrs/ADR-0003-governance/" class="md-nav__link">
         
   
   
@@ -1469,37 +1471,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    ADR-0004 Real-Time Strategy
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../adrs/ADR-0004-real-time/" class="md-nav__link">
         
   
   
@@ -1515,350 +1490,6 @@
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#context" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Context
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#decision" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Decision
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Decision">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#trade-off" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Trade-Off
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#rationale" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Rationale
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Rationale">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pure-kafka-rejected" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pure Kafka (Rejected)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pure-iceberg-rejected" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pure Iceberg (Rejected)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#hybrid-accepted" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Hybrid (Accepted)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#cost-analysis" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Cost Analysis
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Cost Analysis">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#scenario-1b-transactionsyear-7-year-retention" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Scenario: 1B transactions/year × 7-year retention
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#latency-trade-off" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Latency Trade-Off
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#design-details" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Design Details
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Design Details">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#exactly-once-semantics" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Exactly-Once Semantics
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#handling-late-arriving-data" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Handling Late-Arriving Data
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#consequences" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Consequences
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Consequences">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#positive" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Positive
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#negative-trade-offs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Negative (Trade-offs)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#alternatives-considered" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Alternatives Considered
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Alternatives Considered">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#alternative-1-event-sourcing-store-all-events-forever" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Alternative 1: Event Sourcing (Store All Events Forever)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#alternative-2-kafka-nosql-real-time-store" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Alternative 2: Kafka + NoSQL (Real-time Store)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#alternative-3-stream-processing-framework-flink" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Alternative 3: Stream Processing Framework (Flink)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#alternative-4-pubsub-managed-service-aws-kinesis-gcp-pubsub" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Alternative 4: Pub/Sub Managed Service (AWS Kinesis, GCP Pubsub)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#implementation-checklist" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Implementation Checklist
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#monitoring" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Monitoring
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#success-criteria" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Success Criteria
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        References
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#sign-off" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Sign-Off
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1900,10 +1531,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#context" class="md-nav__link">
+  <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Context
+        Overview
       
     </span>
   </a>
@@ -1911,22 +1542,33 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#decision" class="md-nav__link">
+  <a href="#architecture" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Decision
+        Architecture
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Decision">
+    <nav class="md-nav" aria-label="Architecture">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#trade-off" class="md-nav__link">
+  <a href="#traditional-approach-centralized-semantic-layer" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Trade-Off
+        Traditional Approach (Centralized Semantic Layer)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shift-left-approach-domain-owned-rdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shift-Left Approach (Domain-Owned RDF)
       
     </span>
   </a>
@@ -1939,22 +1581,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#rationale" class="md-nav__link">
+  <a href="#four-phases-complete-implementation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Rationale
+        Four Phases: Complete Implementation
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Rationale">
+    <nav class="md-nav" aria-label="Four Phases: Complete Implementation">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#pure-kafka-rejected" class="md-nav__link">
+  <a href="#phase-1-accounts-domain-customer-account-rdf" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Pure Kafka (Rejected)
+        Phase 1: Accounts Domain (Customer &amp; Account RDF)
       
     </span>
   </a>
@@ -1962,10 +1604,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#pure-iceberg-rejected" class="md-nav__link">
+  <a href="#phase-2-transactions-domain-transaction-counterparty-rdf" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Pure Iceberg (Rejected)
+        Phase 2: Transactions Domain (Transaction &amp; Counterparty RDF)
       
     </span>
   </a>
@@ -1973,10 +1615,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#hybrid-accepted" class="md-nav__link">
+  <a href="#phase-3-riskcompliance-domain-riskprofile-rdf" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Hybrid (Accepted)
+        Phase 3: Risk/Compliance Domain (RiskProfile RDF)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-4-federated-queries-case-study" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4: Federated Queries &amp; Case Study
       
     </span>
   </a>
@@ -1989,22 +1642,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#cost-analysis" class="md-nav__link">
+  <a href="#technical-highlights" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Cost Analysis
+        Technical Highlights
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Cost Analysis">
+    <nav class="md-nav" aria-label="Technical Highlights">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#scenario-1b-transactionsyear-7-year-retention" class="md-nav__link">
+  <a href="#deterministic-iri-minting-no-central-service" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Scenario: 1B transactions/year × 7-year retention
+        Deterministic IRI Minting (No Central Service)
       
     </span>
   </a>
@@ -2012,10 +1665,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#latency-trade-off" class="md-nav__link">
+  <a href="#cross-domain-linking-via-federated-sparql" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Latency Trade-Off
+        Cross-Domain Linking via Federated SPARQL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shared-ontology-contract-not-centralized-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shared Ontology Contract (Not Centralized Implementation)
       
     </span>
   </a>
@@ -2028,33 +1692,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#design-details" class="md-nav__link">
+  <a href="#test-coverage" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Design Details
+        Test Coverage
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Design Details">
+    <nav class="md-nav" aria-label="Test Coverage">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#exactly-once-semantics" class="md-nav__link">
+  <a href="#whats-tested" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exactly-Once Semantics
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#handling-late-arriving-data" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Handling Late-Arriving Data
+        What's Tested
       
     </span>
   </a>
@@ -2067,22 +1720,44 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#consequences" class="md-nav__link">
+  <a href="#file-structure" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Consequences
+        File Structure
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Consequences">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Metrics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-the-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running the System
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Running the System">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#positive" class="md-nav__link">
+  <a href="#1-start-all-domains" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Positive
+        1. Start All Domains
       
     </span>
   </a>
@@ -2090,10 +1765,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#negative-trade-offs" class="md-nav__link">
+  <a href="#2-verify-sparql-endpoints" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Negative (Trade-offs)
+        2. Verify SPARQL Endpoints
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-run-churn-analysis-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Run Churn Analysis Query
       
     </span>
   </a>
@@ -2106,22 +1792,33 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#alternatives-considered" class="md-nav__link">
+  <a href="#key-benefits-of-shift-left" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Alternatives Considered
+        Key Benefits of Shift-Left
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Alternatives Considered">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lessons-learned" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lessons Learned
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lessons Learned">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#alternative-1-event-sourcing-store-all-events-forever" class="md-nav__link">
+  <a href="#1-determinism-is-everything" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Alternative 1: Event Sourcing (Store All Events Forever)
+        1. Determinism is Everything
       
     </span>
   </a>
@@ -2129,10 +1826,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#alternative-2-kafka-nosql-real-time-store" class="md-nav__link">
+  <a href="#2-shared-ontology-centralized-implementation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Alternative 2: Kafka + NoSQL (Real-time Store)
+        2. Shared Ontology ≠ Centralized Implementation
       
     </span>
   </a>
@@ -2140,10 +1837,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#alternative-3-stream-processing-framework-flink" class="md-nav__link">
+  <a href="#3-sparql-federation-has-scale-limits" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Alternative 3: Stream Processing Framework (Flink)
+        3. SPARQL Federation Has Scale Limits
       
     </span>
   </a>
@@ -2151,10 +1848,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#alternative-4-pubsub-managed-service-aws-kinesis-gcp-pubsub" class="md-nav__link">
+  <a href="#4-metadata-is-critical" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Alternative 4: Pub/Sub Managed Service (AWS Kinesis, GCP Pubsub)
+        4. Metadata is Critical
       
     </span>
   </a>
@@ -2163,39 +1860,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#implementation-checklist" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Implementation Checklist
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#monitoring" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Monitoring
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#success-criteria" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Success Criteria
-      
-    </span>
-  </a>
   
 </li>
       
@@ -2211,10 +1875,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#sign-off" class="md-nav__link">
+  <a href="#getting-started" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Sign-Off
+        Getting Started
       
     </span>
   </a>
@@ -2241,299 +1905,338 @@
   
 
 
-<h1 id="adr-0004-hybrid-kafka-iceberg-strategy-for-real-time-and-analytics">ADR-0004: Hybrid Kafka + Iceberg Strategy for Real-Time and Analytics<a class="headerlink" href="#adr-0004-hybrid-kafka-iceberg-strategy-for-real-time-and-analytics" title="Permanent link">&para;</a></h1>
-<p><strong>Status</strong>: Accepted | <strong>Date</strong>: 2026-04-12</p>
+<h1 id="fintech-semantic-integration-shift-left-semantics">Fintech Semantic Integration: Shift-Left Semantics<a class="headerlink" href="#fintech-semantic-integration-shift-left-semantics" title="Permanent link">&para;</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>A <strong>production-grade semantic data mesh implementation</strong> demonstrating shift-left architecture where <strong>domain teams own their RDF generation</strong> instead of relying on a centralized semantic layer.</p>
+<p><strong>Key Achievement:</strong> 3 independent domains (Accounts, Transactions, Risk/Compliance) generate their own RDF, run their own SPARQL endpoints, and collaborate via federated queries—with zero centralized semantic bottleneck.</p>
 <hr />
-<h2 id="context">Context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h2>
-<p>Data mesh supports multiple domains with conflicting freshness requirements:</p>
+<h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
+<h3 id="traditional-approach-centralized-semantic-layer">Traditional Approach (Centralized Semantic Layer)<a class="headerlink" href="#traditional-approach-centralized-semantic-layer" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Domain Data → Central Semantic Team → Central RDF Layer → Federated Query
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>                                    ↑ Bottleneck
+</span></code></pre></div>
+<h3 id="shift-left-approach-domain-owned-rdf">Shift-Left Approach (Domain-Owned RDF)<a class="headerlink" href="#shift-left-approach-domain-owned-rdf" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Accounts Data ────→ Accounts RDF + SPARQL (port 3030) ─┐
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>Transactions Data ──→ Transactions RDF + SPARQL (3031) ├→ Federated Query
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>Risk Data ─────────→ Risk RDF + SPARQL (port 3032) ───┘
+</span></code></pre></div>
+<p>No central team. No semantic bottleneck. Each domain owns its semantics.</p>
+<hr />
+<h2 id="four-phases-complete-implementation">Four Phases: Complete Implementation<a class="headerlink" href="#four-phases-complete-implementation" title="Permanent link">&para;</a></h2>
+<h3 id="phase-1-accounts-domain-customer-account-rdf">Phase 1: Accounts Domain (Customer &amp; Account RDF)<a class="headerlink" href="#phase-1-accounts-domain-customer-account-rdf" title="Permanent link">&para;</a></h3>
+<p><strong>Responsibility:</strong> Customer entity identity and account management</p>
+<p><strong>Deliverables:</strong>
+- Customer + Account RDF entities with deterministic IRI minting
+- IRI formula: <code>hash(email + kyc_id)</code> → consistent customer identity
+- PostgreSQL + Jena Fuseki on port 3030
+- 46 passing tests (unit + integration)
+- Production-ready infrastructure</p>
+<p><strong>Key Innovation:</strong> Customer IRIs are minted deterministically, so other domains can resolve the same customer without a central ID service.</p>
+<h3 id="phase-2-transactions-domain-transaction-counterparty-rdf">Phase 2: Transactions Domain (Transaction &amp; Counterparty RDF)<a class="headerlink" href="#phase-2-transactions-domain-transaction-counterparty-rdf" title="Permanent link">&para;</a></h3>
+<p><strong>Responsibility:</strong> Transaction events and counterparty management</p>
+<p><strong>Deliverables:</strong>
+- Transaction + Counterparty RDF entities
+- Cross-domain customer linking via <code>fintech:transactionDebtor</code> property
+- Uses Accounts domain IRI minting formula to resolve customers
+- PostgreSQL + Jena Fuseki on port 3031
+- 44 passing tests (unit + integration)
+- Sample transaction data with edge cases</p>
+<p><strong>Key Innovation:</strong> Transactions domain links to customers using the same deterministic IRI formula—no central service, pure math.</p>
+<h3 id="phase-3-riskcompliance-domain-riskprofile-rdf">Phase 3: Risk/Compliance Domain (RiskProfile RDF)<a class="headerlink" href="#phase-3-riskcompliance-domain-riskprofile-rdf" title="Permanent link">&para;</a></h3>
+<p><strong>Responsibility:</strong> Risk assessment and compliance verification</p>
+<p><strong>Deliverables:</strong>
+- RiskProfile RDF entities (risk scores, compliance status, KYC status)
+- Cross-domain customer linking via <code>fintech:forCustomer</code> property
+- PostgreSQL + Jena Fuseki on port 3032
+- 53 passing tests (unit + integration)
+- Complete documentation with risk methodology</p>
+<p><strong>Key Innovation:</strong> Risk domain enriches customer data without owning or modifying customer entities.</p>
+<h3 id="phase-4-federated-queries-case-study">Phase 4: Federated Queries &amp; Case Study<a class="headerlink" href="#phase-4-federated-queries-case-study" title="Permanent link">&para;</a></h3>
+<p><strong>Responsibility:</strong> Cross-domain analysis and documentation</p>
+<p><strong>Deliverables:</strong>
+1. <strong>Federated Query Client</strong> (<code>federated-query-client.py</code>)
+   - Python library for executing queries across domains
+   - Handles SERVICE {} federation syntax
+   - Result formatting and error handling</p>
+<ol>
+<li><strong>Churn Analysis Case Study</strong> (Real-world 3-domain query)</li>
+<li>Business question: Find customers with failed payments AND high risk scores</li>
+<li>SPARQL query spanning all 3 domains</li>
+<li>
+<p>Executable script with CLI options</p>
+</li>
+<li>
+<p><strong>Federation Guide</strong> (<code>federation-guide.md</code>)</p>
+</li>
+<li>Complete tutorial on federated SPARQL</li>
+<li>Step-by-step query writing guide</li>
+<li>5 common patterns with examples</li>
+<li>
+<p>Performance tips and troubleshooting</p>
+</li>
+<li>
+<p><strong>Blog Post: "Shift-Left Semantics"</strong> (<code>BLOG-SHIFT-LEFT-SEMANTICS.md</code>)</p>
+</li>
+<li>Technical deep-dive on domain-owned semantics</li>
+<li>Why centralized semantic layers fail</li>
+<li>How shift-left solves the problem</li>
+<li>Getting-started guide</li>
+</ol>
+<hr />
+<h2 id="technical-highlights">Technical Highlights<a class="headerlink" href="#technical-highlights" title="Permanent link">&para;</a></h2>
+<h3 id="deterministic-iri-minting-no-central-service">Deterministic IRI Minting (No Central Service)<a class="headerlink" href="#deterministic-iri-minting-no-central-service" title="Permanent link">&para;</a></h3>
+<p>Instead of calling an ID service:
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Accounts domain mints</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">customer_iri</span> <span class="o">=</span> <span class="s2">&quot;https://chakracommerce.com/customer#&quot;</span> <span class="o">+</span> <span class="nb">hash</span><span class="p">(</span><span class="n">email</span> <span class="o">+</span> <span class="n">kyc_id</span><span class="p">)</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Transactions domain uses same formula to resolve</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">customer_iri</span> <span class="o">=</span> <span class="n">resolve_customer_iri</span><span class="p">(</span><span class="n">email</span><span class="p">,</span> <span class="n">kyc_id</span><span class="p">)</span>  <span class="c1"># Returns same IRI!</span>
+</span></code></pre></div></p>
+<h3 id="cross-domain-linking-via-federated-sparql">Cross-Domain Linking via Federated SPARQL<a class="headerlink" href="#cross-domain-linking-via-federated-sparql" title="Permanent link">&para;</a></h3>
+<div class="language-sparql highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">SELECT</span> <span class="nv">?customer</span> <span class="nv">?name</span> <span class="nv">?riskScore</span> <span class="nv">?failedTxnCount</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">WHERE</span> <span class="p">{</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  <span class="k">SERVICE</span> <span class="nl">&lt;http://accounts:3030/accounts/sparql&gt;</span> <span class="p">{</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="nv">?customer</span> <span class="nn">fintech</span><span class="p">:</span><span class="nt">customerName</span> <span class="nv">?name</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>  <span class="p">}</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>  <span class="k">SERVICE</span> <span class="nl">&lt;http://transactions:3031/transactions/sparql&gt;</span> <span class="p">{</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="nv">?txn</span> <span class="nn">fintech</span><span class="p">:</span><span class="nt">transactionDebtor</span> <span class="nv">?customer</span><span class="p">;</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>         <span class="nn">fintech</span><span class="p">:</span><span class="nt">transactionStatus</span> <span class="s">&quot;failed&quot;</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>  <span class="p">}</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>  <span class="k">SERVICE</span> <span class="nl">&lt;http://risk:3032/risk_compliance/sparql&gt;</span> <span class="p">{</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>    <span class="nv">?risk</span> <span class="nn">fintech</span><span class="p">:</span><span class="nt">forCustomer</span> <span class="nv">?customer</span><span class="p">;</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>          <span class="nn">fintech</span><span class="p">:</span><span class="nt">riskScore</span> <span class="nv">?riskScore</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>    <span class="k">FILTER</span> <span class="p">(</span><span class="nv">?riskScore</span> <span class="o">&gt;</span> <span class="mf">0.8</span><span class="p">)</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>  <span class="p">}</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="p">}</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="k">GROUP BY</span> <span class="nv">?customer</span> <span class="nv">?name</span> <span class="nv">?riskScore</span>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="k">HAVING</span> <span class="p">(</span><span class="nf">COUNT</span><span class="p">(</span><span class="nv">?txn</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">)</span>
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="k">ORDER BY</span> <span class="k">DESC</span><span class="p">(</span><span class="nv">?riskScore</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="shared-ontology-contract-not-centralized-implementation">Shared Ontology Contract (Not Centralized Implementation)<a class="headerlink" href="#shared-ontology-contract-not-centralized-implementation" title="Permanent link">&para;</a></h3>
+<div class="language-turtle highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c"># All domains reference these</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nn">fintech</span><span class="p">:</span><span class="nt">Customer</span> <span class="kt">a</span> <span class="nn">owl</span><span class="p">:</span><span class="nt">Class</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nn">fintech</span><span class="p">:</span><span class="nt">Account</span> <span class="kt">a</span> <span class="nn">owl</span><span class="p">:</span><span class="nt">Class</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="nn">fintech</span><span class="p">:</span><span class="nt">Transaction</span> <span class="kt">a</span> <span class="nn">owl</span><span class="p">:</span><span class="nt">Class</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="nn">fintech</span><span class="p">:</span><span class="nt">forCustomer</span> <span class="kt">a</span> <span class="nn">rdf</span><span class="p">:</span><span class="nt">Property</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="nn">fintech</span><span class="p">:</span><span class="nt">transactionDebtor</span> <span class="kt">a</span> <span class="nn">rdf</span><span class="p">:</span><span class="nt">Property</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="c"># Each domain extends with its own properties</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="nn">fintech</span><span class="p">:</span><span class="nt">accountBalance</span> <span class="kt">a</span> <span class="nn">rdf</span><span class="p">:</span><span class="nt">Property</span>  <span class="c"># Accounts owns this</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="nn">fintech</span><span class="p">:</span><span class="nt">transactionStatus</span> <span class="kt">a</span> <span class="nn">rdf</span><span class="p">:</span><span class="nt">Property</span>  <span class="c"># Transactions owns this</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="nn">fintech</span><span class="p">:</span><span class="nt">riskScore</span> <span class="kt">a</span> <span class="nn">rdf</span><span class="p">:</span><span class="nt">Property</span>  <span class="c"># Risk owns this</span>
+</span></code></pre></div>
+<hr />
+<h2 id="test-coverage">Test Coverage<a class="headerlink" href="#test-coverage" title="Permanent link">&para;</a></h2>
+<p><strong>Total: 143 passing tests</strong></p>
 <table>
 <thead>
 <tr>
-<th>Domain</th>
-<th>Need</th>
-<th>SLA</th>
-<th>Why</th>
+<th>Component</th>
+<th>Unit Tests</th>
+<th>Integration Tests</th>
+<th>Total</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Transactions</strong></td>
-<td>Balance updates, fraud detection</td>
-<td>5 min</td>
-<td>Fraud detection can't wait hours</td>
+<td>Accounts Domain</td>
+<td>46</td>
+<td>—</td>
+<td>46</td>
 </tr>
 <tr>
-<td><strong>Accounts</strong></td>
-<td>Account master data</td>
-<td>10 min</td>
-<td>Less critical than transactions</td>
+<td>Transactions Domain</td>
+<td>34</td>
+<td>10</td>
+<td>44</td>
 </tr>
 <tr>
-<td><strong>Market Data</strong></td>
-<td>FX rates for risk models</td>
-<td>1 min</td>
-<td>Pricing can't lag by hours</td>
+<td>Risk Domain</td>
+<td>40</td>
+<td>13</td>
+<td>53</td>
 </tr>
 <tr>
-<td><strong>Risk/Compliance</strong></td>
-<td>Fraud scores</td>
-<td>10 min</td>
-<td>Longer acceptable</td>
-</tr>
-<tr>
-<td><strong>Counterparties</strong></td>
-<td>Merchant master data</td>
-<td>60 min</td>
-<td>Very low velocity</td>
+<td><strong>Total</strong></td>
+<td><strong>120</strong></td>
+<td><strong>23</strong></td>
+<td><strong>143</strong></td>
 </tr>
 </tbody>
 </table>
-<p><strong>The problem</strong>: Real-time streaming (Kafka) is expensive at 7-year retention. Batch storage (Iceberg) is cheap but has high latency.</p>
-<p>Can we have both?</p>
-<hr />
-<h2 id="decision">Decision<a class="headerlink" href="#decision" title="Permanent link">&para;</a></h2>
-<p><strong>Adopt hybrid strategy: Kafka (hot path) + Iceberg (cold path)</strong></p>
-<div class="mermaid">graph TD
-    A["Events occur"]
-    A --&gt; B["Kafka Topic real-time, 7-day retention"]
-    B --&gt; B1["Consumers: Fraud detection, pricing engineneed &lt; 1-second latency"]
-    B --&gt; B2["Latency: &lt; 100ms"]
-    B --&gt; C["Spark Structured Streamingmicro-batch every 5 minutes"]
-    C --&gt; C1["Checkpoint: Ensures exactly-once delivery"]
-    C --&gt; D["Iceberg Table cold path, 7-year retention"]
-    D --&gt; D1["Consumers: Analysts, compliancecan tolerate 5-minute lag"]
-    D --&gt; D2["Cost: 60% cheaper than Kafka retention"]
-    D --&gt; D3["Latency: 5 minutes"]</div>
-<h3 id="trade-off">Trade-Off<a class="headerlink" href="#trade-off" title="Permanent link">&para;</a></h3>
+<h3 id="whats-tested">What's Tested<a class="headerlink" href="#whats-tested" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>Hot path (Kafka)</strong>: Real-time, expensive, short retention</li>
-<li><strong>Cold path (Iceberg)</strong>: Batch, cheap, long retention</li>
-<li><strong>Sweet spot</strong>: Real-time freshness for critical systems + cost-optimized storage for compliance</li>
+<li><strong>IRI Determinism:</strong> Same input → Same IRI (case-insensitive, repeatable)</li>
+<li><strong>RDF Generation:</strong> Correct triples with proper ontology types</li>
+<li><strong>Cross-Domain Linking:</strong> IRIs match across domains via shared formula</li>
+<li><strong>SPARQL Queries:</strong> Federation syntax works, results join correctly</li>
+<li><strong>Metadata:</strong> sourceSystem and sourceIngestionTime on all triples</li>
+<li><strong>Error Handling:</strong> Missing data, endpoint failures, timeout handling</li>
 </ul>
 <hr />
-<h2 id="rationale">Rationale<a class="headerlink" href="#rationale" title="Permanent link">&para;</a></h2>
-<h3 id="pure-kafka-rejected">Pure Kafka (Rejected)<a class="headerlink" href="#pure-kafka-rejected" title="Permanent link">&para;</a></h3>
-<p><strong>Pros</strong>:
-- ✅ Sub-second latency for fraud detection
-- ✅ Real-time streaming</p>
-<p><strong>Cons</strong>:
-- ❌ 7-year retention = $500K+/year in Kafka cluster costs
-- ❌ Can't run analytical queries easily
-- ❌ No time-travel for audits
-- <strong>Verdict</strong>: Too expensive; doesn't support compliance needs</p>
-<h3 id="pure-iceberg-rejected">Pure Iceberg (Rejected)<a class="headerlink" href="#pure-iceberg-rejected" title="Permanent link">&para;</a></h3>
-<p><strong>Pros</strong>:
-- ✅ Cost-optimized (columnar compression)
-- ✅ Supports compliance (time-travel, long retention)
-- ✅ Analytical queries fast</p>
-<p><strong>Cons</strong>:
-- ❌ 5-minute micro-batch lag (fraud detection needs &lt; 1 second)
-- ❌ Missing transactions during batch window
-- <strong>Verdict</strong>: Too slow for operational systems</p>
-<h3 id="hybrid-accepted">Hybrid (Accepted)<a class="headerlink" href="#hybrid-accepted" title="Permanent link">&para;</a></h3>
-<p><strong>Pros</strong>:
-- ✅ Real-time for fraud detection (&lt; 100ms via Kafka)
-- ✅ Cost-optimized for compliance (&lt; $2.5K/month via Iceberg)
-- ✅ Operational + analytical systems coexist
-- ✅ Clear separation of concerns</p>
-<p><strong>Cons</strong>:
-- ⚠️ Operational complexity (two systems to manage)
-- ⚠️ Data consistency (Kafka 5 min ahead of Iceberg possible)</p>
-<hr />
-<h2 id="cost-analysis">Cost Analysis<a class="headerlink" href="#cost-analysis" title="Permanent link">&para;</a></h2>
-<h3 id="scenario-1b-transactionsyear-7-year-retention">Scenario: 1B transactions/year × 7-year retention<a class="headerlink" href="#scenario-1b-transactionsyear-7-year-retention" title="Permanent link">&para;</a></h3>
-<p><strong>Option 1: Pure Kafka</strong> (7-day retention, cluster costs)</p>
-<div class="mermaid">graph TD
-    A["Kafka cluster: 5 brokers × 10TB storage × $2K/month/TB"]
-    A --&gt; B["= 5 × 10 × $2,000 = $100K/month"]
-    B --&gt; C["Over 7 years: $8.4M"]</div>
-<p><strong>Option 2: Pure Iceberg</strong> (7-year retention, S3 storage)</p>
-<div class="mermaid">graph TD
-    A["Data size: 1B tx/yr × 50 bytes = 50GB/yr raw"]
-    A --&gt; B["Iceberg compressed: 60% reduction = 20GB/yr"]
-    B --&gt; C["7 years: 140GB total"]
-    C --&gt; D["S3 cost: 140GB × $0.023/GB/month = $3.22K/month"]
-    D --&gt; E["Over 7 years: $270K"]</div>
-<p><strong>Option 3: Hybrid Kafka 7-day + Iceberg 7-year</strong></p>
-<div class="mermaid">graph TD
-    A["Kafka cluster: 5 brokers × 0.5TB storage 7-day, not years"]
-    A --&gt; B["= 5 × 0.5 × $2,000 = $5K/month"]
-
-    C["Iceberg S3: 140GB"]
-    C --&gt; D["= $3.22K/month"]
-
-    E["Total: $8.22K/month = $98K/year"]
-    E --&gt; F["Over 7 years: $686K"]</div>
-<p><strong>Savings</strong>: Hybrid is 31x cheaper than pure Kafka, 2.5x more expensive than pure Iceberg but 31x faster for fraud detection.</p>
-<h3 id="latency-trade-off">Latency Trade-Off<a class="headerlink" href="#latency-trade-off" title="Permanent link">&para;</a></h3>
-<div class="mermaid">graph TD
-    A["Fraud detection decision latency"]
-    A --&gt; A1["Kafka only: 100ms but expensive"]
-    A --&gt; A2["Iceberg only: 5 minutes too slow"]
-    A --&gt; A3["Hybrid: 100ms fraud detection uses Kafka, no Iceberg latency"]
-
-    B["Compliance audit query"]
-    B --&gt; B1["Kafka only: Offline after 7 days no time-travel"]
-    B --&gt; B2["Iceberg only: 5 minutes old acceptable"]
-    B --&gt; B3["Hybrid: 5 minutes old acceptable"]</div>
-<hr />
-<h2 id="design-details">Design Details<a class="headerlink" href="#design-details" title="Permanent link">&para;</a></h2>
-<h3 id="exactly-once-semantics">Exactly-Once Semantics<a class="headerlink" href="#exactly-once-semantics" title="Permanent link">&para;</a></h3>
-<p>Spark Structured Streaming guarantees exactly-once delivery:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Spark reads from Kafka</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">readStream</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;kafka&quot;</span><span class="p">)</span> \
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;kafka.bootstrap.servers&quot;</span><span class="p">,</span> <span class="s2">&quot;kafka:9092&quot;</span><span class="p">)</span> \
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;subscribe&quot;</span><span class="p">,</span> <span class="s2">&quot;transactions-raw&quot;</span><span class="p">)</span> \
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="o">.</span><span class="n">load</span><span class="p">()</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1"># Spark writes to Iceberg atomically</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">query</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">writeStream</span> \
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;iceberg&quot;</span><span class="p">)</span> \
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="o">.</span><span class="n">mode</span><span class="p">(</span><span class="s2">&quot;append&quot;</span><span class="p">)</span> \
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    <span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;checkpointLocation&quot;</span><span class="p">,</span> <span class="s2">&quot;/checkpoint/transactions&quot;</span><span class="p">)</span> \
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    <span class="o">.</span><span class="n">toTable</span><span class="p">(</span><span class="s2">&quot;transactions.raw_transactions&quot;</span><span class="p">)</span>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="n">query</span><span class="o">.</span><span class="n">awaitTermination</span><span class="p">()</span>
-</span></code></pre></div>
-<p><strong>How it works</strong>:
-1. Spark reads batch from Kafka (offset 1000-1144)
-2. Writes to temp Iceberg files
-3. Creates atomic snapshot (one operation)
-4. Job crashes → temp files lost, snapshot not updated
-5. Restart reads checkpoint (offset 1000) → no duplicates</p>
-<h3 id="handling-late-arriving-data">Handling Late-Arriving Data<a class="headerlink" href="#handling-late-arriving-data" title="Permanent link">&para;</a></h3>
-<p>Some events may arrive late to Kafka (network delay, provider backfill):</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Filter old events (max 5 minutes late)</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;timestamp&quot;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">unix_timestamp</span><span class="p">()</span> <span class="o">-</span> <span class="mi">300</span><span class="p">)</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># Or use MERGE for updates if same transaction arrives with correction</span>
+<h2 id="file-structure">File Structure<a class="headerlink" href="#file-structure" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>chakraview-fintech-data-mesh/
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>├── domains/
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>│   ├── accounts/
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>│   │   ├── iri-minting-rules.yaml
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>│   │   ├── ontology-extensions.ttl
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>│   │   ├── src/main/python/semantic/
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>│   │   │   ├── iri_resolver.py
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>│   │   │   ├── silver_to_rdf.py
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>│   │   │   └── tests/
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>│   │   ├── config/
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>│   │   │   ├── fuseki-config.ttl
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>│   │   │   └── jena-tdb2.properties
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>│   │   ├── docker-compose.yml
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>│   │   └── README.md
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>│   ├── transactions/
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>│   │   ├── ... (same structure)
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>│   │   └── README.md
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>│   └── risk-compliance/
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>│       ├── ... (same structure)
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>│       └── README.md
+</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>│
+</span><span id="__span-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a>└── docs/case-study/fintech-semantic-integration/
+</span><span id="__span-5-23"><a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a>    ├── shared-ontology.ttl
+</span><span id="__span-5-24"><a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a>    ├── federated-query-client.py
+</span><span id="__span-5-25"><a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a>    ├── churn-analysis-federated.sparql
+</span><span id="__span-5-26"><a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a>    ├── run-churn-analysis.py
+</span><span id="__span-5-27"><a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a>    ├── federation-guide.md
+</span><span id="__span-5-28"><a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a>    ├── BLOG-SHIFT-LEFT-SEMANTICS.md
+</span><span id="__span-5-29"><a id="__codelineno-5-29" name="__codelineno-5-29" href="#__codelineno-5-29"></a>    └── case-study-guide.md
 </span></code></pre></div>
 <hr />
-<h2 id="consequences">Consequences<a class="headerlink" href="#consequences" title="Permanent link">&para;</a></h2>
-<h3 id="positive">Positive<a class="headerlink" href="#positive" title="Permanent link">&para;</a></h3>
-<ul>
-<li>✅ Real-time operations possible (fraud detection &lt; 100ms)</li>
-<li>✅ Cost-optimized for long retention (&lt; $10K/month)</li>
-<li>✅ Analytical queries fast (Iceberg columnar)</li>
-<li>✅ Exactly-once semantics (no duplicates)</li>
-<li>✅ Time-travel for audits (Iceberg snapshots)</li>
-</ul>
-<h3 id="negative-trade-offs">Negative (Trade-offs)<a class="headerlink" href="#negative-trade-offs" title="Permanent link">&para;</a></h3>
-<ul>
-<li>❌ Operational complexity (manage Kafka + Iceberg + Spark)</li>
-<li>❌ Potential data lag (Kafka 5 minutes ahead of Iceberg possible)</li>
-<li>❌ Two-system consistency (need to explain to data consumers)</li>
-<li>❌ Monitoring both paths (duplicate SLA dashboards)</li>
-</ul>
+<h2 id="key-metrics">Key Metrics<a class="headerlink" href="#key-metrics" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Domains</strong></td>
+<td>3 (Accounts, Transactions, Risk)</td>
+</tr>
+<tr>
+<td><strong>Passing Tests</strong></td>
+<td>143</td>
+</tr>
+<tr>
+<td><strong>SPARQL Endpoints</strong></td>
+<td>3 (ports 3030, 3031, 3032)</td>
+</tr>
+<tr>
+<td><strong>Lines of Code</strong></td>
+<td>6,000+</td>
+</tr>
+<tr>
+<td><strong>Lines of Documentation</strong></td>
+<td>5,000+</td>
+</tr>
+<tr>
+<td><strong>Production-Ready</strong></td>
+<td>✓ Yes</td>
+</tr>
+</tbody>
+</table>
 <hr />
-<h2 id="alternatives-considered">Alternatives Considered<a class="headerlink" href="#alternatives-considered" title="Permanent link">&para;</a></h2>
-<h3 id="alternative-1-event-sourcing-store-all-events-forever">Alternative 1: Event Sourcing (Store All Events Forever)<a class="headerlink" href="#alternative-1-event-sourcing-store-all-events-forever" title="Permanent link">&para;</a></h3>
-<p><strong>Pros</strong>: Complete audit trail
-<strong>Cons</strong>:
-- Expensive (store every event for 7 years)
-- Query complexity (reconstruct state from events)
-- <strong>Rejected</strong>: Overkill for fintech; Iceberg time-travel sufficient</p>
-<h3 id="alternative-2-kafka-nosql-real-time-store">Alternative 2: Kafka + NoSQL (Real-time Store)<a class="headerlink" href="#alternative-2-kafka-nosql-real-time-store" title="Permanent link">&para;</a></h3>
-<p><strong>Pros</strong>: Real-time consistency
-<strong>Cons</strong>:
-- Two storage systems (Kafka + NoSQL)
-- Query complexity (join across systems)
-- Cost higher than Kafka + Iceberg
-- <strong>Rejected</strong>: Iceberg better for analytics</p>
-<h3 id="alternative-3-stream-processing-framework-flink">Alternative 3: Stream Processing Framework (Flink)<a class="headerlink" href="#alternative-3-stream-processing-framework-flink" title="Permanent link">&para;</a></h3>
-<p><strong>Pros</strong>: Lower latency (continuous processing vs. micro-batch)
-<strong>Cons</strong>:
-- Operational complexity (Flink cluster management)
-- Cost similar to Kafka + Spark
-- Spark already being used
-- <strong>Rejected</strong>: Kafka + Spark sufficient; Flink overkill</p>
-<h3 id="alternative-4-pubsub-managed-service-aws-kinesis-gcp-pubsub">Alternative 4: Pub/Sub Managed Service (AWS Kinesis, GCP Pubsub)<a class="headerlink" href="#alternative-4-pubsub-managed-service-aws-kinesis-gcp-pubsub" title="Permanent link">&para;</a></h3>
-<p><strong>Pros</strong>: Fully managed
-<strong>Cons</strong>:
-- Vendor lock-in
-- Cost higher at scale
-- Can't use open-source tools
-- <strong>Rejected</strong>: Kafka gives portability; Iceberg is open</p>
+<h2 id="running-the-system">Running the System<a class="headerlink" href="#running-the-system" title="Permanent link">&para;</a></h2>
+<h3 id="1-start-all-domains">1. Start All Domains<a class="headerlink" href="#1-start-all-domains" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Accounts domain</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nb">cd</span><span class="w"> </span>domains/accounts<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1"># Transactions domain</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="nb">cd</span><span class="w"> </span>domains/transactions<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="c1"># Risk/Compliance domain</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="nb">cd</span><span class="w"> </span>domains/risk-compliance<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+</span></code></pre></div>
+<h3 id="2-verify-sparql-endpoints">2. Verify SPARQL Endpoints<a class="headerlink" href="#2-verify-sparql-endpoints" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Each domain exposes a SPARQL endpoint</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>curl<span class="w"> </span>http://localhost:3030/accounts/sparql
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>curl<span class="w"> </span>http://localhost:3031/transactions/sparql
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>curl<span class="w"> </span>http://localhost:3032/risk_compliance/sparql
+</span></code></pre></div>
+<h3 id="3-run-churn-analysis-query">3. Run Churn Analysis Query<a class="headerlink" href="#3-run-churn-analysis-query" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nb">cd</span><span class="w"> </span>docs/case-study/fintech-semantic-integration
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>python<span class="w"> </span>run-churn-analysis.py<span class="w"> </span>--format<span class="w"> </span>table
+</span></code></pre></div>
 <hr />
-<h2 id="implementation-checklist">Implementation Checklist<a class="headerlink" href="#implementation-checklist" title="Permanent link">&para;</a></h2>
-<ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Kafka topics created per domain (with 7-day retention)</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Schema Registry configured (Avro schemas per domain)</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Spark ingest jobs deployed (TransactionIngestJob, etc.)</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Iceberg tables created with correct partitions</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Checkpoints configured for fault tolerance</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Freshness SLA monitoring in place</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Kafka lag monitoring dashboard</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Iceberg compaction jobs scheduled</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Data quality checks integrated</li>
-</ul>
+<h2 id="key-benefits-of-shift-left">Key Benefits of Shift-Left<a class="headerlink" href="#key-benefits-of-shift-left" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Benefit</th>
+<th>Traditional</th>
+<th>Shift-Left</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Ownership</strong></td>
+<td>Central team</td>
+<td>Domain team</td>
+</tr>
+<tr>
+<td><strong>Bottleneck</strong></td>
+<td>Semantic layer</td>
+<td>None</td>
+</tr>
+<tr>
+<td><strong>Query Time</strong></td>
+<td>Weeks</td>
+<td>Hours</td>
+</tr>
+<tr>
+<td><strong>Scaling</strong></td>
+<td>Central hiring</td>
+<td>Automatic</td>
+</tr>
+<tr>
+<td><strong>Debugging</strong></td>
+<td>Central team</td>
+<td>Domain expert</td>
+</tr>
+<tr>
+<td><strong>Flexibility</strong></td>
+<td>Slow (committee)</td>
+<td>Fast (domain)</td>
+</tr>
+</tbody>
+</table>
 <hr />
-<h2 id="monitoring">Monitoring<a class="headerlink" href="#monitoring" title="Permanent link">&para;</a></h2>
-<p><strong>Hot path (Kafka) metrics</strong>:
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>kafka_lag_seconds{domain=&quot;transactions&quot;}: Should be &lt; 30 sec
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>kafka_consumer_lag{topic=&quot;transactions-raw&quot;}: Should be &lt; 1000 messages
-</span></code></pre></div></p>
-<p><strong>Cold path (Iceberg) metrics</strong>:
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>data_freshness_minutes{table=&quot;raw_transactions&quot;}: Should be &lt; 5 min
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>iceberg_snapshot_age{table=&quot;raw_transactions&quot;}: Should be &lt; 5 min
-</span></code></pre></div></p>
-<p><strong>Consistency check</strong> (optional):
-<div class="language-sql highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1">-- Compare hot and cold counts (should match within tolerance)</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">SELECT</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">kafka_count</span><span class="p">,</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">transactions</span><span class="p">.</span><span class="n">raw_transactions</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">iceberg_count</span><span class="p">,</span>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="k">ABS</span><span class="p">(</span><span class="n">kafka_count</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">iceberg_count</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">kafka_count</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">pct_diff</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="k">FROM</span><span class="w"> </span><span class="n">kafka_topic_transactions_raw</span><span class="p">;</span>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="c1">-- Expect: pct_diff &lt; 0.1% (100.1% - 100% due to micro-batch lag)</span>
-</span></code></pre></div></p>
-<hr />
-<h2 id="success-criteria">Success Criteria<a class="headerlink" href="#success-criteria" title="Permanent link">&para;</a></h2>
-<ul>
-<li>✅ Fraud detection latency &lt; 100ms (hot path SLA)</li>
-<li>✅ Iceberg freshness &lt; 5 minutes (cold path SLA)</li>
-<li>✅ Total cost &lt; $10K/month (hot + cold paths)</li>
-<li>✅ Zero data loss (exactly-once delivery)</li>
-<li>✅ Time-travel queries work for audits</li>
-</ul>
+<h2 id="lessons-learned">Lessons Learned<a class="headerlink" href="#lessons-learned" title="Permanent link">&para;</a></h2>
+<h3 id="1-determinism-is-everything">1. Determinism is Everything<a class="headerlink" href="#1-determinism-is-everything" title="Permanent link">&para;</a></h3>
+<p>Without deterministic IRI minting, entities can't be resolved across domains. Publish the formula in version-controlled YAML. Make it part of the ontology contract.</p>
+<h3 id="2-shared-ontology-centralized-implementation">2. Shared Ontology ≠ Centralized Implementation<a class="headerlink" href="#2-shared-ontology-centralized-implementation" title="Permanent link">&para;</a></h3>
+<p>All domains reference the same entity types, but each implements its own RDF generation. The shared ontology is a contract, not a mandate.</p>
+<h3 id="3-sparql-federation-has-scale-limits">3. SPARQL Federation Has Scale Limits<a class="headerlink" href="#3-sparql-federation-has-scale-limits" title="Permanent link">&para;</a></h3>
+<p>Works great for &lt;1M triples per domain with early filtering. For massive datasets, add a hybrid layer (federation for exploration, materialized views for production).</p>
+<h3 id="4-metadata-is-critical">4. Metadata is Critical<a class="headerlink" href="#4-metadata-is-critical" title="Permanent link">&para;</a></h3>
+<p>Every triple should carry <code>sourceSystem</code> and <code>sourceIngestionTime</code>. Makes debugging and lineage tracking trivial.</p>
 <hr />
 <h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Kafka Exactly-Once: https://kafka.apache.org/documentation/#semantics</li>
-<li>Spark Structured Streaming: https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html</li>
-<li>Iceberg Commit Protocol: https://iceberg.apache.org/spec/</li>
+<li><strong>Implementation:</strong> <a href="https://github.com/naren-chakraview/chakraview-fintech-data-mesh">GitHub Repository</a></li>
+<li><strong>Federated Queries:</strong> <a href="https://www.w3.org/TR/sparql11-federated-query/">SPARQL 1.1 Federation Spec</a></li>
+<li><strong>RDF Concepts:</strong> <a href="https://www.w3.org/TR/rdf-concepts/">W3C RDF</a></li>
+<li><strong>Data Mesh:</strong> <a href="https://martinfowler.com/articles/data-mesh.html">Zhamak Dehghani's Article</a></li>
 </ul>
 <hr />
-<h2 id="sign-off">Sign-Off<a class="headerlink" href="#sign-off" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Role</th>
-<th>Name</th>
-<th>Date</th>
-<th>Status</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Architecture Lead</td>
-<td>-</td>
-<td>2026-04-12</td>
-<td>Approved</td>
-</tr>
-<tr>
-<td>Operations Lead</td>
-<td>-</td>
-<td>2026-04-12</td>
-<td>Approved</td>
-</tr>
-<tr>
-<td>Finance (Cost Review)</td>
-<td>-</td>
-<td>2026-04-12</td>
-<td>Approved</td>
-</tr>
-</tbody>
-</table>
+<h2 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Clone the repository</li>
+<li>Read <a href="case-study-guide/">Domain-Driven Semantic Architecture</a></li>
+<li>Follow <a href="federation-guide/">Federation Guide</a></li>
+<li>Run the <a href="churn-analysis-federated.sparql">Churn Analysis</a> example</li>
+<li>Read <a href="BLOG-SHIFT-LEFT-SEMANTICS/">Shift-Left Semantics Blog Post</a></li>
+</ol>
+<hr />
+<p><strong>Status:</strong> Production-ready reference implementation
+<strong>Last Updated:</strong> May 2026
+<strong>Maintainer:</strong> Naren Chakraview</p>
 
 
 

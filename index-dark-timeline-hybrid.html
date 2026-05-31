@@ -38,7 +38,7 @@
     }
 
     .hero-eyebrow {
-      color: #c4b5fd !important;
+      color: #a78bfa !important;
       text-transform: uppercase;
       letter-spacing: 2px;
       font-size: 12px;
@@ -47,7 +47,7 @@
     }
 
     .hero-title {
-      color: #ffffff;
+      color: #f1f5f9;
       font-size: 48px;
       line-height: 1.2;
       margin-bottom: 20px;
@@ -55,7 +55,7 @@
     }
 
     .hero-title .accent {
-      background: linear-gradient(135deg, #a78bfa 0%, #22d3ee 100%);
+      background: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -63,7 +63,7 @@
     }
 
     .hero-sub {
-      color: #e2e8f0;
+      color: #cbd5e1;
       font-size: 16px;
       line-height: 1.8;
       max-width: 700px;
@@ -101,14 +101,14 @@
 
     .btn-outline {
       background: transparent;
-      color: #d8b4fe;
-      border: 2px solid #d8b4fe;
+      color: #a78bfa;
+      border: 2px solid #a78bfa;
     }
 
     .btn-outline:hover {
       background: rgba(139, 92, 246, 0.1);
-      border-color: #f0e7fe;
-      color: #f0e7fe;
+      border-color: #c4b5fd;
+      color: #c4b5fd;
     }
 
     /* Skills Timeline Section */
@@ -132,7 +132,7 @@
     }
 
     .section-label {
-      color: #c4b5fd;
+      color: #a78bfa;
       text-transform: uppercase;
       font-size: 12px;
       letter-spacing: 2px;
@@ -141,7 +141,7 @@
     }
 
     #skills h2 {
-      color: #ffffff;
+      color: #f1f5f9;
       font-size: 36px;
       margin-bottom: 60px;
     }
@@ -214,29 +214,29 @@
       font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 1px;
-      color: #d8b4fe;
+      color: #a78bfa;
       font-weight: 700;
       margin-bottom: 8px;
     }
 
     .timeline-node.level-2 .timeline-level {
-      color: #93c5fd;
+      color: #60a5fa;
     }
 
     .timeline-node.level-3 .timeline-level {
-      color: #fbcfe8;
+      color: #f472b6;
     }
 
     .timeline-title {
       font-size: 18px;
       font-weight: 700;
-      color: #ffffff;
+      color: #f1f5f9;
       margin-bottom: 12px;
     }
 
     .timeline-desc {
       font-size: 14px;
-      color: #e2e8f0;
+      color: #cbd5e1;
       line-height: 1.6;
     }
 
@@ -247,7 +247,7 @@
     }
 
     #featured h2 {
-      color: #ffffff;
+      color: #f1f5f9;
       font-size: 36px;
       margin-bottom: 40px;
     }
@@ -259,7 +259,7 @@
     }
 
     #portfolio h2 {
-      color: #ffffff;
+      color: #f1f5f9;
       font-size: 36px;
       margin-bottom: 40px;
     }
@@ -269,68 +269,6 @@
       background: #0f172a;
       border-top: 1px solid rgba(139, 92, 246, 0.2);
       color: #cbd5e1;
-    }
-
-    footer a {
-      color: #d8b4fe;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    footer a:hover {
-      color: #f0e7fe;
-      text-decoration: underline;
-    }
-
-    .footer-brand {
-      color: #ffffff;
-      font-weight: 600;
-    }
-
-    .footer-links {
-      list-style: none;
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .footer-links li {
-      display: inline;
-    }
-
-    .footer-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-
-    /* Hero Stats Styling */
-    .hero-stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 30px;
-      margin-top: 40px;
-    }
-
-    .stat-item {
-      text-align: center;
-    }
-
-    .stat-value {
-      display: block;
-      font-size: 28px;
-      font-weight: 700;
-      color: #ffffff;
-      margin-bottom: 8px;
-    }
-
-    .stat-label {
-      display: block;
-      font-size: 13px;
-      color: #cbd5e1;
-      font-weight: 500;
     }
 
     /* Responsive */
@@ -350,10 +288,6 @@
 
       .hero-title {
         font-size: 32px;
-      }
-
-      .hero-stats {
-        grid-template-columns: repeat(2, 1fr);
       }
     }
   </style>
@@ -691,16 +625,14 @@
         <span class="card-status live">live</span>
         <div class="card-icon">💳</div>
         <div class="card-title">Fintech Data Mesh</div>
-        <p class="card-desc">Iceberg lakehouse, 5 domains, federated OPA governance. + Shift-left semantic integration with domain-owned RDF.</p>
+        <p class="card-desc">Iceberg lakehouse, 5 domains, federated OPA governance.</p>
         <div class="card-tags">
           <span class="tag">Apache Iceberg</span>
           <span class="tag">Kafka</span>
           <span class="tag">OPA</span>
-          <span class="tag">RDF/SPARQL</span>
         </div>
         <div class="card-links">
           <a href="https://naren-chakraview.github.io/fintech-data-mesh/" class="card-link">Docs ↗</a>
-          <a href="https://naren-chakraview.github.io/fintech-data-mesh/case-study/fintech-semantic-integration/" class="card-link">Semantic Integration ↗</a>
           <a href="https://github.com/naren-chakraview/chakraview-fintech-data-mesh" class="card-link-secondary">GitHub ↗</a>
         </div>
       </div>
