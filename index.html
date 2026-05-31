@@ -271,6 +271,41 @@
       color: #cbd5e1;
     }
 
+    footer a {
+      color: #d8b4fe;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    footer a:hover {
+      color: #f0e7fe;
+      text-decoration: underline;
+    }
+
+    .footer-brand {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links li {
+      display: inline;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
     /* Hero Stats Styling */
     .hero-stats {
       display: grid;
@@ -656,14 +691,16 @@
         <span class="card-status live">live</span>
         <div class="card-icon">💳</div>
         <div class="card-title">Fintech Data Mesh</div>
-        <p class="card-desc">Iceberg lakehouse, 5 domains, federated OPA governance.</p>
+        <p class="card-desc">Iceberg lakehouse, 5 domains, federated OPA governance. + Shift-left semantic integration with domain-owned RDF.</p>
         <div class="card-tags">
           <span class="tag">Apache Iceberg</span>
           <span class="tag">Kafka</span>
           <span class="tag">OPA</span>
+          <span class="tag">RDF/SPARQL</span>
         </div>
         <div class="card-links">
           <a href="https://naren-chakraview.github.io/fintech-data-mesh/" class="card-link">Docs ↗</a>
+          <a href="https://naren-chakraview.github.io/fintech-data-mesh/SEMANTIC-INTEGRATION.md" class="card-link">Semantic Integration ↗</a>
           <a href="https://github.com/naren-chakraview/chakraview-fintech-data-mesh" class="card-link-secondary">GitHub ↗</a>
         </div>
       </div>
