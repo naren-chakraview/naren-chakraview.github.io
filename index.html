@@ -1,797 +1,815 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chakraview Data & AI | Production-Grade Data Engineering & AI Readiness</title>
-  <meta name="description" content="Principal Data Engineering & AI Readiness Consultancy. Turning fragmented data into reliable, contract-governed pipelines and lakehouse foundations." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <title>Naren Chakraview · Software Engineer</title>
+  <meta name="description" content="Software engineer and architect building reference implementations for enterprise-scale systems: distributed systems, data infrastructure, zero-trust security, and fintech platforms." />
+  <meta property="og:title" content="Naren Chakraview · Software Engineer" />
+  <meta property="og:description" content="Reference architectures and production-grade implementations for enterprise cloud systems, security, data, and distributed systems." />
+  <meta property="og:type" content="website" />
+  <link rel="stylesheet" href="style.css" />
   <style>
-    :root {
-      --bg-primary: #090d16;
-      --bg-secondary: #111827;
-      --bg-card: #161f33;
-      --bg-card-hover: #1e293b;
-      --text-primary: #f8fafc;
-      --text-secondary: #94a3b8;
-      --text-muted: #64748b;
-      --accent-blue: #38bdf8;
-      --accent-indigo: #6366f1;
-      --accent-emerald: #10b981;
-      --accent-amber: #f59e0b;
-      --border-subtle: rgba(148, 163, 184, 0.14);
-      --border-highlight: rgba(56, 189, 248, 0.45);
-      --max-w: 1180px;
+    /* Dark Mode Modern + Timeline Narrative Hybrid */
+
+    #hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #f1f5f9;
+      padding: 100px 40px !important;
+      position: relative;
+      overflow: hidden;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    #hero::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
     }
 
-    html {
-      scroll-behavior: smooth;
-      background-color: var(--bg-primary);
-      color: var(--text-primary);
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      line-height: 1.6;
+    #hero .container {
+      position: relative;
+      z-index: 1;
     }
 
-    body {
-      overflow-x: hidden;
-      background-image: 
-        radial-gradient(circle at 15% 10%, rgba(99, 102, 241, 0.12), transparent 35%),
-        radial-gradient(circle at 85% 20%, rgba(56, 189, 248, 0.10), transparent 35%);
+    .hero-eyebrow {
+      color: #c4b5fd !important;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 20px;
     }
 
-    code, .mono {
-      font-family: 'JetBrains Mono', monospace;
+    .hero-title {
+      color: #ffffff;
+      font-size: 48px;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      font-weight: 700;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .container {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 0 1.5rem;
-    }
-
-    /* NAVBAR */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(9, 13, 22, 0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border-subtle);
-    }
-
-    .nav-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 76px;
-    }
-
-    .brand {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .brand-name {
-      font-size: 1.2rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      background: linear-gradient(90deg, #fff, var(--accent-blue));
+    .hero-title .accent {
+      background: linear-gradient(135deg, #a78bfa 0%, #22d3ee 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: inline-block;
     }
 
-    .brand-sub {
-      font-size: 0.7rem;
-      color: var(--text-muted);
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
+    .hero-sub {
+      color: #e2e8f0;
+      font-size: 16px;
+      line-height: 1.8;
+      max-width: 700px;
+      margin-bottom: 40px;
     }
 
-    .nav-links {
+    .hero-actions {
       display: flex;
-      align-items: center;
-      gap: 2rem;
-      font-size: 0.92rem;
-      font-weight: 500;
-      color: var(--text-secondary);
-    }
-
-    .nav-links a:hover {
-      color: var(--text-primary);
+      gap: 16px;
+      margin-bottom: 60px;
+      flex-wrap: wrap;
     }
 
     .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      padding: 0.7rem 1.35rem;
-      border-radius: 8px;
+      padding: 12px 28px;
+      border-radius: 6px;
       font-weight: 600;
-      font-size: 0.92rem;
-      transition: all 0.2s ease;
       cursor: pointer;
-      border: 1px solid transparent;
+      text-decoration: none;
+      display: inline-block;
+      border: none;
+      font-size: 14px;
+      transition: all 0.3s;
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, var(--accent-blue), var(--accent-indigo));
-      color: #090d16;
-      font-weight: 700;
-      box-shadow: 0 4px 20px rgba(56, 189, 248, 0.25);
+      background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+      color: white;
     }
 
     .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 25px rgba(56, 189, 248, 0.4);
-    }
-
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.04);
-      color: var(--text-primary);
-      border-color: var(--border-subtle);
-    }
-
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.09);
-      border-color: var(--accent-blue);
-    }
-
-    /* HERO */
-    .hero {
-      padding: 6rem 0 5rem;
-      border-bottom: 1px solid var(--border-subtle);
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.35rem 0.85rem;
-      border-radius: 999px;
-      background: rgba(56, 189, 248, 0.1);
-      border: 1px solid rgba(56, 189, 248, 0.25);
-      color: var(--accent-blue);
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      margin-bottom: 1.5rem;
-    }
-
-    .hero h1 {
-      font-size: clamp(2.25rem, 4.5vw, 3.6rem);
-      font-weight: 800;
-      line-height: 1.12;
-      letter-spacing: -0.03em;
-      max-width: 940px;
-      margin-bottom: 1.5rem;
-    }
-
-    .hero h1 span {
-      background: linear-gradient(90deg, var(--accent-blue), #a5b4fc);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero p.lead {
-      font-size: 1.18rem;
-      color: var(--text-secondary);
-      max-width: 780px;
-      margin-bottom: 2.5rem;
-    }
-
-    .hero-ctas {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-bottom: 3rem;
-    }
-
-    .tech-strip {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 0.75rem;
-      padding-top: 2rem;
-      border-top: 1px solid var(--border-subtle);
-      color: var(--text-muted);
-      font-size: 0.82rem;
-    }
-
-    .tech-badge {
-      padding: 0.3rem 0.7rem;
-      background: var(--bg-secondary);
-      border: 1px solid var(--border-subtle);
-      border-radius: 6px;
-      color: var(--text-secondary);
-      font-size: 0.8rem;
-    }
-
-    /* SECTIONS GENERAL */
-    section {
-      padding: 5.5rem 0;
-      border-bottom: 1px solid var(--border-subtle);
-    }
-
-    .section-header {
-      max-width: 760px;
-      margin-bottom: 3.5rem;
-    }
-
-    .section-header h2 {
-      font-size: clamp(1.75rem, 3vw, 2.4rem);
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.85rem;
-    }
-
-    .section-header p {
-      color: var(--text-secondary);
-      font-size: 1.05rem;
-    }
-
-    /* GRID SYSTEM */
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
-      gap: 1.75rem;
-    }
-
-    .card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      padding: 1.85rem;
-      transition: transform 0.2s ease, border-color 0.2s ease;
-    }
-
-    .card:hover {
-      border-color: var(--border-highlight);
       transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(139, 92, 246, 0.3);
     }
 
-    .card-icon {
-      display: inline-block;
-      font-size: 0.78rem;
-      font-weight: 700;
-      padding: 0.25rem 0.65rem;
-      border-radius: 6px;
-      margin-bottom: 1rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
+    .btn-outline {
+      background: transparent;
+      color: #d8b4fe;
+      border: 2px solid #d8b4fe;
     }
 
-    .icon-danger {
-      background: rgba(239, 68, 68, 0.12);
-      color: #f87171;
-      border: 1px solid rgba(239, 68, 68, 0.25);
+    .btn-outline:hover {
+      background: rgba(139, 92, 246, 0.1);
+      border-color: #f0e7fe;
+      color: #f0e7fe;
     }
 
-    .icon-guarantee {
-      background: rgba(16, 185, 129, 0.12);
-      color: #34d399;
-      border: 1px solid rgba(16, 185, 129, 0.25);
-    }
-
-    .card h3 {
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin-bottom: 0.65rem;
-    }
-
-    .card p {
-      color: var(--text-secondary);
-      font-size: 0.95rem;
-    }
-
-    .pillar-quote {
-      display: block;
-      margin-top: 0.9rem;
-      padding-top: 0.75rem;
-      border-top: 1px dashed var(--border-subtle);
-      font-size: 0.82rem;
-      color: var(--accent-blue);
-    }
-
-    /* PRICING / PACKAGES */
-    .tier-card {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+    /* Skills Timeline Section */
+    #skills {
+      background: linear-gradient(180deg, #0f172a 0%, #1a1f35 100%);
+      color: #f1f5f9;
+      padding: 80px 40px;
       position: relative;
+      overflow: hidden;
     }
 
-    .tier-card.featured {
-      border-color: var(--accent-blue);
-      box-shadow: 0 0 35px rgba(56, 189, 248, 0.1);
-    }
-
-    .tier-badge {
+    #skills::before {
+      content: "";
       position: absolute;
-      top: -12px;
-      right: 20px;
-      background: var(--accent-blue);
-      color: #090d16;
-      font-size: 0.72rem;
-      font-weight: 800;
-      padding: 0.2rem 0.7rem;
-      border-radius: 999px;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, transparent 0%, #8b5cf6 25%, #06b6d4 50%, #ec4899 75%, transparent 100%);
+      transform: translateX(-50%);
+    }
+
+    .section-label {
+      color: #c4b5fd;
       text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 2px;
+      font-weight: 700;
+      margin-bottom: 10px;
     }
 
-    .tier-type {
-      font-size: 0.8rem;
-      color: var(--accent-blue);
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 0.4rem;
+    #skills h2 {
+      color: #ffffff;
+      font-size: 36px;
+      margin-bottom: 60px;
     }
 
-    .tier-best-for {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      margin: 0.85rem 0 1.25rem;
-      padding-bottom: 1.25rem;
-      border-bottom: 1px solid var(--border-subtle);
-    }
-
-    .deliverables-list {
-      list-style: none;
-      margin-bottom: 2rem;
-    }
-
-    .deliverables-list li {
-      position: relative;
-      padding-left: 1.5rem;
-      margin-bottom: 0.75rem;
-      font-size: 0.92rem;
-      color: var(--text-primary);
-    }
-
-    .deliverables-list li::before {
-      content: "✓";
-      position: absolute;
-      left: 0;
-      color: var(--accent-emerald);
-      font-weight: 800;
-    }
-
-    /* ARCHITECTURE DUAL TRACK */
-    .arch-box {
-      background: var(--bg-secondary);
-      border: 1px solid var(--border-subtle);
-      border-radius: 14px;
-      padding: 2.25rem;
-    }
-
-    .pipeline-flow {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 0.65rem;
-      padding: 1.25rem;
-      background: var(--bg-primary);
-      border: 1px solid var(--border-subtle);
-      border-radius: 10px;
-      margin-bottom: 2rem;
-      font-size: 0.88rem;
-    }
-
-    .node {
-      padding: 0.45rem 0.85rem;
-      border-radius: 6px;
-      background: var(--bg-card);
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      color: var(--accent-blue);
-      font-weight: 600;
-    }
-
-    .arrow {
-      color: var(--text-muted);
-      font-weight: bold;
-    }
-
-    /* INTAKE FORM */
-    .contact-wrapper {
+    .skills-timeline {
       display: grid;
-      grid-template-columns: 1fr 1.2fr;
-      gap: 3rem;
-      align-items: start;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
     }
 
-    .form-group {
-      margin-bottom: 1.25rem;
+    .timeline-node {
+      position: relative;
+      padding: 30px;
+      background: rgba(139, 92, 246, 0.05);
+      border: 1px solid rgba(139, 92, 246, 0.2);
+      border-radius: 12px;
+      transition: all 0.3s;
     }
 
-    .form-group label {
-      display: block;
-      font-size: 0.88rem;
-      font-weight: 600;
-      margin-bottom: 0.45rem;
-      color: var(--text-primary);
+    .timeline-node:hover {
+      background: rgba(139, 92, 246, 0.15);
+      border-color: rgba(139, 92, 246, 0.4);
+      transform: translateY(-4px);
     }
 
-    .form-control {
-      width: 100%;
-      padding: 0.8rem 1rem;
-      background: var(--bg-primary);
-      border: 1px solid var(--border-subtle);
-      border-radius: 8px;
-      color: var(--text-primary);
-      font-family: inherit;
-      font-size: 0.95rem;
+    .timeline-node.level-2 {
+      background: rgba(59, 130, 246, 0.05);
+      border-color: rgba(59, 130, 246, 0.2);
     }
 
-    .form-control:focus {
-      outline: none;
-      border-color: var(--accent-blue);
+    .timeline-node.level-2:hover {
+      background: rgba(59, 130, 246, 0.15);
+      border-color: rgba(59, 130, 246, 0.4);
     }
 
-    textarea.form-control {
-      min-height: 95px;
-      resize: vertical;
+    .timeline-node.level-3 {
+      background: rgba(236, 72, 153, 0.05);
+      border-color: rgba(236, 72, 153, 0.2);
     }
 
+    .timeline-node.level-3:hover {
+      background: rgba(236, 72, 153, 0.15);
+      border-color: rgba(236, 72, 153, 0.4);
+    }
+
+    .timeline-node::before {
+      content: "";
+      position: absolute;
+      left: -65px;
+      top: 30px;
+      width: 20px;
+      height: 20px;
+      background: #8b5cf6;
+      border: 4px solid #0f172a;
+      border-radius: 50%;
+      z-index: 2;
+    }
+
+    .timeline-node.level-2::before {
+      background: #3b82f6;
+    }
+
+    .timeline-node.level-3::before {
+      background: #ec4899;
+    }
+
+    .timeline-level {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #d8b4fe;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .timeline-node.level-2 .timeline-level {
+      color: #93c5fd;
+    }
+
+    .timeline-node.level-3 .timeline-level {
+      color: #fbcfe8;
+    }
+
+    .timeline-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+
+    .timeline-desc {
+      font-size: 14px;
+      color: #e2e8f0;
+      line-height: 1.6;
+    }
+
+    /* Featured Projects */
+    #featured {
+      padding: 80px 40px;
+      background: #0f172a;
+    }
+
+    #featured h2 {
+      color: #ffffff;
+      font-size: 36px;
+      margin-bottom: 40px;
+    }
+
+    /* Portfolio Grid */
+    #portfolio {
+      background: #1a1f35;
+      padding: 80px 40px;
+    }
+
+    #portfolio h2 {
+      color: #ffffff;
+      font-size: 36px;
+      margin-bottom: 40px;
+    }
+
+    /* Footer styling for dark mode */
     footer {
-      padding: 3rem 0;
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 0.88rem;
+      background: #0f172a;
+      border-top: 1px solid rgba(139, 92, 246, 0.2);
+      color: #cbd5e1;
     }
 
-    @media (max-width: 860px) {
-      .nav-links {
+    footer a {
+      color: #d8b4fe;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    footer a:hover {
+      color: #f0e7fe;
+      text-decoration: underline;
+    }
+
+    .footer-brand {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links li {
+      display: inline;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    /* Hero Stats Styling */
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-value {
+      display: block;
+      font-size: 28px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      display: block;
+      font-size: 13px;
+      color: #cbd5e1;
+      font-weight: 500;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      #skills::before {
         display: none;
       }
-      .contact-wrapper {
+
+      .skills-timeline {
         grid-template-columns: 1fr;
+      }
+
+      .timeline-node::before {
+        left: 20px;
+        top: -20px;
+      }
+
+      .hero-title {
+        font-size: 32px;
+      }
+
+      .hero-stats {
+        grid-template-columns: repeat(2, 1fr);
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- TOP NAVIGATION -->
-  <header>
-    <div class="container nav-inner">
-      <a href="#" class="brand">
-        <span class="brand-name">Chakraview Data &amp; AI</span>
-        <span class="brand-sub">A Chakraview Technologies LLC Company</span>
-      </a>
-      <nav class="nav-links">
-        <a href="#problem">The AI Data Gap</a>
-        <a href="#guarantees">Delivery Model</a>
-        <a href="#packages">Packages</a>
-        <a href="#architecture">Architecture</a>
-        <a href="/ai-dev-model/workflow/">AI Dev Model Docs ↗</a>
-        <a href="#book" class="btn btn-primary">Book a Data Audit</a>
-      </nav>
-    </div>
-  </header>
+<!-- ── Nav ─────────────────────────────────────────────────────── -->
+<nav>
+  <span class="nav-brand">naren<span>.</span>chakraview</span>
+  <ul class="nav-links">
+    <li><a href="#skills">Expertise</a></li>
+    <li><a href="#featured">Featured</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="https://github.com/naren-chakraview" target="_blank" rel="noopener">GitHub ↗</a></li>
+  </ul>
+</nav>
 
-  <!-- SECTION 1: HERO -->
-  <section class="hero">
-    <div class="container">
-      <div class="eyebrow mono">Principal Data Engineering &amp; AI Readiness Consultancy</div>
-      <h1>
-        Production-Grade Data Engineering &amp; AI Readiness—<span>Turning Fragmented Data into Reliable, Governed Pipelines.</span>
-      </h1>
-      <p class="lead">
-        Most AI initiatives don't fail because of the model—they fail because the underlying data is siloed, untrusted, and ungoverned. We build contract-first data platforms and real-time lakehouse foundations that make moving businesses ready for AI at scale.
-      </p>
-      <div class="hero-ctas">
-        <a href="#packages" class="btn btn-primary">Book an AI Data-Readiness Audit →</a>
-        <a href="#architecture" class="btn btn-secondary">Explore Reference Architectures &amp; Delivery Model</a>
-      </div>
-      <div class="tech-strip mono">
-        <span>CORE STACK:</span>
-        <span class="tech-badge">Data Contracts</span>
-        <span class="tech-badge">Apache Iceberg</span>
-        <span class="tech-badge">Debezium CDC</span>
-        <span class="tech-badge">Apache Kafka &amp; Flink</span>
-        <span class="tech-badge">DuckDB / AWS Athena</span>
-        <span class="tech-badge">Medallion Lakehouse</span>
-        <span class="tech-badge">RAG &amp; AI Context Pipelines</span>
-      </div>
-    </div>
-  </section>
+<!-- ── Hero ────────────────────────────────────────────────────── -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-eyebrow">Software Engineer · System Architect</div>
 
-  <!-- SECTION 2: THE AI DATA GAP -->
-  <section id="problem">
-    <div class="container">
-      <div class="section-header">
-        <div class="eyebrow mono">The Bottleneck</div>
-        <h2>Why 80% of SMB AI Initiatives Stall Before Production</h2>
-        <p>Jumping straight from raw operational databases to LLM copilots or automated workflows creates expensive hallucinations and security leaks. Before your models can reason, your data layer must be engineered for trust.</p>
+    <h1 class="hero-title">
+      Building reference architectures<br />
+      <span class="accent">where every system proves its claims.</span>
+    </h1>
+
+    <p class="hero-sub">
+      I design and implement production-grade systems at scale: from distributed systems for AI agents
+      to enterprise modernization, zero-trust security, and fintech data infrastructure. Every architecture
+      is contract-first, SLA-measured from the first commit, and documented with ADRs that explain
+      the "why" behind every decision.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#featured" class="btn btn-primary">View Featured Work</a>
+      <a href="#portfolio" class="btn btn-outline">Full Portfolio ↓</a>
+      <a href="https://github.com/naren-chakraview" class="btn btn-outline"
+         target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-value">8</span>
+        <span class="stat-label">Reference implementations</span>
       </div>
-      <div class="grid-2">
-        <div class="card">
-          <span class="card-icon icon-danger mono">Risk 01 // Schema Drift</span>
-          <h3>Dirty &amp; Drifting Schemas</h3>
-          <p>Unannounced upstream application changes silently break downstream executive dashboards and corrupt AI retrieval context windows with malformed records.</p>
-        </div>
-        <div class="card">
-          <span class="card-icon icon-danger mono">Risk 02 // Data Silos</span>
-          <h3>Fragmented SaaS &amp; Operational Traps</h3>
-          <p>Critical business context is trapped across isolated Postgres databases, payment systems, and CRMs with brittle 24-hour batch reporting lags.</p>
-        </div>
-        <div class="card">
-          <span class="card-icon icon-danger mono">Risk 03 // Governance &amp; PII</span>
-          <h3>Ungoverned PII &amp; Compliance Exposure</h3>
-          <p>Feeding raw operational tables into embeddings or LLM prompts without automated Silver/Gold PII masking exposes sensitive customer and financial data.</p>
-        </div>
-        <div class="card">
-          <span class="card-icon icon-danger mono">Risk 04 // Cloud Spend</span>
-          <h3>Brittle, High-Cost ETL Plumbing</h3>
-          <p>Unmonitored spaghetti scripts and oversized proprietary data warehouses drain engineering hours and inflate monthly cloud compute bills.</p>
-        </div>
+      <div class="stat-item">
+        <span class="stat-value">35+</span>
+        <span class="stat-label">Distributed systems patterns</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value">50+</span>
+        <span class="stat-label">Architecture decision records</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value">SLA-as-code</span>
+        <span class="stat-label">From day one</span>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- SECTION 3: CHAKRAVIEW DELIVERY MODEL GUARANTEES -->
-  <section id="guarantees">
-    <div class="container">
-      <div class="section-header">
-        <div class="eyebrow mono">Our Differentiator</div>
-        <h2>Engineered with Discipline: The Chakraview Delivery Model</h2>
-        <p>We don't "vibe-code" data pipelines. Every engagement is governed by our open-source <strong>Human-AI Development Model</strong>, translating Principal-level architectural rigor into four ironclad client guarantees.</p>
-      </div>
-      <div class="grid-2">
-        <div class="card">
-          <span class="card-icon icon-guarantee mono">Guarantee 01 // Reliability</span>
-          <h3>Zero Silent Pipeline Failures</h3>
-          <p>Every data source is locked behind explicit schema and semantic data contracts at the ingestion boundary. Malformed records are quarantined automatically before reaching dashboards or AI agents.</p>
-          <span class="pillar-quote mono">Pillar: "Contracts Before Code"</span>
-        </div>
-        <div class="card">
-          <span class="card-icon icon-guarantee mono">Guarantee 02 // Velocity</span>
-          <h3>Principal Architecture, 40% Faster Delivery</h3>
-          <p>Principal-level architectural design paired with deterministic, agent-accelerated implementation cuts delivery timelines and consulting overhead without sacrificing production rigor.</p>
-          <span class="pillar-quote mono">Pillar: "Humans Define Correctness; Agents Ensure Consistency"</span>
-        </div>
-        <div class="card">
-          <span class="card-icon icon-guarantee mono">Guarantee 03 // Observability</span>
-          <h3>Verified Cost, Latency &amp; Quality Benchmarks</h3>
-          <p>No pipeline is handed over without automated data quality assertions, end-to-end latency SLAs, and cloud-compute cost profiling proven in staging.</p>
-          <span class="pillar-quote mono">Pillar: "Measure Before Claim"</span>
-        </div>
-        <div class="card">
-          <span class="card-icon icon-guarantee mono">Guarantee 04 // Governance</span>
-          <h3>Ironclad Scope &amp; Change Control</h3>
-          <p>Every architectural change enters through a traceable specification gate—eliminating shadow pipelines, unapproved schema mutations, and consulting scope creep.</p>
-          <span class="pillar-quote mono">Pillar: "Intent Enters Through a Defined Gate"</span>
+<!-- ── Expertise Timeline ─────────────────────────────────────────── -->
+<section id="skills">
+  <div class="container">
+    <div class="section-label">Your Expertise Journey</div>
+    <h2>From foundation to frontier.</h2>
+
+    <div class="skills-timeline">
+      <div class="timeline-node">
+        <div class="timeline-level">Level 1: Foundation</div>
+        <div class="timeline-title">System Architecture & Design</div>
+        <div class="timeline-desc">
+          Enterprise-scale systems with clear boundaries, explicit contracts, and verifiable SLAs.
+          Event sourcing, CQRS, saga coordination patterns.
         </div>
       </div>
-      <div style="margin-top: 2rem;">
-        <a href="/ai-dev-model/workflow/" class="btn btn-secondary mono">Inspect the Full Chakraview AI Dev Workflow Specification →</a>
-      </div>
-    </div>
-  </section>
 
-  <!-- SECTION 4: PRODUCTIZED SERVICE PACKAGES -->
-  <section id="packages">
-    <div class="container">
-      <div class="section-header">
-        <div class="eyebrow mono">Service Tiers</div>
-        <h2>Transparent Ways to Engage</h2>
-        <p>Whether you need a rapid diagnostic to unblock your AI roadmap, a turnkey modern lakehouse foundation, or Principal-level contract execution, we offer structured engagements with zero billing surprises.</p>
-      </div>
-      <div class="grid-3">
-        <!-- Tier 1 -->
-        <div class="card tier-card">
-          <div>
-            <div class="tier-type mono">Tier 01 // Fixed-Fee Sprint</div>
-            <h3>2-Week AI &amp; Data Readiness Diagnostic</h3>
-            <p class="tier-best-for">Best for SMBs preparing to deploy AI agents, RAG pipelines, or executive analytics who need a clear architectural blueprint and risk audit.</p>
-            <ul class="deliverables-list">
-              <li>Full audit of transactional DBs, SaaS silos &amp; schema health</li>
-              <li>PII exposure &amp; AI data governance risk assessment</li>
-              <li>Comprehensive <strong>SMB Data Readiness Scorecard</strong></li>
-              <li>Phased lakehouse architecture &amp; cloud cost roadmap</li>
-            </ul>
-          </div>
-          <a href="#book" onclick="selectPackage('Tier 1: 2-Week AI & Data Readiness Diagnostic')" class="btn btn-secondary" style="width:100%;">Request Diagnostic Scope</a>
+      <div class="timeline-node">
+        <div class="timeline-level">Level 1: Foundation</div>
+        <div class="timeline-title">Observability & SLAs</div>
+        <div class="timeline-desc">
+          SLA engineering: contracts as code, SLO-based alerting, error budget governance.
+          Distributed tracing, OpenTelemetry, Prometheus, Grafana.
         </div>
+      </div>
 
-        <!-- Tier 2 -->
-        <div class="card tier-card featured">
-          <div class="tier-badge mono">Most Popular for SMBs</div>
-          <div>
-            <div class="tier-type mono">Tier 02 // Milestone-Based Project</div>
-            <h3>Modern Lakehouse &amp; AI Pipeline Foundation</h3>
-            <p class="tier-best-for">Best for growing businesses ready to replace brittle scripts with a governed, low-ops Medallion Lakehouse that powers analytics and AI.</p>
-            <ul class="deliverables-list">
-              <li>Automated CDC or batch ingestion with strict Data Contracts</li>
-              <li>Bronze / Silver / Gold Apache Iceberg Medallion Lakehouse</li>
-              <li>Automated PII redaction &amp; curated AI/RAG context tables</li>
-              <li>Low-ops query layer (DuckDB / Athena) &amp; full team handoff</li>
-            </ul>
-          </div>
-          <a href="#book" onclick="selectPackage('Tier 2: Modern Lakehouse & AI Pipeline Foundation')" class="btn btn-primary" style="width:100%;">Discuss a Foundation Project</a>
+      <div class="timeline-node level-2">
+        <div class="timeline-level">Level 2: Depth</div>
+        <div class="timeline-title">Data Infrastructure</div>
+        <div class="timeline-desc">
+          Streaming pipelines (CDC, Kafka, Flink), lakehouse medallion architectures (Iceberg, Delta),
+          semantic data modeling (RDF/SPARQL), data mesh.
         </div>
+      </div>
 
-        <!-- Tier 3 -->
-        <div class="card tier-card">
-          <div>
-            <div class="tier-type mono">Tier 03 // Retainer or Contract</div>
-            <h3>Fractional Principal Data Engineer</h3>
-            <p class="tier-best-for">Best for engineering leaders needing hands-on Principal leadership for high-throughput streaming, CDC, or critical platform contracts.</p>
-            <ul class="deliverables-list">
-              <li>Hands-on architecture &amp; pipeline execution (Kafka, Flink, Iceberg)</li>
-              <li>Enterprise data contract governance &amp; CI/CD automation</li>
-              <li>Engineering team mentorship, PR reviews &amp; architecture standards</li>
-              <li>Ongoing warehouse &amp; compute cost optimization</li>
-            </ul>
-          </div>
-          <a href="#book" onclick="selectPackage('Tier 3: Fractional Principal / Contract Engineering')" class="btn btn-secondary" style="width:100%;">Inquire About Availability</a>
+      <div class="timeline-node level-2">
+        <div class="timeline-level">Level 2: Depth</div>
+        <div class="timeline-title">Security & Trust</div>
+        <div class="timeline-desc">
+          Zero-trust for Kubernetes. SPIFFE/SPIRE identities, mTLS meshes, OPA policy-as-code,
+          least-privilege IAM. Agent delegation chains.
+        </div>
+      </div>
+
+      <div class="timeline-node level-3">
+        <div class="timeline-level">Level 3: Frontier</div>
+        <div class="timeline-title">Distributed Systems</div>
+        <div class="timeline-desc">
+          Production patterns: vector clocks, causal ordering, consistency models, failure recovery.
+          Designed for AI agent networks and edge+cloud coordination.
+        </div>
+      </div>
+
+      <div class="timeline-node level-3">
+        <div class="timeline-level">Level 3: Frontier</div>
+        <div class="timeline-title">AI-Agent Development</div>
+        <div class="timeline-desc">
+          Structured workflows for agentic systems. Contract-first development, human-AI accountability,
+          token budgeting, behavior degradation, context management.
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- SECTION 5: REFERENCE ARCHITECTURE -->
-  <section id="architecture">
-    <div class="container">
-      <div class="section-header">
-        <div class="eyebrow mono">Open-Source Proof</div>
-        <h2>Proven Architecture—Scaled for Enterprise, Right-Sized for SMBs</h2>
-        <p>Explore our production reference platform. We apply the exact same Contract-First Medallion principles across two deployment tracks tailored to your operational footprint.</p>
-      </div>
+<!-- ── Featured Projects ─────────────────────────────────────────── -->
+<section id="featured">
+  <div class="container">
+    <div class="section-label">Featured Projects</div>
+    <h2>The work in focus.</h2>
+    <p class="text-2" style="margin-top:.75rem;max-width:580px; color: #cbd5e1;">
+      Three reference implementations showcasing deep technical expertise: distributed systems for AI agents,
+      enterprise modernization patterns, and zero-trust security architecture.
+    </p>
 
-      <div class="arch-box">
-        <div class="mono" style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.6rem;">REFERENCE PIPELINE TOPOLOGY:</div>
-        <div class="pipeline-flow mono">
-          <span class="node">Operational DBs / SaaS</span>
-          <span class="arrow">→</span>
-          <span class="node">Debezium CDC + Data Contracts</span>
-          <span class="arrow">→</span>
-          <span class="node">Kafka / Event Stream</span>
-          <span class="arrow">→</span>
-          <span class="node">Apache Flink</span>
-          <span class="arrow">→</span>
-          <span class="node">Apache Iceberg (Bronze/Silver/Gold)</span>
-          <span class="arrow">→</span>
-          <span class="node">DuckDB / Athena / AI Context</span>
-        </div>
+    <div class="carousel-wrapper" style="margin-top: 40px;">
+      <button class="carousel-arrow" id="carouselPrev" aria-label="Previous">←</button>
 
-        <div class="grid-2">
-          <div class="card" style="background: var(--bg-primary);">
-            <span class="card-icon icon-guarantee mono">Track A // SMB Right-Sized Footprint (&lt;$300/mo Cloud Compute)</span>
-            <h3>Serverless Medallion Lakehouse</h3>
-            <p>Don't have a dedicated 10-person DevOps team? We deploy our Contract-First Medallion architecture on object storage using <strong>Apache Iceberg + DuckDB / AWS Athena</strong>. You get enterprise schema enforcement, automated PII masking, and clean AI-ready Gold tables with near-zero infrastructure overhead.</p>
-          </div>
-          <div class="card" style="background: var(--bg-primary);">
-            <span class="card-icon icon-guarantee mono">Track B // Enterprise &amp; High-Scale Contract Track</span>
-            <h3>Real-Time Kappa Streaming Platform</h3>
-            <p>Need sub-second operational pipelines? Full streaming topology featuring <strong>Debezium CDC, Apache Kafka, stateful Apache Flink processing, and ACID-compliant Iceberg tables</strong>—engineered for strict schema evolution, dead-letter quarantining, and high-throughput analytical parity.</p>
-          </div>
-        </div>
+      <div class="carousel-viewport">
+        <div class="carousel-track" id="carouselTrack">
 
-        <div style="margin-top: 1.75rem; display: flex; flex-wrap: wrap; gap: 1rem;">
-          <a href="https://github.com/naren-chakraview" target="_blank" rel="noopener" class="btn btn-secondary mono">View Reference Repositories on GitHub ↗</a>
-          <a href="https://github.com/naren-chakraview/chakraview-ai-dev-model" target="_blank" rel="noopener" class="btn btn-secondary mono">Explore chakraview-ai-dev-model Repo ↗</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECTION 6: BOOKING & INTAKE -->
-  <section id="book">
-    <div class="container">
-      <div class="contact-wrapper">
-        <div>
-          <div class="eyebrow mono">Start the Conversation</div>
-          <h2 style="font-size: 2.1rem; font-weight: 800; margin-bottom: 1rem;">Ready to Make Your Data AI-Ready?</h2>
-          <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
-            Request a 25-minute introductory architecture review with Principal Architect <strong>Narendra Loganathan</strong>. No sales fluff—just a direct technical evaluation of your current data stack, bottlenecks, and AI goals.
-          </p>
-          <div class="card" style="background: var(--bg-secondary);">
-            <div class="mono" style="font-size: 0.82rem; color: var(--accent-blue); margin-bottom: 0.5rem;">WHAT HAPPENS NEXT:</div>
-            <p style="font-size: 0.9rem; margin-bottom: 0.5rem;">1. Submit your stack profile using the intake form.</p>
-            <p style="font-size: 0.9rem; margin-bottom: 0.5rem;">2. We review your architecture and reply within 1 business day with a calendar link.</p>
-            <p style="font-size: 0.9rem;">3. Walk away from our 25-minute call with clear next steps—whether we engage together or not.</p>
-          </div>
-        </div>
-
-        <div class="card">
-          <form id="intakeForm" onsubmit="handleIntakeSubmit(event)">
-            <div class="form-group">
-              <label for="name">Your Name &amp; Company</label>
-              <input type="text" id="name" class="form-control" placeholder="Jane Doe — Acme Corp" required />
+          <!-- Slide 1 -->
+          <div class="carousel-slide">
+            <div class="slide-eyebrow indigo">Production Patterns · Agent Networks</div>
+            <div class="slide-header">
+              <span class="slide-icon">🕸️</span>
+              <h3 class="slide-title">Distributed Systems for Agentic Workloads</h3>
             </div>
-            <div class="form-group">
-              <label for="interest">Engagement Track of Interest</label>
-              <select id="interest" class="form-control">
-                <option value="Tier 1: 2-Week AI & Data Readiness Diagnostic">Tier 1: 2-Week AI &amp; Data Readiness Diagnostic (Fixed-Fee)</option>
-                <option value="Tier 2: Modern Lakehouse & AI Pipeline Foundation">Tier 2: Modern Lakehouse &amp; AI Pipeline Foundation (Project)</option>
-                <option value="Tier 3: Fractional Principal / Contract Engineering">Tier 3: Fractional Principal / Contract Data Engineering</option>
-                <option value="General Architecture Consultation">General Architecture Consultation</option>
-              </select>
+            <p class="slide-desc">
+              35 production-grade patterns adapted specifically for AI agent networks. From causality tracking
+              and consistency models to token budgeting, failure recovery, edge+cloud coordination.
+              Zero-trust agent identities with OBO delegation chains.
+            </p>
+            <div class="slide-metrics">
+              <div class="slide-metric">
+                <span class="slide-metric-value">35+</span>
+                <span class="slide-metric-label">Patterns</span>
+              </div>
+              <div class="slide-metric">
+                <span class="slide-metric-value">100+</span>
+                <span class="slide-metric-label">Integration tests</span>
+              </div>
+              <div class="slide-metric">
+                <span class="slide-metric-value">Zero Trust</span>
+                <span class="slide-metric-label">Agent identities</span>
+              </div>
             </div>
-            <div class="form-group">
-              <label for="stack">1. What does your current data stack look like?</label>
-              <input type="text" id="stack" class="form-control" placeholder="e.g., Postgres, AWS, Snowflake, Stripe, HubSpot..." required />
+            <div class="slide-tags">
+              <span class="tag">Python</span>
+              <span class="tag">Go</span>
+              <span class="tag">Vector Clocks</span>
+              <span class="tag">Agent Networks</span>
             </div>
-            <div class="form-group">
-              <label for="goal">2. What is your primary 90-day AI or data goal?</label>
-              <input type="text" id="goal" class="form-control" placeholder="e.g., Prepare clean data for RAG/AI agents, unify analytics, CDC streaming..." required />
+            <div class="slide-links">
+              <a href="https://naren-chakraview.github.io/distributed-systems-patterns/"
+                 class="card-link" target="_blank" rel="noopener">Read the Docs ↗</a>
+              <a href="https://github.com/naren-chakraview/chakraview-distributed-systems-patterns"
+                 class="card-link-secondary" target="_blank" rel="noopener">GitHub ↗</a>
             </div>
-            <div class="form-group">
-              <label for="bottleneck">3. What is your biggest data bottleneck right now?</label>
-              <textarea id="bottleneck" class="form-control" placeholder="e.g., Schema drift breaking reports, siloed tables, high cloud costs, need Principal engineering bandwidth..." required></textarea>
+          </div>
+
+          <!-- Slide 2 -->
+          <div class="carousel-slide">
+            <div class="slide-eyebrow green">Migration · Microservices</div>
+            <div class="slide-header">
+              <span class="slide-icon">🏛️</span>
+              <h3 class="slide-title">Enterprise Modernization Reference Architecture</h3>
             </div>
-            <button type="submit" class="btn btn-primary" style="width: 100%;">Send Architecture Intake &amp; Request Call →</button>
-          </form>
+            <p class="slide-desc">
+              Strangler fig migration from Java EE monolith to cloud-native microservices on Kubernetes.
+              Event sourcing, CQRS, saga orchestration. SLA-as-code measurement pipeline.
+            </p>
+            <div class="slide-metrics">
+              <div class="slide-metric">
+                <span class="slide-metric-value">5</span>
+                <span class="slide-metric-label">Microservices</span>
+              </div>
+              <div class="slide-metric">
+                <span class="slide-metric-value">8</span>
+                <span class="slide-metric-label">ADRs</span>
+              </div>
+              <div class="slide-metric">
+                <span class="slide-metric-value">SLA-as-code</span>
+                <span class="slide-metric-label">Measurement</span>
+              </div>
+            </div>
+            <div class="slide-tags">
+              <span class="tag">TypeScript</span>
+              <span class="tag">Kafka</span>
+              <span class="tag">EKS</span>
+              <span class="tag">EventStoreDB</span>
+            </div>
+            <div class="slide-links">
+              <a href="https://naren-chakraview.github.io/enterprise-modernization/"
+                 class="card-link" target="_blank" rel="noopener">Read the Docs ↗</a>
+              <a href="https://github.com/naren-chakraview/chakraview-enterprise-modernization"
+                 class="card-link-secondary" target="_blank" rel="noopener">GitHub ↗</a>
+            </div>
+          </div>
+
+          <!-- Slide 3 -->
+          <div class="carousel-slide">
+            <div class="slide-eyebrow red">Security · Architecture</div>
+            <div class="slide-header">
+              <span class="slide-icon">🔒</span>
+              <h3 class="slide-title">Zero-Trust Kubernetes Security Blueprint</h3>
+            </div>
+            <p class="slide-desc">
+              Complete zero-trust architecture: SPIFFE workload identities, mTLS everywhere,
+              OPA policy-as-code, least-privilege RBAC. Envoy gateway with request validation.
+            </p>
+            <div class="slide-metrics">
+              <div class="slide-metric">
+                <span class="slide-metric-value">8</span>
+                <span class="slide-metric-label">ADRs</span>
+              </div>
+              <div class="slide-metric">
+                <span class="slide-metric-value">SPIFFE</span>
+                <span class="slide-metric-label">Workload IDs</span>
+              </div>
+              <div class="slide-metric">
+                <span class="slide-metric-value">10+</span>
+                <span class="slide-metric-label">Pattern guides</span>
+              </div>
+            </div>
+            <div class="slide-tags">
+              <span class="tag">SPIFFE/SPIRE</span>
+              <span class="tag">mTLS</span>
+              <span class="tag">OPA</span>
+              <span class="tag">Kubernetes</span>
+            </div>
+            <div class="slide-links">
+              <a href="https://naren-chakraview.github.io/zero-trust-blueprint/"
+                 class="card-link" target="_blank" rel="noopener">Read the Docs ↗</a>
+              <a href="https://github.com/naren-chakraview/chakraview-zero-trust-blueprint"
+                 class="card-link-secondary" target="_blank" rel="noopener">GitHub ↗</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <button class="carousel-arrow" id="carouselNext" aria-label="Next">→</button>
+    </div>
+
+    <div class="carousel-dots">
+      <button class="carousel-dot active" data-index="0" aria-label="Slide 1"></button>
+      <button class="carousel-dot" data-index="1" aria-label="Slide 2"></button>
+      <button class="carousel-dot" data-index="2" aria-label="Slide 3"></button>
+    </div>
+  </div>
+</section>
+
+<!-- ── Portfolio ────────────────────────────────────────────────── -->
+<section id="portfolio">
+  <div class="container">
+    <div class="section-label">Complete Portfolio</div>
+    <h2>Eight reference implementations across the stack.</h2>
+    <p class="text-2" style="margin-top:.75rem;max-width:580px; color: #cbd5e1;">
+      Each project is a complete reference implementation — contracts, ADRs, infrastructure,
+      observability, and runbooks. Production patterns, documented.
+    </p>
+
+    <div class="portfolio-grid" style="margin-top: 40px;">
+      <div class="portfolio-card featured">
+        <span class="card-status live">live</span>
+        <div class="card-icon">🏛️</div>
+        <div class="card-title">Enterprise Modernization</div>
+        <p class="card-desc">Strangler fig migration, microservices, event sourcing, SLA-as-code.</p>
+        <div class="card-tags">
+          <span class="tag">TypeScript</span>
+          <span class="tag">Kafka</span>
+          <span class="tag">EKS</span>
+        </div>
+        <div class="card-links">
+          <a href="https://naren-chakraview.github.io/enterprise-modernization/" class="card-link">Docs ↗</a>
+          <a href="https://github.com/naren-chakraview/chakraview-enterprise-modernization" class="card-link-secondary">GitHub ↗</a>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <span class="card-status live">live</span>
+        <div class="card-icon">⚡</div>
+        <div class="card-title">Real-Time Data Platform</div>
+        <p class="card-desc">Streaming lakehouse with Debezium, Flink, Iceberg, DuckDB.</p>
+        <div class="card-tags">
+          <span class="tag">Debezium</span>
+          <span class="tag">Flink</span>
+          <span class="tag">Iceberg</span>
+        </div>
+        <div class="card-links">
+          <a href="https://naren-chakraview.github.io/realtime-data-platform/" class="card-link">Docs ↗</a>
+          <a href="https://github.com/naren-chakraview/chakraview-realtime-data-platform" class="card-link-secondary">GitHub ↗</a>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <span class="card-status live">live</span>
+        <div class="card-icon">🔒</div>
+        <div class="card-title">Zero-Trust Security</div>
+        <p class="card-desc">SPIFFE, mTLS, OPA policies, Envoy gateway, Kubernetes.</p>
+        <div class="card-tags">
+          <span class="tag">SPIFFE/SPIRE</span>
+          <span class="tag">mTLS</span>
+          <span class="tag">OPA</span>
+        </div>
+        <div class="card-links">
+          <a href="https://naren-chakraview.github.io/zero-trust-blueprint/" class="card-link">Docs ↗</a>
+          <a href="https://github.com/naren-chakraview/chakraview-zero-trust-blueprint" class="card-link-secondary">GitHub ↗</a>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <span class="card-status live">live</span>
+        <div class="card-icon">💳</div>
+        <div class="card-title">Fintech Data Mesh</div>
+        <p class="card-desc">Iceberg lakehouse, 5 domains, federated OPA governance. + Shift-left semantic integration with domain-owned RDF.</p>
+        <div class="card-tags">
+          <span class="tag">Apache Iceberg</span>
+          <span class="tag">Kafka</span>
+          <span class="tag">OPA</span>
+          <span class="tag">RDF/SPARQL</span>
+        </div>
+        <div class="card-links">
+          <a href="https://naren-chakraview.github.io/fintech-data-mesh/" class="card-link">Docs ↗</a>
+          <a href="https://naren-chakraview.github.io/fintech-data-mesh/case-study/fintech-semantic-integration/" class="card-link">Semantic Integration ↗</a>
+          <a href="https://github.com/naren-chakraview/chakraview-fintech-data-mesh" class="card-link-secondary">GitHub ↗</a>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <span class="card-status live">live</span>
+        <div class="card-icon">📦</div>
+        <div class="card-title">Data Engineering Patterns</div>
+        <p class="card-desc">9 patterns × 22 stack variants. Batch, streaming, ELT, CDC, semantic RDF.</p>
+        <div class="card-tags">
+          <span class="tag">Spark</span>
+          <span class="tag">Flink</span>
+          <span class="tag">Iceberg</span>
+        </div>
+        <div class="card-links">
+          <a href="https://naren-chakraview.github.io/data-engineering-patterns/" class="card-link">Docs ↗</a>
+          <a href="https://github.com/naren-chakraview/chakraview-data-engineering-patterns" class="card-link-secondary">GitHub ↗</a>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <span class="card-status live">live</span>
+        <div class="card-icon">🕸️</div>
+        <div class="card-title">Distributed Systems</div>
+        <p class="card-desc">35+ patterns for agent networks. Python + Go reference implementation.</p>
+        <div class="card-tags">
+          <span class="tag">Python</span>
+          <span class="tag">Go</span>
+          <span class="tag">Agent Networks</span>
+        </div>
+        <div class="card-links">
+          <a href="https://naren-chakraview.github.io/distributed-systems-patterns/" class="card-link">Docs ↗</a>
+          <a href="https://github.com/naren-chakraview/chakraview-distributed-systems-patterns" class="card-link-secondary">GitHub ↗</a>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <span class="card-status live">live</span>
+        <div class="card-icon">🌐</div>
+        <div class="card-title">Networking + SDN</div>
+        <p class="card-desc">DPDK, eBPF packet processing, Go control plane, BGP/VXLAN.</p>
+        <div class="card-tags">
+          <span class="tag">DPDK</span>
+          <span class="tag">eBPF</span>
+          <span class="tag">BGP</span>
+        </div>
+        <div class="card-links">
+          <a href="https://naren-chakraview.github.io/networking-sdn/" class="card-link">Docs ↗</a>
+          <a href="https://github.com/naren-chakraview/chakraview-networking-sdn" class="card-link-secondary">GitHub ↗</a>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <span class="card-status live">live</span>
+        <div class="card-icon">🔬</div>
+        <div class="card-title">AI Dev Model</div>
+        <p class="card-desc">Contract-first, AI-agent-driven development. 6 personas, intake/triage cycle.</p>
+        <div class="card-tags">
+          <span class="tag">Contract-first</span>
+          <span class="tag">6 Personas</span>
+          <span class="tag">MkDocs</span>
+        </div>
+        <div class="card-links">
+          <a href="https://naren-chakraview.github.io/chakraview-ai-dev-model/" class="card-link">Docs ↗</a>
+          <a href="https://github.com/naren-chakraview/chakraview-ai-dev-model" class="card-link-secondary">GitHub ↗</a>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="container">
-      <p style="color: var(--text-primary); font-weight: 600; margin-bottom: 0.35rem;">Chakraview Data &amp; AI</p>
-      <p style="margin-bottom: 0.75rem;">Greater Seattle Area (Sammamish, WA) &bull; <a href="https://github.com/naren-chakraview" style="color: var(--accent-blue);">GitHub</a> &bull; <a href="/ai-dev-model/workflow/" style="color: var(--accent-blue);">AI Dev Model</a></p>
-      <p>&copy; 2026 Chakraview Technologies LLC, d/b/a Chakraview Data &amp; AI. All rights reserved.</p>
+<!-- ── Footer ──────────────────────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <span class="footer-brand">naren<span>.</span>chakraview</span>
+      <ul class="footer-links">
+        <li><a href="https://github.com/naren-chakraview" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://naren-chakraview.github.io/distributed-systems-patterns/" target="_blank" rel="noopener">Distributed Systems</a></li>
+        <li><a href="https://naren-chakraview.github.io/enterprise-modernization/" target="_blank" rel="noopener">Modernization</a></li>
+        <li><a href="https://naren-chakraview.github.io/zero-trust-blueprint/" target="_blank" rel="noopener">Zero-Trust</a></li>
+        <li><a href="https://naren-chakraview.github.io/chakraview-ai-dev-model/" target="_blank" rel="noopener">AI Dev Model</a></li>
+      </ul>
     </div>
-  </footer>
+  </div>
+</footer>
 
-  <script>
-    function selectPackage(pkgName) {
-      const select = document.getElementById('interest');
-      if (select) {
-        select.value = pkgName;
-      }
-    }
+<script>
+(function () {
+  var track = document.getElementById('carouselTrack');
+  var dots = document.querySelectorAll('.carousel-dot');
+  var current = 0;
+  var total = 3;
 
-    function handleIntakeSubmit(e) {
-      e.preventDefault();
-      const name = document.getElementById('name').value.trim();
-      const interest = document.getElementById('interest').value;
-      const stack = document.getElementById('stack').value.trim();
-      const goal = document.getElementById('goal').value.trim();
-      const bottleneck = document.getElementById('bottleneck').value.trim();
+  function goTo(n) {
+    current = ((n % total) + total) % total;
+    track.style.transform = 'translateX(-' + (current * 100) + '%)';
+    dots.forEach(function (d, i) {
+      d.classList.toggle('active', i === current);
+    });
+  }
 
-      const subject = encodeURIComponent(`[Chakraview Inquiry] ${interest} — ${name}`);
-      const body = encodeURIComponent(
-`Name & Company: ${name}
-Engagement Track: ${interest}
+  document.getElementById('carouselPrev').addEventListener('click', function () { goTo(current - 1); });
+  document.getElementById('carouselNext').addEventListener('click', function () { goTo(current + 1); });
+  dots.forEach(function (d) {
+    d.addEventListener('click', function () { goTo(parseInt(d.getAttribute('data-index'), 10)); });
+  });
+}());
+</script>
 
-1. Current Data Stack:
-${stack}
-
-2. Primary 90-Day Goal:
-${goal}
-
-3. Biggest Data Bottleneck:
-${bottleneck}`
-      );
-
-      window.location.href = `mailto:naren@chakraview.com?subject=${subject}&body=${body}`;
-    }
-  </script>
 </body>
 </html>
-
