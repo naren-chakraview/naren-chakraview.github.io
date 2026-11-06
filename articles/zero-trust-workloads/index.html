@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zero Trust for the Workloads You Don&#x27;t Control | Naren Chakraview</title>
+  <meta name="description" content="The same primitives that pull a legacy app into a zero-trust mesh without touching its code are the ones that govern an AI agent you can&#x27;t fully predict. Here&#x27;s the architecture that covers both." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+
+    :root {
+      --bg-primary: #090d16;
+      --bg-secondary: #111827;
+      --bg-card: #161f33;
+      --bg-card-hover: #1e293b;
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #6366f1;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --border-subtle: rgba(148, 163, 184, 0.14);
+      --border-highlight: rgba(56, 189, 248, 0.45);
+      --max-w: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.7;
+    }
+
+    body {
+      overflow-x: hidden;
+      background-image:
+        radial-gradient(circle at 15% 10%, rgba(99, 102, 241, 0.12), transparent 35%),
+        radial-gradient(circle at 85% 20%, rgba(56, 189, 248, 0.10), transparent 35%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    code, pre, .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(9, 13, 22, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 76px;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-name {
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(90deg, #fff, var(--accent-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-sub {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--text-primary);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.25rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-indigo));
+      color: #090d16;
+      font-weight: 700;
+      box-shadow: 0 4px 20px rgba(56, 189, 248, 0.25);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-primary);
+      border-color: var(--border-subtle);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.09);
+      border-color: var(--accent-blue);
+    }
+
+    footer {
+      margin-top: auto;
+      padding: 3rem 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    @media (max-width: 860px) {
+      .nav-links {
+        display: none;
+      }
+    }
+
+    .article-shell {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 3.5rem 1.5rem 5rem;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--accent-blue);
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .article-header h1 {
+      font-size: clamp(2rem, 4vw, 2.85rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .article-subtitle {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+      font-weight: 400;
+      margin-bottom: 1.25rem;
+    }
+
+    .article-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .article-content {
+      font-size: 1.08rem;
+      color: #e2e8f0;
+      line-height: 1.8;
+    }
+
+    .article-content h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 2.75rem 0 1rem;
+      letter-spacing: -0.015em;
+    }
+
+    .article-content h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 2rem 0 0.75rem;
+    }
+
+    .article-content p {
+      margin-bottom: 1.35rem;
+    }
+
+    .article-content ul, .article-content ol {
+      margin: 0 0 1.5rem 1.5rem;
+    }
+
+    .article-content li {
+      margin-bottom: 0.6rem;
+    }
+
+    .article-content strong {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .article-content em {
+      color: var(--text-secondary);
+    }
+
+    .article-content a {
+      color: var(--accent-blue);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .article-content code {
+      background: rgba(56, 189, 248, 0.1);
+      color: var(--accent-blue);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+
+    .article-content pre {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 1.25rem;
+      overflow-x: auto;
+      margin: 1.75rem 0;
+    }
+
+    .article-content pre code {
+      background: transparent;
+      color: var(--text-primary);
+      padding: 0;
+      font-size: 0.88rem;
+    }
+
+    .article-content hr {
+      border: 0;
+      border-top: 1px solid var(--border-subtle);
+      margin: 2.5rem 0;
+    }
+
+    .mermaid-wrapper {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 2rem 0 0.75rem;
+      overflow-x: auto;
+      text-align: center;
+    }
+
+    .mermaid-wrapper pre.mermaid {
+      background: transparent;
+      border: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .article-content img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      border: 1px solid var(--border-subtle);
+      margin: 1.5rem 0;
+    }
+
+    :root {
+      --bg-primary: #f8fafc;
+      --bg-secondary: #f1f5f9;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f8fafc;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      --accent-blue: #2563eb;
+      --border-subtle: #e2e8f0;
+      --border-highlight: rgba(37, 99, 235, 0.45);
+    }
+    html { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; }
+    body { background-image: none; }
+    header { background: rgba(255, 255, 255, 0.88); box-shadow: 0 1px 4px rgba(15, 23, 42, .05); }
+    .brand-name { background: none; -webkit-text-fill-color: var(--text-primary); color: var(--text-primary); }
+    .brand-name .dot { -webkit-text-fill-color: var(--accent-blue); color: var(--accent-blue); }
+    .nav-links a.active { color: var(--accent-blue); font-weight: 600; }
+    footer a { color: var(--accent-blue); }
+    .article-content { color: #1e293b; }
+    .article-content strong { color: #0f172a; }
+    .article-content code { background: rgba(37, 99, 235, 0.08); color: #1d4ed8; }
+    .eyebrow { background: rgba(37, 99, 235, 0.08); border-color: rgba(37, 99, 235, 0.25); }
+    .card-badge { background: rgba(5, 150, 105, 0.09); color: #047857; border-color: rgba(5, 150, 105, 0.3); }
+    .article-card { box-shadow: 0 1px 3px rgba(15, 23, 42, .06); }
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav-inner">
+      <a href="/" class="brand">
+        <span class="brand-name">naren<span class="dot">.</span>chakraview</span>
+        <span class="brand-sub">Software Engineer &middot; System Architect</span>
+      </a>
+      <nav class="nav-links">
+        <a href="/#skills">Expertise</a>
+        <a href="/#featured">Featured</a>
+        <a href="/#portfolio">Portfolio</a>
+        <a href="/articles/" class="active">Writing</a>
+        <a href="https://github.com/naren-chakraview" target="_blank" rel="noopener">GitHub &#8599;</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="article-shell">
+    <a href="/articles/" class="back-link mono">← All Articles</a>
+    <article>
+      <div class="article-header">
+        <h1>Zero Trust for the Workloads You Don&#x27;t Control</h1>
+        <p class="article-subtitle">The same primitives that pull a legacy app into a zero-trust mesh without touching its code are the ones that govern an AI agent you can&#x27;t fully predict. Here&#x27;s the architecture that covers both.</p>
+        <div class="article-meta mono">
+          <span>By Narendra Loganathan</span>
+          <span>&bull;</span>
+          <span>8 min read</span>
+          <span>&bull;</span>
+          <span>Updated 2026-10-23</span>
+        </div>
+      </div>
+      <div class="article-content">
+<p>Most zero-trust writing quietly assumes a greenfield. New services, a service mesh from day one, every workload issued a cryptographic identity at birth. That world is lovely, and almost nobody lives in it.</p>
+<p>The real enterprise is a sediment of a decade of decisions: a Java service that hasn&rsquo;t been redeployed since the last reorg, an internal API that three teams depend on and no team owns, a batch job authenticating with a shared secret in an environment variable. And now, bolted onto all of it, a new kind of workload that&rsquo;s stranger than any of them: <strong>an AI agent that acts on a user&rsquo;s behalf, calls tools and services autonomously, and whose next move you cannot fully predict.</strong></p>
+<p>These look like opposite problems. They are the same problem. Zero trust was never really about trusting the code you wrote; it&rsquo;s about <strong>governing the workloads you don&rsquo;t control</strong>, whether that&rsquo;s a legacy binary you can&rsquo;t modify or an autonomous agent you can&rsquo;t anticipate. I built an open-source reference implementation around exactly this, in regulated environments, and the punchline is worth writing down: the identity, policy, and delegation primitives that onboard a legacy app without changing a line of it are the <em>same</em> primitives that keep an AI agent inside its lane. Here&rsquo;s the architecture.</p>
+<h2>Three planes, independently replaceable</h2>
+<p>The foundation is a separation most teams collapse by accident: identity, network, and policy are three different concerns, and they should fail independently.</p>
+<ul>
+<li><strong>Identity plane: SPIFFE/SPIRE.</strong> Every workload gets a cryptographic identity (a short-TTL, auto-rotated X.509 SVID, plus a JWT SVID for request-level proofs). No shared secrets, no long-lived credentials to leak. Identity is <em>attested</em> from workload properties, not handed out in a config file. Crucially, &ldquo;workload&rdquo; here is species-agnostic: a microservice, a legacy app&rsquo;s sidecar, or an AI agent process all get identity the same way.</li>
+<li><strong>Network plane: service mesh mTLS.</strong> Strict peer authentication cluster-wide, default-deny authorization, L3/L4 policy. Nothing talks to anything unless both ends present a valid identity and policy allows it.</li>
+<li><strong>Policy plane: OPA.</strong> Admission control at deploy time and authorization at request time, from a single policy store so the mesh and the gateway can&rsquo;t drift into disagreeing.</li>
+</ul>
+<p>The principle that matters: <strong>each plane is independently replaceable.</strong> Swap the mesh for Cilium or OPA for Kyverno, and the architecture doesn&rsquo;t collapse, because no plane is load-bearing for another&rsquo;s guarantees. A failure at the gateway doesn&rsquo;t bypass the mesh; a mesh failure doesn&rsquo;t bypass admission control. Defense in depth isn&rsquo;t a slogan here; it&rsquo;s the topology.</p>
+<div class="mermaid-wrapper"><pre class="mermaid">flowchart TB
+    SPIRE[&quot;&lt;b&gt;Identity Plane — SPIFFE / SPIRE&lt;/b&gt;&lt;br/&gt;issues short-TTL, auto-rotated&lt;br/&gt;X.509 + JWT SVIDs to every workload&quot;]
+    OPA[&quot;&lt;b&gt;Policy Plane — OPA&lt;/b&gt;&lt;br/&gt;admission control + per-request authz&lt;br/&gt;+ agent capability policy&quot;]
+
+    subgraph Mesh[&quot;Network Plane — Service Mesh (strict mTLS, default-deny)&quot;]
+        direction LR
+        GW[&quot;Zero-Trust Gateway&lt;br/&gt;(sidecar or dedicated)&quot;]
+        LEGACY[&quot;Legacy App&lt;br/&gt;binds 127.0.0.1 only&lt;br/&gt;&lt;i&gt;unmodified&lt;/i&gt;&quot;]
+        AGENT[&quot;AI Agent&lt;br/&gt;&lt;i&gt;non-deterministic workload&lt;/i&gt;&quot;]
+        SVC[&quot;Modern Service&quot;]
+        GW --&gt;|localhost| LEGACY
+    end
+
+    OTEL[&quot;OpenTelemetry Collector&lt;br/&gt;traces · OPA decision logs · SVID metrics&lt;br/&gt;&lt;i&gt;OBO enrichment&lt;/i&gt;&quot;]
+
+    SPIRE -. SVIDs .-&gt; GW
+    SPIRE -. SVIDs .-&gt; AGENT
+    SPIRE -. SVIDs .-&gt; SVC
+    GW &lt;--&gt;|mTLS| SVC
+    AGENT &lt;--&gt;|mTLS| SVC
+    GW --&gt;|authz| OPA
+    AGENT --&gt;|capability check| OPA
+    SVC --&gt;|authz| OPA
+    GW -. telemetry .-&gt; OTEL
+    AGENT -. telemetry .-&gt; OTEL
+    SVC -. telemetry .-&gt; OTEL</pre></div>
+<p><em>The three planes fail independently. Legacy apps join via the gateway without code changes; AI agents join as first-class but policy-bounded workloads.</em></p>
+<p>That&rsquo;s table stakes. The interesting part is what you do with the workloads that can&rsquo;t, or shouldn&rsquo;t, be trusted to behave.</p>
+<h2>The onboarding gateway: zero trust without touching the app</h2>
+<p>A legacy app can&rsquo;t fetch an SVID, terminate mTLS, or call OPA. So you put something in front of it that can: a gateway that <em>is</em> the workload&rsquo;s zero-trust citizen while the app stays blissfully unaware. Two topologies cover most of the estate:</p>
+<p><strong>Same-pod (sidecar) topology.</strong> The gateway runs as a container in the app&rsquo;s pod. The app binds only to <code>127.0.0.1:8080</code>, unreachable from outside the pod. The gateway exposes the mTLS endpoint, receives its SVID via the SPIRE SDS API, enforces the OPA check, and only then proxies down to localhost. The app sees plain HTTP from loopback and never knows it&rsquo;s inside a zero-trust mesh. Nothing in its code changes.</p>
+<p><strong>Dedicated gateway topology.</strong> One horizontally-scaled gateway fronts many legacy pods that expose no external ports at all; NetworkPolicy restricts ingress to the gateway alone. This fits a fleet of legacy services sharing gateway infrastructure rather than paying a sidecar per pod.</p>
+<p>The choice between them is a real tradeoff (per-pod isolation and blast-radius containment versus operational economy at fleet scale), and it&rsquo;s worth recording explicitly rather than defaulting into. Either way, a workload that could never speak zero trust is now a full participant, enforced from the outside in.</p>
+<h2>The harder problem: who is actually calling?</h2>
+<p>Here&rsquo;s where most implementations quietly cheat. Once service A calls B calls C, the original user&rsquo;s identity is usually lost at the first hop. Worse, some designs preserve it by forwarding the user&rsquo;s session token downstream, so every service ends up holding a credential it has no business holding.</p>
+<p>The better model is <strong>On-Behalf-Of (OBO) delegation.</strong> Each service has its <em>own</em> SPIFFE identity. When it calls downstream it doesn&rsquo;t pass the user&rsquo;s token; it presents a short-lived JWT SVID proving <em>it</em> is authorized to act, plus headers carrying delegation proof and the original principal&rsquo;s identity. OPA validates the chain at every hop (depth, audience, TTL) before allowing transit.</p>
+<p>What you get is an auditable delegation trail that reads like a sentence:</p>
+<pre><code>user@corp.internal → API Gateway → Orders Service → Inventory Service
+</code></pre>
+<p>Every hop is cryptographically attested; no service holds a credential it shouldn&rsquo;t. When a regulator or an incident responder asks &ldquo;who actually triggered this write, and through what path?&rdquo;, the answer is in the trace, not in a reconstruction. Hold onto that delegation trail; it&rsquo;s about to matter even more.</p>
+<h2>The same problem, wearing a new face: AI agents</h2>
+<p>An AI agent is, architecturally, the most dangerous workload in your cluster. It&rsquo;s non-human, it acts on a user&rsquo;s behalf, it calls tools and other services, it chains those calls several deep. And, uniquely, <strong>its behavior is non-deterministic and steerable by its input.</strong> A prompt-injected agent will try to do things its author never intended. &ldquo;Trust the code&rdquo; was always shaky; for an agent, it&rsquo;s meaningless, because the code&rsquo;s job is to decide what to do at runtime.</p>
+<p>Which is exactly why the primitives above fit agents better than they fit anything else:</p>
+<ul>
+<li><strong>Agent identity.</strong> An agent is just another workload, so it gets a SPIFFE SVID like any other, not a shared API key passed around a codebase. Its identity is attested and short-lived. When it calls a tool or a downstream service, mTLS and OPA apply with no special casing.</li>
+<li><strong>Capability policy.</strong> This is the agent-specific piece. OPA doesn&rsquo;t just answer &ldquo;can this identity call that service?&rdquo; It enforces <em>what this agent is allowed to do</em>: which tools, which data scopes, which actions. The agent&rsquo;s autonomy is bounded by policy it cannot edit. A compromised or confused agent can only ever do what its capability policy permits, no matter what its context window tells it to attempt.</li>
+<li><strong>Delegation chains / OBO for agents.</strong> This is where the OBO trail pays off. When a user asks an agent to act, and that agent calls a second agent, which calls a service, the chain <code>user → agent → sub-agent → service</code> is cryptographically attested and auditable end to end, the same mechanism as the microservice chain, now spanning autonomous actors. You can answer &ldquo;which agent, acting for which user, triggered this?&rdquo; with a trace, not a guess. In my blueprint this is captured directly as <strong>Zero-Trust Agent Identities (ADR-0002)</strong>: agent identity, capability policy, delegation chains, and OBO tokens as one coherent model.</li>
+</ul>
+<div class="mermaid-wrapper"><pre class="mermaid">sequenceDiagram
+    actor User as user@corp.internal
+    participant GW as API Gateway
+    participant Agent as AI Agent
+    participant OPA as OPA (capability policy)
+    participant Svc as Inventory Service
+
+    User-&gt;&gt;GW: authenticated request
+    Note right of GW: mints JWT SVID + OBO token&lt;br/&gt;principal = user
+    GW-&gt;&gt;Agent: call over mTLS&lt;br/&gt;+ OBO token + user principal
+    Agent-&gt;&gt;OPA: may this agent act for this user?&lt;br/&gt;(capabilities + chain depth + TTL)
+    OPA--&gt;&gt;Agent: allow — scoped to permitted tools only
+    Agent-&gt;&gt;Svc: tool call over mTLS&lt;br/&gt;+ extended OBO chain
+    Svc-&gt;&gt;OPA: validate chain (audience, depth, TTL)
+    OPA--&gt;&gt;Svc: allow
+    Svc--&gt;&gt;Agent: result
+    Agent--&gt;&gt;GW: result
+    GW--&gt;&gt;User: response
+    Note over User,Svc: Attested end to end:&lt;br/&gt;user → API Gateway → AI Agent → Inventory Service</pre></div>
+<p><em>Every hop carries the agent&rsquo;s own identity and the original user&rsquo;s principal. A prompt-injected agent still can&rsquo;t exceed its capability policy, and the whole chain is auditable from the trace.</em></p>
+<p>The reframe is the whole point: <strong>you do not need a separate, bolted-on &ldquo;AI security&rdquo; product to govern agents.</strong> If your zero-trust foundation already treats identity, capability, and delegation as first-class, agents slot into it as just another workload, admittedly a stranger one. The organizations that will struggle with agent security in the next few years are the ones treating it as a net-new problem instead of the newest instance of an old one.</p>
+<h2>Making it observable, human or machine</h2>
+<p>Identity and policy are worthless if you can&rsquo;t see them. OpenTelemetry runs through all three planes: traces from gateway and sidecars, structured logs from every OPA decision, metrics on SVID rotation. A collector-side step promotes the OBO delegation headers into span attributes (caller principal, full chain), so you can search <em>authorization decisions</em> by trace without instrumenting the workload. That works identically whether the caller is a legacy app or an agent, which means your agent&rsquo;s every tool call is as auditable as any human-initiated request.</p>
+<h2>What this is really about</h2>
+<p>Zero trust is not a greenfield architecture you migrate to. It&rsquo;s an <strong>enforcement layer you wrap around the workloads you don&rsquo;t control.</strong> The legacy app you can&rsquo;t rewrite and the AI agent you can&rsquo;t predict are the same architectural problem, and they take the same answer: attested identity, policy the workload can&rsquo;t edit, and delegation that preserves the originator across the whole chain.</p>
+<p>There&rsquo;s a cost, and it&rsquo;s honest to name it: OBO adds a JWT generation per request and chain-validation logic that isn&rsquo;t free, and capability policy for agents is only as good as the policies you actually write. You&rsquo;re buying auditability and bounded autonomy with latency and operational discipline. In a regulated, high-value system, or anywhere you&rsquo;re putting autonomous agents near real data, that trade is worth making.</p>
+<p>The full blueprint is open source, with production-ready manifests for all three planes, both gateway topologies, the OBO policy logic, the agent identity and capability model, and the architecture decision records explaining <em>why</em> each choice was made:</p>
+<p><strong>→ <a href="https://naren-chakraview.github.io/zero-trust-blueprint/">naren-chakraview.github.io/zero-trust-blueprint</a></strong> · agent patterns at <strong><a href="https://naren-chakraview.github.io/distributed-systems-patterns/">distributed-systems-patterns</a></strong></p>
+<p>I&rsquo;d genuinely value sharp disagreement, especially on where capability policy should live for agents, and on the OBO latency tradeoff at agent-chain depth. That&rsquo;s the conversation worth having.</p>
+<hr />
+<p><em>Narendra Loganathan is a distinguished-level engineer and enterprise architect with 25 years building large-scale distributed systems, real-time data platforms, zero-trust security, and more recently agentic AI systems, including enterprise-wide security architecture at Capital One. He publishes open reference architectures at <a href="https://naren-chakraview.github.io/">naren-chakraview.github.io</a>.</em></p>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p style="color: var(--text-primary); font-weight: 600; margin-bottom: 0.5rem;">naren<span style="color: var(--accent-blue);">.</span>chakraview</p>
+      <p>
+        <a href="/articles/">Writing</a> &bull;
+        <a href="/#portfolio">Portfolio</a> &bull;
+        <a href="https://medium.com/@narendra.loganathan" target="_blank" rel="noopener">Medium</a> &bull;
+        <a href="https://github.com/naren-chakraview" target="_blank" rel="noopener">GitHub</a>
+      </p>
+    </div>
+  </footer>
+
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'default',
+      securityLevel: 'loose',
+      fontFamily: 'Inter, sans-serif'
+    });
+  </script>
+</body>
+</html>

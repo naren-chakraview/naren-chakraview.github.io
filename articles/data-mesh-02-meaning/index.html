@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Products Need Meaning, Not Just Schemas | Naren Chakraview</title>
+  <meta name="description" content="Everyone is building a semantic layer for AI agents. Almost none of them answer the question a data mesh actually has: is this the same customer?" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+
+    :root {
+      --bg-primary: #090d16;
+      --bg-secondary: #111827;
+      --bg-card: #161f33;
+      --bg-card-hover: #1e293b;
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #6366f1;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --border-subtle: rgba(148, 163, 184, 0.14);
+      --border-highlight: rgba(56, 189, 248, 0.45);
+      --max-w: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.7;
+    }
+
+    body {
+      overflow-x: hidden;
+      background-image:
+        radial-gradient(circle at 15% 10%, rgba(99, 102, 241, 0.12), transparent 35%),
+        radial-gradient(circle at 85% 20%, rgba(56, 189, 248, 0.10), transparent 35%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    code, pre, .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(9, 13, 22, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 76px;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-name {
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(90deg, #fff, var(--accent-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-sub {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--text-primary);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.25rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-indigo));
+      color: #090d16;
+      font-weight: 700;
+      box-shadow: 0 4px 20px rgba(56, 189, 248, 0.25);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-primary);
+      border-color: var(--border-subtle);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.09);
+      border-color: var(--accent-blue);
+    }
+
+    footer {
+      margin-top: auto;
+      padding: 3rem 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    @media (max-width: 860px) {
+      .nav-links {
+        display: none;
+      }
+    }
+
+    .article-shell {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 3.5rem 1.5rem 5rem;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--accent-blue);
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .article-header h1 {
+      font-size: clamp(2rem, 4vw, 2.85rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .article-subtitle {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+      font-weight: 400;
+      margin-bottom: 1.25rem;
+    }
+
+    .article-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .article-content {
+      font-size: 1.08rem;
+      color: #e2e8f0;
+      line-height: 1.8;
+    }
+
+    .article-content h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 2.75rem 0 1rem;
+      letter-spacing: -0.015em;
+    }
+
+    .article-content h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 2rem 0 0.75rem;
+    }
+
+    .article-content p {
+      margin-bottom: 1.35rem;
+    }
+
+    .article-content ul, .article-content ol {
+      margin: 0 0 1.5rem 1.5rem;
+    }
+
+    .article-content li {
+      margin-bottom: 0.6rem;
+    }
+
+    .article-content strong {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .article-content em {
+      color: var(--text-secondary);
+    }
+
+    .article-content a {
+      color: var(--accent-blue);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .article-content code {
+      background: rgba(56, 189, 248, 0.1);
+      color: var(--accent-blue);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+
+    .article-content pre {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 1.25rem;
+      overflow-x: auto;
+      margin: 1.75rem 0;
+    }
+
+    .article-content pre code {
+      background: transparent;
+      color: var(--text-primary);
+      padding: 0;
+      font-size: 0.88rem;
+    }
+
+    .article-content hr {
+      border: 0;
+      border-top: 1px solid var(--border-subtle);
+      margin: 2.5rem 0;
+    }
+
+    .mermaid-wrapper {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 2rem 0 0.75rem;
+      overflow-x: auto;
+      text-align: center;
+    }
+
+    .mermaid-wrapper pre.mermaid {
+      background: transparent;
+      border: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .article-content img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      border: 1px solid var(--border-subtle);
+      margin: 1.5rem 0;
+    }
+
+    :root {
+      --bg-primary: #f8fafc;
+      --bg-secondary: #f1f5f9;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f8fafc;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      --accent-blue: #2563eb;
+      --border-subtle: #e2e8f0;
+      --border-highlight: rgba(37, 99, 235, 0.45);
+    }
+    html { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; }
+    body { background-image: none; }
+    header { background: rgba(255, 255, 255, 0.88); box-shadow: 0 1px 4px rgba(15, 23, 42, .05); }
+    .brand-name { background: none; -webkit-text-fill-color: var(--text-primary); color: var(--text-primary); }
+    .brand-name .dot { -webkit-text-fill-color: var(--accent-blue); color: var(--accent-blue); }
+    .nav-links a.active { color: var(--accent-blue); font-weight: 600; }
+    footer a { color: var(--accent-blue); }
+    .article-content { color: #1e293b; }
+    .article-content strong { color: #0f172a; }
+    .article-content code { background: rgba(37, 99, 235, 0.08); color: #1d4ed8; }
+    .eyebrow { background: rgba(37, 99, 235, 0.08); border-color: rgba(37, 99, 235, 0.25); }
+    .card-badge { background: rgba(5, 150, 105, 0.09); color: #047857; border-color: rgba(5, 150, 105, 0.3); }
+    .article-card { box-shadow: 0 1px 3px rgba(15, 23, 42, .06); }
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav-inner">
+      <a href="/" class="brand">
+        <span class="brand-name">naren<span class="dot">.</span>chakraview</span>
+        <span class="brand-sub">Software Engineer &middot; System Architect</span>
+      </a>
+      <nav class="nav-links">
+        <a href="/#skills">Expertise</a>
+        <a href="/#featured">Featured</a>
+        <a href="/#portfolio">Portfolio</a>
+        <a href="/articles/" class="active">Writing</a>
+        <a href="https://github.com/naren-chakraview" target="_blank" rel="noopener">GitHub &#8599;</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="article-shell">
+    <a href="/articles/" class="back-link mono">← All Articles</a>
+    <article>
+      <div class="article-header">
+        <h1>Data Products Need Meaning, Not Just Schemas</h1>
+        <p class="article-subtitle">Everyone is building a semantic layer for AI agents. Almost none of them answer the question a data mesh actually has: is this the same customer?</p>
+        <div class="article-meta mono">
+          <span>By Narendra Loganathan</span>
+          <span>&bull;</span>
+          <span>14 min read</span>
+          <span>&bull;</span>
+          <span>Updated 2026-11-06</span>
+        </div>
+      </div>
+      <div class="article-content">
+<p>An agent is asked a simple question: which high-risk customers had a failed payment this month?</p>
+<p>It does everything right. It reads the shared ontology published by the data mesh, finds the property that links a risk profile to its customer, and writes a federated SPARQL query across three domains: Accounts for the customer, Transactions for the failed payments, Risk and Compliance for the scores. It is, in effect, the churn-analysis query my mesh ships as an example. The query is well formed. It runs. It returns nothing, and the agent reports that no high-risk customer had a failed payment.</p>
+<p>The answer is wrong. The published ontology said the link was <code>fintech:riskCustomer</code>. The Risk domain actually publishes <code>fintech:forCustomer</code>. Nothing failed, nothing warned, and an empty result is indistinguishable from good news.</p>
+<p>I did not make this up for effect. I found it in my own reference data mesh while preparing this article. In the <a href="https://medium.com/@narendra.loganathan/i-built-a-data-mesh-for-humans-then-i-put-an-agent-in-front-of-it-593198088dd5">first article of this series</a> I argued that data as a product breaks at &ldquo;understandable&rdquo; once the consumer is an agent, because meaning used to live in the reader&rsquo;s head. This is what that looks like in code, and how I fixed it.</p>
+<h2>What the industry is building</h2>
+<p>Credit first, because the semantic layer is having a real moment, and most of the attention is deserved.</p>
+<p>The evidence that agents need more than a schema is solid. In 2023, Juan Sequeda, Dean Allemang and Bryon Jacob measured GPT-4 answering business questions over an insurance database: 16.7% accuracy writing SQL against the raw schema, 54.2% querying a knowledge graph over the same data. A 2026 benchmark from Cube found the same shape with three current frontier models: accuracy rose from 46 to 51% to 68 to 69% when the models were given a semantic layer document.</p>
+<p>The industry has responded. The Open Semantic Interchange specification, backed by Snowflake, Databricks, dbt Labs, Salesforce and others, was finalized in January 2026 as a vendor-neutral way to describe datasets, metrics, dimensions and relationships. Snowflake mines query logs to propose metric definitions, Databricks moves business semantics into Unity Catalog, Microsoft&rsquo;s Fabric IQ builds an ontology of entities and relationships, and catalog vendors wrap all of it in context for agents.</p>
+<p>All of that solves a real problem: measurement. What &ldquo;revenue&rdquo; means, how to compute it, which table to trust. If you have one platform and one team that owns the definitions, it may be all you need.</p>
+<h2>What a mesh needs that a semantic layer does not give</h2>
+<p>A data mesh has a different problem. Meaning is owned by several domains, and the hardest question is not &ldquo;how do I compute this?&rdquo; but &ldquo;is this the same thing?&rdquo;</p>
+<p>Look at what the current work assumes. The OSI specification describes metrics and relationships, but it does not address how two independent producers agree that a record is the same real-world customer. The Cube benchmark ran on a single warehouse and a single retail dataset; its joins stay inside one domain, and it does not test entity resolution. Even the vendors&rsquo; critiques of one another are about cross-platform reach and graph traversal, not identity or ownership.</p>
+<p>A mesh needs four things from its semantics:</p>
+<ol>
+<li><strong>One identity per real-world entity</strong>, computed the same way by every domain that refers to it.</li>
+<li><strong>A small shared core plus domain-owned extensions</strong>, so the vocabulary that crosses domains has one definition and everything else stays with its owner.</li>
+<li><strong>Values a machine can compute with</strong>, typed so that a sum is a sum.</li>
+<li><strong>Validation at the producer</strong>, so drift fails a build instead of reaching a consumer as an empty result.</li>
+</ol>
+<p>You could get all four by handing meaning to a central semantic team. That is the trap. It quietly recentralizes the mesh, which is the failure I wrote about when I argued for <a href="https://naren-chakraview.github.io/fintech-data-mesh/case-study/fintech-semantic-integration/BLOG-SHIFT-LEFT-SEMANTICS/">shift-left semantics</a>: domains own their data, but a central team owns what it means, so every new concept waits in that team&rsquo;s queue. The question is how to keep meaning with the domains and still keep it consistent.</p>
+<h2>The audit: what had drifted in my own mesh</h2>
+<p>My fintech mesh has five domains on an Apache Iceberg lakehouse. Three of them (Accounts, Transactions, Risk and Compliance) publish RDF, mint their own identifiers, serve SPARQL endpoints and share an ontology, so consumers can join across domains with federated queries. I designed it to be the shift-left pattern done properly. When I read the code rather than the docs, five things had drifted.</p>
+<p><strong>Competing names for the same link.</strong> The published shared ontology linked a risk profile to its customer with <code>riskCustomer</code>. The Risk domain&rsquo;s own extension, its RDF producer and the federated query all used <code>forCustomer</code>. The same split existed for <code>email</code> and <code>customerEmail</code>, <code>name</code> and <code>customerName</code>, and <code>accountCustomer</code> and <code>accountOwner</code>. The producers and the existing query agreed with each other, so everything I had tested worked. Only a consumer who trusted the published contract got burned, and that consumer is exactly the agent.</p>
+<p><strong>Four &ldquo;shared&rdquo; ontologies.</strong> The documentation carried one copy of the shared ontology, and each domain&rsquo;s tests carried its own. All four differed, from 70 lines to 365.</p>
+<p><strong>An identity rule copied three times.</strong> A customer&rsquo;s identifier is a hash of the normalized email and KYC ID, minted by Accounts. Transactions and Risk need the same identifier to link their records, so each had its own copy of the rule. Each copy&rsquo;s tests checked that copy against itself, never against Accounts. If one domain changed its normalization, every test would still pass, and the join would quietly stop matching.</p>
+<p><strong>Identifiers that collide.</strong> The hash was truncated to 8 hex characters, which is 32 bits. By the birthday bound, that gives a 50% chance of two customers sharing an identifier at about 77,000 customers, and 69% at 100,000. I generated synthetic customers until it happened: <code>customer111830@example.com</code> and <code>customer130865@example.com</code> both minted <code>customer#15e5a0c2</code>. In a graph, a collision does not raise an error. It merges two people into one.</p>
+<p><strong>Numbers that are not numbers.</strong> Account balances and transaction amounts were typed with <code>fintech:decimal</code>, a datatype defined nowhere, instead of <code>xsd:decimal</code>. To a human reading the triples they look like amounts. To SPARQL they are literals of an unknown type: <code>SUM</code> over them raises a type error, and a strict engine drops numeric filters on them.</p>
+<p>None of these would trouble an analyst who knows the data. She would notice an empty churn report, recognize the amounts, and never meet two customers with the same hash in a sample. Every one of them is fatal to an agent, which only has what the product declares. And they share a cause: <strong>the shared parts of meaning were copied, not referenced, and nothing machine-checked them.</strong></p>
+<div class="mermaid-wrapper"><pre class="mermaid">flowchart LR
+    subgraph Today[&quot;Before: drift reaches the consumer&quot;]
+        direction LR
+        C1[&quot;Shared ontology says&lt;br/&gt;riskCustomer&quot;] --&gt; Q1[&quot;Agent writes query&lt;br/&gt;from the contract&quot;]
+        R1[&quot;Risk publishes&lt;br/&gt;forCustomer&quot;] --&gt; J1[&quot;Federated join&quot;]
+        Q1 --&gt; J1
+        J1 --&gt; E1[&quot;0 rows, no error&lt;br/&gt;agent reports: none&quot;]
+    end
+    subgraph Contract[&quot;After: drift fails before it ships&quot;]
+        direction LR
+        C2[&quot;One versioned core&lt;br/&gt;forCustomer, riskCustomer deprecated&quot;] --&gt; S2[&quot;SHACL shapes in the&lt;br/&gt;data product contract&quot;]
+        P2[&quot;Producer output&quot;] --&gt; S2
+        S2 --&gt;|violation| F2[&quot;Build fails,&lt;br/&gt;nothing published&quot;]
+        S2 --&gt;|conforms| T2[&quot;Contract test runs the&lt;br/&gt;churn query: rows returned&quot;]
+    end
+    classDef bad fill:#fef3c7,stroke:#f59e0b,color:#92400e
+    classDef good fill:#ecfdf5,stroke:#10b981,color:#065f46
+    class E1 bad
+    class F2,T2 good</pre></div>
+<p><em>Where drift gets caught. Before, the consumer finds it, if anyone does. After, the producer&rsquo;s build or a contract test finds it first.</em></p>
+<h2>The fix: meaning as part of the data product contract</h2>
+<p>I fixed it in the repository and kept the drifted version beside the fix, because the before is as instructive as the after. The old state is tagged <a href="https://github.com/naren-chakraview/chakraview-fintech-data-mesh/tree/semantic-drift-before"><code>semantic-drift-before</code></a>, the drifted files are frozen under <code>examples/semantic-drift/before/</code>, and four small demos print the before and after of the main drifts. The design has five parts.</p>
+<p><strong>One shared core, versioned and never copied.</strong> The core is a single file with a version IRI. It holds only what crosses domains: the entity classes, the link properties, provenance, and the identity rules. Each competing pair was resolved once, keeping the name producers already used, and the loser was marked deprecated with a pointer to the winner, so old queries can be migrated rather than silently broken. Attribute properties, such as a customer&rsquo;s name and email, moved to the domain that owns them. Every domain extension imports the core by version, and the copies are gone.</p>
+<p><strong>Identity owned by the entity&rsquo;s domain.</strong> The customer identity rule now lives in one library, owned by Accounts, that every other domain imports. It uses HMAC-SHA256 with the full 64-character digest, keyed by a secret that every producer receives. The key matters as much as the length: an unkeyed hash of an email address can be reversed by anyone who can guess emails. Accounts also publishes golden test vectors, including the collision pair above, and every domain runs them in CI. A domain that drifts now fails its build.</p>
+<p><strong>Values typed for machines.</strong> Amounts and balances are <code>xsd:decimal</code>, built from exact decimals rather than floats, and dates are <code>xsd:dateTime</code>. The <code>SUM</code> that used to raise a type error now returns the total.</p>
+<p><strong>Producers validate before they publish.</strong> The contract now includes SHACL shapes, which are machine-checkable constraints on the graph a producer may publish. They check that customer identifiers are full-length digests from the identity library, that link properties point at an identifier the library minted, that amounts are decimals, that provenance is present, and that deprecated names are absent:</p>
+<pre><code class="language-turtle">fintech:NoDeprecatedTermsShape
+  a sh:NodeShape ;
+  sh:targetSubjectsOf fintech:riskCustomer, fintech:accountCustomer ;
+  sh:property [
+    sh:path fintech:riskCustomer ; sh:maxCount 0 ;
+    sh:message &quot;fintech:riskCustomer is deprecated. Use fintech:forCustomer.&quot;
+  ] .
+</code></pre>
+<p>Accounts and Transactions validate their graphs before writing and refuse to publish on a violation. Risk has no writer yet, so its output is checked in CI, where every domain&rsquo;s output is validated against the shapes. This is shift-left semantics made executable: the domain still owns its meaning, but it can no longer publish meaning that contradicts the core.</p>
+<p><strong>Consumers&rsquo; queries are contracts too.</strong> Here the audit taught me something. Run against the drifted output, the new shapes caught the short identifiers and the untyped amounts, but they found nothing wrong with the link. The producers had been publishing <code>forCustomer</code> all along; the drift was in the published core that consumers read. Validating producers cannot catch that. What catches it is a single core plus a contract test that runs the federated churn query against every domain&rsquo;s output and requires the known high-risk customer to come back. Producer drift and contract drift need different guards, and a mesh needs both.</p>
+<div class="mermaid-wrapper"><pre class="mermaid">flowchart TB
+    CORE[&quot;&lt;b&gt;Shared core 1.0.0&lt;/b&gt;&lt;br/&gt;entity classes, link properties,&lt;br/&gt;identity rules, deprecated aliases&quot;]
+    ID[&quot;&lt;b&gt;Identity library&lt;/b&gt; (owned by Accounts)&lt;br/&gt;HMAC-SHA256, 64 hex&lt;br/&gt;+ golden test vectors&quot;]
+
+    subgraph Domains[&quot;Domain producers&quot;]
+        direction LR
+        A[&quot;Accounts&lt;br/&gt;extension imports core&quot;]
+        T[&quot;Transactions&lt;br/&gt;extension imports core&quot;]
+        R[&quot;Risk and Compliance&lt;br/&gt;extension imports core&quot;]
+    end
+
+    SH[&quot;&lt;b&gt;SHACL shapes&lt;/b&gt;&lt;br/&gt;in the data product contract&quot;]
+    FED[&quot;Federated SPARQL&lt;br/&gt;(exploration)&quot;]
+    MAT[&quot;Materialized view&lt;br/&gt;(production scale)&quot;]
+    AG[&quot;Agent or analyst&quot;]
+
+    CORE -.-&gt;|owl:imports by version| A &amp; T &amp; R
+    ID --&gt;|imported, vectors run in CI| A &amp; T &amp; R
+    A &amp; T &amp; R --&gt;|validate before publish| SH
+    SH --&gt; FED
+    SH --&gt; MAT
+    FED --&gt; AG
+    MAT --&gt; AG
+
+    classDef core fill:#eef2ff,stroke:#6366f1,color:#3730a3
+    classDef gate fill:#ecfdf5,stroke:#10b981,color:#065f46
+    class CORE,ID core
+    class SH gate</pre></div>
+<p><em>Domain-owned semantics. The core and the identity rule are referenced by version, never copied, and every producer passes the same shapes before anything reaches a consumer.</em></p>
+<h2>What the agent gets</h2>
+<p>The point of all this is not tidier RDF. It is that the agent&rsquo;s two hardest questions now have machine-checkable answers. &ldquo;What does this mean?&rdquo; is answered by a versioned core with one name per concept. &ldquo;Is this the same customer?&rdquo; is answered by one identity rule, owned by one domain, tested by all of them. The agent no longer has to carry meaning in its head, because the product carries it, and a contradiction now fails a build instead of reaching the agent.</p>
+<p>That is the foundation the fourth article in this series builds on, when the agent stops only reading data products and starts producing them.</p>
+<h2>RDF and metrics layers are complements</h2>
+<p>None of this argues against a metrics layer. The two do different jobs, and they meet at the identifier. A metrics layer is the right place to define how revenue is calculated. RDF is the right place to say that the customer in Accounts and the debtor in Transactions are the same entity, and how a risk profile relates to both. A mesh that has both can let a metric be defined once and computed over entities whose identity every domain agrees on.</p>
+<p>If you have a single domain, a single warehouse and one team that owns definitions, you may not need RDF at all. The case for it grows with the number of owners.</p>
+<h2>What it costs</h2>
+<p>Taking meaning seriously is not free, and the costs are worth naming.</p>
+<p>Ontology work is slow and political. Getting domains to agree on the handful of terms in a shared core can take longer than building the pipelines, and the negotiation repeats with every new domain. RDF and SHACL are skills most data teams do not have yet. Federated SPARQL, where each query fans out to every domain&rsquo;s endpoint and joins the answers at query time, is good for exploration but slows down as the graphs grow. My case study&rsquo;s guideline is to federate while each domain holds under about a million facts (RDF calls them triples), and beyond that to materialize: copy the data production queries need into one store ahead of time, trading some freshness for speed. A keyed identity hash needs the key distributed to every producer and a plan for rotating it, which re-mints every customer identifier.</p>
+<p>And semantics creates a second read path. The SPARQL endpoints in my mesh serve customer names and email addresses, and their update endpoints are open. The access policy that masks and audits reads of the Iceberg tables does not see them. A mesh that adds meaning has to extend governance to wherever that meaning is served, and that is the subject of the next article.</p>
+<p>The data mesh asked domains to own their data as a product. In the agent era, they have to own what it means too, in a form a machine can check.</p>
+<p>I would value pushback, particularly from teams running a semantic layer for agents across more than one domain. Who owns your entity identifiers, and what fails when two domains disagree?</p>
+<h2>The series</h2>
+<p>Each article stands on its own, but they build in order, and each one is anchored in an architecture I have already published.</p>
+<ol>
+<li><strong><a href="https://medium.com/@narendra.loganathan/i-built-a-data-mesh-for-humans-then-i-put-an-agent-in-front-of-it-593198088dd5">Data mesh was built for human consumers. AI changed the consumer.</a></strong> Where an autonomous, machine-speed consumer breaks the mesh, and the three threads that follow from it.</li>
+<li><strong>Data products need meaning, not just schemas.</strong> This article: shared semantics across domains, the drift I found in my own mesh, and the contract that now catches it.</li>
+<li><strong>Federated governance is a trust problem, not a policy document.</strong> Making the mesh&rsquo;s softest principle concrete with zero-trust primitives: attested identity for data products and their consumers, policy at the data product&rsquo;s boundary, least-privilege access, and lineage treated as attestation.</li>
+<li><strong>When the data consumer is an autonomous agent.</strong> The convergence: agents that read and write data products, interpreted through RDF semantics and bounded by on-behalf-of delegation and capability policy at the product boundary. Includes what the agent owns when it produces data.</li>
+<li><strong>The AI-era data mesh.</strong> The three threads assembled into one reference architecture, with the full diagram set: domains, semantics, trust and agents as one design.</li>
+<li><strong>Adopting it without boiling the ocean</strong> (coda). Where to start, what it costs, and what to skip, for teams that cannot rebuild their mesh at once.</li>
+</ol>
+<h2>References and further reading</h2>
+<p><strong>The evidence for semantics</strong></p>
+<ul>
+<li>Juan Sequeda, Dean Allemang and Bryon Jacob, <a href="https://data.world/mstatic/assets/pdf/kg_llm_accuracy_benchmark_11132023_public.pdf">A Benchmark to Understand the Role of Knowledge Graphs on Large Language Model&rsquo;s Accuracy for Question Answering on Enterprise SQL Databases</a>, data.world, 2023.</li>
+<li>Michael Rumiantsau and Ivan Fokeev, <a href="https://arxiv.org/pdf/2604.25149">Semantic Layers for Reliable LLM-Powered Data Analytics: A Paired Benchmark of Accuracy and Hallucination Across Three Frontier Models</a>, Cube, arXiv, 2026.</li>
+</ul>
+<p><strong>The current semantic layer landscape</strong></p>
+<ul>
+<li>Snowflake, <a href="https://www.snowflake.com/en/blog/open-semantic-interchanges-specs-finalized/">Open Semantic Interchange specs finalized</a>, January 2026.</li>
+<li>Timbr, <a href="https://timbr.ai/blog/every-vendor-is-automating-the-semantic-layer-for-ai-agents-heres-what-theyre-missing/">Every vendor is automating the semantic layer for AI agents. Here&rsquo;s what they&rsquo;re missing.</a>, May 2026.</li>
+<li>Atlan, <a href="https://atlan.com/know/ontology-vs-semantic-layer/">Ontology vs. semantic layer</a>, 2026.</li>
+</ul>
+<p><strong>Standards</strong></p>
+<ul>
+<li>W3C, <a href="https://www.w3.org/TR/rdf11-primer/">RDF 1.1 Primer</a>, <a href="https://www.w3.org/TR/sparql11-overview/">SPARQL 1.1 Overview</a> and <a href="https://www.w3.org/TR/shacl/">SHACL</a>.</li>
+<li>IETF, <a href="https://www.rfc-editor.org/rfc/rfc2104">RFC 2104: HMAC</a>.</li>
+</ul>
+<p><strong>My reference architectures</strong></p>
+<ul>
+<li><a href="https://naren-chakraview.github.io/fintech-data-mesh/case-study/fintech-semantic-integration/semantic-drift/">Semantic drift: before and after</a>: every drift in this article, its fix, and the demos that reproduce both.</li>
+<li><a href="https://github.com/naren-chakraview/chakraview-fintech-data-mesh/tree/semantic-drift-before">The drifted design</a>, tagged <code>semantic-drift-before</code>, and the <a href="https://github.com/naren-chakraview/chakraview-fintech-data-mesh">fixed repository</a>.</li>
+<li><a href="https://naren-chakraview.github.io/fintech-data-mesh/case-study/fintech-semantic-integration/BLOG-SHIFT-LEFT-SEMANTICS/">Shift-left semantics</a>: domain-owned RDF, and why a central semantic team recentralizes the mesh.</li>
+<li><a href="https://naren-chakraview.github.io/data-engineering-patterns/">Data Engineering Patterns</a>: nine patterns across 22 stack variants, including semantic RDF.</li>
+</ul>
+<hr />
+<p><em>I am a software engineer at heart. With 25 years building distributed systems, I treat every part of software development, whether microservices, data engineering, agentic workloads or security, with the intense rigor of a complete engineer. No layer is someone else’s problem, and no detail is beneath attention. I have published open reference architectures at <a href="https://naren-chakraview.github.io/">naren-chakraview.github.io</a>.</em></p>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p style="color: var(--text-primary); font-weight: 600; margin-bottom: 0.5rem;">naren<span style="color: var(--accent-blue);">.</span>chakraview</p>
+      <p>
+        <a href="/articles/">Writing</a> &bull;
+        <a href="/#portfolio">Portfolio</a> &bull;
+        <a href="https://medium.com/@narendra.loganathan" target="_blank" rel="noopener">Medium</a> &bull;
+        <a href="https://github.com/naren-chakraview" target="_blank" rel="noopener">GitHub</a>
+      </p>
+    </div>
+  </footer>
+
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'default',
+      securityLevel: 'loose',
+      fontFamily: 'Inter, sans-serif'
+    });
+  </script>
+</body>
+</html>

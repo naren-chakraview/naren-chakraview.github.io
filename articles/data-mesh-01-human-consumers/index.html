@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>I Built a Data Mesh for Humans. Then I Put an Agent in Front of It. | Naren Chakraview</title>
+  <meta name="description" content="The four principles of data mesh still hold. Two of them were quietly assuming a person on the other end." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+
+    :root {
+      --bg-primary: #090d16;
+      --bg-secondary: #111827;
+      --bg-card: #161f33;
+      --bg-card-hover: #1e293b;
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #6366f1;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --border-subtle: rgba(148, 163, 184, 0.14);
+      --border-highlight: rgba(56, 189, 248, 0.45);
+      --max-w: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.7;
+    }
+
+    body {
+      overflow-x: hidden;
+      background-image:
+        radial-gradient(circle at 15% 10%, rgba(99, 102, 241, 0.12), transparent 35%),
+        radial-gradient(circle at 85% 20%, rgba(56, 189, 248, 0.10), transparent 35%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    code, pre, .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(9, 13, 22, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 76px;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-name {
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(90deg, #fff, var(--accent-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-sub {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--text-primary);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.25rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-indigo));
+      color: #090d16;
+      font-weight: 700;
+      box-shadow: 0 4px 20px rgba(56, 189, 248, 0.25);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-primary);
+      border-color: var(--border-subtle);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.09);
+      border-color: var(--accent-blue);
+    }
+
+    footer {
+      margin-top: auto;
+      padding: 3rem 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    @media (max-width: 860px) {
+      .nav-links {
+        display: none;
+      }
+    }
+
+    .article-shell {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 3.5rem 1.5rem 5rem;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--accent-blue);
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .article-header h1 {
+      font-size: clamp(2rem, 4vw, 2.85rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .article-subtitle {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+      font-weight: 400;
+      margin-bottom: 1.25rem;
+    }
+
+    .article-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .article-content {
+      font-size: 1.08rem;
+      color: #e2e8f0;
+      line-height: 1.8;
+    }
+
+    .article-content h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 2.75rem 0 1rem;
+      letter-spacing: -0.015em;
+    }
+
+    .article-content h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 2rem 0 0.75rem;
+    }
+
+    .article-content p {
+      margin-bottom: 1.35rem;
+    }
+
+    .article-content ul, .article-content ol {
+      margin: 0 0 1.5rem 1.5rem;
+    }
+
+    .article-content li {
+      margin-bottom: 0.6rem;
+    }
+
+    .article-content strong {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .article-content em {
+      color: var(--text-secondary);
+    }
+
+    .article-content a {
+      color: var(--accent-blue);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .article-content code {
+      background: rgba(56, 189, 248, 0.1);
+      color: var(--accent-blue);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+
+    .article-content pre {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 1.25rem;
+      overflow-x: auto;
+      margin: 1.75rem 0;
+    }
+
+    .article-content pre code {
+      background: transparent;
+      color: var(--text-primary);
+      padding: 0;
+      font-size: 0.88rem;
+    }
+
+    .article-content hr {
+      border: 0;
+      border-top: 1px solid var(--border-subtle);
+      margin: 2.5rem 0;
+    }
+
+    .mermaid-wrapper {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 2rem 0 0.75rem;
+      overflow-x: auto;
+      text-align: center;
+    }
+
+    .mermaid-wrapper pre.mermaid {
+      background: transparent;
+      border: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .article-content img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      border: 1px solid var(--border-subtle);
+      margin: 1.5rem 0;
+    }
+
+    :root {
+      --bg-primary: #f8fafc;
+      --bg-secondary: #f1f5f9;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f8fafc;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      --accent-blue: #2563eb;
+      --border-subtle: #e2e8f0;
+      --border-highlight: rgba(37, 99, 235, 0.45);
+    }
+    html { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; }
+    body { background-image: none; }
+    header { background: rgba(255, 255, 255, 0.88); box-shadow: 0 1px 4px rgba(15, 23, 42, .05); }
+    .brand-name { background: none; -webkit-text-fill-color: var(--text-primary); color: var(--text-primary); }
+    .brand-name .dot { -webkit-text-fill-color: var(--accent-blue); color: var(--accent-blue); }
+    .nav-links a.active { color: var(--accent-blue); font-weight: 600; }
+    footer a { color: var(--accent-blue); }
+    .article-content { color: #1e293b; }
+    .article-content strong { color: #0f172a; }
+    .article-content code { background: rgba(37, 99, 235, 0.08); color: #1d4ed8; }
+    .eyebrow { background: rgba(37, 99, 235, 0.08); border-color: rgba(37, 99, 235, 0.25); }
+    .card-badge { background: rgba(5, 150, 105, 0.09); color: #047857; border-color: rgba(5, 150, 105, 0.3); }
+    .article-card { box-shadow: 0 1px 3px rgba(15, 23, 42, .06); }
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav-inner">
+      <a href="/" class="brand">
+        <span class="brand-name">naren<span class="dot">.</span>chakraview</span>
+        <span class="brand-sub">Software Engineer &middot; System Architect</span>
+      </a>
+      <nav class="nav-links">
+        <a href="/#skills">Expertise</a>
+        <a href="/#featured">Featured</a>
+        <a href="/#portfolio">Portfolio</a>
+        <a href="/articles/" class="active">Writing</a>
+        <a href="https://github.com/naren-chakraview" target="_blank" rel="noopener">GitHub &#8599;</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="article-shell">
+    <a href="/articles/" class="back-link mono">← All Articles</a>
+    <article>
+      <div class="article-header">
+        <h1>I Built a Data Mesh for Humans. Then I Put an Agent in Front of It.</h1>
+        <p class="article-subtitle">The four principles of data mesh still hold. Two of them were quietly assuming a person on the other end.</p>
+        <div class="article-meta mono">
+          <span>By Narendra Loganathan</span>
+          <span>&bull;</span>
+          <span>13 min read</span>
+          <span>&bull;</span>
+          <span>Updated 2026-10-22</span>
+        </div>
+      </div>
+      <div class="article-content">
+<p>Here is an ordinary request in a data mesh I designed.</p>
+<p>A fraud analyst wants the fraud scores owned by the Risk and Compliance domain, the <code>risk_compliance.fraud_scores</code> table. She finds the product in the discovery portal, reads its contract (schema, freshness SLA, column classifications, approval rules, retention), and submits an access request with a sentence of justification. Policy evaluates the request and, because her role needs the owner&rsquo;s sign-off for sensitive data, routes it to the owning domain with a two-hour approval SLA. Every governed read then goes through a masking step that asks policy, column by column, how to mask for her role, and writes an audit record before any rows come back. The table itself falls under ten-year AML retention.</p>
+<p>Now look at what the policy engine actually received. A user ID. A role, <code>fraud_analyst</code>, from the same short list as <code>analyst</code> and <code>risk_analyst</code>. An action. The classification of the data. The justification went to a human approver as free text; the policy never read it.</p>
+<p>Every one of those inputs describes a person.</p>
+<div class="mermaid-wrapper"><pre class="mermaid">sequenceDiagram
+    actor Analyst as Fraud analyst
+    participant Portal as Discovery portal
+    participant OPA as OPA policy
+    participant Owner as Risk and Compliance owner
+    participant Query as Query engine (Iceberg)
+
+    Analyst-&gt;&gt;Portal: read the fraud_scores contract
+    Note right of Portal: Agent: the contract has schema and SLAs, not meaning
+    Analyst-&gt;&gt;Portal: access request (user_id, role, free-text justification)
+    Portal-&gt;&gt;OPA: evaluate (user_id, user_role, action, classification)
+    Note right of OPA: Agent: which user_role? whose identity?
+    OPA--&gt;&gt;Portal: sensitive for this role: needs owner approval
+    Portal-&gt;&gt;Owner: route request (2-hour SLA)
+    Note right of Owner: Agent: hundreds of queries a minute, not one request a day
+    Owner--&gt;&gt;Analyst: approved
+    Analyst-&gt;&gt;Query: query fraud scores
+    Query-&gt;&gt;OPA: masking for this role?
+    OPA--&gt;&gt;Query: masking strategy per column
+    Query--&gt;&gt;Analyst: masked rows, audit record written
+    Note over Analyst,Query: Every input to every decision describes a person</pre></div>
+<p><em>The access request as designed. Each note marks the assumption an agent consumer breaks.</em></p>
+<p>Now run the same request from an AI agent acting for that analyst, at three in the morning, issuing a few hundred queries a minute across three domains because it decided that was the fastest way to answer her question. Which value goes in <code>user_role</code>? Who reads the justification? What happens to the two-hour SLA?</p>
+<p>That question is where this series starts: five articles, plus a short practical coda, that take the data mesh from human consumers to AI agents. The full lineup is below. I build and govern distributed data platforms for a living, and I have published a reference implementation of the mesh above. This piece is an audit of my own design against a consumer it was not built for. It is not a report from running production LLM agents on it. The point is architectural, and the evidence is the design itself.</p>
+<h2>What the mesh got right</h2>
+<p>Data mesh got the hard part right, and it is worth saying so before taking it apart. Its four principles are domain ownership, data as a product, a self-serve platform, and federated computational governance. Together they solved a real organizational failure: a central data team that becomes the bottleneck for every question the business asks.</p>
+<p>My fintech mesh follows them closely. Five domains (Transactions, Accounts, Risk and Compliance, Counterparties, Market Data) each own their data end to end, on an Apache Iceberg lakehouse fed by Kafka. Every data product ships a contract. Governance is policy as code in OPA, and the decision record for that choice explicitly rejected plain role-based access because roles multiply out of control at scale. Attributes were supposed to fix that.</p>
+<p>Underneath all four principles sits an assumption the original formulation never had to state, because it was always true: <strong>the consumer is a person.</strong> A person reads the documentation. A person resolves ambiguity in their head. A person carries a role, a manager and accountability. A person works at human speed, so an approval queue measured in hours is a reasonable control.</p>
+<p>The consumer that is arriving now breaks that assumption in three specific ways:</p>
+<ul>
+<li><strong>It is autonomous.</strong> No human approves each query; the agent decides what to read next.</li>
+<li><strong>It is non-deterministic.</strong> The same question can produce a different plan, a different query, a different join, and its behavior can be steered by whatever lands in its context.</li>
+<li><strong>It runs at machine speed.</strong> Hundreds of queries, fanned out across domains, in the time a person would take to read one contract.</li>
+</ul>
+<p>Put that consumer in front of the four principles and they do not all fail. Two of them hold, and two break.</p>
+<h2>Principle by principle</h2>
+<p><strong>Domain ownership holds.</strong> Nothing about an agent consumer changes who should own the transactions data or who gets paged when it goes stale. If anything, clear ownership matters more, because an agent needs someone accountable for the meaning it is relying on.</p>
+<p><strong>The self-serve platform holds, and matters more.</strong> Agents are the most demanding self-serve users there are. A platform that already exposes discovery, contracts and health through APIs is in a much better position than one that runs on tickets and tribal knowledge.</p>
+<p><strong>Data as a product breaks at &ldquo;understandable.&rdquo;</strong> A data product is supposed to be discoverable, addressable, trustworthy and understandable. My contracts carry the schema, SLAs, quality rules, masking and retention. What they do not carry is meaning. Meaning lived in the reader.</p>
+<p>Take &ldquo;customer,&rdquo; which means something slightly different in Accounts, Transactions and Risk. My mesh links them through RDF with a deterministic identifier. Each domain mints the same customer IRI from the same two fields, so a federated query can join accounts, transactions and risk scores without a central lookup. It works, and I would build it again. But my own documentation shows the failure mode: if one domain computes the identifier from the email alone while another uses the email plus the KYC ID, the IRIs never match. The federated join does not fail. It returns nothing, quietly.</p>
+<p>A human analyst looking at a churn report with zero high-risk customers in it senses something is off and goes to ask. An agent reports the empty result as the answer. The difference between those two outcomes is not intelligence. It is that the human was carrying the meaning in her head, and the agent can only carry what the product actually declares.</p>
+<p><strong>Federated computational governance breaks at &ldquo;who.&rdquo;</strong> The computational part is real: my policies are versioned, tested in CI, and evaluated on every access request and every governed read. But everything they compute over is an attribute of a person. There is no workload identity in the input. There is no notion of acting on behalf of someone. There is no machine-readable purpose; the justification is a sentence for a human approver.</p>
+<p>So when an agent shows up, a team has three options, and all three are bad:</p>
+<ol>
+<li><strong>Lend it the analyst&rsquo;s identity.</strong> Now the audit log says she ran four hundred queries at 3 a.m. It is accurate about whose authority was used and silent about what actually acted.</li>
+<li><strong>Give it a service account with a broad role.</strong> The approval queue disappears, and so does least privilege. The agent can now read whatever that role can read, for whichever user it happens to be serving.</li>
+<li><strong>Put it in the approval queue.</strong> Two hours per new product, for a consumer that wanted the answer in two seconds. Nobody keeps this option for long, which is how teams end up at option 2.</li>
+</ol>
+<p>This is not hypothetical. A recent academic prototype that connects LLM agents to an enterprise data product marketplace through MCP authenticated the agent with role-linked API keys. When the authors showed it to practitioners, the experts asked for exactly what the mesh lacks: separate identities for humans and AI, tighter limits on what the AI may do, and no security decisions delegated to the model.</p>
+<h2>The part the mesh has no word for</h2>
+<p>There is a third problem, and it is the one most writing on this topic skips. Agents do not only read.</p>
+<p>They summarize, derive features, flag records and write results back. In my mesh, a producer is a domain team: it has an on-call rotation, a contract, a retention policy and a name in the ownership column. An agent that writes a derived risk summary has none of those. Who owns that output? What lineage does it carry? Which retention rule applies to a summary derived from a table that AML rules require us to keep for ten years? If the summary is wrong, who gets paged?</p>
+<p>The original mesh has two kinds of participant: domains that produce and people who consume. The agent is a third kind, and it needs to be governed as a participant, not just tolerated as a client.</p>
+<div class="mermaid-wrapper"><pre class="mermaid">flowchart LR
+    subgraph Human[&quot;Consumer the mesh was built for&quot;]
+        direction TB
+        H1[&quot;Analyst&lt;br/&gt;role, manager, accountability&quot;]
+        H2[&quot;Reads the contract&lt;br/&gt;resolves ambiguity herself&quot;]
+        H3[&quot;Access request&lt;br/&gt;approved in hours&quot;]
+        H1 --&gt; H2 --&gt; H3
+    end
+
+    DP[&quot;&lt;b&gt;Data product&lt;/b&gt;&lt;br/&gt;risk_compliance.fraud_scores&lt;br/&gt;contract + OPA policy + Iceberg table&quot;]
+
+    subgraph Agent[&quot;Consumer that is arriving&quot;]
+        direction TB
+        A1[&quot;AI agent acting for the analyst&lt;br/&gt;autonomous, non-deterministic, machine-speed&quot;]
+        G1[&quot;Gap 1: meaning&lt;br/&gt;only what the product declares&quot;]
+        G2[&quot;Gap 2: identity&lt;br/&gt;no workload identity, no on-behalf-of&quot;]
+        G3[&quot;Gap 3: participation&lt;br/&gt;writes outputs no one owns&quot;]
+        A1 --&gt; G1
+        A1 --&gt; G2
+        A1 --&gt; G3
+    end
+
+    H3 --&gt;|query as a person| DP
+    G1 -.-&gt;|meaning?| DP
+    G2 -.-&gt;|which user_role?| DP
+    G3 -.-&gt;|derived data, no lineage| DP
+
+    classDef gap fill:#fef3c7,stroke:#f59e0b,color:#92400e
+    class G1,G2,G3 gap</pre></div>
+<p><em>One data product, two consumers. The three gaps map to the three threads of this series.</em></p>
+<h2>Three threads</h2>
+<p>Pull those failures apart and three threads come out. Each one is something the original formulation left soft, because a human consumer used to absorb it.</p>
+<ol>
+<li><strong>Meaning has to be machine-interpretable.</strong> If the consumer cannot carry meaning in its head, the product has to carry it, in a form a machine can check. That means domain-owned semantics, which in my work means RDF and shared ontologies rather than column descriptions. That is the next article.</li>
+<li><strong>Trust has to be computed from identity, not inferred from a role.</strong> Every consumer needs an attested identity, every delegation needs to be explicit, and policy has to evaluate both at the data product&rsquo;s boundary. I made the case for those primitives, in a security context, in <a href="https://medium.com/@narendra.loganathan/zero-trust-for-the-workloads-you-dont-control-07b9e52289d5">Zero Trust for the Workloads You Don&rsquo;t Control</a>. The third article applies them to the mesh.</li>
+<li><strong>The agent has to be a governed participant.</strong> It consumes and produces, so it needs an identity, bounded capabilities and an owner, like any other participant. That is the fourth article.</li>
+</ol>
+<h2>The series</h2>
+<p>Each article stands on its own, but they build in order, and each one is anchored in an architecture I have already published.</p>
+<ol>
+<li><strong>Data mesh was built for human consumers. AI changed the consumer.</strong> This article: where an autonomous, machine-speed consumer breaks the mesh, and the three threads that follow from it.</li>
+<li><strong><a href="https://medium.com/@narendra.loganathan/data-products-need-meaning-not-just-schemas-b09d1601aa4d">Data products need meaning, not just schemas.</a></strong> Why data as a product falls apart across domains without shared semantics, and why RDF, knowledge graphs and SPARQL are the federated semantic layer the mesh always needed but rarely specified. Domain-owned ontologies, shift-left semantic integration, and the identifier-drift failure above, worked through from my fintech mesh&rsquo;s semantic integration case study.</li>
+<li><strong>Federated governance is a trust problem, not a policy document.</strong> Making the mesh&rsquo;s softest principle concrete with zero-trust primitives: attested identity for data products and their consumers, policy at the data product&rsquo;s boundary, least-privilege access, and lineage treated as attestation.</li>
+<li><strong>When the data consumer is an autonomous agent.</strong> The convergence: agents that read and write data products, interpreted through RDF semantics and bounded by on-behalf-of delegation and capability policy at the product boundary. Includes what the agent owns when it produces data.</li>
+<li><strong>The AI-era data mesh.</strong> The three threads assembled into one reference architecture, with the full diagram set: domains, semantics, trust and agents as one design.</li>
+<li><strong>Adopting it without boiling the ocean</strong> (coda). Where to start, what it costs, and what to skip, for teams that cannot rebuild their mesh at once.</li>
+</ol>
+<h2>Where this sits in the conversation</h2>
+<p>I am not the first to notice that agents change the consumer. Zhamak Dehghani, who defined data mesh, has been building toward &ldquo;autonomous data products&rdquo; at Nextdata: products that carry embedded semantics, enforce policy at runtime and support discovery by agents. Thoughtworks&rsquo; review of the state of data mesh this year describes &ldquo;dual-use&rdquo; products that serve analytics and AI from the same contract. I agree with both diagnoses.</p>
+<p>Where I differ is on mechanism, and on what I think is still missing. Most of the current writing says agents need semantics and governance. Very little says what identity an agent carries when it reaches a data product, or what the semantic layer actually is in standards terms. My bet is on open standards I have already shipped: RDF and SPARQL for meaning, SPIFFE workload identity and OPA policy for trust. These are not a new platform. They are pieces most enterprises can already run.</p>
+<h2>What it costs</h2>
+<p>Taking this seriously is not free, and the costs are worth naming up front.</p>
+<p>Shared semantics is slow and political. Getting domains to agree on what &ldquo;customer&rdquo; means is usually slower than building the pipelines, and the negotiation repeats with every new domain. Workload identity is real plumbing: certificate issuance, rotation, and a policy engine that now evaluates delegation as well as roles. Every query pays for an extra policy decision, and every team has to learn to write policies about machines, not just people.</p>
+<p>And it is not always worth it. If your only consumers are dashboards and analysts, the human assumption still holds, and the original mesh is still the right design. The case for this series rests on one condition: autonomous agents are reading, and soon writing, your data products. For a growing number of organizations, that condition is already true or about to be.</p>
+<p>The four principles still hold. They just need a fifth assumption made explicit: the consumer may not be a person, and the mesh has to know the difference.</p>
+<p>I would value pushback, especially from anyone running agents against governed data today. Did you lend them a person&rsquo;s identity, give them a service account, or find a fourth option?</p>
+<h2>References and further reading</h2>
+<p><strong>Data mesh, from the source</strong></p>
+<ul>
+<li>Zhamak Dehghani, <a href="https://martinfowler.com/articles/data-monolith-to-mesh.html">How to Move Beyond a Monolithic Data Lake to a Distributed Data Mesh</a>, martinfowler.com, 2019. The article that introduced data mesh.</li>
+<li>Zhamak Dehghani, <a href="https://martinfowler.com/articles/data-mesh-principles.html">Data Mesh Principles and Logical Architecture</a>, martinfowler.com, 2020. The four principles this piece audits.</li>
+<li>Zhamak Dehghani, <a href="https://www.oreilly.com/library/view/data-mesh/9781492092384/">Data Mesh: Delivering Data-Driven Value at Scale</a>, O&rsquo;Reilly, 2022.</li>
+</ul>
+<p><strong>The current conversation about agents and data mesh</strong></p>
+<ul>
+<li>Nextdata, <a href="https://www.nextdata.com/our-pov/building-an-ai-ready-data-foundation-how-autonomous-data-products-enable-safe-scalable-agent-consumption">How to build an AI-ready data foundation: autonomous data products for safe, scalable agent consumption</a>, 2025.</li>
+<li>Thoughtworks, <a href="https://www.thoughtworks.com/insights/blog/data-strategy/the-state-of-data-mesh-in-2026-from-hype-to-hard-won-maturity">The state of data mesh in 2026: from hype to hard-won maturity</a>, 2026.</li>
+<li>Tonnarelli, Scaramuzza, Harrer and Dietz, <a href="https://arxiv.org/html/2601.08687v1">Data Product MCP: Chat with your Enterprise Data</a>, arXiv, 2026. The prototype and practitioner feedback cited above.</li>
+<li>Atlan, <a href="https://atlan.com/know/ai-agent/data-for-ai/data-mesh-and-ai/">Data Mesh and AI: How Decentralized Architecture Affects Agents</a>, 2026.</li>
+</ul>
+<p><strong>Standards this series builds on</strong></p>
+<ul>
+<li>W3C, <a href="https://www.w3.org/TR/rdf11-primer/">RDF 1.1 Primer</a> and <a href="https://www.w3.org/TR/sparql11-overview/">SPARQL 1.1 Overview</a>.</li>
+<li><a href="https://spiffe.io/docs/latest/spiffe-about/overview/">SPIFFE</a>, the standard for attested workload identity.</li>
+<li><a href="https://www.openpolicyagent.org/docs/latest/">Open Policy Agent</a>, policy as code.</li>
+</ul>
+<p><strong>My reference architectures</strong></p>
+<ul>
+<li><a href="https://naren-chakraview.github.io/fintech-data-mesh/">Fintech Data Mesh</a>: the mesh audited in this article, including its <a href="https://naren-chakraview.github.io/fintech-data-mesh/platform/governance/">governance design</a>, <a href="https://naren-chakraview.github.io/fintech-data-mesh/platform/discovery/">discovery portal</a> and <a href="https://naren-chakraview.github.io/fintech-data-mesh/adrs/ADR-0003-governance/">governance decision record</a>.</li>
+<li><a href="https://naren-chakraview.github.io/fintech-data-mesh/case-study/fintech-semantic-integration/BLOG-SHIFT-LEFT-SEMANTICS/">Shift-left semantics</a>: domain-owned RDF and the identifier-drift failure mode.</li>
+<li><a href="https://naren-chakraview.github.io/data-engineering-patterns/">Data Engineering Patterns</a>: nine patterns across 22 stack variants, including semantic RDF.</li>
+<li><a href="https://naren-chakraview.github.io/zero-trust-blueprint/">Zero-trust blueprint</a> and the article <a href="https://medium.com/@narendra.loganathan/zero-trust-for-the-workloads-you-dont-control-07b9e52289d5">Zero Trust for the Workloads You Don&rsquo;t Control</a>.</li>
+</ul>
+<hr />
+<p><em>I am a software engineer at heart. With 25 years building distributed systems, I treat every part of software development, whether microservices, data engineering, agentic workloads or security, with the intense rigor of a complete engineer. No layer is someone else’s problem, and no detail is beneath attention. I have published open reference architectures at <a href="https://naren-chakraview.github.io/">naren-chakraview.github.io</a>.</em></p>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p style="color: var(--text-primary); font-weight: 600; margin-bottom: 0.5rem;">naren<span style="color: var(--accent-blue);">.</span>chakraview</p>
+      <p>
+        <a href="/articles/">Writing</a> &bull;
+        <a href="/#portfolio">Portfolio</a> &bull;
+        <a href="https://medium.com/@narendra.loganathan" target="_blank" rel="noopener">Medium</a> &bull;
+        <a href="https://github.com/naren-chakraview" target="_blank" rel="noopener">GitHub</a>
+      </p>
+    </div>
+  </footer>
+
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'default',
+      securityLevel: 'loose',
+      fontFamily: 'Inter, sans-serif'
+    });
+  </script>
+</body>
+</html>
