@@ -24,7 +24,7 @@
       
       
       <link rel="icon" href="../../../assets/logo.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -32,7 +32,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1188,6 +1188,14 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -1714,6 +1722,118 @@
     
   
     Shift-Left Semantics Blog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../semantic-drift/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Semantic Drift: Before and After
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../semantic-drift-before/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Before: The Drifted Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../semantic-drift-after/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    After: The Fixed Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../semantic-core-migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Semantic Core Migration and Identity Runbook
   
 
     
@@ -2354,6 +2474,9 @@
 
 
 <h1 id="federated-query-guide-cross-domain-semantic-analysis">Federated Query Guide: Cross-Domain Semantic Analysis<a class="headerlink" href="#federated-query-guide-cross-domain-semantic-analysis" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>What changed.</strong> The semantic layer was fixed. There is now one shared core, <code>semantics/core/fintech-core.ttl</code>, and customer IRIs come from one identity library, <code>shared/semantic/identity.py</code>. The drifted design is kept as a frozen, runnable reference. See <a href="../semantic-drift/">Semantic drift: before and after</a> and the <a href="../semantic-core-migration/">migration and identity runbook</a>.</p>
+</blockquote>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
 <p>This guide explains how to write and execute <strong>federated SPARQL queries</strong> across the fintech semantic mesh domains (Accounts, Transactions, Risk/Compliance). Federated queries enable unified analysis without centralizing data or semantic responsibility.</p>
 <h2 id="what-is-sparql-federation">What is SPARQL Federation?<a class="headerlink" href="#what-is-sparql-federation" title="Permanent link">&para;</a></h2>
@@ -2387,13 +2510,13 @@
 <p>When SPARQL encounters a <code>SERVICE</code> clause, it queries that domain's endpoint independently:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Query Plan:
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>├─ SERVICE &lt;accounts&gt; { Get all customers }
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>│  └─ Results: [{?customer=&lt;cust_1&gt;, ?name=&quot;John&quot;}, ...]
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>│  └─ Results: [{?customer=&lt;cust_1&gt;, ?name="John"}, ...]
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>│
 </span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>├─ SERVICE &lt;risk&gt; { Get risk profiles }
 </span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>│  └─ Results: [{?risk=&lt;risk_1&gt;, ?customer=&lt;cust_1&gt;, ?riskScore=0.92}, ...]
 </span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>│
 </span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>└─ Join on ?customer binding
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>   └─ Final: [{?customer=&lt;cust_1&gt;, ?name=&quot;John&quot;, ?riskScore=0.92}, ...]
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>   └─ Final: [{?customer=&lt;cust_1&gt;, ?name="John", ?riskScore=0.92}, ...]
 </span></code></pre></div>
 <h3 id="2-variable-binding-across-services">2. Variable Binding Across Services<a class="headerlink" href="#2-variable-binding-across-services" title="Permanent link">&para;</a></h3>
 <p>Variables (prefixed with <code>?</code>) are the join keys. SPARQL binds variables across SERVICE clauses:</p>
@@ -2443,7 +2566,7 @@
 <p><strong>Service 2: Transactions</strong>
 <div class="language-sparql highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">SERVICE</span> <span class="nl">&lt;http://transactions-domain/sparql&gt;</span> <span class="p">{</span>
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>  <span class="nv">?txn</span> <span class="nn">fintech</span><span class="p">:</span><span class="nt">transactionDebtor</span> <span class="nv">?customer</span> <span class="p">;</span>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>       <span class="nn">fintech</span><span class="p">:</span><span class="nt">transactionStatus</span> <span class="s">&quot;failed&quot;</span> <span class="p">.</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>       <span class="nn">fintech</span><span class="p">:</span><span class="nt">transactionStatus</span> <span class="s">"failed"</span> <span class="p">.</span>
 </span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="p">}</span>
 </span></code></pre></div></p>
 <p><strong>Service 3: Risk</strong>
@@ -2463,7 +2586,7 @@
 </span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>  <span class="p">}</span>
 </span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>  <span class="k">SERVICE</span> <span class="nl">&lt;http://transactions-domain/sparql&gt;</span> <span class="p">{</span>
 </span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>    <span class="nv">?txn</span> <span class="nn">fintech</span><span class="p">:</span><span class="nt">transactionDebtor</span> <span class="nv">?customer</span> <span class="p">;</span>
-</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>         <span class="nn">fintech</span><span class="p">:</span><span class="nt">transactionStatus</span> <span class="s">&quot;failed&quot;</span> <span class="p">.</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>         <span class="nn">fintech</span><span class="p">:</span><span class="nt">transactionStatus</span> <span class="s">"failed"</span> <span class="p">.</span>
 </span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>  <span class="p">}</span>
 </span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>  <span class="k">SERVICE</span> <span class="nl">&lt;http://risk-domain/sparql&gt;</span> <span class="p">{</span>
 </span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>    <span class="nv">?risk</span> <span class="nn">fintech</span><span class="p">:</span><span class="nt">forCustomer</span> <span class="nv">?customer</span> <span class="p">;</span>
@@ -2641,7 +2764,7 @@
 </span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>  <span class="nv">?customer</span> <span class="k">a</span> <span class="nn">fintech</span><span class="p">:</span><span class="nt">Customer</span> <span class="p">.</span>
 </span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="p">}</span>
 </span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="k">SERVICE</span> <span class="nl">&lt;http://transactions-domain/sparql&gt;</span> <span class="p">{</span>
-</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>  <span class="nv">?txn</span> <span class="nn">fintech</span><span class="p">:</span><span class="nt">transactionDebtor</span> <span class="nv">?payer</span> <span class="p">.</span>   <span class="c"># ← Wrong variable, won&#39;t join</span>
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>  <span class="nv">?txn</span> <span class="nn">fintech</span><span class="p">:</span><span class="nt">transactionDebtor</span> <span class="nv">?payer</span> <span class="p">.</span>   <span class="c"># ← Wrong variable, won't join</span>
 </span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="p">}</span>
 </span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>
 </span><span id="__span-19-9"><a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a><span class="c"># ✓ Correct: Use same variable name</span>
@@ -2657,18 +2780,18 @@
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>python<span class="w"> </span>run-churn-analysis.py<span class="w"> </span>--format<span class="w"> </span>table
 </span></code></pre></div>
 <h3 id="via-python-api">Via Python API<a class="headerlink" href="#via-python-api" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="kn">from</span> <span class="nn">federated_query_client</span> <span class="kn">import</span> <span class="n">FederatedQueryClient</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">federated_query_client</span><span class="w"> </span><span class="kn">import</span> <span class="n">FederatedQueryClient</span>
 </span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>
 </span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="n">endpoints</span> <span class="o">=</span> <span class="p">{</span>
-</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>    <span class="s2">&quot;accounts&quot;</span><span class="p">:</span> <span class="s2">&quot;http://localhost:3030/accounts/sparql&quot;</span><span class="p">,</span>
-</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>    <span class="s2">&quot;transactions&quot;</span><span class="p">:</span> <span class="s2">&quot;http://localhost:3031/transactions/sparql&quot;</span><span class="p">,</span>
-</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>    <span class="s2">&quot;risk&quot;</span><span class="p">:</span> <span class="s2">&quot;http://localhost:3032/risk_compliance/sparql&quot;</span>
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>    <span class="s2">"accounts"</span><span class="p">:</span> <span class="s2">"http://localhost:3030/accounts/sparql"</span><span class="p">,</span>
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>    <span class="s2">"transactions"</span><span class="p">:</span> <span class="s2">"http://localhost:3031/transactions/sparql"</span><span class="p">,</span>
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>    <span class="s2">"risk"</span><span class="p">:</span> <span class="s2">"http://localhost:3032/risk_compliance/sparql"</span>
 </span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a><span class="p">}</span>
 </span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>
 </span><span id="__span-21-9"><a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a><span class="n">client</span> <span class="o">=</span> <span class="n">FederatedQueryClient</span><span class="p">(</span><span class="n">endpoints</span><span class="p">)</span>
 </span><span id="__span-21-10"><a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>
 </span><span id="__span-21-11"><a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a><span class="c1"># Load and execute query</span>
-</span><span id="__span-21-12"><a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;churn-analysis-federated.sparql&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="__span-21-12"><a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"churn-analysis-federated.sparql"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
 </span><span id="__span-21-13"><a id="__codelineno-21-13" name="__codelineno-21-13" href="#__codelineno-21-13"></a>    <span class="n">query</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 </span><span id="__span-21-14"><a id="__codelineno-21-14" name="__codelineno-21-14" href="#__codelineno-21-14"></a>
 </span><span id="__span-21-15"><a id="__codelineno-21-15" name="__codelineno-21-15" href="#__codelineno-21-15"></a><span class="n">results</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">execute_query</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
@@ -2676,9 +2799,9 @@
 </span></code></pre></div>
 <h3 id="via-curl">Via curl<a class="headerlink" href="#via-curl" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="w">  </span>--data-urlencode<span class="w"> </span><span class="s2">&quot;query@churn-analysis-federated.sparql&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="w">  </span>--data-urlencode<span class="w"> </span><span class="s2">"query@churn-analysis-federated.sparql"</span><span class="w"> </span><span class="se">\</span>
 </span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="w">  </span>http://localhost:3030/accounts/sparql<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Accept: application/sparql-results+json&quot;</span>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">"Accept: application/sparql-results+json"</span>
 </span></code></pre></div>
 <h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
 <ul>
@@ -2757,7 +2880,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.annotate", "content.code.copy", "content.tabs.link"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
       
