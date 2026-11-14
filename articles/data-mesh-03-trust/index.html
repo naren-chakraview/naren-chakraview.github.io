@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Federated Governance Is a Trust Problem, Not a Policy Document | Naren Chakraview</title>
+  <meta name="description" content="My data mesh&#x27;s access policy was correct, tested and fail-closed. It also believed whatever it was told about who was asking." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+
+    :root {
+      --bg-primary: #090d16;
+      --bg-secondary: #111827;
+      --bg-card: #161f33;
+      --bg-card-hover: #1e293b;
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #6366f1;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --border-subtle: rgba(148, 163, 184, 0.14);
+      --border-highlight: rgba(56, 189, 248, 0.45);
+      --max-w: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.7;
+    }
+
+    body {
+      overflow-x: hidden;
+      background-image:
+        radial-gradient(circle at 15% 10%, rgba(99, 102, 241, 0.12), transparent 35%),
+        radial-gradient(circle at 85% 20%, rgba(56, 189, 248, 0.10), transparent 35%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    code, pre, .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(9, 13, 22, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 76px;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-name {
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(90deg, #fff, var(--accent-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-sub {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--text-primary);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.25rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-indigo));
+      color: #090d16;
+      font-weight: 700;
+      box-shadow: 0 4px 20px rgba(56, 189, 248, 0.25);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-primary);
+      border-color: var(--border-subtle);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.09);
+      border-color: var(--accent-blue);
+    }
+
+    footer {
+      margin-top: auto;
+      padding: 3rem 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    @media (max-width: 860px) {
+      .nav-links {
+        display: none;
+      }
+    }
+
+    .article-shell {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 3.5rem 1.5rem 5rem;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--accent-blue);
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .article-header h1 {
+      font-size: clamp(2rem, 4vw, 2.85rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .article-subtitle {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+      font-weight: 400;
+      margin-bottom: 1.25rem;
+    }
+
+    .article-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .article-content {
+      font-size: 1.08rem;
+      color: #e2e8f0;
+      line-height: 1.8;
+    }
+
+    .article-content h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 2.75rem 0 1rem;
+      letter-spacing: -0.015em;
+    }
+
+    .article-content h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 2rem 0 0.75rem;
+    }
+
+    .article-content p {
+      margin-bottom: 1.35rem;
+    }
+
+    .article-content ul, .article-content ol {
+      margin: 0 0 1.5rem 1.5rem;
+    }
+
+    .article-content li {
+      margin-bottom: 0.6rem;
+    }
+
+    .article-content strong {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .article-content em {
+      color: var(--text-secondary);
+    }
+
+    .article-content a {
+      color: var(--accent-blue);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .article-content code {
+      background: rgba(56, 189, 248, 0.1);
+      color: var(--accent-blue);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+
+    .article-content pre {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 1.25rem;
+      overflow-x: auto;
+      margin: 1.75rem 0;
+    }
+
+    .article-content pre code {
+      background: transparent;
+      color: var(--text-primary);
+      padding: 0;
+      font-size: 0.88rem;
+    }
+
+    .article-content hr {
+      border: 0;
+      border-top: 1px solid var(--border-subtle);
+      margin: 2.5rem 0;
+    }
+
+    .mermaid-wrapper {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 2rem 0 0.75rem;
+      overflow-x: auto;
+      text-align: center;
+    }
+
+    .mermaid-wrapper pre.mermaid {
+      background: transparent;
+      border: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .article-content img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      border: 1px solid var(--border-subtle);
+      margin: 1.5rem 0;
+    }
+
+    :root {
+      --bg-primary: #f8fafc;
+      --bg-secondary: #f1f5f9;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f8fafc;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      --accent-blue: #2563eb;
+      --border-subtle: #e2e8f0;
+      --border-highlight: rgba(37, 99, 235, 0.45);
+    }
+    html { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; }
+    body { background-image: none; }
+    header { background: rgba(255, 255, 255, 0.88); box-shadow: 0 1px 4px rgba(15, 23, 42, .05); }
+    .brand-name { background: none; -webkit-text-fill-color: var(--text-primary); color: var(--text-primary); }
+    .brand-name .dot { -webkit-text-fill-color: var(--accent-blue); color: var(--accent-blue); }
+    .nav-links a.active { color: var(--accent-blue); font-weight: 600; }
+    footer a { color: var(--accent-blue); }
+    .article-content { color: #1e293b; }
+    .article-content strong { color: #0f172a; }
+    .article-content code { background: rgba(37, 99, 235, 0.08); color: #1d4ed8; }
+    .eyebrow { background: rgba(37, 99, 235, 0.08); border-color: rgba(37, 99, 235, 0.25); }
+    .card-badge { background: rgba(5, 150, 105, 0.09); color: #047857; border-color: rgba(5, 150, 105, 0.3); }
+    .article-card { box-shadow: 0 1px 3px rgba(15, 23, 42, .06); }
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav-inner">
+      <a href="/" class="brand">
+        <span class="brand-name">naren<span class="dot">.</span>chakraview</span>
+        <span class="brand-sub">Software Engineer &middot; System Architect</span>
+      </a>
+      <nav class="nav-links">
+        <a href="/#skills">Expertise</a>
+        <a href="/#featured">Featured</a>
+        <a href="/#portfolio">Portfolio</a>
+        <a href="/articles/" class="active">Writing</a>
+        <a href="https://github.com/naren-chakraview" target="_blank" rel="noopener">GitHub &#8599;</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="article-shell">
+    <a href="/articles/" class="back-link mono">← All Articles</a>
+    <article>
+      <div class="article-header">
+        <h1>Federated Governance Is a Trust Problem, Not a Policy Document</h1>
+        <p class="article-subtitle">My data mesh&#x27;s access policy was correct, tested and fail-closed. It also believed whatever it was told about who was asking.</p>
+        <div class="article-meta mono">
+          <span>By Narendra Loganathan</span>
+          <span>&bull;</span>
+          <span>15 min read</span>
+          <span>&bull;</span>
+          <span>Updated 2026-11-14</span>
+        </div>
+      </div>
+      <div class="article-content">
+<p>This is the request that broke my confidence in my own governance:</p>
+<pre><code class="language-text">POST /api/access-requests              &lt;- no token, no login required
+{
+  &quot;user_id&quot;:   &quot;anyone@example.com&quot;,   &lt;- any name will do
+  &quot;user_role&quot;: &quot;risk_analyst&quot;,         &lt;- typed by the caller, never checked
+  &quot;data_product_id&quot;: &quot;risk-compliance.risk-scores&quot;,
+  &quot;action&quot;: &quot;read&quot;,
+  &quot;justification&quot;: &quot;testing&quot;
+}
+
+200 OK
+{&quot;id&quot;: &quot;req_1&quot;, &quot;status&quot;: &quot;approved&quot;,  &lt;- no human reviewed it
+ &quot;message&quot;: &quot;Access granted&quot;}
+</code></pre>
+<p>The risk scores in my reference data mesh are classified sensitive. The access policy says a risk analyst may read sensitive data without a human approving it. The policy is written in Rego, versioned, covered by tests, and fails closed if the policy engine is unreachable. It did exactly what it was written to do.</p>
+<p>The problem is the words &ldquo;risk analyst&rdquo;. They came from the request body, typed by whoever sent it. Nothing checked them. The policy was evaluating a claim.</p>
+<p>In the <a href="https://medium.com/@narendra.loganathan/i-built-a-data-mesh-for-humans-then-i-put-an-agent-in-front-of-it-593198088dd5">first article of this series</a> I argued that federated governance breaks at &ldquo;who&rdquo; once the consumer is an agent, because nothing in it can say which machine is acting for which person. When I went back to the code to write this article, I found it could not say which <em>person</em> was acting, either. This article is about why, and how I fixed it.</p>
+<h2>What the industry has right</h2>
+<p>Start with what is not in dispute. Federated computational governance, the fourth principle of data mesh, has matured from a slogan into a practice. Policy as code is the right move: rules that are versioned, reviewed, tested and evaluated by machines, instead of PDFs that someone reads once. OPA is widely used for it, and OpenCredo and Starburst have both written well about putting it at the heart of a mesh. Thoughtworks&rsquo; Looking Glass 2026 puts it plainly: governance &ldquo;moves from committees to real-time controls and auditability&rdquo;, and should be treated &ldquo;as code and product&rdquo;. The academic side is catching up too: a paper at ICSA 2026 distills 49 industry sources and six practitioner interviews into a framework of eight design decisions and 104 options for building such governance.</p>
+<p>All of that work is about the policy. It is good work, and my own mesh followed it. But it mostly takes the policy&rsquo;s inputs on trust: who is asking, through which software, and by which door. That is not a policy question. It is a trust question, and zero trust has been answering it for workloads for a decade.</p>
+<h2>The audit: what my governance actually trusted</h2>
+<p>My fintech mesh has five domains on an Iceberg lakehouse, a discovery portal where consumers request access, OPA for decisions, column masking, and an audit log. A few weeks before this audit, I had fixed its policy: OPA 1.0 with the current Rego syntax, default deny, fail-closed masking, an audit write that blocks the read if it fails. I read it again as a zero-trust reviewer would, asking of every decision &ldquo;how do you know?&rdquo; Seven answers were &ldquo;we don&rsquo;t&rdquo;.</p>
+<p><strong>The person was a claim.</strong> The access-request API took <code>user_id</code> and <code>user_role</code> from the JSON body. Nothing authenticated the caller. That is the request at the top of this article.</p>
+<p><strong>The masking never ran.</strong> The function that masks columns and writes the audit record was real, tested code. Its only callers were its unit tests. No read path in the repository used it.</p>
+<p><strong>An approval went nowhere.</strong> When a request needed a human, the approval became a record in memory. Nothing checked it when data was read, it never expired, and a restart erased it.</p>
+<p><strong>Every door below the policy was open.</strong> Object storage ran with its default credentials. The Iceberg catalog had no authentication. The three domains&rsquo; SPARQL endpoints, which I added for the semantic layer in <a href="https://medium.com/@narendra.loganathan/data-products-need-meaning-not-just-schemas-b09d1601aa4d">the previous article</a>, accepted queries, updates and graph writes from anyone who could reach them, and served customer names and emails unmasked. The policy guarded a front door in a building with no walls.</p>
+<p><strong>The workload was invisible.</strong> Every policy input described a person. Nothing identified the software making the request, so the policy could not tell an analyst&rsquo;s notebook from a nightly batch job from an AI agent acting for that analyst.</p>
+<p><strong>Lineage was an empty module.</strong> One line, a comment. Nothing recorded which code, which inputs and which workload produced a data product.</p>
+<p><strong>&ldquo;Federated&rdquo; was one central file.</strong> Every product was governed by a single policy file written by the platform team. A domain had nowhere to express rules for its own product.</p>
+<p>None of this is exotic. Each is the kind of gap a careful team ships, because each hides behind a component that looks finished. The common cause is the point of this article: <strong>I had built governance as a decision service, not as a trust boundary.</strong> It answered &ldquo;should this role see this column?&rdquo; correctly, and never established who was asking, through which workload, by which door, or about data from where.</p>
+<div class="mermaid-wrapper"><pre class="mermaid">flowchart LR
+    subgraph Before[&quot;Before: a decision service&quot;]
+        direction LR
+        B1[&quot;Request body&lt;br/&gt;user_role: risk_analyst&quot;] --&gt; B2[&quot;OPA policy&lt;br/&gt;correct, tested&quot;]
+        B2 --&gt; B3[&quot;approved&quot;]
+        B4[&quot;Object storage&lt;br/&gt;default credentials&quot;]
+        B5[&quot;SPARQL endpoints&lt;br/&gt;open read and write&quot;]
+        B6[&quot;Catalog&lt;br/&gt;no authentication&quot;]
+    end
+    subgraph After[&quot;After: a trust boundary&quot;]
+        direction LR
+        A1[&quot;Verified person&lt;br/&gt;signed token&quot;] --&gt; A3[&quot;Data product boundary&quot;]
+        A2[&quot;Verified workload&lt;br/&gt;SPIFFE certificate&quot;] --&gt; A3
+        A3 --&gt; A4[&quot;Tables&quot;]
+        A3 --&gt; A5[&quot;SPARQL, read-only&quot;]
+    end
+    classDef bad fill:#fef3c7,stroke:#f59e0b,color:#92400e
+    classDef good fill:#ecfdf5,stroke:#10b981,color:#065f46
+    class B1,B4,B5,B6 bad
+    class A3 good</pre></div>
+<p><em>Before, the policy was fed a claim, and the data sat beside it with its own doors open. After, both parties prove who they are, and every door is behind one boundary per product.</em></p>
+<h2>The fix: zero-trust primitives at the data product&rsquo;s boundary</h2>
+<p>I fixed it in the repository and, as with the semantic drift, kept the before beside the after. The old state is tagged <a href="https://github.com/naren-chakraview/chakraview-fintech-data-mesh/tree/trust-before"><code>trust-before</code></a>, the frozen code sits under <code>examples/trust-gaps/before/</code>, and five demos print the before and after. The design has six parts, and none of them is new. They are the primitives from my <a href="https://medium.com/@narendra.loganathan/zero-trust-for-the-workloads-you-dont-control-07b9e52289d5">zero-trust article</a>, applied to data.</p>
+<p><strong>Prove both parties.</strong> Every request carries two identities, and both are verified. The person presents a signed token from the identity provider; the boundary checks its signature, issuer, audience and expiry, and takes the subject and roles from the verified claims only. The software presents a client certificate with a SPIFFE ID, checked by the gateway against the certificate authority. A request body that still tries to name a role is rejected outright, so an old client fails loudly instead of having its claim silently dropped. The request from the top of this article now gets a 401, and with a valid analyst token it gets a 400: &ldquo;identity comes from the verified token; remove: user_role&rdquo;.</p>
+<p><strong>One enforcement point per data product, in front of every door.</strong> A boundary service is now the only network path to product data, for table reads and for SPARQL alike. Storage, the catalog, the SPARQL servers and the policy engine sit on an internal network with no published ports, and the gateway reaches the boundary over mutual TLS. The SPARQL servers lost their update and graph-write endpoints. Every step fails closed: no token, no certificate, no policy decision or no audit write means no data. And the masking function finally has a caller.</p>
+<p><strong>Federated means layered.</strong> The platform team owns guardrails that no domain can override: a verified person and workload on every request, approval for personal data, a masking floor, and an audit record. Each domain owns a policy file for each of its products: who may read it, whether reads need approval, and how each column is shown. A read needs both the guardrails and the domain policy to allow it, and the stricter masking wins. The test that convinced me: a domain policy that tries to show personal data in the clear gets overruled by the guardrail, and the audit shows partial masking on every column.</p>
+<p><strong>Grants, not approvals.</strong> An approval, made by an authenticated product owner, becomes a stored grant scoped to the person, the workload, the product, the columns and the purpose, with an expiry. The boundary checks it at read time and records its id in the audit. Without a grant the read is refused; with one it succeeds; two days later, when it has expired, it is refused again.</p>
+<p><strong>Lineage as attestation.</strong> When a producer publishes a snapshot, it signs a record in the format the software supply chain already uses (an in-toto statement in a DSSE envelope): the snapshot&rsquo;s SHA-256 digest, the producing workload&rsquo;s SPIFFE ID, the code commit and the input snapshots. Each producer has its own key, and the boundary keeps a separate, read-only record of which producer and key each product expects, so whoever can write an attestation cannot also change what verifies it. Every read reports whether the snapshot&rsquo;s lineage verified. Change one byte of the snapshot and it reports false. A product can go further and declare in its contract that it must not be read without verified lineage, and the guardrail enforces that.</p>
+<p><strong>Audit as evidence.</strong> Every decision, allowed or denied, records the person, their roles, the workload, the product, the columns, the masking applied, the policy revisions, the grant, the lineage result and, for SPARQL, a hash of the query. &ldquo;Who saw this, through what, and why was it allowed?&rdquo; now has a record, not a reconstruction.</p>
+<p>Here is a read of customer data after the fix, annotated with what is checked, and where:</p>
+<pre><code class="language-text">GET /products/accounts.account-master/rows
+    ?columns=account_id,customer_name&amp;purpose=fraud-review
+
+TLS client certificate              &lt;- gateway: signed by the trusted CA
+  spiffe://chakracommerce.com/ns/analytics/sa/notebook
+                                    &lt;- boundary: exactly one SPIFFE ID
+Authorization: Bearer eyJhbGci...   &lt;- boundary: signature, issuer,
+                                       audience, expiry; roles from claims
+                                    &lt;- OPA: platform guardrails AND the
+                                       accounts team's product policy
+                                    &lt;- grant: this person and workload,
+                                       these columns and purpose, unexpired
+                                    &lt;- lineage: signed by the producer
+                                       this product expects
+
+200 OK
+{&quot;rows&quot;: [{&quot;account_id&quot;: &quot;AC****01&quot;, &lt;- masked to the guardrail's floor
+           &quot;customer_name&quot;: &quot;Jo****oe&quot;}],
+ &quot;lineage_verified&quot;: true,
+ &quot;grant_id&quot;: &quot;grant_9f5a1f3216b8&quot;}  &lt;- and recorded in the audit
+</code></pre>
+<p>Take away the certificate and the gateway rejects the request with a 400. Take away the token and the boundary returns 401. Take away the grant, or let it expire, and it returns 403.</p>
+<div class="mermaid-wrapper"><pre class="mermaid">flowchart TB
+    P[&quot;Person&lt;br/&gt;signed token&quot;]
+    W[&quot;Workload&lt;br/&gt;SPIFFE certificate&quot;]
+    GW[&quot;mTLS gateway&lt;br/&gt;verifies the certificate chain&quot;]
+
+    subgraph BND[&quot;Data product boundary&quot;]
+        direction TB
+        V[&quot;Verify both identities&quot;]
+        POL[&quot;Platform guardrails AND domain product policy&quot;]
+        G[&quot;Grant check&lt;br/&gt;scoped, expiring&quot;]
+        L[&quot;Lineage check&lt;br/&gt;signed by the expected producer&quot;]
+        M[&quot;Masking&quot;]
+        AU[&quot;Audit record&quot;]
+        V --&gt; POL --&gt; G --&gt; L --&gt; M --&gt; AU
+    end
+
+    DATA[&quot;Tables and SPARQL&lt;br/&gt;internal network only&quot;]
+    PROD[&quot;Producer&quot;] --&gt;|signs each snapshot| DATA
+
+    P --&gt; GW
+    W --&gt; GW
+    GW --&gt;|mTLS| V
+    BND --&gt; DATA
+
+    classDef core fill:#eef2ff,stroke:#6366f1,color:#3730a3
+    classDef gate fill:#ecfdf5,stroke:#10b981,color:#065f46
+    class GW core
+    class V,POL,G,L,M,AU gate</pre></div>
+<p><em>The data product boundary. Both parties are proven before any policy runs, the platform&rsquo;s guardrails and the domain&rsquo;s policy must both allow, and every read leaves evidence.</em></p>
+<h2>The side door was harder than the front door</h2>
+<p>The SPARQL endpoint is worth its own section, because it taught me the most. Putting it behind the boundary was easy. Making the boundary&rsquo;s masking hold for an arbitrary query was not, and each review of the fix found another hole.</p>
+<p>The first version masked each result by the name of its variable. So a query could read an email and rename it after a harmless column: <code>BIND(?email AS ?amount)</code> came back in the clear to someone granted only <code>amount</code>. The fix was to classify each result by the predicate its value is read from, never by its name, and to refuse the constructs that can compute or rename a value: <code>BIND</code>, expressions in <code>SELECT</code>, aggregates, subqueries and <code>VALUES</code>. The same pass refused <code>SERVICE</code>, which would otherwise have let a query authorized for one product ask its SPARQL server to fetch another domain&rsquo;s data over the internal network, under the wrong product&rsquo;s grant.</p>
+<p>The second version checked only the predicates behind the columns a query returned. A query could still <em>match</em> on data it could not read, <code>?c f:amount ?amount ; f:customerEmail "john@acme.com"</code>, and the presence of rows answered &ldquo;does this person have transactions?&rdquo;. Now every predicate in the query, returned or only matched, must be in the product&rsquo;s contract and covered by the caller&rsquo;s grant. A third review found the same test hiding inside <code>FILTER EXISTS</code>, where the check could not see it, so the boundary now refuses <code>EXISTS</code> and <code>NOT EXISTS</code> too.</p>
+<p>The lesson generalizes. A query language is a door with a lock that has to understand everything the language can say. If you expose one, either keep it to a small, analyzable subset, as I did, or allow only named, reviewed queries per product. And accept that row counts and timing can still leak a little through any query interface, which is why the audit records a hash of every query.</p>
+<h2>Where zero-trust-rs fits</h2>
+<p>The boundary here is a small Python service behind nginx, because the point of the repository is to be read. In production, that role suits a gateway like zero-trust-rs, the Rust reference gateway I built alongside the <a href="https://medium.com/@narendra.loganathan/zero-trust-for-the-workloads-you-dont-control-07b9e52289d5">zero-trust article</a>: mutual TLS between SPIFFE identities, verified tokens, and capability policy checked at every hop against the workload making that hop.</p>
+<p>There is one thing this article deliberately leaves out: an agent acting for a person. The policy input already carries the person and the workload separately, so a delegation chain, the record that this agent acted for that analyst through these services, can be added without redesign. That is the subject of the next article.</p>
+<h2>What it costs</h2>
+<p>Running an identity plane is real work. In the repository, a development identity provider and certificate authority stand in for a company&rsquo;s identity provider and SPIRE; in production, both need operating, rotating and monitoring. Every read now makes policy calls. For scale: in zero-trust-rs, verifying a signed token takes about 15 microseconds, and a full hop through the gateway about 0.2 to 0.3 milliseconds, on a desktop machine. I have not measured the mesh&rsquo;s policy calls, and you should measure your own. Signing keys for lineage need the same care as any other key, which in production means a key management service or Sigstore. Layered policy can sprawl, and computational policy cannot capture judgment; some decisions stay with a human, which is what grants are for.</p>
+<p>What I built also has limits. The boundary reads fixture snapshots, not live Iceberg tables. The SPARQL servers still answer anyone on the internal network, because the stock image has no per-user query authentication; the boundary is their only route in from outside. And a grant&rsquo;s purpose is a string the caller sends, recorded and checked against the grant but not against a register of allowed purposes. All of these are listed on the <a href="https://naren-chakraview.github.io/fintech-data-mesh/case-study/fintech-governance/trust-gaps/">trust gaps page</a>, with the demos.</p>
+<p>Most of the value came from the unglamorous part: closing the doors. Authenticated storage, no published ports, a read-only query endpoint behind the boundary. If you do nothing else after reading this, find every way into your data products that does not pass through your policy.</p>
+<h2>Trust before policy</h2>
+<p>A policy is only as trustworthy as the identity it evaluates and the doors it guards. Federated governance gave the mesh a way to write rules once and apply them everywhere. Zero trust gives it the other half: proof of who is asking, through what, and about data from where, at every product&rsquo;s boundary.</p>
+<p>That raises a fair question. If trust is enforced at every product&rsquo;s boundary, why keep a mesh at all, rather than one central platform that enforces it once? I will answer it in the fifth article. First, the consumer this series has been building toward: an AI agent, acting for a person, that reads and writes data products.</p>
+<p>I would value pushback, especially from teams running policy as code in a mesh. Where does your policy&rsquo;s identity come from, and how many ways into your data skip the policy entirely?</p>
+<h2>The series</h2>
+<p>Each article stands on its own, but they build in order, and each one is anchored in an architecture I have already published.</p>
+<ol>
+<li><strong><a href="https://medium.com/@narendra.loganathan/i-built-a-data-mesh-for-humans-then-i-put-an-agent-in-front-of-it-593198088dd5">Data mesh was built for human consumers. AI changed the consumer.</a></strong> Where an autonomous, machine-speed consumer breaks the mesh, and the three threads that follow from it.</li>
+<li><strong><a href="https://medium.com/@narendra.loganathan/data-products-need-meaning-not-just-schemas-b09d1601aa4d">Data products need meaning, not just schemas.</a></strong> Shared semantics across domains, the drift I found in my own mesh, and the contract that now catches it.</li>
+<li><strong>Federated governance is a trust problem, not a policy document.</strong> This article: verified identity for people and workloads, one boundary per data product, grants instead of approvals, and lineage treated as attestation.</li>
+<li><strong>When the data consumer is an autonomous agent.</strong> The convergence: agents that read and write data products, interpreted through RDF semantics and bounded by on-behalf-of delegation and capability policy at the product boundary. Includes what the agent owns when it produces data.</li>
+<li><strong>The AI-era data mesh.</strong> The three threads assembled into one reference architecture, with the full diagram set: domains, semantics, trust and agents as one design.</li>
+<li><strong>Adopting it without boiling the ocean</strong> (coda). Where to start, what it costs, and what to skip, for teams that cannot rebuild their mesh at once.</li>
+</ol>
+<h2>References and further reading</h2>
+<p><strong>Federated governance and policy as code</strong></p>
+<ul>
+<li>Marco Tonnarelli, Tom van Eijk, Indika Kumara, Dario Di Nucci, Damian Andrew Tamburri and Willem-Jan van den Heuvel, <a href="https://conf.researchr.org/details/icsa-2026/icsa-2026-papers/14/Architectural-Design-Decisions-for-Federated-Computational-Governance-in-Data-Meshes">Architectural Design Decisions for Federated Computational Governance in Data Meshes</a>, ICSA 2026.</li>
+<li>OpenCredo, <a href="https://opencredo.com/blogs/tldr-computational-governance-in-data-mesh-with-opa/">Computational governance in data mesh with OPA</a>.</li>
+<li>Starburst, <a href="https://starburst.io/blog/practical-security-policy-governance-data-mesh">Practical security and policy-based governance in a data mesh</a>.</li>
+<li>Thoughtworks, <a href="https://www.thoughtworks.com/insights/looking-glass/looking-glass-2026/from-data-platforms-to-AI-ready-data-ecosystems">Looking Glass 2026: From data platforms to AI-ready data ecosystems</a>.</li>
+</ul>
+<p><strong>Identity and provenance</strong></p>
+<ul>
+<li><a href="https://spiffe.io/">SPIFFE</a> and <a href="https://spiffe.io/docs/latest/spire-about/">SPIRE</a>: workload identity.</li>
+<li><a href="https://github.com/in-toto/attestation">in-toto attestation framework</a> and <a href="https://github.com/secure-systems-lab/dsse">DSSE</a>: signed statements about artifacts.</li>
+<li><a href="https://slsa.dev/">SLSA</a>: supply-chain levels and provenance for software, the model for treating data lineage as attestation.</li>
+<li><a href="https://www.openpolicyagent.org/">Open Policy Agent</a>.</li>
+</ul>
+<p><strong>My reference architectures</strong></p>
+<ul>
+<li><a href="https://naren-chakraview.github.io/fintech-data-mesh/case-study/fintech-governance/trust-gaps/">Trust gaps: before and after</a>: every gap in this article, its fix, the demos and the known residuals.</li>
+<li><a href="https://github.com/naren-chakraview/chakraview-fintech-data-mesh/tree/trust-before">The before state</a>, tagged <code>trust-before</code>, and the <a href="https://github.com/naren-chakraview/chakraview-fintech-data-mesh">fixed repository</a>.</li>
+<li><a href="https://medium.com/@narendra.loganathan/zero-trust-for-the-workloads-you-dont-control-07b9e52289d5">Zero Trust for the Workloads You Don&rsquo;t Control</a>: the identity, delegation and capability primitives this article applies to data.</li>
+<li><a href="https://naren-chakraview.github.io/zero-trust-blueprint/">Zero-trust blueprint</a>: attested workload identity, mTLS and policy as code on Kubernetes.</li>
+</ul>
+<hr />
+<p><em>I am a software engineer at heart. With 25 years building distributed systems, I treat every part of software development, whether microservices, data engineering, agentic workloads or security, with the intense rigor of a complete engineer. No layer is someone else’s problem, and no detail is beneath attention. I have published open reference architectures at <a href="https://naren-chakraview.github.io/">naren-chakraview.github.io</a>.</em></p>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p style="color: var(--text-primary); font-weight: 600; margin-bottom: 0.5rem;">naren<span style="color: var(--accent-blue);">.</span>chakraview</p>
+      <p>
+        <a href="/articles/">Writing</a> &bull;
+        <a href="/#portfolio">Portfolio</a> &bull;
+        <a href="https://medium.com/@narendra.loganathan" target="_blank" rel="noopener">Medium</a> &bull;
+        <a href="https://github.com/naren-chakraview" target="_blank" rel="noopener">GitHub</a>
+      </p>
+    </div>
+  </footer>
+
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'default',
+      securityLevel: 'loose',
+      fontFamily: 'Inter, sans-serif'
+    });
+  </script>
+</body>
+</html>
