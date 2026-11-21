@@ -24,7 +24,7 @@
       
       
       <link rel="icon" href="../../../assets/logo.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -32,10 +32,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.57a0d79d.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.fb2fffe2.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -2041,14 +2041,14 @@ the old ones were truncated.</p>
 the domain's <code>CrossDomainResolver</code>, which delegates to it). Do not reimplement the rule.</p>
 <h2 id="3-identity-key-runbook">3. Identity key runbook<a class="headerlink" href="#3-identity-key-runbook" title="Permanent link">&para;</a></h2>
 <p>The customer IRI rule is:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>IRI = https://chakracommerce.com/customer# + HMAC-SHA256(key, normalize(email) + "|" + normalize(kyc_id))
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>IRI = https://chakracommerce.com/customer# + HMAC-SHA256(key, normalize(email) + &quot;|&quot; + normalize(kyc_id))
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>normalize(x) = str(x).lower().strip()        (64 lowercase hex characters)
 </span></code></pre></div>
 <p>The key is read from <code>FINTECH_IRI_KEY</code>. There is no default. If the variable is unset or
 empty, minting raises <code>IriKeyMissingError</code>.</p>
 <h3 id="create-the-key">Create the key<a class="headerlink" href="#create-the-key" title="Permanent link">&para;</a></h3>
 <p>Generate a random key of at least 32 bytes, for example:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">"import secrets; print(secrets.token_urlsafe(48))"</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import secrets; print(secrets.token_urlsafe(48))&quot;</span>
 </span></code></pre></div>
 <h3 id="store-and-distribute-it">Store and distribute it<a class="headerlink" href="#store-and-distribute-it" title="Permanent link">&para;</a></h3>
 <ul>
@@ -2096,8 +2096,8 @@ They do not change on rotation, because they use a fixed test key.</p>
 <p>A violation raises <code>SemanticValidationError</code> with the full report. The job fails. It
 does not write a partial graph.</p>
 <p>To check a graph by hand:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">shared.semantic.validation</span><span class="w"> </span><span class="kn">import</span> <span class="n">validate_graph</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">conforms</span><span class="p">,</span> <span class="n">report_graph</span><span class="p">,</span> <span class="n">report_text</span> <span class="o">=</span> <span class="n">validate_graph</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="s2">"accounts"</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span> <span class="nn">shared.semantic.validation</span> <span class="kn">import</span> <span class="n">validate_graph</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">conforms</span><span class="p">,</span> <span class="n">report_graph</span><span class="p">,</span> <span class="n">report_text</span> <span class="o">=</span> <span class="n">validate_graph</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="s2">&quot;accounts&quot;</span><span class="p">)</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">report_text</span><span class="p">)</span>
 </span></code></pre></div>
 <h2 id="5-run-the-tests">5. Run the tests<a class="headerlink" href="#5-run-the-tests" title="Permanent link">&para;</a></h2>
@@ -2193,10 +2193,10 @@ contract tests in <code>tests/contract/</code>:</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.annotate", "content.code.copy", "content.tabs.link"], "search": "../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.annotate", "content.code.copy", "content.tabs.link"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
       
