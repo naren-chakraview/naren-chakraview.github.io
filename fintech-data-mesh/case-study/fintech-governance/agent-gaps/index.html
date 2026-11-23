@@ -2123,7 +2123,7 @@ gate for a write follows the kind of write, the classification of what is writte
 <tr>
 <td>derived, <code>pii</code></td>
 <td>direct, only if a listed producer</td>
-<td><strong>refused</strong>: agents do not create personal data (<code>422 agent_cannot_create_pii</code>)</td>
+<td><strong>a proposal the person it describes accepts</strong>, if the value describes exactly one person (<code>409 requires_subject_consent</code>); <strong>refused</strong> if it describes several people or none (<code>422 agent_cannot_create_pii</code>)</td>
 </tr>
 </tbody>
 </table>
@@ -2144,6 +2144,15 @@ on read. Field-level encryption is a deployment choice outside this repo.</p>
 <p><strong>Derived data, three outcomes.</strong> <code>risk-compliance.score-freshness-summary</code> (internal) is written directly by the risk
 agent. The review note (confidential) is a proposal an owner accepts. A personal column in the summary is refused for the
 agent. The risk-scores service writes its sensitive output directly, as a listed producer.</p>
+<p><strong>Subject consent (addendum 2).</strong> A personal value an agent derives is not refused when one person could bless it. The
+canonical form of a customer's address is an example: the onboarding agent proposes it, the proposal carries the value
+being replaced and the value proposed, and the customer accepts or declines. Only she can. An agent acting for her cannot
+accept what it proposed, another customer cannot, and the domain owner cannot (each is a 403). The boundary takes her
+identifier from her own IdP-attested identity (the <code>kyc_id</code> claim) and requires it to mint the record's <code>customer_iri</code>. On
+acceptance the snapshot is signed with <code>consent: subject</code> and her identity as <code>accepted_by</code>; a decline or the two-day
+expiry leaves the original in place, audited. The owner can still roll the record back. A domain can switch the mechanism
+off, and then the value is refused as before. The standardizer that produces the canonical address is a fixed mapping in
+the demo, not an external service.</p>
 <p><strong>A residual the gate cannot close.</strong> Column classification cannot see personal data inside free text. A review note whose
 text names a customer is confidential by its column, and goes to an owner for that reason, not because the gate detects the
 name.</p>
@@ -2261,6 +2270,9 @@ in that loop would make the demos vary, and would not make the governance any st
   (<code>make trust-keys</code>). A production snapshot comes from a real producer with its own keys.
 - <strong>Dev IdP, dev CA and dev gateway keys.</strong> As in the trust-gaps page, these are for development. Production uses the
   company IdP, SPIRE, and the gateway's own KMS-held keys.
+- <strong>A column labelled less sensitive than it is skips review.</strong> Write tiers depend on the classification label. A column
+  labelled internal that holds confidential content takes the direct path. The contract checks require a label on every
+  column, but they cannot judge whether the label is right.
 - <strong>Review queues are the bottleneck.</strong> Every agent proposal waits for an owner. That is the control, and it is also the
   cost: an owner who does not review leaves proposals to expire (after two days by default), and nothing reaches the
   product in the meantime.
