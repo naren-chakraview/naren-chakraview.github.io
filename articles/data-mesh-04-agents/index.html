@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agents Need Write Gates, Not Just Read Grants | Naren Chakraview</title>
+  <meta name="description" content="Reading on a person&#x27;s behalf is becoming a product feature. Writing is where a data mesh has to prove the agent, check what it produced, and decide when a person must accept it." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+
+    :root {
+      --bg-primary: #090d16;
+      --bg-secondary: #111827;
+      --bg-card: #161f33;
+      --bg-card-hover: #1e293b;
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #6366f1;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --border-subtle: rgba(148, 163, 184, 0.14);
+      --border-highlight: rgba(56, 189, 248, 0.45);
+      --max-w: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.7;
+    }
+
+    body {
+      overflow-x: hidden;
+      background-image:
+        radial-gradient(circle at 15% 10%, rgba(99, 102, 241, 0.12), transparent 35%),
+        radial-gradient(circle at 85% 20%, rgba(56, 189, 248, 0.10), transparent 35%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    code, pre, .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(9, 13, 22, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 76px;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-name {
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(90deg, #fff, var(--accent-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-sub {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--text-primary);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.25rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-indigo));
+      color: #090d16;
+      font-weight: 700;
+      box-shadow: 0 4px 20px rgba(56, 189, 248, 0.25);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-primary);
+      border-color: var(--border-subtle);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.09);
+      border-color: var(--accent-blue);
+    }
+
+    footer {
+      margin-top: auto;
+      padding: 3rem 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    @media (max-width: 860px) {
+      .nav-links {
+        display: none;
+      }
+    }
+
+    .article-shell {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 3.5rem 1.5rem 5rem;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--accent-blue);
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .article-header h1 {
+      font-size: clamp(2rem, 4vw, 2.85rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .article-subtitle {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+      font-weight: 400;
+      margin-bottom: 1.25rem;
+    }
+
+    .article-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .article-content {
+      font-size: 1.08rem;
+      color: #e2e8f0;
+      line-height: 1.8;
+    }
+
+    .article-content h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 2.75rem 0 1rem;
+      letter-spacing: -0.015em;
+    }
+
+    .article-content h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 2rem 0 0.75rem;
+    }
+
+    .article-content p {
+      margin-bottom: 1.35rem;
+    }
+
+    .article-content ul, .article-content ol {
+      margin: 0 0 1.5rem 1.5rem;
+    }
+
+    .article-content li {
+      margin-bottom: 0.6rem;
+    }
+
+    .article-content strong {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .article-content em {
+      color: var(--text-secondary);
+    }
+
+    .article-content a {
+      color: var(--accent-blue);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .article-content code {
+      background: rgba(56, 189, 248, 0.1);
+      color: var(--accent-blue);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+
+    .article-content pre {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 1.25rem;
+      overflow-x: auto;
+      margin: 1.75rem 0;
+    }
+
+    .article-content pre code {
+      background: transparent;
+      color: var(--text-primary);
+      padding: 0;
+      font-size: 0.88rem;
+    }
+
+    .article-content hr {
+      border: 0;
+      border-top: 1px solid var(--border-subtle);
+      margin: 2.5rem 0;
+    }
+
+    .mermaid-wrapper {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 2rem 0 0.75rem;
+      overflow-x: auto;
+      text-align: center;
+    }
+
+    .mermaid-wrapper pre.mermaid {
+      background: transparent;
+      border: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .article-content img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      border: 1px solid var(--border-subtle);
+      margin: 1.5rem 0;
+    }
+
+    :root {
+      --bg-primary: #f8fafc;
+      --bg-secondary: #f1f5f9;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f8fafc;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      --accent-blue: #2563eb;
+      --border-subtle: #e2e8f0;
+      --border-highlight: rgba(37, 99, 235, 0.45);
+    }
+    html { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; }
+    body { background-image: none; }
+    header { background: rgba(255, 255, 255, 0.88); box-shadow: 0 1px 4px rgba(15, 23, 42, .05); }
+    .brand-name { background: none; -webkit-text-fill-color: var(--text-primary); color: var(--text-primary); }
+    .brand-name .dot { -webkit-text-fill-color: var(--accent-blue); color: var(--accent-blue); }
+    .nav-links a.active { color: var(--accent-blue); font-weight: 600; }
+    footer a { color: var(--accent-blue); }
+    .article-content { color: #1e293b; }
+    .article-content strong { color: #0f172a; }
+    .article-content code { background: rgba(37, 99, 235, 0.08); color: #1d4ed8; }
+    .eyebrow { background: rgba(37, 99, 235, 0.08); border-color: rgba(37, 99, 235, 0.25); }
+    .card-badge { background: rgba(5, 150, 105, 0.09); color: #047857; border-color: rgba(5, 150, 105, 0.3); }
+    .article-card { box-shadow: 0 1px 3px rgba(15, 23, 42, .06); }
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav-inner">
+      <a href="/" class="brand">
+        <span class="brand-name">naren<span class="dot">.</span>chakraview</span>
+        <span class="brand-sub">Software Engineer &middot; System Architect</span>
+      </a>
+      <nav class="nav-links">
+        <a href="/#skills">Expertise</a>
+        <a href="/#featured">Featured</a>
+        <a href="/#portfolio">Portfolio</a>
+        <a href="/articles/" class="active">Writing</a>
+        <a href="https://github.com/naren-chakraview" target="_blank" rel="noopener">GitHub &#8599;</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="article-shell">
+    <a href="/articles/" class="back-link mono">← All Articles</a>
+    <article>
+      <div class="article-header">
+        <h1>Agents Need Write Gates, Not Just Read Grants</h1>
+        <p class="article-subtitle">Reading on a person&#x27;s behalf is becoming a product feature. Writing is where a data mesh has to prove the agent, check what it produced, and decide when a person must accept it.</p>
+        <div class="article-meta mono">
+          <span>By Narendra Loganathan</span>
+          <span>&bull;</span>
+          <span>20 min read</span>
+          <span>&bull;</span>
+          <span>Updated 2026-11-24</span>
+        </div>
+      </div>
+      <div class="article-content">
+<p>A risk analyst asks an agent for help: find the high-risk customers whose risk scores have gone stale, and write a review note for each one.</p>
+<p>After the <a href="https://medium.com/@narendra.loganathan/federated-governance-is-a-trust-problem-not-a-policy-document-e17d451fa345">previous article</a>, the first half of that request was well governed in my reference data mesh. Every read passes one boundary per data product, which proves who the person is and which software is asking. The second half had nowhere to go. When I looked for the agent&rsquo;s way to write a note, this is what I found:</p>
+<pre><code class="language-text">write code                 RdfWriter.write_to_jena   &lt;- POST to Fuseki's /update
+Fuseki /update today       not served                &lt;- the trust fix closed it
+runtime callers            0                         &lt;- dead code
+write routes on boundary   none                      &lt;- no governed way in
+</code></pre>
+<p>The read side proved who was asking. The write side did not exist.</p>
+<p>The read side also had a quieter problem. The boundary checked a person and a workload. An agent acting for the analyst is a workload, so the boundary saw exactly what it saw for her own notebook: same person, same grant, same view of the data. Nothing recorded that an agent was involved, and nothing could give it less than its person had.</p>
+<h2>Reading on someone&rsquo;s behalf is becoming a product feature</h2>
+<p>Credit first, because this has moved fast. Snowflake now supports OAuth token exchange (RFC 8693) for agents: a user&rsquo;s token becomes a short-lived agent token, bounded by the user&rsquo;s roles and a narrower scope, with the agent recorded in query history. AWS Bedrock AgentCore, Microsoft Entra&rsquo;s on-behalf-of flow and the Azure SQL MCP server offer the same in their stacks. Starburst put the principle well in August: an agent &ldquo;should not automatically inherit the full permissions of the person who started a conversation,&rdquo; because &ldquo;the difference is authority, not connectivity.&rdquo;</p>
+<p>That settles the easy part. Two things remain open.</p>
+<p>First, the agent is often a claim. Snowflake&rsquo;s documentation is candid that the actor in the exchanged token &ldquo;is self-asserted and not verified by Snowflake.&rdquo; The audit says an agent acted; nothing proved which software it was. That is my last article&rsquo;s argument moved up a level: a policy is only as good as the identity it evaluates, including the identity of whatever acts for the person.</p>
+<p>Second, writes. Almost everything published about agents and governed data is about reading; even Thoughtworks&rsquo; &ldquo;State of data mesh in 2026&rdquo; treats agents mainly as consumers. The question the <a href="https://medium.com/@narendra.loganathan/i-built-a-data-mesh-for-humans-then-i-put-an-agent-in-front-of-it-593198088dd5">first article in this series</a> left open is still open: when an agent produces data, who owns it, what contract must it meet, and how do you undo it?</p>
+<h2>The audit: what my mesh knew about agents</h2>
+<p>I read the mesh again with an agent in mind and found five gaps, all in code I had already reviewed twice for other reasons.</p>
+<p><strong>An agent had no identity of its own.</strong> The boundary had no notion of delegation, so an agent was just another workload, and a forged claim about whom it acted for was ignored rather than refused.</p>
+<p><strong>An agent got its person&rsquo;s whole view.</strong> Using the analyst&rsquo;s grant, an agent could read everything she could, including KYC verdicts it had no reason to see.</p>
+<p><strong>There was no governed write path.</strong> The boundary was read-only, and the only write code targeted an endpoint that no longer existed.</p>
+<p><strong>Lineage could not name a delegator.</strong> Signed provenance recorded the producing workload, but not the person it acted for or what it read before it wrote.</p>
+<p><strong>The audit had no chain.</strong> It recorded a person and a workload, with no link from a write to the reads behind it.</p>
+<p>The common cause: <strong>the mesh knew two kinds of participant, people and software, and an agent is a third.</strong></p>
+<h2>How is an agent different from a microservice?</h2>
+<p>That claim invites the question I hear most often: isn&rsquo;t an agent just another microservice? Both are software, with a workload identity, a certificate and a grant. Services have written sensitive data for years without a person approving each write, and nobody calls that a gap. So what changes?</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Microservice</th>
+<th>Agent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Acts for</strong></td>
+<td>itself</td>
+<td>a person, through a proven delegation</td>
+</tr>
+<tr>
+<td><strong>Decides</strong></td>
+<td>at deploy time</td>
+<td>per request, at run time</td>
+</tr>
+<tr>
+<td><strong>Reviewed by a person</strong></td>
+<td>once, in code review</td>
+<td>not before it acts</td>
+</tr>
+<tr>
+<td><strong>Access</strong></td>
+<td>its own grant</td>
+<td>person ∩ its capability ∩ product</td>
+</tr>
+<tr>
+<td><strong>Cites what it read</strong></td>
+<td>no</td>
+<td>yes, for every derived write</td>
+</tr>
+<tr>
+<td><strong>Who approves its writes</strong></td>
+<td>policy, for every write</td>
+<td>policy, for captured and non-sensitive data; the domain&rsquo;s owner, for its confidential conclusions; the person it describes, for personal values it derived</td>
+</tr>
+</tbody>
+</table>
+<p>Two things. A service acts for itself; an agent acts with someone else&rsquo;s authority. And a service&rsquo;s decisions were made before it ran: its behavior was fixed when it was deployed, and a person reviewed it once, in code review. Every write afterwards carries out a decision someone already looked at. An agent decides per request, from whatever it read, and nobody reviewed that decision before it was made.</p>
+<p>The whole fix follows from those two differences. Acting for someone means the delegation must be proven and the agent&rsquo;s access cut below its person&rsquo;s. Deciding at run time means the agent must cite what it read, and the few writes that carry its own judgment about something sensitive, a confidential conclusion or a personal value it derived, need a person to accept them at the write: the domain&rsquo;s owner, or the person the data describes. Everywhere else, an agent should write as freely as a service.</p>
+<h2>The fix: an agent is a governed participant</h2>
+<p>As with the last two articles, I fixed this in the repository and kept the before beside the after. The old state is tagged <a href="https://github.com/naren-chakraview/chakraview-fintech-data-mesh/tree/agents-before"><code>agents-before</code></a>, and six demos print both. The agents in those demos are scripted, not language models, and I explain why below.</p>
+<h3>Prove the actor, not just the person</h3>
+<p>The agent never holds a credential it could misuse. It runs beside a sidecar gateway, <a href="https://github.com/naren-chakraview/zero-trust-rs">zero-trust-rs</a>, the Rust gateway I built for my zero-trust work and have now made public. For each request, the agent hands its sidecar the analyst&rsquo;s identity-provider token, and the sidecar mints a single-use token whose user is the analyst, exchanged for the boundary (RFC 8693) and bound to the agent&rsquo;s own certificate. The boundary has its own sidecar, which verifies everything before the boundary sees the request:</p>
+<pre><code class="language-text">GET /products/risk-compliance.risk-scores/rows   (through the boundary's sidecar)
+
+TLS client certificate              &lt;- sidecar: signed by the trusted CA
+  spiffe://chakracommerce.com/ns/agents/sa/risk-review-agent
+X-SPIFFE-OBO-Token: eyJhbGci...     &lt;- sidecar: signature, trusted issuer,
+                                       audience, expiry, single use
+  user:  risk.analyst@chakra.fintech   (and her roles, from the IdP)
+  actor: risk-review-agent          &lt;- sidecar: actor must BE the mTLS peer
+  cnf:   the agent's certificate    &lt;- sidecar: bound to this certificate
+                                    &lt;- sidecar: capability policy,
+                                       user AND agent
+        ── loopback, same network namespace ──▶ boundary
+                                    &lt;- boundary: re-verifies the token,
+                                       headers must agree with it
+                                    &lt;- OPA: person ∩ agent ∩ product
+</code></pre>
+<p>Each of those checks is a refusal the demos show. The agent&rsquo;s token presented with the notebook&rsquo;s certificate is refused (<code>certificate_binding_mismatch</code>). A token bound to the presenting certificate but naming a different actor is refused (<code>obo_token_subject_mismatch</code>). A replayed token is refused. A request with no client certificate stops at the TLS handshake. Delegation claims sent as plain headers to the boundary&rsquo;s normal listener are ignored, then refused. The actor is recorded not because the agent said so, but because the connection, the certificate and a gateway&rsquo;s signature agree.</p>
+<p>The last hop, from the boundary&rsquo;s sidecar to the boundary, is plain HTTP over loopback. That is safe because the two share a network namespace, so nothing else can reach that port. It is the usual service-mesh trust model, and the boundary still re-verifies the token rather than trusting the headers.</p>
+<div class="mermaid-wrapper"><pre class="mermaid">sequenceDiagram
+    participant A as Analyst
+    participant AG as Agent
+    participant AZ as Agent sidecar
+    participant BZ as Boundary sidecar
+    participant B as Boundary
+    A-&gt;&gt;AG: task + IdP token (consent)
+    AG-&gt;&gt;AZ: mint for this request (loopback)
+    AZ--&gt;&gt;AG: token: user=analyst, actor=agent, bound to agent cert, single use
+    AG-&gt;&gt;BZ: mTLS (agent cert) + token
+    Note over BZ: signature, issuer, expiry, jti,&lt;br/&gt;actor = mTLS peer, binding,&lt;br/&gt;capability (user AND agent)
+    BZ-&gt;&gt;B: loopback: verified token + headers
+    Note over B: re-verify token,&lt;br/&gt;person ∩ agent ∩ product,&lt;br/&gt;grant names the agent
+    B--&gt;&gt;AG: rows (masked), audited with the chain</pre></div>
+<p><em>Delegation, proven at every hop. The agent&rsquo;s token is minted per request for one analyst, bound to the agent&rsquo;s certificate, and accepted only when the agent is the one actually connecting.</em></p>
+<h3>Give the agent less than its person</h3>
+<p>An agent&rsquo;s effective access is the intersection of <strong>the person&rsquo;s grant, the agent&rsquo;s capability and the product&rsquo;s policy.</strong> The grant names the agent&rsquo;s workload, so the analyst&rsquo;s notebook grant does not reach the agent. The owning domain names which agents may touch a product and which columns they may see. The platform&rsquo;s guardrails still apply: a delegated read never returns personal data in the clear, and delegation chains are capped at two workloads.</p>
+<pre><code class="language-text">analyst, her own notebook      read kyc_verdict              200
+agent, for the analyst         read kyc_verdict              403
+agent, using a notebook grant  read anything                 403
+agent, with its own grant      read customer and risk band   200
+agent, for the analyst         count customers by risk band  200
+agent, for the analyst         count customers by fraud score 403
+</code></pre>
+<p>The last pair is a small design I like. An agent may be allowed to <em>count</em> by a column it cannot read row by row, which is often all it needs. Counts group only by public columns, because a group key reveals its value, and small groups are suppressed.</p>
+<h3>Who decided the data decides the human gate</h3>
+<p>My first version of the write path made every agent write a proposal for a domain owner to accept. That is safe, and wrong for most of a bank&rsquo;s data.</p>
+<p>Take a customer opening an account. She enters her name, address and Social Security number, through a form or an onboarding assistant. That is some of the most sensitive data the bank holds, yet no reviewer should sit between her and the record. She decided those values; whether a form service or an agent carries them, the software decided nothing. They are protected by encryption in motion and at rest and by masking on read, not by a queue.</p>
+<p>The risk agent&rsquo;s review note is different. Nobody supplied that text. The agent wrote it, at run time, from what it read. That is the unreviewed decision from the microservice comparison, and it is what a person should see before it becomes the bank&rsquo;s record.</p>
+<p>So the rule is neither &ldquo;agents need approval&rdquo; nor &ldquo;sensitive data needs approval&rdquo;. It is this: <strong>who decided the data decides whether a human gate applies.</strong> Each product&rsquo;s contract declares whether it holds <em>captured</em> data, facts a person or a system of record supplied, or <em>derived</em> data, what a writer computed or judged from what it read. The platform&rsquo;s guardrails combine that with the column classifications into write tiers, which a domain can tighten for its own products but never loosen:</p>
+<table>
+<thead>
+<tr>
+<th>What is written</th>
+<th>By a service</th>
+<th>By an agent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Captured</strong>, any classification, even personal</td>
+<td>direct</td>
+<td>direct, only for the person the record is about</td>
+</tr>
+<tr>
+<td><strong>Derived</strong>, public or internal</td>
+<td>direct</td>
+<td>direct, citing what it read</td>
+</tr>
+<tr>
+<td><strong>Derived</strong>, confidential or sensitive</td>
+<td>direct, if it is the product&rsquo;s listed producer</td>
+<td>a proposal the domain&rsquo;s owner accepts</td>
+</tr>
+<tr>
+<td><strong>Derived</strong>, personal</td>
+<td>direct, if it is the product&rsquo;s listed producer</td>
+<td>a proposal the person it describes accepts; refused if it describes several people or no one</td>
+</tr>
+</tbody>
+</table>
+<p>Direct does not mean ungated. A direct write passes the same checks as a proposal, each failing closed: verified identity and delegation, a write grant separate from read and propose grants, person ∩ agent ∩ product policy, the contract&rsquo;s columns and key, the shared core&rsquo;s SHACL shapes from <a href="https://medium.com/@narendra.loganathan/data-products-need-meaning-not-just-schemas-b09d1601aa4d">article 2</a>, and rate and size limits. An agent&rsquo;s derived write must also cite the snapshots it used, and the boundary checks them against its own audit, so an agent cannot launder a conclusion by citing data it never read. A direct write skips only the queue: it becomes a new snapshot at once, signed with lineage whose <code>accepted_by</code> names the policy revisions that allowed it.</p>
+<p>A new demo runs every row in one pass. The onboarding agent acts for a customer, the risk agent for the analyst, and the scores service for itself:</p>
+<pre><code class="language-text">onboarding agent  captured  pii           direct, by policy
+risk agent        derived   internal      direct, by policy
+risk agent        derived   confidential  409 requires_owner_review
+  as a proposal                           accepted by the owner
+risk agent        derived   pii           422 agent_cannot_create_pii
+scores service    derived   sensitive     direct, by policy
+</code></pre>
+<p>In the first line, the onboarding agent can write only its own customer&rsquo;s record. The boundary derives her customer identifier from the token her identity provider signed, not from a field in the form, and refuses a record that names anyone else. Her personal values are then masked for anyone without a KYC grant.</p>
+<p>The refused line is narrower than it looks. An agent never creates personal data on its own authority, but agents do derive personal values, and some are useful: a standardized postal address, for instance. When a derived value describes one person, that person decides, as the section after next shows. When it describes several people, or no one in particular, nobody can accept it, so it is refused whatever the domain&rsquo;s policy says. An unclassified column counts as personal.</p>
+<h3>When an owner must accept</h3>
+<p>Where the gate applies, the agent writes a <strong>proposal</strong> instead, to the product of the domain that will own the result. Here that is the Risk team&rsquo;s <code>risk-compliance.risk-review-notes</code>, whose note text is classified confidential. A proposal has its own grant, passes the same checks as a direct write, and then waits:</p>
+<pre><code class="language-text">snapshot the agent read     75a06c247c6585dd...
+high-risk, stale scores     2
+proposal prop_a87fde1de9fd4021  pending
+proposal prop_5f91fcf104e84843  pending
+deprecated term             422        &lt;- SHACL, from article 2
+unminted customer id        422        &lt;- the identity library, article 2
+cites a snapshot never read 403        &lt;- read-before-write lineage
+agent accepts its own       403        &lt;- only an owner, never a delegate
+owner accepts               200
+</code></pre>
+<p>When the owner accepts, the boundary writes a new snapshot and signs a provenance statement for it, the format from <a href="https://medium.com/@narendra.loganathan/federated-governance-is-a-trust-problem-not-a-policy-document-e17d451fa345">article 3</a>, now naming the delegation:</p>
+<pre><code class="language-text">action          accept
+on_behalf_of    risk.analyst@chakra.fintech
+actor_chain     spiffe://chakracommerce.com/ns/agents/sa/risk-review-agent
+derived_from    75a06c247c6585dd...
+accepted_by     owner@risk-compliance.chakra.fintech
+</code></pre>
+<p>That record answers the question article 1 asked: what does the agent own when it produces data? <strong>Nothing.</strong> The agent proposed, the person authorized it, the inputs are named, and the domain owns the result because its owner accepted it. A direct write is no different: the domain accepted it in advance by writing the policy that allowed it, and the lineage names that policy. Either way the owner can roll a write back; the previous snapshot is restored, and the rollback is signed and audited. An agent can write and propose. It can never accept, reject or roll back, its own work included.</p>
+<h3>When the person it describes must accept</h3>
+<p>Some writes are not the owner&rsquo;s to accept. When the onboarding agent turns the address a customer typed into its standardized postal form, the person who should decide is the customer, with the prompt a good form already shows: use this standardized address? The direct write returns <code>409 requires_subject_consent</code>, and the agent submits a consent proposal instead, carrying both the value it would replace and the value it proposes:</p>
+<pre><code class="language-text">onboarding agent, direct      409 requires_subject_consent
+consent proposal              replaces  1 Analytical Way, London
+                              proposed  1 ANALYTICAL WAY, LONDON
+the agent, for her, accepts   403
+the domain owner accepts      403
+another customer accepts      403
+the customer accepts          200  accepted_by  ada@customer.test
+                                   consent      subject
+</code></pre>
+<p>Only she can accept or decline, with her own verified identity, checked against the record. The agent acting for her cannot bless what it proposed, and the domain owner cannot decide for her. Only an agent acting for her can propose a change to her record in the first place. Once she accepts, the value is captured data again, because she decided it, and the signed lineage says so. If she declines, or the proposal expires, her original value stays.</p>
+<div class="mermaid-wrapper"><pre class="mermaid">flowchart LR
+    W[&quot;A write&lt;br/&gt;service or agent&quot;] --&gt; T{&quot;Who decided&lt;br/&gt;the data?&quot;}
+    T --&gt;|&quot;captured: the customer&quot;| G[&quot;Same automated gates&lt;br/&gt;identity, delegation, write grant,&lt;br/&gt;person ∩ agent ∩ product,&lt;br/&gt;contract, SHACL, rate limits,&lt;br/&gt;citations for an agent&quot;]
+    T --&gt;|&quot;derived, not sensitive&quot;| G
+    T --&gt;|&quot;derived, confidential:&lt;br/&gt;the listed producer&quot;| G
+    T --&gt;|&quot;derived, confidential:&lt;br/&gt;an agent&quot;| P[&quot;Proposal&lt;br/&gt;same gates, then pending&quot;]
+    T --&gt;|&quot;derived, personal,&lt;br/&gt;one person: an agent&quot;| C[&quot;Consent proposal&lt;br/&gt;same gates, then pending&quot;]
+    T --&gt;|&quot;derived, personal,&lt;br/&gt;several people: an agent&quot;| R[&quot;Refused&lt;br/&gt;nobody can accept it&quot;]
+    C --&gt;|the person accepts| S[&quot;New snapshot, captured&lt;br/&gt;accepted by the person, signed&quot;]
+    G --&gt; D[&quot;New snapshot now&lt;br/&gt;accepted by policy, signed&quot;]
+    P --&gt;|owner accepts| O[&quot;New snapshot&lt;br/&gt;accepted by the owner, signed&quot;]
+    D -.-&gt;|owner rolls back| U[&quot;Previous snapshot&lt;br/&gt;rollback signed&quot;]
+    O -.-&gt;|owner rolls back| U
+    classDef bad fill:#fef3c7,stroke:#f59e0b,color:#92400e
+    classDef good fill:#ecfdf5,stroke:#10b981,color:#065f46
+    class R bad
+    class D,O,S good</pre></div>
+<p><em>The human gate follows who decided the data. Captured facts and non-sensitive conclusions are written at once through the same automated gates any service passes. An agent&rsquo;s confidential conclusions wait for the domain&rsquo;s owner, a personal value it derives waits for the person it describes, and personal data about several people is refused.</em></p>
+<h3>No step remembers an approval</h3>
+<p>One rule runs through all of this: nothing relies on an approval being remembered. Every read, write, proposal and acceptance re-checks the grant and the delegation at that moment. Tokens are single use, so a crashed or retried agent cannot replay one, and a proposal submitted after its grant expired is refused even if the agent saw the grant earlier in the same run.</p>
+<p>That is also my answer to a fair objection: why build all this when good models are already careful about scope? In my testing they mostly are. But an open, model-agnostic agent interface cannot know which model is on the other end, or how the next one will behave, so the governance has to be verifiable, auditable and reproducible by construction, whatever the agent is. That conclusion grew out of testing an idea from Jose Crespo&rsquo;s recent piece in AI Advances on keeping meaning and permissions tied to their context. It deserves an article of its own, which I plan as a companion to article 2.</p>
+<h2>Why the agents in the demos are not language models</h2>
+<p>The risk agent reads the shared core&rsquo;s version and the risk scores, picks the high-risk customers whose scores are more than 90 days old, proposes a note for each, and writes the day&rsquo;s freshness summary. The onboarding agent submits one customer&rsquo;s intake. Both do the same thing every time.</p>
+<p>That is deliberate. The claim under test is the governance: the boundary refuses what an agent may not do, whichever way it decided. A language model would make the demos vary between runs without making the governance any stronger. It also keeps me honest. I have not built production LLM applications, and nothing here tests how a model decides. It tests that the platform does not have to trust how it decides.</p>
+<h2>What it costs</h2>
+<p>Delegation is not free. In zero-trust-rs, verifying a token takes about 15 microseconds, but minting one costs an RSA signature, roughly 0.4 to 1.4 milliseconds, once per request. On a desktop machine, a three-hop delegated round trip measured about 1 to 2.2 milliseconds, against 0.2 to 0.3 for an undelegated hop. That is fine for hundreds of requests per second per core, and worth measuring in your own stack.</p>
+<p>The bigger cost is people, and the write tiers keep it small. Captured data and non-sensitive conclusions wait for no one. Only an agent&rsquo;s confidential or sensitive conclusions wait for an owner, and a personal value it derives waits for the person it describes, a prompt customers already know from forms. A proposal nobody reviews expires, with nothing reaching the product in the meantime. That queue can still become the bottleneck, so size an agent&rsquo;s confidential writes to what owners can actually review.</p>
+<p>The repository has the limits I would expect a reviewer to find. The demos and tests use a stand-in that mints the gateway&rsquo;s token shapes; the compose stack runs the real gateway as both sidecars. The analyst&rsquo;s consent is simulated by handing the agent her token, bootstrap tokens stand in for SPIRE node attestation, and the signing keys are static files. Proposals, the read ledger, rate limits and the replay check live in one process. The tiers are only as good as the classifications: a confidential column labeled internal skips review, and a contract check can require a label but cannot judge it. No label can see personal data inside free text, either. And personal data relies on mTLS in motion, storage encryption at rest and masking on read; field-level encryption is left to the deployment. The repository&rsquo;s list of residuals is on the <a href="https://naren-chakraview.github.io/fintech-data-mesh/case-study/fintech-governance/agent-gaps/">agents page</a>.</p>
+<h2>The agent is a participant, not a user</h2>
+<p>An agent is not a faster user, and it is not just another service. It is software acting with a person&rsquo;s authority, and a data mesh has to treat it as a participant in its own right: a proven identity, a capability smaller than its person&rsquo;s, a delegation recorded at every hop, and an owner for everything it produces. That owner accepts the agent&rsquo;s work in advance, through policy, or at the write, when what is being recorded is the agent&rsquo;s own judgment. And when the agent derived something about a person, that person decides.</p>
+<p>The pieces were already in the mesh. The shared core and its shapes say what valid data means. The boundary proves who is asking and guards every door. Signed lineage says who produced what from what. An agent that writes is where they meet.</p>
+<p>That leaves the question I promised to answer. If meaning, trust and agents are all enforced at each data product&rsquo;s boundary, why keep a mesh at all, rather than one central platform that does it once? That is the next article, where the three threads become one architecture.</p>
+<p>I would value pushback from teams putting agents in front of governed data. When your agent writes, who owns the result, and how would you undo it?</p>
+<h2>The series</h2>
+<p>Each article stands on its own, but they build in order, and each one is anchored in an architecture I have already published.</p>
+<ol>
+<li><strong><a href="https://medium.com/@narendra.loganathan/i-built-a-data-mesh-for-humans-then-i-put-an-agent-in-front-of-it-593198088dd5">Data mesh was built for human consumers. AI changed the consumer.</a></strong> Where an autonomous, machine-speed consumer breaks the mesh, and the three threads that follow from it.</li>
+<li><strong><a href="https://medium.com/@narendra.loganathan/data-products-need-meaning-not-just-schemas-b09d1601aa4d">Data products need meaning, not just schemas.</a></strong> Shared semantics across domains, the drift I found in my own mesh, and the contract that now catches it.</li>
+<li><strong><a href="https://medium.com/@narendra.loganathan/federated-governance-is-a-trust-problem-not-a-policy-document-e17d451fa345">Federated governance is a trust problem, not a policy document.</a></strong> Verified identity for people and workloads, one boundary per data product, grants instead of approvals, and lineage treated as attestation.</li>
+<li><strong>Agents need write gates, not just read grants.</strong> This article: delegation proven at every hop, an agent&rsquo;s capability below its person&rsquo;s, and writes whose human gate follows who decided the data.</li>
+<li><strong>The AI-era data mesh.</strong> The three threads assembled into one reference architecture, with the full diagram set: domains, semantics, trust and agents as one design.</li>
+<li><strong>Adopting it without boiling the ocean</strong> (coda). Where to start, what it costs, and what to skip, for teams that cannot rebuild their mesh at once.</li>
+</ol>
+<h2>References and further reading</h2>
+<p><strong>Agents and delegated access</strong></p>
+<ul>
+<li>Snowflake, <a href="https://docs.snowflake.com/user-guide/oauth-token-exchange">OAuth token exchange for agent delegation</a>.</li>
+<li>Starburst, <a href="https://www.starburst.io/blog/your-agent-knows-where-the-data-lives-does-it-know-what-its-allowed-to-do">Your agent knows where the data lives. Does it know what it&rsquo;s allowed to do?</a>, August 2026.</li>
+<li>AWS, <a href="https://aws.amazon.com/blogs/security/propagate-user-authorization-context-in-ai-agents-with-amazon-bedrock-agentcore/">Propagate user authorization context in AI agents with Amazon Bedrock AgentCore</a>.</li>
+<li>Microsoft, <a href="https://techcommunity.microsoft.com/t5/azure-architecture-blog/securing-multi-agent-ai-with-user-context-entra-id-obo-for/ba-p/4493308">Securing multi-agent AI with user context: Entra ID on-behalf-of</a>, and <a href="https://devblogs.microsoft.com/azure-sql/sql-mcp-server-obo-auth/">SQL MCP Server on-behalf-of authentication</a>.</li>
+<li>IETF, <a href="https://datatracker.ietf.org/doc/draft-oauth-ai-agents-on-behalf-of-user/">OAuth 2.0 on-behalf-of user authorization for AI agents</a> (individual draft).</li>
+<li>Thoughtworks, <a href="https://www.thoughtworks.com/es-es/insights/blog/data-strategy/the-state-of-data-mesh-in-2026-from-hype-to-hard-won-maturity">The state of data mesh in 2026</a>.</li>
+</ul>
+<p><strong>Standards</strong></p>
+<ul>
+<li>IETF, <a href="https://www.rfc-editor.org/rfc/rfc8693">RFC 8693: OAuth 2.0 Token Exchange</a> and <a href="https://www.rfc-editor.org/rfc/rfc8705">RFC 8705: certificate-bound access tokens</a>.</li>
+<li><a href="https://spiffe.io/">SPIFFE</a>, <a href="https://www.w3.org/TR/shacl/">W3C SHACL</a> and the <a href="https://github.com/in-toto/attestation">in-toto attestation framework</a>.</li>
+</ul>
+<p><strong>My reference architectures</strong></p>
+<ul>
+<li><a href="https://naren-chakraview.github.io/fintech-data-mesh/case-study/fintech-governance/agent-gaps/">Agents as governed participants: before and after</a>: every gap in this article, its fix, the demos and the known residuals.</li>
+<li><a href="https://github.com/naren-chakraview/chakraview-fintech-data-mesh/tree/agents-before">The before state</a>, tagged <code>agents-before</code>, and the <a href="https://github.com/naren-chakraview/chakraview-fintech-data-mesh">fixed repository</a>.</li>
+<li><a href="https://github.com/naren-chakraview/zero-trust-rs">zero-trust-rs</a>: the Rust gateway used as both sidecars, with its design notes, reviews and benchmarks.</li>
+<li><a href="https://medium.com/@narendra.loganathan/zero-trust-for-the-workloads-you-dont-control-07b9e52289d5">Zero Trust for the Workloads You Don&rsquo;t Control</a>: the delegation and capability primitives this article applies to data.</li>
+</ul>
+<hr />
+<p><em>I am a software engineer at heart. With 25 years building distributed systems, I treat every part of software development, whether microservices, data engineering, agentic workloads or security, with the intense rigor of a complete engineer. No layer is someone else’s problem, and no detail is beneath attention. I have published open reference architectures at <a href="https://naren-chakraview.github.io/">naren-chakraview.github.io</a>.</em></p>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p style="color: var(--text-primary); font-weight: 600; margin-bottom: 0.5rem;">naren<span style="color: var(--accent-blue);">.</span>chakraview</p>
+      <p>
+        <a href="/articles/">Writing</a> &bull;
+        <a href="/#portfolio">Portfolio</a> &bull;
+        <a href="https://medium.com/@narendra.loganathan" target="_blank" rel="noopener">Medium</a> &bull;
+        <a href="https://github.com/naren-chakraview" target="_blank" rel="noopener">GitHub</a>
+      </p>
+    </div>
+  </footer>
+
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'default',
+      securityLevel: 'loose',
+      fontFamily: 'Inter, sans-serif'
+    });
+  </script>
+</body>
+</html>
